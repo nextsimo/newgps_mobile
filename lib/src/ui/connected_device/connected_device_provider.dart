@@ -1,0 +1,135 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/foundation.dart';
+import 'package:newgps/src/models/account.dart';
+import 'package:newgps/src/services/newgps_service.dart';
+import 'package:newgps/src/ui/connected_device/connected_device_model.dart';
+
+class ConnectedDeviceProvider with ChangeNotifier {
+  final DeviceInfoPlugin _deviceInfo = DeviceInfoPlugin();
+
+  // init
+  Future<void> init() async {
+    await _createNewConnectedDevice();
+    _initFetches();
+  }
+
+  Future<void> _initFetches() async {
+      await _setConnectedToTrue();
+    _fetchCountedConnectedDevices();
+    _fetchConnectedDevices();
+    Timer.periodic(const Duration(seconds: 15), (_) async {
+      await _setConnectedToTrue();
+      _fetchCountedConnectedDevices();
+      _fetchConnectedDevices();
+    });
+  }
+
+  // counted connected device
+  int _countedConnectedDevices = 0;
+  int get countedConnectedDevices => _countedConnectedDevices;
+  set countedConnectedDevices(int countedConnectedDevices) {
+    _countedConnectedDevices = countedConnectedDevices;
+    notifyListeners();
+  }
+
+  Future<void> _fetchCountedConnectedDevices() async {
+    Account? account = shared.getAccount();
+    String res = await api.post(url: '/connected/devices/count', body: {
+      'account_id': account?.account.accountId,
+      'user_id': account?.account.userID,
+    });
+    countedConnectedDevices = json.decode(res);
+  }
+
+  // end counted connected device
+
+  // fetched devices
+  List<ConnectedDeviceModel> _conctedDevices = [];
+
+  List<ConnectedDeviceModel> get conctedDevices => _conctedDevices;
+
+  set conctedDevices(List<ConnectedDeviceModel> conctedDevices) {
+    _conctedDevices = conctedDevices;
+    notifyListeners();
+  }
+
+  Future<void> _setConnectedToTrue() async {
+    Account? account = shared.getAccount();
+    Map<String, String?> deviceInfo = await _getDeviceInfo();
+    await api.post(url: '/connected/set', body: {
+      'account_id': account?.account.accountId,
+      'user_id': account?.account.userID,
+      'device_brand': deviceInfo['device_brand'],
+      'platform': deviceInfo['platform'],
+      'device_uid': deviceInfo['device_uid'],
+    });
+  }
+
+  Future<void> _fetchConnectedDevices() async {
+    Account? account = shared.getAccount();
+    String res = await api.post(url: '/connected/devices', body: {
+      'account_id': account?.account.accountId,
+      'user_id': account?.account.userID,
+    });
+    conctedDevices = connectedDeviceModelFromJson(res);
+    debugPrint(conctedDevices.toString());
+  }
+  // end fetched device
+
+  // create new device and set connected to true
+
+  Future<void> _createNewConnectedDevice() async {
+    Account? account = shared.getAccount();
+    Map<String, String?> deviceInfo = await _getDeviceInfo();
+    await api.post(url: '/connected/devices/create', body: {
+      'account_id': account?.account.accountId,
+      'user_id': account?.account.userID,
+      'device_brand': deviceInfo['device_brand'],
+      'platform': deviceInfo['platform'],
+      'device_uid': deviceInfo['device_uid'],
+      'os': deviceInfo['os'],
+      'is_connected': true,
+    });
+  }
+
+  Future<Map<String, String?>> _getDeviceInfo() async {
+    if (Platform.isAndroid) {
+      AndroidDeviceInfo info = await _deviceInfo.androidInfo;
+      return {
+        'device_brand': info.brand,
+        'platform': 'android',
+        'device_uid': info.androidId,
+        'os': info.version.release
+      };
+    } else {
+      IosDeviceInfo info = await _deviceInfo.iosInfo;
+      return {
+        'device_brand': info.name,
+        'platform': 'ios',
+        'device_uid': info.identifierForVendor,
+        'os': info.systemVersion,
+      };
+    }
+  }
+  // end create new device and set connected to true
+
+  // update device status
+  Future<void> updateConnectedDevice(bool newState) async {
+    Account? account = shared.getAccount();
+    Map<String, String?> deviceInfo = await _getDeviceInfo();
+    await api.post(url: '/connected/devices/update', body: {
+      'account_id': account?.account.accountId,
+      'user_id': account?.account.userID,
+      'device_brand': deviceInfo['device_brand'],
+      'platform': deviceInfo['platform'],
+      'device_uid': deviceInfo['device_uid'],
+      'is_connected': newState
+    });
+  }
+  // end update device status
+
+}

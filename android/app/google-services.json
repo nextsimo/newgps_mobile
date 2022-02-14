@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "202302805202",
+    "project_id": "newgps-323d9",
+    "storage_bucket": "newgps-323d9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:202302805202:android:3b57f228af546a62fbc90b",
+        "android_client_info": {
+          "package_name": "ma.newgps.tracking_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "202302805202-gqrenb0ul8nulfev7e3vr9ge0k07gmvk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSXwd4Q8Pl0RGzeJIrNjyVwjTIOpAq4B0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "202302805202-gqrenb0ul8nulfev7e3vr9ge0k07gmvk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "202302805202-mpufdbfofttphlecrkqrvfpbq0t62a5t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ma.newgps.mobileApp",
+                "app_store_id": "1558685492"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

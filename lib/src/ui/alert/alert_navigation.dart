@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:newgps/src/ui/alert/hood/hood_alert_view.dart';
+import 'package:newgps/src/ui/alert/towing/towing_view.dart';
 import '../../services/newgps_service.dart';
 import '../../widgets/buttons/log_out_button.dart';
 import 'alert_view.dart';
@@ -39,7 +40,8 @@ class AlertNavigation extends StatelessWidget {
                   return MaterialPageRoute(
                       builder: (_) => const NotifHistoricView());
                 case '/hood':
-                  return MaterialPageRoute(builder: (_) => const HoodAlertView());
+                  return MaterialPageRoute(
+                      builder: (_) => const HoodAlertView());
                 case '/temp':
                   return MaterialPageRoute(
                       builder: (_) => const TemperatureView());
@@ -52,10 +54,14 @@ class AlertNavigation extends StatelessWidget {
                 case '/oil_change':
                   return MaterialPageRoute(
                       builder: (_) => const OilChangeAertView());
+                case '/towing':
+                  return MaterialPageRoute(
+                      builder: (_) => const TowingView());
                 case '/startup':
                   return MaterialPageRoute(builder: (_) => const StartupView());
                 case '/imobility':
-                  return MaterialPageRoute(builder: (_) => const ImobilityAlertView());
+                  return MaterialPageRoute(
+                      builder: (_) => const ImobilityAlertView());
                 case '/debranchement':
                   return MaterialPageRoute(
                       builder: (_) => const DepranchNotifView());

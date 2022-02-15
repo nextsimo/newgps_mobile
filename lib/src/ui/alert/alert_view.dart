@@ -42,22 +42,28 @@ class AlertView extends StatelessWidget {
       page: '/hood',
       inDev: false,
     ),
-        _AlertItem(
+    _AlertItem(
         icon: Icons.stacked_line_chart_sharp,
         label: 'Vidange',
         page: '/oil_change',
         inDev: false),
+            _AlertItem(
+      icon: Icons.car_repair_sharp,
+      label: 'Dépannage',
+      page: '/towing',
+      inDev: false,
+    ),
     _AlertItem(
         icon: Icons.radio_button_on_sharp,
         label: 'Radar',
         page: '/radar',
         inDev: false),
+
     _AlertItem(
         icon: Icons.fireplace,
         label: 'Température',
         page: '/temp',
         inDev: false),
-
     _AlertItem(
         icon: Icons.flash_off_outlined,
         label: 'Débranchement',
@@ -68,11 +74,6 @@ class AlertView extends StatelessWidget {
         label: 'Autoroute',
         page: '/highway',
         inDev: false),
-    _AlertItem(
-      icon: Icons.car_repair_sharp,
-      label: 'Depanage',
-      page: '/depanage',
-    ),
   ];
 
   @override

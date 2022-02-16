@@ -252,9 +252,6 @@ class HistoricProvider with ChangeNotifier {
   }
 
   void init(BuildContext context) {
-    DeviceProvider deviceProvider =
-        Provider.of<DeviceProvider>(context, listen: false);
-    deviceProvider.selectedDevice = deviceProvider.selectedDevice;
     SavedAcountProvider pro =
         Provider.of<SavedAcountProvider>(context, listen: false);
     _droit = pro.userDroits.droits[2];
@@ -280,7 +277,7 @@ class HistoricProvider with ChangeNotifier {
   }
 
   void handleSelectDevice() {
-    autoSearchController.text = deviceProvider.selectedDevice.description;
+    autoSearchController.text = deviceProvider.selectedDevice?.description ?? '';
   }
 
   Future<void> fetchInfoData() async {
@@ -290,7 +287,7 @@ class HistoricProvider with ChangeNotifier {
       url: '/info',
       body: {
         'account_id': account?.account.accountId,
-        'device_id': deviceProvider.selectedDevice.deviceId
+        'device_id': deviceProvider.selectedDevice?.deviceId
       },
     );
 
@@ -368,7 +365,7 @@ class HistoricProvider with ChangeNotifier {
       url: '/historic',
       body: {
         'accountId': account?.account.accountId,
-        'deviceId': deviceProvider.selectedDevice.deviceId,
+        'deviceId': deviceProvider.selectedDevice?.deviceId,
         'from': dateFrom.millisecondsSinceEpoch / 1000,
         'to': dateTo.millisecondsSinceEpoch / 1000,
         'page': page,

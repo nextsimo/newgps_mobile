@@ -38,7 +38,7 @@ class LastPositionProvider with ChangeNotifier {
     if (markersProvider.fetchGroupesDevices) {
       await fetchDevices();
     } else {
-      await fetchDevice(deviceProvider.selectedDevice.deviceId);
+      await fetchDevice(deviceProvider.selectedDevice!.deviceId);
     }
   }
 
@@ -65,7 +65,7 @@ class LastPositionProvider with ChangeNotifier {
       url: '/info',
       body: {
         'account_id': account?.account.accountId,
-        'device_id': deviceProvider.selectedDevice.deviceId
+        'device_id': deviceProvider.selectedDevice!.deviceId
       },
     );
 
@@ -147,7 +147,7 @@ class LastPositionProvider with ChangeNotifier {
       if (fetchAll) {
         await fetchDevices();
       } else {
-        await fetchDevice(deviceProvider.selectedDevice.deviceId);
+        await fetchDevice(deviceProvider.selectedDevice!.deviceId);
       }
     }
     _init = true;
@@ -164,7 +164,7 @@ class LastPositionProvider with ChangeNotifier {
       autoSearchController.text = 'Touts les véhicules';
     } else {
       markersProvider.fetchGroupesDevices = false;
-      autoSearchController.text = deviceProvider.selectedDevice.description;
+      autoSearchController.text = deviceProvider.selectedDevice!.description;
     }
   }
 
@@ -176,7 +176,7 @@ class LastPositionProvider with ChangeNotifier {
     );
     handleSelectDevice();
     notifyListeners();
-    fetchDevice(deviceProvider.selectedDevice.deviceId);
+    fetchDevice(deviceProvider.selectedDevice!.deviceId);
   }
 
   void updateSimpleClusterMarkers(Set<Marker> ms) {
@@ -240,7 +240,7 @@ class LastPositionProvider with ChangeNotifier {
     var res = await api.post(url: '/route', body: {
       "origin": "${myLocation.latitude},${myLocation.longitude}",
       "destination":
-          "${deviceProvider.selectedDevice.latitude},${deviceProvider.selectedDevice.longitude}"
+          "${deviceProvider.selectedDevice!.latitude},${deviceProvider.selectedDevice!.longitude}"
     });
 
     if (res.isEmpty) return [];
@@ -280,8 +280,8 @@ class LastPositionProvider with ChangeNotifier {
       if (polylines.isNotEmpty) {
         await buildRoutes();
       }
-      moveCamera(LatLng(deviceProvider.selectedDevice.latitude,
-          deviceProvider.selectedDevice.longitude));
+      moveCamera(LatLng(deviceProvider.selectedDevice!.latitude,
+          deviceProvider.selectedDevice!.longitude));
     }
   }
 
@@ -289,7 +289,7 @@ class LastPositionProvider with ChangeNotifier {
     fetchAll = true;
     polylines = {};
 
-    notifyListeners();
+    //notifyListeners();
 
     _devices = await deviceProvider.fetchDevices();
     lastDateFetchDevices = DateTime.now();
@@ -303,6 +303,9 @@ class LastPositionProvider with ChangeNotifier {
       markersProvider.textMakers.add(textmarker);
     }
     markersProvider.fetchGroupesDevices = true;
+    if (devices.length > 50) {
+      markersProvider.showCluster = true;
+    }
     notifyListeners();
   }
 }

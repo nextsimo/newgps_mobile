@@ -77,7 +77,7 @@ class RepportProvider with ChangeNotifier {
     deviceProvider.selectedDevice = devices.firstWhere((device) {
       return device.description.toLowerCase().contains(val.toLowerCase());
     });
-    selectedDevice = deviceProvider.selectedDevice;
+    selectedDevice = deviceProvider.selectedDevice!;
     selectAllDevices = false;
     if (selectedRepport.index == repportsType.first.index) {
       selectedRepport = repportsType.elementAt(1);

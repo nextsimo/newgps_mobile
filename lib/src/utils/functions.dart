@@ -36,7 +36,7 @@ String formatDeviceDate(DateTime dateTime, [bool time = true]) {
   return formatted;
 }
 
-void showCallConducteurDialog(BuildContext context, Device device) {
+void showCallConducteurDialog(BuildContext context, Device? device) {
   showDialog(
       context: context,
       builder: (_) {
@@ -49,9 +49,9 @@ void showCallConducteurDialog(BuildContext context, Device device) {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 MainButton(
-                  onPressed: () => call(device.phone1),
+                  onPressed: () => call(device!.phone1),
                   icon: Icons.phone_forwarded_rounded,
-                  label: device.phone1,
+                  label: device!.phone1,
                 ),
                 const SizedBox(height: 10),
                 if (device.phone2.isNotEmpty)
@@ -166,9 +166,9 @@ Future<void> fetchInitData(
     required BuildContext context}) async {
   SavedAcountProvider savedAcountProvider =
       Provider.of<SavedAcountProvider>(context, listen: false);
-  await savedAcountProvider.fetchUserDroits();
-  await deviceProvider.init(context);
-  await lastPositionProvider.init(context);
+   savedAcountProvider.fetchUserDroits();
+   deviceProvider.init(context);
+   lastPositionProvider.init(context);
 }
 
 Future<void> playAudio(String audio) async {

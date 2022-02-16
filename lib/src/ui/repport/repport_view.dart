@@ -144,7 +144,7 @@ class _BuildHead extends StatelessWidget {
                     const SizedBox(width: 5),
                     const AutoSearchField(),
                     const AutoSearchType(),
-                    //if (repportProvider.selectedRepport.index != 0)
+                    if (repportProvider.selectedRepport.index != 0)
                       DateTimePicker(
                         width: 220,
                         dateFrom: repportProvider.dateFrom,
@@ -181,7 +181,7 @@ class _BuildHead extends StatelessWidget {
                                 callNewData: () async {
                                   await deviceProvider.fetchDevice();
                                   repportProvider.selectedDevice =
-                                      deviceProvider.selectedDevice;
+                                      deviceProvider.selectedDevice!;
                                 });
                           },
                           label: 'Conducteur',

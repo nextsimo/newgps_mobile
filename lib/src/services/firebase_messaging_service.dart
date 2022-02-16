@@ -26,9 +26,9 @@ class FirebaseMessagingService {
       log("work work work");
     });
 
-    FirebaseMessaging.onBackgroundMessage((message) async {
+/*     FirebaseMessaging.onBackgroundMessage((message) async {
       acountProvider.checkNotifcation();
-    });
+    }); */
   }
 
   Future<void> _initmessage() async {

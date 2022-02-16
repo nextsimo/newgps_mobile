@@ -7,10 +7,10 @@ import 'package:newgps/src/utils/functions.dart';
 class DriverPhoneProvider {
   Future<void> checkPhoneDriver(
       {required BuildContext context,
-      required Device device,
+      required Device? device,
       required Future<void> Function()? callNewData,
       Device? sDevice}) async {
-    if (device.phone1.isEmpty) {
+    if (device!.phone1.isEmpty) {
       _showAddDialogPhone(
         callNewData: callNewData,
         context: context,

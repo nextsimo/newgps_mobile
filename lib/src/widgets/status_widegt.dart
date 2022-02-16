@@ -7,24 +7,23 @@ class StatusWidget extends StatelessWidget {
     required this.device,
   }) : super(key: key);
 
-  final Device device;
+  final Device? device;
 
   @override
   Widget build(BuildContext context) {
-
     Orientation orientation = MediaQuery.of(context).orientation;
-
-    return Container(
+          return Container(
       width: 80,
-      padding:  EdgeInsets.symmetric(vertical: orientation == Orientation.portrait ? 8 : 3),
+      padding: EdgeInsets.symmetric(
+          vertical: orientation == Orientation.portrait ? 8 : 3),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4),
-        color: Color.fromRGBO(device.colorR, device.colorG, device.colorB, 1),
+        color: Color.fromRGBO(device!.colorR, device!.colorG, device!.colorB, 1),
       ),
       child: Center(
         child: Text(
-          device.statut,
-          style:  TextStyle(
+          device!.statut,
+          style: TextStyle(
             color: Colors.white,
             fontSize: orientation == Orientation.portrait ? 12 : 8,
             fontWeight: FontWeight.w500,
@@ -32,5 +31,6 @@ class StatusWidget extends StatelessWidget {
         ),
       ),
     );
+  
   }
 }

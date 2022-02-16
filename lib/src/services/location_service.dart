@@ -7,7 +7,12 @@ class LocationService {
     init();
   }
 
-  void init() async{
-    myPosition = await GeolocatorPlatform.instance.getCurrentPosition();
+  void init() async {
+    LocationPermission permission =
+        await GeolocatorPlatform.instance.requestPermission();
+    if (permission == LocationPermission.always ||
+        permission == LocationPermission.whileInUse) {
+      myPosition = await GeolocatorPlatform.instance.getCurrentPosition();
+    }
   }
 }

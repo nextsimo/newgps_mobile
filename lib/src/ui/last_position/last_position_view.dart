@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:newgps/src/services/device_provider.dart';
-import 'package:newgps/src/ui/auto_search/auto_search_with_all.dart';
-import 'package:newgps/src/ui/last_position/last_position_provider.dart';
-import 'package:newgps/src/ui/last_position/lastposition_map_view.dart';
-import 'package:newgps/src/ui/navigation/top_app_bar.dart';
-import 'package:newgps/src/widgets/buttons/log_out_button.dart';
-import 'package:newgps/src/widgets/buttons/retate_icon_map.dart';
-import 'package:newgps/src/widgets/buttons/zoom_button.dart';
-import 'package:newgps/src/widgets/map_type_widget.dart';
 import 'package:provider/provider.dart';
+import '../../services/device_provider.dart';
+import '../../widgets/buttons/log_out_button.dart';
+import '../../widgets/buttons/retate_icon_map.dart';
+import '../../widgets/buttons/zoom_button.dart';
+import '../../widgets/loading_icon.dart';
+import '../../widgets/map_type_widget.dart';
+import '../auto_search/auto_search_with_all.dart';
+import '../navigation/top_app_bar.dart';
 import 'card_info.dart';
 import 'date_widget.dart';
 import 'grouped_buttons.dart';
+import 'last_position_provider.dart';
+import 'lastposition_map_view.dart';
 import 'suivi/suivi_widget.dart';
 
 class LastPositionView extends StatefulWidget {
@@ -54,6 +55,7 @@ class _LastPositionViewState extends State<LastPositionView>
       appBar: CustomAppBar(
         onTap: lastPositionProvider.handleSelectDevice,
         actions: [
+          const LoadingIcon(),
           RotateIconMap(normalview: lastPositionProvider.normaleView),
           MapTypeWidget(onChange: (mapType) {
             deviceProvider.mapType = mapType;

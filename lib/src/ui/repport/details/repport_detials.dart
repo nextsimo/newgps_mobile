@@ -25,7 +25,7 @@ class RepportDetailsView extends StatelessWidget {
         RepportDetailsProvider repportDetailsProvider =
             Provider.of<RepportDetailsProvider>(context, listen: false);
         repportDetailsProvider.fetchRepportModel(
-            deviceId: deviceProvider.selectedDevice.deviceId,
+            deviceId: deviceProvider.selectedDevice!.deviceId,
             newDateFrom: provider.dateFrom,
             newDateTo: provider.dateTo);
         return Material(

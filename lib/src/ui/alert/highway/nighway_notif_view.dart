@@ -39,8 +39,6 @@ class _HighwayNotifViewState extends State<HighwayNotifView> {
                     label: 'Autoroute', icon: Icons.edit_road_rounded),
                 const SizedBox(height: 20),
                 _buildStatusLabel(),
-                const SizedBox(height: 20),
-                _buildHistoric(),
               ],
             ),
           ),
@@ -49,32 +47,7 @@ class _HighwayNotifViewState extends State<HighwayNotifView> {
     );
   }
 
-  Widget _buildHistoric() {
-    return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Historiques:'),
-          const SizedBox(height: 20),
-          Expanded(
-            child: GridView.builder(
-              padding: const EdgeInsets.all(AppConsts.outsidePadding),
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                childAspectRatio: 2.8,
-                crossAxisSpacing: AppConsts.outsidePadding,
-                maxCrossAxisExtent: 400,
-                mainAxisSpacing: AppConsts.outsidePadding,
-              ),
-              itemCount: 0,
-              itemBuilder: (_, int index) {
-                return const SizedBox();
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+
 
   _buildStatusLabel() {
     Droit droit = Provider.of<SavedAcountProvider>(context, listen: false)

@@ -10,7 +10,6 @@ import 'package:newgps/src/models/device.dart';
 import 'package:newgps/src/models/historic_model.dart';
 import 'package:newgps/src/models/info_model.dart';
 import 'package:newgps/src/models/user_droits.dart';
-import 'package:newgps/src/services/device_provider.dart';
 import 'package:newgps/src/services/newgps_service.dart';
 import 'package:newgps/src/utils/device_size.dart';
 import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';

@@ -9,4 +9,3 @@ Future<void> main() async {
   setup();
   runApp(const NewGpsApp());
 }
- 

@@ -4,10 +4,12 @@ import 'package:newgps/src/services/firebase_messaging_service.dart';
 import 'package:newgps/src/services/newgps_service.dart';
 import 'package:newgps/src/ui/alert/start_up/startup_alert_settings.dart';
 
+import '../../../models/device.dart';
+
 class StartupProvider with ChangeNotifier {
   late FirebaseMessagingService messagingService;
   StartupAlertSetting? startupAlertSetting;
-
+  List<Device> selectedDevices = [];
   
   StartupProvider([FirebaseMessagingService? m]) {
     if (m != null) {
@@ -31,6 +33,7 @@ class StartupProvider with ChangeNotifier {
     );
     if (res.isNotEmpty) {
       startupAlertSetting = startupAlertSettingFromJson(res);
+      selectedDevices = deviceProvider.devices.where((e) => startupAlertSetting!.selectedDevices.contains(e.deviceId)).toList();
       notifyListeners();
     }
   }

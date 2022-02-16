@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newgps/src/services/firebase_messaging_service.dart';
+import 'package:newgps/src/ui/alert/alert_widgets/shwo_all_device_widget.dart';
 import 'package:newgps/src/ui/alert/immobility/imobility_alert_provider.dart';
 import 'package:newgps/src/utils/styles.dart';
 import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';
@@ -45,9 +46,9 @@ class ImobilityAlertView extends StatelessWidget {
                       const _BuilTextFieldHour(),
                       const SizedBox(height: 10),
                       if (provider.imobilityAlertSettings != null)
-                        SelectDeviceUi(
-                          onSelectDevice: provider.onSelectedDevice,
-                          initSelectedDevice:
+                        ShowAllDevicesWidget(
+                          onSaveDevices: provider.onSelectedDevice,
+                          selectedDevices:
                               provider.imobilityAlertSettings!.selectedDevices,
                         ),
                     ],
@@ -86,7 +87,7 @@ class _BuilTextFieldHour extends StatelessWidget {
         Provider.of<ImobilityAlertViewProvider>(context, listen: false);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children:  [
+      children: [
         const Text('Temps arrêté'),
         Padding(
           padding: const EdgeInsets.only(right: 6),
@@ -99,7 +100,7 @@ class _BuilTextFieldHour extends StatelessWidget {
               textInputAction: TextInputAction.send,
               textAlignVertical: TextAlignVertical.top,
               onSubmitted: provider.updateMaxHour,
-              decoration:const InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Heures',
                 border: OutlineInputBorder(
                   borderSide: BorderSide(

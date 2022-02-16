@@ -16,12 +16,15 @@ class SettingPerDevice {
     required this.nextOilChange,
     required this.alertBefor,
     required this.deviceId,
+    required this.lastOilChange
   });
 
   final bool isActive;
   final double nextOilChange;
+  final double lastOilChange;
   final double alertBefor;
   final String deviceId;
+  
 
   factory SettingPerDevice.fromJson(Map<String, dynamic> json) =>
       SettingPerDevice(
@@ -29,6 +32,7 @@ class SettingPerDevice {
         nextOilChange: json["next_oil_change"].toDouble(),
         alertBefor: json["alert_befor"].toDouble(),
         deviceId: json["device_id"],
+        lastOilChange: json["last_oil_change"].toDouble()
       );
 
   Map<String, dynamic> toJson() => {

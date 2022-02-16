@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:newgps/src/services/firebase_messaging_service.dart';
+import 'package:newgps/src/ui/alert/alert_widgets/shwo_all_device_widget.dart';
 import 'package:newgps/src/utils/styles.dart';
 import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';
 import 'package:newgps/src/ui/navigation/top_app_bar.dart';
 import 'package:provider/provider.dart';
-import '../alert_widgets/select_devices_view.dart';
 import '../widgets/build_label.dart';
 import 'startup_provider.dart';
 
@@ -22,6 +22,7 @@ class StartupView extends StatelessWidget {
         builder: (context, __) {
           StartupProvider provider = Provider.of<StartupProvider>(context);
           return Scaffold(
+            extendBody: false,
             appBar: const CustomAppBar(
               actions: [CloseButton(color: Colors.black)],
             ),
@@ -39,12 +40,11 @@ class StartupView extends StatelessWidget {
                       if (provider.startupAlertSetting != null)
                         _buildStatusLabel(context, provider),
                       const SizedBox(height: 20),
-                      if (provider.startupAlertSetting != null)
-                        SelectDeviceUi(
-                          onSelectDevice: provider.onSelectedDevice,
-                          initSelectedDevice:
-                              provider.startupAlertSetting!.selectedDevices,
-                        ),
+                      ShowAllDevicesWidget(
+                        onSaveDevices: provider.onSelectedDevice,
+                        selectedDevices:
+                            provider.startupAlertSetting?.selectedDevices ?? [],
+                      ),
                     ],
                   ),
                 ),

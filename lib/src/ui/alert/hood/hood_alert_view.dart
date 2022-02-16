@@ -4,7 +4,7 @@ import 'package:newgps/src/utils/styles.dart';
 import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';
 import 'package:newgps/src/ui/navigation/top_app_bar.dart';
 import 'package:provider/provider.dart';
-import '../alert_widgets/select_devices_view.dart';
+import '../alert_widgets/shwo_all_device_widget.dart';
 import '../widgets/build_label.dart';
 import 'hood_alert_view_provider.dart';
 
@@ -36,17 +36,16 @@ class HoodAlertView extends StatelessWidget {
                     children: [
                       const SizedBox(height: 10),
                       const BuildLabel(
-                          label: 'capot',
-                          icon: Icons.verified_user_rounded),
+                          label: 'capot', icon: Icons.verified_user_rounded),
                       const SizedBox(height: 20),
                       if (provider.hoodAlertSettings != null)
                         _buildStatusLabel(context, provider),
                       const SizedBox(height: 10),
                       if (provider.hoodAlertSettings != null)
-                        SelectDeviceUi(
-                          onSelectDevice: provider.onSelectedDevice,
-                          initSelectedDevice:
-                              provider.hoodAlertSettings!.selectedDevices,
+                        ShowAllDevicesWidget(
+                          onSaveDevices: provider.onSelectedDevice,
+                          selectedDevices:
+                              provider.hoodAlertSettings?.selectedDevices ?? [],
                         ),
                     ],
                   ),

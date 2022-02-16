@@ -5,7 +5,7 @@ import '../../../services/firebase_messaging_service.dart';
 import '../../../utils/functions.dart';
 import '../../../utils/styles.dart';
 import '../../../widgets/buttons/main_button.dart';
-import '../../../widgets/inputs/auto_search_all.dart';
+import '../../../widgets/show_devices_dialog.dart';
 import '../../login/login_as/save_account_provider.dart';
 import '../../navigation/top_app_bar.dart';
 import '../widgets/build_label.dart';
@@ -24,38 +24,64 @@ class OilChangeAertView extends StatelessWidget {
           return OilChangeAlertProvider(messaging);
         },
         builder: (context, __) {
-          OilChangeAlertProvider provider =
-              Provider.of<OilChangeAlertProvider>(context);
           return Scaffold(
             appBar: const CustomAppBar(
               actions: [CloseButton(color: Colors.black)],
             ),
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 10),
-                const BuildLabel(
-                    label: 'Vidange', icon: Icons.verified_user_rounded),
-                const SizedBox(height: 10),
-                _buildStatusLabel(context),
-                const SizedBox(height: 5),
-                AutoSearchWithAllWidget(
-                  withoutAll: true,
-                  clearTextController: provider.auto.clear,
-                  controller: provider.auto.controller,
-                  handleSelectDevice: provider.auto.handleSelectDevice,
-                  initController: provider.auto.initController,
-                  onClickAll: provider.auto.onClickAll,
-                  onSelectDevice: provider.auto.onTapDevice,
-                  width: MediaQuery.of(context).size.width * 0.99,
+            body: SafeArea(
+              right: false,
+              bottom: false,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 10),
+                    const BuildLabel(
+                        label: 'Vidange', icon: Icons.verified_user_rounded),
+                    const SizedBox(height: 5),
+                    Builder(
+                      builder: (_) {
+                        Orientation or = MediaQuery.of(context).orientation;
+                        if (or == Orientation.landscape) {
+                          return const _BuildLandscapeContent();
+                        }
+                        return const _BuildPortraitContent();
+                      },
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 10),
-                if (provider.auto.deviceID != 'all')
-                  const _BuildDeviceSetting(),
-              ],
+              ),
             ),
           );
         });
+  }
+}
+
+class _BuildPortraitContent extends StatelessWidget {
+  const _BuildPortraitContent({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    OilChangeAlertProvider provider =
+        Provider.of<OilChangeAlertProvider>(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 10),
+        _buildStatusLabel(context),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: ShowDeviceDialogWidget(
+            onselectedDevice: provider.onSelectedDevice,
+            label: provider.settingPerDevice.deviceId == 'all'
+                ? 'Sélectionner une véhicule'
+                : provider.selectedDevice.description,
+          ),
+        ),
+        const SizedBox(height: 10),
+        if (provider.settingPerDevice.deviceId != 'all')
+          const _BuildDeviceSettingPortrait(),
+      ],
+    );
   }
 
   Widget _buildStatusLabel(BuildContext context) {
@@ -68,14 +94,71 @@ class OilChangeAertView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         const Text('Notification statut:'),
-        Switch(value: provider.globalIsActive, onChanged: provider.updateGlobaleState),
+        Switch(
+            value: provider.globalIsActive,
+            onChanged: provider.updateGlobaleState),
       ],
     );
   }
 }
 
-class _BuildDeviceSetting extends StatelessWidget {
-  const _BuildDeviceSetting({Key? key}) : super(key: key);
+class _BuildLandscapeContent extends StatelessWidget {
+  const _BuildLandscapeContent({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    OilChangeAlertProvider provider =
+        Provider.of<OilChangeAlertProvider>(context);
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 1,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildStatusLabel(context),
+              const SizedBox(height: 10),
+              ShowDeviceDialogWidget(
+                onselectedDevice: provider.onSelectedDevice,
+                label: provider.settingPerDevice.deviceId == 'all'
+                    ? 'Sélectionner une véhicule'
+                    : provider.selectedDevice.description,
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 10),
+        if (provider.settingPerDevice.deviceId != 'all')
+          const Expanded(
+              child: Center(
+                child: _BuildDeviceSettingLandscape(),
+              ),
+              flex: 2),
+      ],
+    );
+  }
+
+  Widget _buildStatusLabel(BuildContext context) {
+    OilChangeAlertProvider provider =
+        Provider.of<OilChangeAlertProvider>(context, listen: false);
+    var droit = Provider.of<SavedAcountProvider>(context, listen: false)
+        .userDroits
+        .droits[4];
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        const Text('Notification statut:'),
+        Switch(
+            value: provider.globalIsActive,
+            onChanged: provider.updateGlobaleState),
+      ],
+    );
+  }
+}
+
+class _BuildDeviceSettingLandscape extends StatelessWidget {
+  const _BuildDeviceSettingLandscape({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     OilChangeAlertProvider provider =
@@ -84,9 +167,76 @@ class _BuildDeviceSetting extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       margin: const EdgeInsets.all(6.0),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: AppConsts.mainColor,)
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: AppConsts.mainColor,
+          )),
+      child: Form(
+        key: provider.formKey,
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    const Text('Statut'),
+                    Switch(
+                        value: provider.isActive,
+                        onChanged: provider.onChanged),
+                  ],
+                ),
+                const SizedBox(width: 10),
+                _BuilTextField(
+                  width: 200,
+                  hint: 'Dérniere vidange(Km)',
+                  controller: provider.lastOilChangeController,
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _BuilTextField(
+                  width: 200,
+                  hint: 'Prochaine vidange aprés(Km)',
+                  controller: provider.nextOilChangeController,
+                ),
+                const SizedBox(width: 10),
+                _BuilTextField(
+                  width: 200,
+                  hint: 'Alert avant(Km)',
+                  controller: provider.alertBeforController,
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            MainButton(
+              onPressed: provider.save,
+              label: 'Modifier',
+            ),
+          ],
+        ),
       ),
+    );
+  }
+}
+
+class _BuildDeviceSettingPortrait extends StatelessWidget {
+  const _BuildDeviceSettingPortrait({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    OilChangeAlertProvider provider =
+        Provider.of<OilChangeAlertProvider>(context);
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      margin: const EdgeInsets.all(6.0),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: AppConsts.mainColor,
+          )),
       child: Form(
         key: provider.formKey,
         child: Column(
@@ -98,33 +248,24 @@ class _BuildDeviceSetting extends StatelessWidget {
                 Switch(value: provider.isActive, onChanged: provider.onChanged),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('Prochaine vidange(Km)'),
-                const SizedBox(width: 10),
-                _BuilTextField(
-                  hint: 'Ex: 4000',
-                  controller: provider.nextOilChangeController,
-                ),
-              ],
+            _BuilTextField(
+              hint: 'Dérniere vidange(Km)',
+              controller: provider.lastOilChangeController,
             ),
             const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('Alert avant(Km)'),
-                const SizedBox(width: 10),
-                _BuilTextField(
-                  hint: 'Ex: 500',
-                  controller: provider.alertBeforController,
-                ),
-              ],
+            _BuilTextField(
+              hint: 'Prochaine vidange aprés(Km)',
+              controller: provider.nextOilChangeController,
+            ),
+            const SizedBox(height: 10),
+            _BuilTextField(
+              hint: 'Alert avant(Km)',
+              controller: provider.alertBeforController,
             ),
             const SizedBox(height: 20),
             MainButton(
               onPressed: provider.save,
-              label: 'Enregister',
+              label: 'Modifier',
             ),
           ],
         ),
@@ -136,10 +277,12 @@ class _BuildDeviceSetting extends StatelessWidget {
 class _BuilTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hint;
+  final double width;
   const _BuilTextField({
     Key? key,
     this.hint = '',
     required this.controller,
+    this.width = double.infinity,
   }) : super(key: key);
 
   @override
@@ -147,15 +290,18 @@ class _BuilTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 6),
       child: SizedBox(
-        width: 150,
+        width: width,
         child: TextFormField(
           controller: controller,
           validator: FormValidatorService.isNotEmpty,
-          keyboardType: TextInputType.number,
-          textInputAction: TextInputAction.send,
+          keyboardType: const TextInputType.numberWithOptions(
+              decimal: true, signed: true),
+          autocorrect: false,
+          enableSuggestions: false,
+          textInputAction: TextInputAction.done,
           textAlignVertical: TextAlignVertical.top,
           decoration: InputDecoration(
-            hintText: hint,
+            labelText: hint,
             contentPadding: const EdgeInsets.symmetric(horizontal: 10),
             border: const OutlineInputBorder(
               borderSide: BorderSide(

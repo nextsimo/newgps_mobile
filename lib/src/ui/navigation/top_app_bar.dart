@@ -103,6 +103,7 @@ class _BuildAccountName extends StatelessWidget {
         padding: EdgeInsets.only(
             bottom: 0, top: MediaQuery.of(context).padding.top * 0.2),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(

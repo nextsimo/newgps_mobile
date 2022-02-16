@@ -56,8 +56,6 @@ class _DepranchNotifViewState extends State<DepranchNotifView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Historiques:'),
-          const SizedBox(height: 20),
           Expanded(
             child: GridView.builder(
               padding: const EdgeInsets.all(AppConsts.outsidePadding),

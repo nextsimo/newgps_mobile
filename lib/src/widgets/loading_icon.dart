@@ -22,7 +22,6 @@ class LoadingIcon extends StatelessWidget {
           ),
         ),
       );
-      ;
     }
     return const SizedBox();
   }

@@ -7,14 +7,15 @@ import 'package:newgps/src/ui/alert/oil_change/oi_change_device_settings.dart';
 import 'package:newgps/src/ui/alert/oil_change/oi_change_settings.dart';
 
 class OilChangeAlertProvider with ChangeNotifier {
-  late _AutoSearchHandler auto;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  Device selectedDevice = deviceProvider.devices.first;
 
   SettingPerDevice settingPerDevice = SettingPerDevice(
     isActive: false,
     nextOilChange: 0,
     alertBefor: 0,
     deviceId: 'all',
+    lastOilChange: 0,
   );
 
   late int notificationId;
@@ -34,6 +35,7 @@ class OilChangeAlertProvider with ChangeNotifier {
 
   final TextEditingController nextOilChangeController = TextEditingController();
   final TextEditingController alertBeforController = TextEditingController();
+  final TextEditingController lastOilChangeController = TextEditingController();
 
   set isActive(bool isActive) {
     _isActive = isActive;
@@ -46,49 +48,31 @@ class OilChangeAlertProvider with ChangeNotifier {
 
   OilChangeAlertSettings? settings;
 
-  List<Device> devices = [];
-  List<Device> _fixDevices = [];
-
-  void _init() {
-    _fixDevices = deviceProvider.devices;
-    devices = List.from(_fixDevices);
-    auto = _AutoSearchHandler(onSelected, handleSelection);
-  }
-
-  void handleSelection() {
-    if (auto.deviceID == 'all') {
-      auto.controller.text = 'Sélectionner une vehicule';
-    } else {
-      auto.controller.text = auto.selectedDevice.description;
-    }
-   // notifyListeners();
-  }
-
   OilChangeAlertProvider([FirebaseMessagingService? messagingService]) {
     if (messagingService != null) {
       notificationId = messagingService.notificationID;
-      _fetchGlobalSetting();
+      _init();
     }
-
-    _init();
   }
 
-  void onSelected(String deviceId) {
-    if (deviceId == 'all') {
-      devices = _fixDevices;
-    } else {
-      devices = [_fixDevices.firstWhere((e) => e.deviceId == deviceId)];
-    }
+  Future<void> _init() async {
+    await _fetchGlobalSetting();
+    _fetchSettingPerDevice();
+  }
+
+  void onSelectedDevice(Device device) {
+    selectedDevice = device;
     _fetchSettingPerDevice();
   }
 
   Future<void> save() async {
     if (formKey.currentState!.validate()) {
       settingPerDevice = SettingPerDevice(
+        lastOilChange: double.parse(lastOilChangeController.text),
         isActive: isActive,
         nextOilChange: double.parse(nextOilChangeController.text),
         alertBefor: double.parse(alertBeforController.text),
-        deviceId: auto.selectedDevice.deviceId,
+        deviceId: selectedDevice.deviceId,
       );
       await _saveSettingPerDevice();
     }
@@ -135,52 +119,26 @@ class OilChangeAlertProvider with ChangeNotifier {
   }
 
   Future<void> _fetchSettingPerDevice() async {
+    Account? account = shared.getAccount();
     String res = await api.post(
       url: '/alert/oilchange/device/setting',
-      body: {'device_id': auto.selectedDevice.deviceId, 'setting_id' :settings!.id},
+      body: {
+        'device_id': selectedDevice.deviceId,
+        'setting_id': settings!.id,
+        'account_id': account?.account.accountId,
+      },
     );
     if (res.isNotEmpty) {
       settingPerDevice = settingPerDeviceFromJson(res);
       _isActive = settingPerDevice.isActive;
-      nextOilChangeController.text = settingPerDevice.nextOilChange.toInt().toString();
-      alertBeforController.text = settingPerDevice.alertBefor.toInt().toString();
+      nextOilChangeController.text =
+          settingPerDevice.nextOilChange.toInt().toString();
+      alertBeforController.text =
+          settingPerDevice.alertBefor.toInt().toString();
+
+      lastOilChangeController.text =
+          settingPerDevice.lastOilChange.toInt().toString();
     }
     notifyListeners();
-  }
-}
-
-class _AutoSearchHandler {
-  TextEditingController controller =
-      TextEditingController(text: 'Sélectionner une vehicule');
-
-  late void Function(String id) onSelect;
-  late void Function() handleSelectDevice;
-
-  _AutoSearchHandler(
-      void Function(String id) myFunc, void Function() _handleSelectedDevice) {
-    onSelect = myFunc;
-    handleSelectDevice = _handleSelectedDevice;
-  }
-  String deviceID = 'all';
-  late Device selectedDevice;
-
-  void clear() {
-    controller.text = '';
-  }
-
-  void initController(TextEditingController c) {
-    controller = c;
-  }
-
-  void onClickAll() {
-    deviceID = 'all';
-    handleSelectDevice();
-    onSelect('all');
-  }
-
-  void onTapDevice(Device device) {
-    selectedDevice = device;
-    deviceID = device.deviceId;
-    onSelect(device.deviceId);
   }
 }

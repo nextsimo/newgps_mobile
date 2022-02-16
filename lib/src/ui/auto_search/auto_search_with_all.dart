@@ -28,7 +28,6 @@ class _AutoSearchDeviceWithAllState extends State<AutoSearchDeviceWithAll> {
     final LastPositionProvider lastPositionProvider =
         Provider.of<LastPositionProvider>(context, listen: false);
 
-    if (lastPositionProvider.devices.isEmpty) return const SizedBox();
     Size size = MediaQuery.of(context).size;
     Orientation orientation = MediaQuery.of(context).orientation;
     bool _isPortrait = orientation == Orientation.portrait;
@@ -94,34 +93,49 @@ class BuildTextField extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    List<Device> devices =
+        context.select<LastPositionProvider, List<Device>>((__) => __.devices);
+
     Orientation orientation = MediaQuery.of(context).orientation;
-    return SizedBox(
-      height: orientation == Orientation.portrait ? 35 : 30,
-      child: TextFormField(
-        textAlign: TextAlign.left,
-        textAlignVertical: TextAlignVertical.center,
-        showCursor: true,
-        textInputAction: TextInputAction.done,
-        scrollPadding: EdgeInsets.zero,
-        style: const TextStyle(fontSize: 9, fontWeight: FontWeight.w600),
-        onTap: () => lastPositionProvider.autoSearchController.text = '',
-        maxLines: 1,
-        onFieldSubmitted: (_) => lastPositionProvider.handleSelectDevice(),
-        decoration: InputDecoration(
-          fillColor: Colors.white,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-          filled: true,
-          suffixIcon: const Icon(Icons.arrow_drop_down, size: 22),
-          suffixText:
-              focusNode.hasFocus ? '' : '${deviceProvider.devices.length}',
-          suffixStyle: const TextStyle(
-              fontSize: 9, fontWeight: FontWeight.w600, color: Colors.grey),
-          border: outlineInputBorder,
-          focusedBorder: outlineInputBorder,
-          enabledBorder: outlineInputBorder,
+
+    if (devices.isEmpty) {
+      lastPositionProvider.autoSearchController.text =
+          'Chargement des véhicules..';
+    } else if( lastPositionProvider.autoSearchController.text ==  'Chargement des véhicules..') {
+      lastPositionProvider.autoSearchController.text = 'Touts les véhicules';
+    }
+
+    return IgnorePointer(
+      ignoring:devices.isEmpty ,
+      child: SizedBox(
+        height: orientation == Orientation.portrait ? 35 : 30,
+        child: TextFormField(
+          textAlign: TextAlign.left,
+          textAlignVertical: TextAlignVertical.center,
+          showCursor: true,
+          textInputAction: TextInputAction.done,
+          scrollPadding: EdgeInsets.zero,
+          style: const TextStyle(fontSize: 9, fontWeight: FontWeight.w600),
+          onTap: () => lastPositionProvider.autoSearchController.text = '',
+          maxLines: 1,
+          onFieldSubmitted: (_) => lastPositionProvider.handleSelectDevice(),
+          decoration: InputDecoration(
+            fillColor: Colors.white,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+            filled: true,
+            suffixIcon: const Icon(Icons.arrow_drop_down, size: 22),
+            suffixText: (focusNode.hasFocus || devices.isEmpty)
+                ? ''
+                : '${deviceProvider.devices.length}',
+            suffixStyle: const TextStyle(
+                fontSize: 9, fontWeight: FontWeight.w600, color: Colors.grey),
+            border: outlineInputBorder,
+            focusedBorder: outlineInputBorder,
+            enabledBorder: outlineInputBorder,
+          ),
+          controller: lastPositionProvider.autoSearchController,
+          focusNode: focusNode,
         ),
-        controller: lastPositionProvider.autoSearchController,
-        focusNode: focusNode,
       ),
     );
   }

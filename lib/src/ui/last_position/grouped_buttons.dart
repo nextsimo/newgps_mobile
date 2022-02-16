@@ -29,7 +29,7 @@ class GroupedButton extends StatelessWidget {
               device: deviceProvider.selectedDevice,
               callNewData: () async {
                 await provider
-                    .fetchDevice(deviceProvider.selectedDevice.deviceId);
+                    .fetchDevice(deviceProvider.selectedDevice?.deviceId ?? '');
               },
             ),
           ],
@@ -40,21 +40,20 @@ class GroupedButton extends StatelessWidget {
       right: _isPortrait ? AppConsts.outsidePadding : 10,
       top: _isPortrait ? 42 : 39,
       child: Column(children: [
-        Selector<LastPositionProvider, bool>(
-          builder: (_, bool clicked, __) {
+        Consumer<LastPositionProvider>(
+          builder: (_, provider, __) {
             return MainButton(
               borderColor: AppConsts.mainColor,
               height: _isPortrait ? 30 : 25,
               width: 112,
-              textColor: clicked ? AppConsts.mainColor : Colors.white,
-              backgroundColor: clicked ? Colors.white : AppConsts.mainColor,
+              textColor: provider.markersProvider.showCluster ? AppConsts.mainColor : Colors.white,
+              backgroundColor: provider.markersProvider.showCluster ? Colors.white : AppConsts.mainColor,
               onPressed: () {
-                provider.onClickRegoupement(!clicked);
+                provider.onClickRegoupement(!provider.markersProvider.showCluster);
               },
               label: 'Regrouper',
             );
           },
-          selector: (_, p) => p.regrouperClicked,
         ),
         const SizedBox(height: 5),
         Selector<LastPositionProvider, bool>(

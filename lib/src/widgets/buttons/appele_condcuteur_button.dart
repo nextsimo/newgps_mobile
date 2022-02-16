@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'main_button.dart';
 
 class AppelCondicteurButton extends StatelessWidget {
-  final Device device;
+  final Device? device;
   final Future<void> Function()? callNewData;
   const AppelCondicteurButton({
     Key? key,
@@ -35,7 +35,7 @@ class _AppelConducteurWidgetPortrait extends StatelessWidget {
     this.callNewData,
   }) : super(key: key);
 
-  final Device device;
+  final Device? device;
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +69,7 @@ class _AppelConducteurWidgetLandscape extends StatelessWidget {
     this.callNewData,
   }) : super(key: key);
 
-  final Device device;
+  final Device? device;
 
   @override
   Widget build(BuildContext context) {

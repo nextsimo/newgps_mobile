@@ -31,7 +31,6 @@ class _AutoSearchDeviceState extends State<AutoSearchDevice> {
     final HistoricProvider historicProvider =
         Provider.of<HistoricProvider>(context, listen: false);
 
-    if (deviceProvider.devices.isEmpty) return const SizedBox();
     Size size = MediaQuery.of(context).size;
     bool _isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
@@ -49,6 +48,15 @@ class _AutoSearchDeviceState extends State<AutoSearchDevice> {
               _init = false;
             } else {
               deviceProvider.autoSearchController = _;
+            }
+            if (deviceProvider.devices.isEmpty) {
+              deviceProvider.autoSearchController.text =
+                  'Chargement des véhicules..';
+            } else if (deviceProvider.autoSearchController.text ==
+                'Chargement des véhicules..') {
+              deviceProvider.autoSearchController.text =
+                  deviceProvider.devices.first.description;
+                  historicProvider.fetchHistorics();
             }
             return fieldViewBuilderWidget(deviceProvider, outlineInputBorder,
                 _focusNode, onFieldSubmitted, historicProvider);

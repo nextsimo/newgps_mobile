@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/device.dart';
-import 'package:newgps/src/models/repport_resume_model.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/ui/driver_phone/driver_phone_provider.dart';
-import 'package:newgps/src/utils/functions.dart';
-import 'package:newgps/src/utils/locator.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/repport/resume/resume_repport_provider.dart';
-import 'package:newgps/src/widgets/buttons/main_button.dart';
+
 import 'package:provider/provider.dart';
 
+import '../../../models/device.dart';
+import '../../../models/repport_resume_model.dart';
+import '../../../services/newgps_service.dart';
+import '../../../utils/functions.dart';
+import '../../../utils/locator.dart';
+import '../../../utils/styles.dart';
+import '../../../widgets/buttons/main_button.dart';
+import '../../driver_phone/driver_phone_provider.dart';
 import '../clickable_text_cell.dart';
 import '../custom_devider.dart';
 import '../rapport_provider.dart';
 import '../text_cell.dart';
+import 'loading/resume_repport_loading.dart';
+import 'resume_repport_provider.dart';
 
 class BuildHead extends StatelessWidget {
   const BuildHead({
@@ -167,6 +169,11 @@ class ResumeRepport extends StatelessWidget {
           ResumeRepportProvider resumeRepportProvider =
               Provider.of<ResumeRepportProvider>(context);
           List<RepportResumeModel> resumes = resumeRepportProvider.resumes;
+
+
+          if (resumes.isEmpty) {
+            return const ResumeRepportLoading();
+          }
           return _BuildTable(resumes: resumes);
         });
   }

@@ -21,7 +21,7 @@ class CardInfoView extends StatelessWidget {
 
     if ((!lastPositionProvider.fetchAll && infoModel != null) ||
         (deviceProvider.selectedTabIndex == 1 && infoModel != null)) {
-      Device device = deviceProvider.selectedDevice;
+      Device? device = deviceProvider.selectedDevice;
       Orientation orientation = MediaQuery.of(context).orientation;
       return Positioned(
         bottom: 2,
@@ -66,7 +66,7 @@ class CardInfoView extends StatelessWidget {
 
 class _InfoCardPortrait extends StatelessWidget {
   final InfoModel infoModel;
-  final Device device;
+  final Device? device;
   const _InfoCardPortrait(
       {Key? key, required this.infoModel, required this.device})
       : super(key: key);
@@ -87,7 +87,7 @@ class _InfoCardPortrait extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 _buildLabel(
-                    label: 'Date', content: formatDeviceDate(device.dateTime)),
+                    label: 'Date', content: formatDeviceDate(device!.dateTime)),
                 const SizedBox(height: 2),
                 _buildLabel(
                     label: 'Cons carburant',
@@ -167,7 +167,7 @@ class _InfoCardPortrait extends StatelessWidget {
 
 class _InfoCardLandscape extends StatelessWidget {
   final InfoModel infoModel;
-  final Device device;
+  final Device? device;
   const _InfoCardLandscape(
       {Key? key, required this.infoModel, required this.device})
       : super(key: key);
@@ -188,7 +188,7 @@ class _InfoCardLandscape extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 _buildLabel(
-                    label: 'Date', content: formatDeviceDate(device.dateTime)),
+                    label: 'Date', content: formatDeviceDate(device!.dateTime)),
                 _buildLabel(
                     label: 'Cons carburant',
                     content: '${infoModel.carbConsomation.round()} L'),
@@ -301,7 +301,7 @@ class _OdometreWidgetPortrait extends StatelessWidget {
     required this.device,
   }) : super(key: key);
 
-  final Device device;
+  final Device? device;
 
   @override
   Widget build(BuildContext context) {
@@ -319,7 +319,7 @@ class _OdometreWidgetPortrait extends StatelessWidget {
                   pointers: <RangePointer>[
                     RangePointer(
                       enableDragging: false,
-                      value: device.speedKph.toDouble(),
+                      value: device?.speedKph.toDouble() ?? 0,
                       color: AppConsts.mainColor,
                       width: 14,
                     ),
@@ -348,7 +348,7 @@ class _OdometreWidgetPortrait extends StatelessWidget {
                     color: Color(0xff639FCE),
                     fontWeight: FontWeight.bold,
                   ),
-                  text: '${device.speedKph}\n',
+                  text: '${device?.speedKph}\n',
                   children: const [
                     TextSpan(
                       text: 'km/h',
@@ -373,7 +373,7 @@ class OdometreWidget extends StatelessWidget {
     required this.device,
   }) : super(key: key);
 
-  final Device device;
+  final Device? device;
 
   @override
   Widget build(BuildContext context) {
@@ -391,7 +391,7 @@ class _OdometreWidgetLandscape extends StatelessWidget {
     required this.device,
   }) : super(key: key);
 
-  final Device device;
+  final Device? device;
 
   @override
   Widget build(BuildContext context) {
@@ -409,7 +409,7 @@ class _OdometreWidgetLandscape extends StatelessWidget {
                   pointers: <RangePointer>[
                     RangePointer(
                       enableDragging: false,
-                      value: device.speedKph.toDouble(),
+                      value: device?.speedKph.toDouble() ?? 0,
                       color: AppConsts.mainColor,
                       width: 7,
                     ),
@@ -438,7 +438,7 @@ class _OdometreWidgetLandscape extends StatelessWidget {
                     color: Color(0xff639FCE),
                     fontWeight: FontWeight.bold,
                   ),
-                  text: '${device.speedKph}\n',
+                  text: '${device?.speedKph}\n',
                   children: const [
                     TextSpan(
                       text: 'km/h',

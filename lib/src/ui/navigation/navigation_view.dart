@@ -15,9 +15,7 @@ class CustomNavigationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DeviceSize.init(context);
-    SavedAcountProvider pro =
-        Provider.of<SavedAcountProvider>(context, listen: false);
-    pro.checkNotifcation();
+
     navigationViewProvider.pageController = myController;
     Account? account = shared.getAccount();
     return WillPopScope(
@@ -26,10 +24,15 @@ class CustomNavigationView extends StatelessWidget {
       },
       child: MultiProvider(
         providers: [
-          Provider(create: (_) => FirebaseMessagingService(), lazy: false),
+          Provider(create: (_) => FirebaseMessagingService(
+
+          ), lazy: false),
           Provider.value(value: navigationViewProvider)
         ],
         builder: (BuildContext context, __) {
+          SavedAcountProvider pro =
+              Provider.of<SavedAcountProvider>(context, listen: false);
+          pro.checkNotifcation();
           return UpgradeAlert(
             messages: UpgraderMessages(code: 'fr'),
             countryCode: 'MA',

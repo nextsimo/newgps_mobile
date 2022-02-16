@@ -37,7 +37,6 @@ dependencies:
   timeago: ^3.2.1
   upgrader: ^3.12.1
   url_launcher: ^6.0.18
-  
 
 dev_dependencies:
   flutter_lints: ^1.0.0

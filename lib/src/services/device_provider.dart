@@ -12,7 +12,16 @@ import 'package:newgps/src/widgets/buttons/main_button.dart';
 import 'package:provider/provider.dart';
 
 class DeviceProvider with ChangeNotifier {
-  late List<Device> devices = [];
+   List<Device> devices = [];
+
+  bool _loading = true;
+
+  bool get loading => _loading;
+
+  set loading(bool loading) {
+    _loading = loading;
+    notifyListeners();
+  }
 
   InfoModel? _infoModel;
 
@@ -32,7 +41,7 @@ class DeviceProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  late Device selectedDevice;
+   Device? selectedDevice;
 
   int selectedTabIndex = 0;
 
@@ -121,7 +130,7 @@ class DeviceProvider with ChangeNotifier {
   late TextEditingController autoSearchController;
 
   void handleSelectDevice() {
-    autoSearchController.text = selectedDevice.description;
+    autoSearchController.text = selectedDevice?.description ?? '';
   }
 
   Future<void> init(BuildContext context) async {
@@ -129,10 +138,14 @@ class DeviceProvider with ChangeNotifier {
         .get(Uri.parse('https://api.newgps.ma/api/icons/position.png'));
     var bytes = request.bodyBytes;
     markerIcon = BitmapDescriptor.fromBytes(bytes); */
+    _loading = true;
     devices = await fetchDevices();
     selectedDevice = devices.first;
     autoSearchController =
-        TextEditingController(text: selectedDevice.description);
+        TextEditingController(text: selectedDevice!.description);
+    await Future.delayed(const Duration(seconds: 1));
+    loading = false;
+
     //notifyListeners();
   }
 
@@ -142,7 +155,7 @@ class DeviceProvider with ChangeNotifier {
       url: '/device',
       body: {
         'accountId': account?.account.accountId,
-        'deviceId': selectedDevice.deviceId,
+        'deviceId': selectedDevice!.deviceId,
         'is_web': false
       },
     );

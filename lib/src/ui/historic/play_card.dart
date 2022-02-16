@@ -34,7 +34,7 @@ class PlayCard extends StatelessWidget {
               const SizedBox(height: 12),
               Center(
                 child: Text(
-                  deviceProvider.selectedDevice.description,
+                  deviceProvider.selectedDevice?.description ?? '',
                   style: const TextStyle(
                       color: Colors.blue,
                       fontWeight: FontWeight.bold,

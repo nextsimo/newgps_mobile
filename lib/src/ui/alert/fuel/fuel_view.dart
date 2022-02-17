@@ -5,6 +5,7 @@ import '../../../services/firebase_messaging_service.dart';
 import '../../../utils/styles.dart';
 import '../../login/login_as/save_account_provider.dart';
 import '../../navigation/top_app_bar.dart';
+import '../alert_widgets/shwo_all_device_widget.dart';
 import '../widgets/build_label.dart';
 import 'fuel_provider.dart';
 
@@ -37,6 +38,12 @@ class FuelAlertView extends StatelessWidget {
                           label: 'carburant', icon: Icons.ev_station_rounded),
                       const SizedBox(height: 20),
                       _buildStatusLabel(provider, context),
+                      const SizedBox(height: 20),
+                      ShowAllDevicesWidget(
+                        onSaveDevices: provider.onSave,
+                        selectedDevices:
+                            provider.fuelNotifSetting?.selectedDevices ?? [],
+                      ),
                     ],
                   ),
                 ),
@@ -45,7 +52,6 @@ class FuelAlertView extends StatelessWidget {
           );
         });
   }
-
 
   _buildStatusLabel(FuelProvider provider, BuildContext context) {
     var droit = Provider.of<SavedAcountProvider>(context, listen: false)

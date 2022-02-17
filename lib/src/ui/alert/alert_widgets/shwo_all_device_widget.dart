@@ -7,27 +7,25 @@ class ShowAllDevicesWidget extends StatelessWidget {
   final Future<void> Function(List<String>) onSaveDevices;
   final List<String> selectedDevices;
   const ShowAllDevicesWidget(
-      {Key? key,
-      required this.onSaveDevices,
-      this.selectedDevices = const []})
+      {Key? key, required this.onSaveDevices, this.selectedDevices = const []})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    selectedDevices.remove('all');
+    selectedDevices.remove('');
     return InkWell(
       onTap: () {
-        if (selectedDevices.isNotEmpty) {
-          showDialog(
-              context: context,
-              builder: (_) {
-                return Dialog(
-                  child: SelectDeviceUi(
-                    onSaveDevices: onSaveDevices,
-                    initSelectedDevice: selectedDevices,
-                  ),
-                );
-              });
-        }
+        showDialog(
+            context: context,
+            builder: (_) {
+              return Dialog(
+                child: SelectDeviceUi(
+                  onSaveDevices: onSaveDevices,
+                  initSelectedDevice: selectedDevices,
+                ),
+              );
+            });
       },
       child: Container(
         height: 40,
@@ -39,9 +37,10 @@ class ShowAllDevicesWidget extends StatelessWidget {
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children:  [
-            Text('Sélectionner les véhicules ${selectedDevices.length <= 1 ? '' : "(${selectedDevices.length-1})"}'),
-           const Icon(Icons.arrow_drop_down_outlined)
+          children: [
+            Text(
+                'Sélectionner les véhicules ${selectedDevices.isEmpty ? '' : "(${selectedDevices.length})"}'),
+            const Icon(Icons.arrow_drop_down_outlined)
           ],
         ),
       ),

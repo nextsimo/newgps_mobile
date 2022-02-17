@@ -41,7 +41,7 @@ class StartupView extends StatelessWidget {
                         _buildStatusLabel(context, provider),
                       const SizedBox(height: 20),
                       ShowAllDevicesWidget(
-                        onSaveDevices: provider.onSelectedDevice,
+                        onSaveDevices: provider.onSave,
                         selectedDevices:
                             provider.startupAlertSetting?.selectedDevices ?? [],
                       ),

@@ -14,15 +14,21 @@ class FuelNotifSetting {
   FuelNotifSetting({
     required this.notificationId,
     required this.isActive,
+    required this.selectedDevices,
+    required this.id,
   });
 
   int notificationId;
   bool isActive;
+  final int id;
+  final List<String> selectedDevices;
 
   factory FuelNotifSetting.fromJson(Map<String, dynamic> json) =>
       FuelNotifSetting(
         notificationId: json["notifcation_id"],
-        isActive: json["is_active"] == 1 ? true : false,
+        isActive: json["is_active"],
+        selectedDevices: json["devices"].toString().split(','),
+        id: json["id"]
       );
 
   Map<String, dynamic> toJson() => {

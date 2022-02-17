@@ -20,11 +20,10 @@ class BatteryProvider with ChangeNotifier {
   }
 
   Future<void> onSwitchTaped(bool val) async {
-    int notifiId = messagingService!.notificationID;
     await api.post(
       url: '/batterynotif/update',
       body: {
-        'notification_id': notifiId,
+        'id': batteryNotifcationSetting?.id,
         'is_active': val,
       },
     );
@@ -33,20 +32,36 @@ class BatteryProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void fetchAlert() async {
+  Future<void> onSave(List<String> newSelectedDevices) async {
+    newSelectedDevices.remove('all');
+    await api.post(
+      url: '/alert/battery/update/devices',
+      body: {
+        'id': batteryNotifcationSetting?.id,
+        'devices': newSelectedDevices.join(','),
+      },
+    );
+    await fetchAlert();
+  }
+
+  Future<void> fetchAlert() async {
     Account? account = shared.getAccount();
+    String devices = List<String>.from(
+            deviceProvider.devices.map((e) => e.deviceId).toList())
+        .join(',');
     String res = await api.post(
       url: '/batterynotif/settings',
       body: {
         'account_id': account?.account.accountId,
         'notification_id': messagingService!.notificationID,
+        'devices': devices,
+        'user_id' :account?.account.userID
       },
     );
 
     if (res.isNotEmpty) {
       batteryNotifcationSetting = batteryNotifcationSettingFromJson(res);
       active = batteryNotifcationSetting!.isActive;
-      //await fetchHistoric();
       notifyListeners();
     }
   }
@@ -54,7 +69,9 @@ class BatteryProvider with ChangeNotifier {
   Future<void> fetchHistoric() async {
     String res = await api.post(
       url: '/batterynotif/historics',
-      body: {'notification_id': messagingService?.notificationID},
+      body: {
+        'notification_id': messagingService?.notificationID,
+      },
     );
     historics = batteryNotifcationHistoricFromJson(res);
   }

@@ -6,6 +6,7 @@ import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';
 import 'package:newgps/src/ui/navigation/top_app_bar.dart';
 import 'package:newgps/src/widgets/buttons/main_button.dart';
 import 'package:provider/provider.dart';
+import '../alert_widgets/shwo_all_device_widget.dart';
 import 'speed_provider.dart';
 import '../widgets/build_label.dart';
 
@@ -45,6 +46,33 @@ class SpeedAlertView extends StatelessWidget {
                         ),
                         const SizedBox(height: 30),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('Notification statut'),
+                            Switch(value: true, onChanged: (_) {}),
+                          ],
+                        ),
+                        MainButton(
+                          onPressed: () {},
+                          label: 'Ajouter vitesse',
+                          icon: Icons.add,
+                        ),
+                        SizedBox(height: 15),
+                        _BuildVitesseRow(),
+                        _BuildVitesseRow(),
+                        _BuildVitesseRow(),
+/*                         Row(
+                          children: [
+                            _buildInput(provider, readOnly: !droit.write),
+                            const SizedBox(width: 10),
+                            Switch(
+                                value: provider.active,
+                                onChanged:
+                                    droit.write ? provider.onTapSwitch : null),
+                          ],
+                        ), */
+
+/*                         Row(
                           children: [
                             _buildInput(provider, readOnly: !droit.write),
                             const SizedBox(width: 10),
@@ -63,7 +91,7 @@ class SpeedAlertView extends StatelessWidget {
                                 : Colors.blueGrey,
                             onPressed: provider.onTapSaved,
                             label: 'Enregistrer',
-                          ),
+                          ), */
                       ],
                     ),
                   ),
@@ -96,6 +124,65 @@ class SpeedAlertView extends StatelessWidget {
           focusedBorder: outlineInputBorder,
           enabledBorder: outlineInputBorder,
         ),
+      ),
+    );
+  }
+}
+
+class _BuildVitesseRow extends StatelessWidget {
+  const _BuildVitesseRow({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        const _BuildTextField(),
+        ShowAllDevicesWidget(
+          onSaveDevices: (_) async {},
+          selectedDevices: [],
+          shortText: true,
+        ),
+        MainButton(
+            onPressed: () {}, label: 'Enregister', width: 100, height: 40),
+        Container(
+          margin: const EdgeInsets.all(10),
+          width: 30,
+          height: 30,
+          decoration:
+              const BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+          child: const Center(
+            child: Icon(Icons.remove, color: Colors.white),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _BuildTextField extends StatelessWidget {
+  const _BuildTextField({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    const outlineInputBorder = OutlineInputBorder(
+      borderSide: BorderSide(color: AppConsts.mainColor),
+    );
+    return const SizedBox(
+      width: 90,
+      height: 40,
+      child: TextField(
+        keyboardType: TextInputType.number,
+        textInputAction: TextInputAction.send,
+        textAlignVertical: TextAlignVertical.top,
+        decoration: InputDecoration(
+            contentPadding: EdgeInsets.symmetric(horizontal: 10),
+            labelText: 'Vitesse km/h',
+            labelStyle: TextStyle(
+                fontSize: 11, color: Colors.black, fontWeight: FontWeight.w400),
+            border: outlineInputBorder,
+            focusedBorder: outlineInputBorder,
+            enabledBorder: outlineInputBorder),
       ),
     );
   }

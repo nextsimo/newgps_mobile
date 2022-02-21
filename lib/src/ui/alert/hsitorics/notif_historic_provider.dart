@@ -27,6 +27,26 @@ class NotifHistoricPorvider with ChangeNotifier {
 
   late Device selectedDevice;
 
+  final ScrollController scrollController = ScrollController();
+
+  void _init() {
+    scrollController.addListener(_scrollListner);
+  }
+
+  void _scrollListner() {
+    if (scrollController.position.pixels >=
+        scrollController.position.maxScrollExtent) {
+      if (!_stopPagination) _fetchDetailsHisto(deviceId: deviceID, type: _type);
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    scrollController.removeListener(_scrollListner);
+    scrollController.dispose();
+  }
+
   set histos(List<NotifHistoric> histos) {
     _histos = histos;
     notifyListeners();
@@ -39,7 +59,8 @@ class NotifHistoricPorvider with ChangeNotifier {
     if (type.isEmpty) {
       fetchHisto();
     } else {
-      _fetchDetailsRepport(type: type);
+      _fetchDetailsHisto(type: type);
+      _init();
     }
   }
 
@@ -95,10 +116,14 @@ class NotifHistoricPorvider with ChangeNotifier {
   }
 
   void fetchDeviceFromSearchWidget() {
+    _page = 1;
+    _loadingDeatailsHisto = false;
+    _stopPagination = false;
+    histos = [];
     if (deviceID == 'all') {
-      _fetchDetailsRepport(type: _type);
+      _fetchDetailsHisto(type: _type);
     } else {
-      _fetchDetailsRepport(type: _type, deviceId: deviceID);
+      _fetchDetailsHisto(type: _type, deviceId: deviceID);
     }
   }
 
@@ -128,8 +153,7 @@ class NotifHistoricPorvider with ChangeNotifier {
   }
 
   void navigateToDetaisl(BuildContext context, {required NotifHistoric model}) {
-    _saveLastReadToLocal(
-        model.type, model.createdAt.add(const Duration(hours: 1)).toString());
+    _saveLastReadToLocal(model.type);
     SavedAcountProvider acountProvider =
         Provider.of<SavedAcountProvider>(context, listen: false);
 
@@ -139,25 +163,38 @@ class NotifHistoricPorvider with ChangeNotifier {
         builder: (_) => NotifHistorisDetails(type: model.type)));
   }
 
-  Future<void> _fetchDetailsRepport({
+  bool _loadingDeatailsHisto = false;
+  int _page = 1;
+  bool _stopPagination = false;
+  Future<void> _fetchDetailsHisto({
     String type = '',
     String deviceId = 'all',
   }) async {
+    if (_loadingDeatailsHisto) return;
+    _loadingDeatailsHisto = true;
     Account? account = shared.getAccount();
     String res = await api.post(
-      url: '/notification/historics/details',
+      url: '/notification/historics/details2',
       body: {
         'type': type,
         'device_id': deviceId,
         'account_id': account?.account.accountId,
+        'page': _page,
       },
     );
+    _page++;
     if (res.isNotEmpty) {
-      histos = notifHistoricFromJson(res);
+      List<NotifHistoric> newHisto = notifHistoricFromJson(res);
+      if (newHisto.isEmpty) {
+        _stopPagination = true;
+      }
+      histos.addAll(newHisto);
+      notifyListeners();
     }
+    _loadingDeatailsHisto = false;
   }
 
-  Future<void> _saveLastReadToLocal(String type, String date) async {
+  Future<void> _saveLastReadToLocal(String type) async {
     Account? account = shared.getAccount();
     await api.post(
       url: '/alert/historic/read/save',
@@ -167,21 +204,6 @@ class NotifHistoricPorvider with ChangeNotifier {
         'account_id': account?.account.accountId,
       },
     );
-
-/*     switch (type) {
-      case 'fuel':
-        shared.sharedPreferences.setString(fuelLocalDataKey, date);
-        break;
-      case 'battery':
-        shared.sharedPreferences.setString(batteryLocalDataKey, date);
-        break;
-      case 'speed':
-        shared.sharedPreferences.setString(speedLocalDataKey, date);
-        break;
-      case 'geozone':
-        shared.sharedPreferences.setString(geozoneLocalDataKey, date);
-        break;
-    } */
   }
 
   final DeviceInfoPlugin _deviceInfo = DeviceInfoPlugin();
@@ -196,7 +218,10 @@ class NotifHistoricPorvider with ChangeNotifier {
     }
   }
 
+  bool loading = false;
+
   Future<void> fetchHisto() async {
+    loading = true;
     String res = await api.post(
       url: '/notification/historics',
       body: await getBody(),
@@ -204,5 +229,7 @@ class NotifHistoricPorvider with ChangeNotifier {
     if (res.isNotEmpty) {
       histos = notifHistoricFromJson(res);
     }
+    loading = false;
+    notifyListeners();
   }
 }

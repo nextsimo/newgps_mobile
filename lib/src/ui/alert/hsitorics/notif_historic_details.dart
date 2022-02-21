@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
+import 'package:loadmore/loadmore.dart';
 import 'package:newgps/src/models/notif_hsitoric_model.dart';
 import 'package:newgps/src/utils/functions.dart';
 import 'package:newgps/src/ui/alert/hsitorics/notif_historic_provider.dart';
@@ -35,17 +36,18 @@ class NotifHistorisDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildHead(context, type),
-                Selector<NotifHistoricPorvider, List<NotifHistoric>>(
-                  builder: (_, histos, __) {
-                    if (histos.isEmpty) return const SizedBox();
+                Consumer<NotifHistoricPorvider>(
+                  builder: (_, pro, __) {
+                    if (pro.histos.isEmpty) return const SizedBox();
                     return Expanded(
                       child: SafeArea(
                         bottom: false,
                         right: false,
                         top: false,
                         child: GroupedListView<NotifHistoric, DateTime>(
+                          controller: pro.scrollController,
                           useStickyGroupSeparators:
-                              histos.length > 9 ? true : false,
+                              pro.histos.length > 9 ? true : false,
                           order: GroupedListOrder.DESC,
                           elements: porvider.histos,
                           padding: const EdgeInsets.fromLTRB(10, 8, 10, 150),
@@ -75,7 +77,6 @@ class NotifHistorisDetails extends StatelessWidget {
                       ),
                     );
                   },
-                  selector: (_, __) => __.histos,
                 ),
               ],
             ),

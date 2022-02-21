@@ -82,7 +82,7 @@ class Device {
       phone1: json["phone1"] ?? '',
       phone2: json["phone2"] ?? '',
       markerTextPng: json["marker_text_png"],
-      equipmentType: json['equipmentType']
+      equipmentType: json['equipmentType'] ?? ''
     );
   }
 

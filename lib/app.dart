@@ -11,7 +11,6 @@ import 'package:newgps/src/ui/navigation/navigation_view.dart';
 import 'package:newgps/src/ui/splash/splash_view.dart';
 import 'package:provider/provider.dart';
 import 'src/ui/login/login_as/save_account_provider.dart';
-
 class NewGpsApp extends StatelessWidget {
   const NewGpsApp({Key? key}) : super(key: key);
   @override

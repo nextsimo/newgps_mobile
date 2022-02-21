@@ -29,7 +29,7 @@ class SpeedAlertView extends StatelessWidget {
               .droits[4];
           return Scaffold(
             appBar:
-                const CustomAppBar(actions: [CloseButton(color: Colors.black)]),
+                const CustomAppBar(actions: [CloseButton(color: Color.fromRGBO(0, 0, 0, 1))]),
             body: SingleChildScrollView(
               child: SafeArea(
                 child: Padding(

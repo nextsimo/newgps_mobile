@@ -34,9 +34,9 @@ class LastPositionProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetch() async {
+  Future<void> fetch(BuildContext context) async {
     if (markersProvider.fetchGroupesDevices) {
-      await fetchDevices();
+      await fetchDevices(context);
     } else {
       await fetchDevice(deviceProvider.selectedDevice!.deviceId);
     }
@@ -131,7 +131,8 @@ class LastPositionProvider with ChangeNotifier {
   Future<void> init(BuildContext context) async {
     markersProvider = MarkersProvider(devices, context);
     _initCluster();
-    await fetchDevices();
+    await deviceProvider.init(context);
+    await _setDevicesMareker();
     await markersProvider.setMarkers(devices);
     notifyListeners();
   }
@@ -142,10 +143,11 @@ class LastPositionProvider with ChangeNotifier {
     ));
   }
 
-  Future<void> fetchInitDevice() async {
+  Future<void> fetchInitDevice(BuildContext context,
+      {bool init = false}) async {
     if (_init) {
       if (fetchAll) {
-        await fetchDevices();
+        await fetchDevices(context);
       } else {
         await fetchDevice(deviceProvider.selectedDevice!.deviceId);
       }
@@ -249,7 +251,12 @@ class LastPositionProvider with ChangeNotifier {
     return points;
   }
 
+  bool _loadingDevice = false;
+
   Future<void> fetchDevice(String deviceId, {bool isSelected = false}) async {
+    if (_loadingDevice) return;
+    _loadingDevice = true;
+
     Account? account = shared.getAccount();
 
     fetchAll = false;
@@ -283,16 +290,12 @@ class LastPositionProvider with ChangeNotifier {
       moveCamera(LatLng(deviceProvider.selectedDevice!.latitude,
           deviceProvider.selectedDevice!.longitude));
     }
+    _loadingDevice = false;
   }
 
-  Future<void> fetchDevices() async {
-    fetchAll = true;
-    polylines = {};
-
-    //notifyListeners();
-
-    _devices = await deviceProvider.fetchDevices();
+  Future<void> _setDevicesMareker() async {
     lastDateFetchDevices = DateTime.now();
+    _devices = deviceProvider.devices;
     if (_devices.length == 1) deviceProvider.selectedDevice = _devices.first;
     markersProvider.simpleMarkers.clear();
     markersProvider.textMakers.clear();
@@ -303,9 +306,20 @@ class LastPositionProvider with ChangeNotifier {
       markersProvider.textMakers.add(textmarker);
     }
     markersProvider.fetchGroupesDevices = true;
-    if (devices.length > 50) {
-      markersProvider.showCluster = true;
-    }
+    _loading = false;
+    debugPrint('end /api/devices called from last position');
     notifyListeners();
+  }
+
+  bool _loading = false;
+  Future<void> fetchDevices(BuildContext context) async {
+    if (_loading) return;
+    debugPrint('start /api/devices called from last position');
+    _loading = true;
+    fetchAll = true;
+    polylines = {};
+    //notifyListeners();
+    await deviceProvider.fetchDevices();
+    await _setDevicesMareker();
   }
 }

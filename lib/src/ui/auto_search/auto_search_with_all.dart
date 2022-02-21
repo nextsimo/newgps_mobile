@@ -161,7 +161,7 @@ class OptionViewBuilderWidget extends StatelessWidget {
     return InkWell(
       onTap: () async {
         focusNode.unfocus();
-        lastPositionProvider.fetchDevices();
+        lastPositionProvider.fetchDevices(context);
 
         lastPositionProvider.handleSelectDevice();
 
@@ -216,7 +216,7 @@ class OptionViewBuilderWidget extends StatelessWidget {
       child: InkWell(
         onTap: () {
           focusNode.unfocus();
-          lastPositionProvider.fetch();
+          lastPositionProvider.fetch(context);
           lastPositionProvider.handleSelectDevice();
         },
         child: Align(

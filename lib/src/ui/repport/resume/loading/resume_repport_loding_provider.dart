@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:newgps/src/services/newgps_service.dart';
 
 class ResumeReportLoadingProvider with ChangeNotifier {
-  final int milleSecondsPerDevice = 128;
-  int numberOfDevices = deviceProvider.devices.length;
-
   double _value = 0.0;
 
   double get value => _value;
@@ -22,19 +19,21 @@ class ResumeReportLoadingProvider with ChangeNotifier {
   }
 
   void _init() {
-    frame = (1 / numberOfDevices);
+    frame = (1 / deviceProvider.devices.length);
   }
 
   void _startCounteProgress() async {
-    while (numberOfDevices > 0) {
-      await Future.delayed(Duration(milliseconds: milleSecondsPerDevice));
+    for (var d in deviceProvider.devices) {
+      if (d.equipmentType == 'FMB140') {
+        await Future.delayed(const Duration(milliseconds: 126));
+      } else {
+        await Future.delayed(const Duration(milliseconds: 90));
+      }
       value = value + frame;
-      numberOfDevices--;
     }
   }
 
   void replay() async {
-    numberOfDevices = deviceProvider.devices.length;
     value = 0;
     _startCounteProgress();
   }

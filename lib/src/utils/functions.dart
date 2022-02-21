@@ -167,7 +167,7 @@ Future<void> fetchInitData(
   SavedAcountProvider savedAcountProvider =
       Provider.of<SavedAcountProvider>(context, listen: false);
    savedAcountProvider.fetchUserDroits();
-   deviceProvider.init(context);
+   //deviceProvider.init(context);
    lastPositionProvider.init(context);
 }
 

@@ -99,13 +99,13 @@ class HistoricProvider with ChangeNotifier {
     selectedIndex = index;
     switch (index) {
       case 0:
-        speedDuration = const Duration(milliseconds: 500);
+        speedDuration = const Duration(milliseconds: 900);
         break;
       case 1:
-        speedDuration = const Duration(milliseconds: 400);
+        speedDuration = const Duration(milliseconds: 600);
         break;
       case 2:
-        speedDuration = const Duration(milliseconds: 300);
+        speedDuration = const Duration(milliseconds: 400);
         break;
       case 3:
         speedDuration = const Duration(milliseconds: 200);

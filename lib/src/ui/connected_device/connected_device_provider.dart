@@ -18,7 +18,7 @@ class ConnectedDeviceProvider with ChangeNotifier {
   }
 
   Future<void> _initFetches() async {
-      await _setConnectedToTrue();
+    await _setConnectedToTrue();
     _fetchCountedConnectedDevices();
     _fetchConnectedDevices();
     Timer.periodic(const Duration(seconds: 15), (_) async {
@@ -36,13 +36,18 @@ class ConnectedDeviceProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  bool _loading1 = false;
+
   Future<void> _fetchCountedConnectedDevices() async {
+    if (_loading1) return;
+    _loading1 = true;
     Account? account = shared.getAccount();
     String res = await api.post(url: '/connected/devices/count', body: {
       'account_id': account?.account.accountId,
       'user_id': account?.account.userID,
     });
     countedConnectedDevices = json.decode(res);
+    _loading1 = false;
   }
 
   // end counted connected device
@@ -56,7 +61,7 @@ class ConnectedDeviceProvider with ChangeNotifier {
     _conctedDevices = conctedDevices;
     notifyListeners();
   }
-
+  
   Future<void> _setConnectedToTrue() async {
     Account? account = shared.getAccount();
     Map<String, String?> deviceInfo = await _getDeviceInfo();
@@ -69,14 +74,18 @@ class ConnectedDeviceProvider with ChangeNotifier {
     });
   }
 
+  bool _loading2 = false;
+
   Future<void> _fetchConnectedDevices() async {
+    if (_loading2) return;
+    _loading2 = true;
     Account? account = shared.getAccount();
     String res = await api.post(url: '/connected/devices', body: {
       'account_id': account?.account.accountId,
       'user_id': account?.account.userID,
     });
     conctedDevices = connectedDeviceModelFromJson(res);
-    debugPrint(conctedDevices.toString());
+    _loading2 = false;
   }
   // end fetched device
 

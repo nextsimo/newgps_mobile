@@ -49,7 +49,7 @@ class _LastPositionViewState extends State<LastPositionView>
     final DeviceProvider deviceProvider =
         Provider.of<DeviceProvider>(context, listen: false);
 
-    lastPositionProvider.fetchInitDevice();
+    //lastPositionProvider.fetchInitDevice(context, init: true);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(

@@ -343,12 +343,11 @@ class HistoricProvider with ChangeNotifier {
     );
   }
 
+
   Future<void> fetchHistorics([int page = 1, bool init = false]) async {
     histoLine = {};
     histoLine.clear();
     playedMarkers = {};
-
-
   WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
     loading = true;
   });

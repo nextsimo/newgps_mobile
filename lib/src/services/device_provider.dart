@@ -12,7 +12,7 @@ import 'package:newgps/src/widgets/buttons/main_button.dart';
 import 'package:provider/provider.dart';
 
 class DeviceProvider with ChangeNotifier {
-   List<Device> devices = [];
+  List<Device> devices = [];
 
   bool _loading = true;
 
@@ -41,7 +41,7 @@ class DeviceProvider with ChangeNotifier {
     notifyListeners();
   }
 
-   Device? selectedDevice;
+  Device? selectedDevice;
 
   int selectedTabIndex = 0;
 
@@ -134,19 +134,12 @@ class DeviceProvider with ChangeNotifier {
   }
 
   Future<void> init(BuildContext context) async {
-/*     var request = await http
-        .get(Uri.parse('https://api.newgps.ma/api/icons/position.png'));
-    var bytes = request.bodyBytes;
-    markerIcon = BitmapDescriptor.fromBytes(bytes); */
     _loading = true;
-    devices = await fetchDevices();
+    await fetchDevices();
     selectedDevice = devices.first;
     autoSearchController =
         TextEditingController(text: selectedDevice!.description);
-    await Future.delayed(const Duration(seconds: 1));
     loading = false;
-
-    //notifyListeners();
   }
 
   Future<void> fetchDevice() async {
@@ -167,7 +160,8 @@ class DeviceProvider with ChangeNotifier {
     }
   }
 
-  Future<List<Device>> fetchDevices() async {
+  Future<void> fetchDevices() async {
+    debugPrint('start /api/devices called from device provider');
     Account? account = shared.getAccount();
     String res = await api.post(
       url: '/devices',
@@ -179,10 +173,8 @@ class DeviceProvider with ChangeNotifier {
     );
     if (res.isNotEmpty) {
       devices = deviceFromMap(res);
-      devices.sort((d1, d2) => d2.speedKph.compareTo(d1.speedKph));
-      return devices;
+      debugPrint('end /api/devices called from device provider');
     }
-    return [];
   }
 
   SortedColumn sortedColumn = SortedColumn();

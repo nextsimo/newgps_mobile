@@ -33,6 +33,7 @@ class Device {
     required this.phone1,
     required this.phone2,
     required this.markerTextPng,
+    this.equipmentType = '',
   });
 
   final String description;
@@ -56,6 +57,7 @@ class Device {
   final String phone1;
   final String phone2;
   final String markerTextPng;
+  final String equipmentType;
 
   factory Device.fromMap(Map<String, dynamic> json) {
     return Device(
@@ -80,6 +82,7 @@ class Device {
       phone1: json["phone1"] ?? '',
       phone2: json["phone2"] ?? '',
       markerTextPng: json["marker_text_png"],
+      equipmentType: json['equipmentType']
     );
   }
 

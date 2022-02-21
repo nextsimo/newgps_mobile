@@ -20,10 +20,9 @@ class ResumeRepportProvider with ChangeNotifier {
   late Timer _timer;
 
   ResumeRepportProvider(RepportProvider repportProvider) {
+    fetch(repportProvider: repportProvider);
     _timer = Timer.periodic(const Duration(seconds: 12), (_) {
-      if (repportProvider.isFetching) {
-        fetch(repportProvider: repportProvider);
-      }
+      fetch(repportProvider: repportProvider);
     });
   }
 
@@ -172,10 +171,14 @@ class ResumeRepportProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  bool _loadingResumeRepport = false;
+
   Future<void> fetch(
       {int index = 0,
       bool download = false,
       required RepportProvider repportProvider}) async {
+    if (_loadingResumeRepport) return;
+    _loadingResumeRepport = true;
     Account? account = shared.getAccount();
     String res;
     res = await api.post(
@@ -185,7 +188,7 @@ class ResumeRepportProvider with ChangeNotifier {
         'user_id': account?.account.userID,
         'download': download,
         'date_from': (repportProvider.dateFrom.millisecondsSinceEpoch / 1000),
-        'date_to' : (repportProvider.dateTo.millisecondsSinceEpoch / 1000),
+        'date_to': (repportProvider.dateTo.millisecondsSinceEpoch / 1000),
       },
     );
     if (download) {
@@ -196,5 +199,6 @@ class ResumeRepportProvider with ChangeNotifier {
       _resumes = repportResumeModelFromJson(res);
       notifyListeners();
     }
+    _loadingResumeRepport = false;
   }
 }

@@ -18,8 +18,8 @@ class NotifHistoricView extends StatelessWidget {
               Provider.of<NotifHistoricPorvider>(context, listen: false);
           porvider.initDevices(context);
           return Scaffold(
-            appBar: const CustomAppBar(
-                actions: [CloseButton(color: Colors.black)]),
+            appBar:
+                const CustomAppBar(actions: [CloseButton(color: Colors.black)]),
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -31,10 +31,23 @@ class NotifHistoricView extends StatelessWidget {
                     bottom: false,
                     top: false,
                     right: false,
-                    child: Selector<NotifHistoricPorvider,
-                            List<NotifHistoric>>(
+                    child: Selector<NotifHistoricPorvider, List<NotifHistoric>>(
                         selector: (_, __) => __.histos,
                         builder: (_, histos, __) {
+                          if (porvider.loading) {
+                            return const Center(
+                              child: SizedBox(
+                                width: 50,
+                                height: 50,
+                                child: Center(
+                                    child: CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                AppConsts.mainColor))),
+                              ),
+                            );
+                          }
+
                           if (histos.isEmpty) {
                             return Center(
                               child: Column(
@@ -58,8 +71,7 @@ class NotifHistoricView extends StatelessWidget {
                           }
                           return ListView.separated(
                             itemCount: histos.length,
-                            padding:
-                                const EdgeInsets.fromLTRB(10, 20, 10, 150),
+                            padding: const EdgeInsets.fromLTRB(10, 20, 10, 150),
                             itemBuilder: (_, int index) {
                               return _HistoricCard(
                                 notifHistoric: histos.elementAt(index),
@@ -68,8 +80,7 @@ class NotifHistoricView extends StatelessWidget {
                             separatorBuilder: (_, __) => Container(
                               height: 0.6,
                               color: Colors.grey,
-                              margin:
-                                  const EdgeInsets.fromLTRB(74, 08, 0, 08),
+                              margin: const EdgeInsets.fromLTRB(74, 08, 0, 08),
                             ),
                           );
                         }),

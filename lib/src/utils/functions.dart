@@ -5,20 +5,21 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
-import 'package:newgps/src/models/account.dart';
-import 'package:newgps/src/models/device.dart';
-import 'package:newgps/src/services/newgps_service.dart';
 import 'package:intl/intl.dart';
-import 'package:newgps/src/ui/last_position/last_position_provider.dart';
-import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';
-import 'package:newgps/src/widgets/buttons/main_button.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-const String fuelLocalDataKey = 'last_fuel_histo_read_date';
-const String batteryLocalDataKey = 'last_battery_histo_read_date';
-const String speedLocalDataKey = 'last_speed_histo_read_date';
-const String geozoneLocalDataKey = 'last_geozone_histo_read_date';
+import '../models/account.dart';
+import '../models/device.dart';
+import '../services/newgps_service.dart';
+import '../ui/last_position/last_position_provider.dart';
+import '../ui/login/login_as/save_account_provider.dart';
+import '../widgets/buttons/main_button.dart';
+
+const String fuelLocalDataKey = 'fuel';
+const String batteryLocalDataKey = 'battery';
+const String speedLocalDataKey = 'speed';
+const String geozoneLocalDataKey = 'geozone';
 
 String formatDeviceDate(DateTime dateTime, [bool time = true]) {
   late DateFormat validFormatter;
@@ -166,9 +167,9 @@ Future<void> fetchInitData(
     required BuildContext context}) async {
   SavedAcountProvider savedAcountProvider =
       Provider.of<SavedAcountProvider>(context, listen: false);
-   savedAcountProvider.fetchUserDroits();
-   //deviceProvider.init(context);
-   lastPositionProvider.init(context);
+  savedAcountProvider.fetchUserDroits();
+  //deviceProvider.init(context);
+  lastPositionProvider.init(context);
 }
 
 Future<void> playAudio(String audio) async {
@@ -225,11 +226,11 @@ Future<Map<String, String?>> getBody() async {
 
   Account? account = shared.getAccount();
   return {
-    fuelLocalDataKey: lastFuelReadDate,
-    batteryLocalDataKey: lastBatteryReadDate,
-    speedLocalDataKey: lastSpeedReadDate,
-    geozoneLocalDataKey: lastgeozoneReadDate,
-    'account_id': account?.account.accountId,
+    'last_fuel_histo_read_date': lastFuelReadDate,
+    'last_battery_histo_read_date': lastBatteryReadDate,
+    'last_speed_histo_read_date': lastSpeedReadDate,
+    'last_geozone_histo_read_date': lastgeozoneReadDate,
+    'account_id': account?.account.accountId
   };
 }
 

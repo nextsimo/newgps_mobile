@@ -4,8 +4,7 @@ import 'package:newgps/src/models/speed_alert_model.dart';
 import 'package:newgps/src/services/firebase_messaging_service.dart';
 import 'package:newgps/src/services/newgps_service.dart';
 
-class SpeedAlertProvider with ChangeNotifier {
-  
+class SpeedAlertProvider with ChangeNotifier {    
   SpeedAlertSettings? model;
   bool _loading = false;
   bool _active = false;

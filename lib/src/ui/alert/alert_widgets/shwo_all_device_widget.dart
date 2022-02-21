@@ -6,8 +6,12 @@ import 'select_devices_view.dart';
 class ShowAllDevicesWidget extends StatelessWidget {
   final Future<void> Function(List<String>) onSaveDevices;
   final List<String> selectedDevices;
+  final bool shortText;
   const ShowAllDevicesWidget(
-      {Key? key, required this.onSaveDevices, this.selectedDevices = const []})
+      {Key? key,
+      required this.onSaveDevices,
+      this.selectedDevices = const [],
+      this.shortText = false})
       : super(key: key);
 
   @override
@@ -38,8 +42,18 @@ class ShowAllDevicesWidget extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-                'Sélectionner les véhicules ${selectedDevices.isEmpty ? '' : "(${selectedDevices.length})"}'),
+            if (!shortText)
+              Text(
+                  'Sélectionner les véhicules ${selectedDevices.isEmpty ? '' : "(${selectedDevices.length})"}'),
+            if (shortText)
+              Text(
+                'Véhicules ${"(${selectedDevices.length})"}',
+                style: const TextStyle(
+                  fontSize: 11,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
             const Icon(Icons.arrow_drop_down_outlined)
           ],
         ),

@@ -132,7 +132,7 @@ class LastPositionProvider with ChangeNotifier {
     markersProvider = MarkersProvider(devices, context);
     _initCluster();
     await deviceProvider.init(context);
-    await _setDevicesMareker();
+    await setDevicesMareker();
     await markersProvider.setMarkers(devices);
     notifyListeners();
   }
@@ -260,6 +260,7 @@ class LastPositionProvider with ChangeNotifier {
     Account? account = shared.getAccount();
 
     fetchAll = false;
+    markersProvider.fetchGroupesDevices = false;
     markersProvider.simpleMarkers = {};
     notifyListeners();
 
@@ -287,13 +288,18 @@ class LastPositionProvider with ChangeNotifier {
       if (polylines.isNotEmpty) {
         await buildRoutes();
       }
-      moveCamera(LatLng(deviceProvider.selectedDevice!.latitude,
-          deviceProvider.selectedDevice!.longitude));
+      moveCamera(
+          LatLng(deviceProvider.selectedDevice!.latitude,
+              deviceProvider.selectedDevice!.longitude),
+          zoom: 14);
     }
     _loadingDevice = false;
   }
 
-  Future<void> _setDevicesMareker() async {
+  Future<void> setDevicesMareker({bool fromSelect = false}) async {
+    if (fromSelect) normaleView();
+    fetchAll = true;
+    polylines = {};
     lastDateFetchDevices = DateTime.now();
     _devices = deviceProvider.devices;
     if (_devices.length == 1) deviceProvider.selectedDevice = _devices.first;
@@ -301,7 +307,7 @@ class LastPositionProvider with ChangeNotifier {
     markersProvider.textMakers.clear();
     for (Device device in _devices) {
       Marker marker = markersProvider.getSimpleMarker(device);
-      Marker textmarker = await markersProvider.getTextMarker(device);
+      Marker textmarker = markersProvider.getTextMarker(device);
       markersProvider.simpleMarkers.add(marker);
       markersProvider.textMakers.add(textmarker);
     }
@@ -316,10 +322,9 @@ class LastPositionProvider with ChangeNotifier {
     if (_loading) return;
     debugPrint('start /api/devices called from last position');
     _loading = true;
-    fetchAll = true;
-    polylines = {};
+
     //notifyListeners();
     await deviceProvider.fetchDevices();
-    await _setDevicesMareker();
+    await setDevicesMareker();
   }
 }

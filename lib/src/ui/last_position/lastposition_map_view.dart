@@ -39,7 +39,7 @@ class _LastpositionMapState extends State<LastpositionMap> with WidgetsBindingOb
     LastPositionProvider p =
         Provider.of<LastPositionProvider>(context, listen: false);
     return StreamBuilder(
-        stream: Stream.periodic(const Duration(seconds: 20), (_) async {
+        stream: Stream.periodic(const Duration(seconds: 11), (_) async {
           return await p.fetch(context);
         }),
         builder: (context, snapshot) {

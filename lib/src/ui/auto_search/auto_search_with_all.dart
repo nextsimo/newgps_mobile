@@ -101,12 +101,13 @@ class BuildTextField extends StatelessWidget {
     if (devices.isEmpty) {
       lastPositionProvider.autoSearchController.text =
           'Chargement des véhicules..';
-    } else if( lastPositionProvider.autoSearchController.text ==  'Chargement des véhicules..') {
+    } else if (lastPositionProvider.autoSearchController.text ==
+        'Chargement des véhicules..') {
       lastPositionProvider.autoSearchController.text = 'Touts les véhicules';
     }
 
     return IgnorePointer(
-      ignoring:devices.isEmpty ,
+      ignoring: devices.isEmpty,
       child: SizedBox(
         height: orientation == Orientation.portrait ? 35 : 30,
         child: TextFormField(
@@ -161,10 +162,9 @@ class OptionViewBuilderWidget extends StatelessWidget {
     return InkWell(
       onTap: () async {
         focusNode.unfocus();
-        lastPositionProvider.fetchDevices(context);
-
+        lastPositionProvider.markersProvider.fetchGroupesDevices = true;
+        lastPositionProvider.setDevicesMareker(fromSelect: true);
         lastPositionProvider.handleSelectDevice();
-
         deviceProvider.infoModel = null;
       },
       child: Container(
@@ -281,6 +281,7 @@ class OptionItem extends StatelessWidget {
         onSelectDevice(device);
         deviceProvider.selectedDevice = device;
         focusNode.unfocus();
+        lastPositionProvider.markersProvider.fetchGroupesDevices = false;
         await lastPositionProvider.fetchDevice(device.deviceId,
             isSelected: true);
       },

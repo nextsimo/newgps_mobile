@@ -34,6 +34,10 @@ class RepportProvider with ChangeNotifier {
       index: 3,
       title: 'Rapport arrêt / redémarrage',
     ),
+    RepportTypeModel(
+      index: 4,
+      title: 'Rapport distance',
+    ),
   ];
 
   Future<void> downloadDocument(BuildContext context) async {
@@ -66,13 +70,12 @@ class RepportProvider with ChangeNotifier {
     );
   }
 
-
-
   @override
   void dispose() {
     super.dispose();
     _isFetching = false;
   }
+
   void ontapEnterRepportDevice(String val) {
     deviceProvider.selectedDevice = devices.firstWhere((device) {
       return device.description.toLowerCase().contains(val.toLowerCase());

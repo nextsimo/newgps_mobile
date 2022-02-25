@@ -19,7 +19,7 @@ class CardInfoView extends StatelessWidget {
         Provider.of<LastPositionProvider>(context, listen: false);
     InfoModel? infoModel = deviceProvider.infoModel;
 
-    if ((!lastPositionProvider.fetchAll && infoModel != null) ||
+    if ((!lastPositionProvider.markersProvider.fetchGroupesDevices && infoModel != null) ||
         (deviceProvider.selectedTabIndex == 1 && infoModel != null)) {
       Device? device = deviceProvider.selectedDevice;
       Orientation orientation = MediaQuery.of(context).orientation;

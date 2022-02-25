@@ -9,7 +9,7 @@ class DateWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LastPositionProvider provider = Provider.of<LastPositionProvider>(context);
-    if (provider.fetchAll) {
+    if (provider.markersProvider.fetchGroupesDevices) {
       return Positioned(
         bottom: 6,
         left: 5,

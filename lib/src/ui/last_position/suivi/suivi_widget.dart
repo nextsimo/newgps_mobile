@@ -12,7 +12,7 @@ class SuiviWidget extends StatelessWidget {
     Orientation orientation = MediaQuery.of(context).orientation;
     LastPositionProvider lastPositionProvider =
         Provider.of<LastPositionProvider>(context);
-    if (!lastPositionProvider.fetchAll) {
+    if (!lastPositionProvider.markersProvider.fetchGroupesDevices) {
       bool isEmpty = lastPositionProvider.polylines.isEmpty;
       if (orientation == Orientation.landscape) {
         return _SuiviWidgetLandscape(
@@ -65,14 +65,16 @@ class _SuiviWidgetLandscape extends StatelessWidget {
                                 valueColor: AlwaysStoppedAnimation<Color>(
                                     Colors.white))),
                       )
-                    : Image.asset(
-                        'assets/icons/map_arrow.png',
-                        width: 13,
-                        color: isEmpty ? Colors.white : Colors.blue,
-                      ),
+                    : lastPositionProvider.navigationStarted
+                        ? const Icon(Icons.navigation, size: 18)
+                        : Image.asset(
+                            'assets/icons/map_arrow.png',
+                            width: 13,
+                            color: isEmpty ? Colors.white : Colors.blue,
+                          ),
                 const SizedBox(width: 2),
                 Text(
-                  'Itinéraire',
+                  isEmpty ? 'Itinéraire' : 'Démarrer',
                   style: TextStyle(
                     fontSize: 10,
                     color: isEmpty ? Colors.white : Colors.blue,
@@ -124,14 +126,16 @@ class _SuiviWidgetPortrait extends StatelessWidget {
                               valueColor:
                                   AlwaysStoppedAnimation<Color>(Colors.white))),
                     )
-                  : Image.asset(
-                      'assets/icons/map_arrow.png',
-                      width: 18,
-                      color: isEmpty ? Colors.white : Colors.blue,
-                    ),
+                  : lastPositionProvider.navigationStarted
+                      ? const Icon(Icons.navigation, size: 18, color: Colors.blue)
+                      : Image.asset(
+                          'assets/icons/map_arrow.png',
+                          width: 18,
+                          color: isEmpty ? Colors.white : Colors.blue,
+                        ),
               const SizedBox(width: 6),
               Text(
-                'Itinéraire',
+                isEmpty ? 'Itinéraire' : 'Démarrer',
                 style: TextStyle(
                   fontSize: 12,
                   color: isEmpty ? Colors.white : Colors.blue,

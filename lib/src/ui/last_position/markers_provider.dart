@@ -108,7 +108,7 @@ class MarkersProvider {
         }
       } else {
         if (showMatricule) {
-          await _setMarkersWithMatricule();
+          _setMarkersWithMatricule();
         } else {
           _setMarkersOnly();
         }
@@ -116,7 +116,7 @@ class MarkersProvider {
     } else {
       if (showMatricule) {
         // normal marker with matricule
-        await _setMarkersWithMatricule();
+        _setMarkersWithMatricule();
       } else {
         // normal marker without matricule
         _setMarkersOnly();
@@ -130,10 +130,10 @@ class MarkersProvider {
     }).toSet());
   }
 
-  Future<void> _setMarkersWithMatricule() async {
+  void _setMarkersWithMatricule() async {
     for (Device device in devices) {
       simpleMarkers.add(getSimpleMarker(device));
-      textMakers.add(await getTextMarker(device));
+      textMakers.add(getTextMarker(device));
     }
   }
 
@@ -202,12 +202,13 @@ class MarkersProvider {
     );
   }
 
-  Future<Marker> getTextMarker(Device device) async {
+  Marker getTextMarker(Device device) {
     LatLng position = LatLng(device.latitude, device.longitude);
-    BitmapDescriptor bitmapDescriptor =
-        await ccreateCustomMarkerBitmap(device.description);
+    Uint8List imgRes = base64Decode(device.markerText);
+    BitmapDescriptor bitmapDescriptor = BitmapDescriptor.fromBytes(imgRes);
     return Marker(
       zIndex: 1,
+      onTap: () => _onTapMarker(device),
       position: position,
       anchor: const Offset(0.5, 0.1),
       markerId: MarkerId('${device.latitude},${device.longitude}___text'),
@@ -220,11 +221,6 @@ class MarkersProvider {
   late Droit droit;
 
   Future<void> _onTapMarker(Device device) async {
-/*     if (showWindows) {
-      Navigator.of(DeviceSize.c).pop();
-      showWindows = false;
-    }
-    showWindows = true; */
     await showModalBottomSheet(
       isDismissible: true,
       context: DeviceSize.c,
@@ -287,7 +283,7 @@ class MarkersProvider {
     return BitmapDescriptor.fromBytes(data!.buffer.asUint8List());
   }
 
-  Future<BitmapDescriptor> ccreateCustomMarkerBitmap(String title) async {
+  /* Future<BitmapDescriptor> ccreateCustomMarkerBitmap(String title) async {
     int numberOfSpace = title.split(' ').length;
 
     if (numberOfSpace > 2) {
@@ -331,5 +327,5 @@ class MarkersProvider {
     Uint8List data = Uint8List.view(pngBytes!.buffer);
 
     return BitmapDescriptor.fromBytes(data);
-  }
+  } */
 }

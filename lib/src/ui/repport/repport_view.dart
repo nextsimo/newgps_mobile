@@ -77,7 +77,9 @@ class _BuildBody extends StatelessWidget {
       constrained: false,
       child: SizedBox(
         height: size.height,
-        width:  repportProvider.selectedRepport.index !=0 ? ( Platform.isAndroid ? 870  : 915): 810,
+        width: repportProvider.selectedRepport.index != 0
+            ? (Platform.isAndroid ? 870 : 915)
+            : 810,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -98,6 +100,9 @@ class _BuildBody extends StatelessWidget {
                       case 2:
                         return const FuelRepportView();
                       case 3:
+                        return const TripsView();
+
+                      case 4:
                         return const TripsView();
                       default:
                         return const Material();
@@ -199,24 +204,25 @@ class _BuildHead extends StatelessWidget {
                       fontSize: 10,
                     ),
                     const SizedBox(width: 10),
-                    if( repportProvider.selectedRepport.index == 0 )
-                    Selector<RepportProvider, bool>(
-                      builder: (_, bool isFetching, __) {
-                        String message = isFetching ? 'Arrêter' : 'Démarrer';
-                        return MainButton(
-                          width: 120,
-                          height: 24,
-                          fontSize: 10,
-                          borderColor:  isFetching ?  Colors.red : Colors.green,
-                          textColor: isFetching ? Colors.white : Colors.green,
-                          backgroundColor: isFetching ? Colors.red : Colors.white,
-                          onPressed: () => repportProvider.isFetching =
-                              !repportProvider.isFetching,
-                          label: "$message l'actualisation",
-                        );
-                      },
-                      selector: (_, p) => p.isFetching,
-                    ),
+                    if (repportProvider.selectedRepport.index == 0)
+                      Selector<RepportProvider, bool>(
+                        builder: (_, bool isFetching, __) {
+                          String message = isFetching ? 'Arrêter' : 'Démarrer';
+                          return MainButton(
+                            width: 120,
+                            height: 24,
+                            fontSize: 10,
+                            borderColor: isFetching ? Colors.red : Colors.green,
+                            textColor: isFetching ? Colors.white : Colors.green,
+                            backgroundColor:
+                                isFetching ? Colors.red : Colors.white,
+                            onPressed: () => repportProvider.isFetching =
+                                !repportProvider.isFetching,
+                            label: "$message l'actualisation",
+                          );
+                        },
+                        selector: (_, p) => p.isFetching,
+                      ),
                   ],
                 ),
                 if (repportProvider.selectedRepport.index == 0)

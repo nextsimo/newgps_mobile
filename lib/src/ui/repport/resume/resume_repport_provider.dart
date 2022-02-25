@@ -65,6 +65,7 @@ class ResumeRepportProvider with ChangeNotifier {
   bool odrderByCurrentDistance = true;
   void updateByCurrentDistance(_) {
     resumes.sort((r1, r2) => r1.lastOdometerKm.compareTo(r2.lastOdometerKm));
+    resumes.sort((r1, r2) => r1.colorG.compareTo(r2.colorG));
     if (!odrderByCurrentDistance) resumes = resumes.reversed.toList();
     odrderByCurrentDistance = !odrderByCurrentDistance;
     selectedIndex = 3;
@@ -79,7 +80,6 @@ class ResumeRepportProvider with ChangeNotifier {
     if (!odrderByCurrentSpeed) resumes = resumes.reversed.toList();
     odrderByCurrentSpeed = !odrderByCurrentSpeed;
     selectedIndex = 4;
-
     notifyListeners();
   }
 
@@ -89,7 +89,6 @@ class ResumeRepportProvider with ChangeNotifier {
     if (!odrderByMaxSpeed) resumes = resumes.reversed.toList();
     odrderByMaxSpeed = !odrderByMaxSpeed;
     selectedIndex = 5;
-
     notifyListeners();
   }
 
@@ -197,8 +196,8 @@ class ResumeRepportProvider with ChangeNotifier {
     }
     if (res.isNotEmpty) {
       _resumes = repportResumeModelFromJson(res);
+      _loadingResumeRepport = false;
       notifyListeners();
     }
-    _loadingResumeRepport = false;
   }
 }

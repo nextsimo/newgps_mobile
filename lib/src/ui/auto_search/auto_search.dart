@@ -212,7 +212,7 @@ class OptionItem extends StatelessWidget {
       onTap: () {
         LastPositionProvider lastPositionProvider =
             Provider.of<LastPositionProvider>(context, listen: false);
-        lastPositionProvider.fetchAll = false;
+        lastPositionProvider.markersProvider.fetchGroupesDevices = false;
         onSelectDevice(device);
         deviceProvider.selectedDevice = device;
         focusNode.unfocus();

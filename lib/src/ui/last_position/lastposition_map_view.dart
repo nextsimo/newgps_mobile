@@ -12,17 +12,18 @@ class LastpositionMap extends StatefulWidget {
   State<LastpositionMap> createState() => _LastpositionMapState();
 }
 
-class _LastpositionMapState extends State<LastpositionMap> with WidgetsBindingObserver{
+class _LastpositionMapState extends State<LastpositionMap>
+    with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addObserver(this);
   }
 
-    @override
+  @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    if( !mounted ) return;
+    if (!mounted) return;
     if (state == AppLifecycleState.resumed) {
       LastPositionProvider lastPositionProvider =
           Provider.of<LastPositionProvider>(context, listen: false);
@@ -34,13 +35,13 @@ class _LastpositionMapState extends State<LastpositionMap> with WidgetsBindingOb
   Widget build(BuildContext context) {
     DeviceProvider deviceProvider =
         Provider.of<DeviceProvider>(context, listen: false);
-                context.select<DeviceProvider, MapType>((value) => value.mapType);
+    context.select<DeviceProvider, MapType>((value) => value.mapType);
 
     LastPositionProvider p =
         Provider.of<LastPositionProvider>(context, listen: false);
     return StreamBuilder(
         stream: Stream.periodic(const Duration(seconds: 11), (_) async {
-          return await p.fetch(context);
+          return p.fetch(context);
         }),
         builder: (context, snapshot) {
           LastPositionProvider provider =

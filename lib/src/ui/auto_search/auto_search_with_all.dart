@@ -162,9 +162,8 @@ class OptionViewBuilderWidget extends StatelessWidget {
     return InkWell(
       onTap: () async {
         focusNode.unfocus();
-        lastPositionProvider.setDevicesMareker(
-          fromSelect: true
-        );
+        lastPositionProvider.markersProvider.fetchGroupesDevices = true;
+        lastPositionProvider.setDevicesMareker(fromSelect: true);
         lastPositionProvider.handleSelectDevice();
         deviceProvider.infoModel = null;
       },
@@ -282,6 +281,7 @@ class OptionItem extends StatelessWidget {
         onSelectDevice(device);
         deviceProvider.selectedDevice = device;
         focusNode.unfocus();
+        lastPositionProvider.markersProvider.fetchGroupesDevices = false;
         await lastPositionProvider.fetchDevice(device.deviceId,
             isSelected: true);
       },

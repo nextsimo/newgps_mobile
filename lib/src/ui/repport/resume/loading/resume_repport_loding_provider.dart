@@ -27,7 +27,7 @@ class ResumeReportLoadingProvider with ChangeNotifier {
       if (d.equipmentType == 'FMB140') {
         await Future.delayed(const Duration(milliseconds: 126));
       } else {
-        await Future.delayed(const Duration(milliseconds: 90));
+        await Future.delayed(const Duration(milliseconds: 35));
       }
       value = value + frame;
     }

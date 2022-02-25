@@ -24,7 +24,7 @@ class HistoricProvider with ChangeNotifier {
   late DateTime dateFrom;
   late DateTime dateTo;
 
-   GoogleMapController? mapController;
+  GoogleMapController? mapController;
 
   late DateTime selectedDateFrom;
   late DateTime selectedDateTo;
@@ -99,23 +99,23 @@ class HistoricProvider with ChangeNotifier {
     selectedIndex = index;
     switch (index) {
       case 0:
-        speedDuration = const Duration(milliseconds: 900);
+        speedDuration = const Duration(milliseconds: 1300);
         break;
       case 1:
-        speedDuration = const Duration(milliseconds: 600);
+        speedDuration = const Duration(milliseconds: 800);
         break;
       case 2:
-        speedDuration = const Duration(milliseconds: 400);
+        speedDuration = const Duration(milliseconds: 500);
         break;
       case 3:
-        speedDuration = const Duration(milliseconds: 200);
+        speedDuration = const Duration(milliseconds: 160);
         break;
       default:
     }
     notifyListeners();
   }
 
-  Duration speedDuration = const Duration(milliseconds: 500);
+  Duration speedDuration = const Duration(milliseconds: 1300);
   void playHistoric() async {
     playedMarkers.clear();
     line.clear();
@@ -276,7 +276,8 @@ class HistoricProvider with ChangeNotifier {
   }
 
   void handleSelectDevice() {
-    autoSearchController.text = deviceProvider.selectedDevice?.description ?? '';
+    autoSearchController.text =
+        deviceProvider.selectedDevice?.description ?? '';
   }
 
   Future<void> fetchInfoData() async {
@@ -343,14 +344,13 @@ class HistoricProvider with ChangeNotifier {
     );
   }
 
-
   Future<void> fetchHistorics([int page = 1, bool init = false]) async {
     histoLine = {};
     histoLine.clear();
     playedMarkers = {};
-  WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-    loading = true;
-  });
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      loading = true;
+    });
     if (init) {
       _loading = true;
       markers = {};
@@ -382,7 +382,7 @@ class HistoricProvider with ChangeNotifier {
       if (historicModel.currentPage < historicModel.lastPage) {
         fetchHistorics(++page);
         return;
-      }      /*  moveCamera(markers.first.position);
+      } /*  moveCamera(markers.first.position);
       mapController?.moveCamera(CameraUpdate.newCameraPosition(
           const CameraPosition(
               target: LatLng(32.300815, -9.227203), zoom: 5.5)));

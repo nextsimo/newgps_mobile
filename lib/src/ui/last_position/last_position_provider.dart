@@ -14,7 +14,6 @@ import 'package:newgps/src/ui/last_position/markers_provider.dart';
 class LastPositionProvider with ChangeNotifier {
   late List<Device> _devices = [];
   late Set<Polyline> polylines = {};
-  late bool fetchAll = true;
   late DateTime lastDateFetchDevices = DateTime.now();
   late bool notifyMap = false;
 
@@ -35,6 +34,7 @@ class LastPositionProvider with ChangeNotifier {
   }
 
   Future<void> fetch(BuildContext context) async {
+    debugPrint("----------------> ${markersProvider.fetchGroupesDevices}");
     if (markersProvider.fetchGroupesDevices) {
       await fetchDevices(context);
     } else {
@@ -112,7 +112,7 @@ class LastPositionProvider with ChangeNotifier {
   void fresh() {
     _devices = [];
     polylines = {};
-    fetchAll = true;
+    markersProvider.fetchGroupesDevices = true;
     lastDateFetchDevices = DateTime.now();
     notifyMap = false;
     mapController = null;
@@ -120,7 +120,6 @@ class LastPositionProvider with ChangeNotifier {
     markersProvider.clusterItemsText = [];
     markersProvider.clusterMarkers = {};
     markersProvider.onMarker = {};
-    markersProvider.fetchGroupesDevices = true;
     markersProvider.showMatricule = false;
     markersProvider.showCluster = false;
     markersProvider.devices = [];
@@ -137,16 +136,17 @@ class LastPositionProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> moveCamera(LatLng pos, {double zoom = 6}) async {
+  Future<void> moveCamera(LatLng pos,
+      {double zoom = 6, double tilt = 0.0, double bearing = 0}) async {
     await mapController?.animateCamera(CameraUpdate.newCameraPosition(
-      CameraPosition(target: pos, zoom: zoom),
+      CameraPosition(target: pos, zoom: zoom, tilt: tilt, bearing: bearing),
     ));
   }
 
   Future<void> fetchInitDevice(BuildContext context,
       {bool init = false}) async {
     if (_init) {
-      if (fetchAll) {
+      if (markersProvider.fetchGroupesDevices) {
         await fetchDevices(context);
       } else {
         await fetchDevice(deviceProvider.selectedDevice!.deviceId);
@@ -161,16 +161,14 @@ class LastPositionProvider with ChangeNotifier {
   }
 
   void handleSelectDevice({bool notify = true}) {
-    if (fetchAll) {
-      markersProvider.fetchGroupesDevices = true;
+    if (markersProvider.fetchGroupesDevices) {
       autoSearchController.text = 'Touts les véhicules';
     } else {
-      markersProvider.fetchGroupesDevices = false;
       autoSearchController.text = deviceProvider.selectedDevice!.description;
     }
   }
 
-  void onTapEnter(String val) {
+/*   void onTapEnter(String val) {
     deviceProvider.selectedDevice = devices.firstWhere(
       (device) {
         return device.description.toLowerCase().contains(val.toLowerCase());
@@ -179,7 +177,7 @@ class LastPositionProvider with ChangeNotifier {
     handleSelectDevice();
     notifyListeners();
     fetchDevice(deviceProvider.selectedDevice!.deviceId);
-  }
+  } */
 
   void updateSimpleClusterMarkers(Set<Marker> ms) {
     markersProvider.clusterMarkers = ms;
@@ -208,11 +206,60 @@ class LastPositionProvider with ChangeNotifier {
   }
 
   late bool loadingRoute = false;
+  bool navigationStarted = false;
+
+  void _setMapFitToTour(Set<Polyline> p) {
+    double minLat = p.first.points.first.latitude;
+    double minLong = p.first.points.first.longitude;
+    double maxLat = p.first.points.first.latitude;
+    double maxLong = p.first.points.first.longitude;
+    for (var poly in p) {
+      for (var point in poly.points) {
+        if (point.latitude < minLat) minLat = point.latitude;
+        if (point.latitude > maxLat) maxLat = point.latitude;
+        if (point.longitude < minLong) minLong = point.longitude;
+        if (point.longitude > maxLong) maxLong = point.longitude;
+      }
+    }
+
+    mapController?.moveCamera(CameraUpdate.newLatLngBounds(
+        LatLngBounds(
+            southwest: LatLng(minLat, minLong),
+            northeast: LatLng(maxLat, maxLong)),
+        90));
+  }
 
   Future<void> buildRoutes() async {
-    if (polylines.isNotEmpty) {
+    if (polylines.isNotEmpty && navigationStarted) {
+      navigationStarted = false;
       polylines.clear();
       notifyTheMap();
+      moveCamera(
+          LatLng(deviceProvider.selectedDevice!.latitude,
+              deviceProvider.selectedDevice!.longitude),
+          zoom: 14);
+      return;
+    } else if (polylines.isNotEmpty && !navigationStarted) {
+      navigationStarted = true;
+
+      Position position =
+          await GeolocatorPlatform.instance.getCurrentPosition();
+      double b = GeolocatorPlatform.instance.bearingBetween(
+        polylines.first.points.first.latitude,
+        polylines.first.points.first.longitude,
+        polylines.first.points[9].latitude,
+        polylines.first.points[9].longitude,
+      );
+
+      moveCamera(
+          LatLng(
+            position.latitude,
+            position.longitude,
+          ),
+          zoom: 14,
+          tilt: 90,
+          bearing: b);
+
       return;
     }
 
@@ -234,6 +281,7 @@ class LastPositionProvider with ChangeNotifier {
       ),
     );
     loadingRoute = false;
+    _setMapFitToTour(polylines);
     notifyTheMap();
   }
 
@@ -259,8 +307,6 @@ class LastPositionProvider with ChangeNotifier {
 
     Account? account = shared.getAccount();
 
-    fetchAll = false;
-    markersProvider.fetchGroupesDevices = false;
     markersProvider.simpleMarkers = {};
     notifyListeners();
 
@@ -280,7 +326,6 @@ class LastPositionProvider with ChangeNotifier {
       await fetchInfoData();
       markersProvider.onMarker.clear();
       markersProvider.onMarker.add(markersProvider.getSimpleMarker(device));
-      markersProvider.fetchGroupesDevices = false;
       notifyListeners();
     }
     await Future.delayed(const Duration(seconds: 1));
@@ -297,10 +342,11 @@ class LastPositionProvider with ChangeNotifier {
   }
 
   Future<void> setDevicesMareker({bool fromSelect = false}) async {
-    if (fromSelect) normaleView();
-    fetchAll = true;
+    if (fromSelect) {
+      normaleView();
+    }
     polylines = {};
-    lastDateFetchDevices = DateTime.now();
+    navigationStarted = false;
     _devices = deviceProvider.devices;
     if (_devices.length == 1) deviceProvider.selectedDevice = _devices.first;
     markersProvider.simpleMarkers.clear();
@@ -311,7 +357,6 @@ class LastPositionProvider with ChangeNotifier {
       markersProvider.simpleMarkers.add(marker);
       markersProvider.textMakers.add(textmarker);
     }
-    markersProvider.fetchGroupesDevices = true;
     _loading = false;
     debugPrint('end /api/devices called from last position');
     notifyListeners();
@@ -319,11 +364,11 @@ class LastPositionProvider with ChangeNotifier {
 
   bool _loading = false;
   Future<void> fetchDevices(BuildContext context) async {
+    lastDateFetchDevices = DateTime.now();
     if (_loading) return;
+    debugPrint("-----------------------> ${lastDateFetchDevices.second}");
     debugPrint('start /api/devices called from last position');
     _loading = true;
-
-    //notifyListeners();
     await deviceProvider.fetchDevices();
     await setDevicesMareker();
   }

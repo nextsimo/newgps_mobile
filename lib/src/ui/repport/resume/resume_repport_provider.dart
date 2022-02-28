@@ -220,7 +220,7 @@ class ResumeRepportProvider with ChangeNotifier {
         'date_from': (provider.dateFrom.millisecondsSinceEpoch / 1000),
         'date_to': (provider.dateTo.millisecondsSinceEpoch / 1000),
         'page': page,
-        'items': page > 1 ? 20 : 70
+        'items': page > 1 ? 40 : 70
       },
     );
     if (download) {

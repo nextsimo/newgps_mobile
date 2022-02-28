@@ -239,13 +239,10 @@ class _BuildTableState extends State<_BuildTable> {
             ],
           ),
           if (proivder.loading)
-            const Material(
-              child: Center(
-                child: SizedBox(
-                  width: 90,
-                  height: 90,
-                  child: CircularProgressIndicator(),
-                ),
+             Material(
+              color: Colors.transparent.withOpacity(0.5),
+              child: const Center(
+                child:  ResumeRepportLoading(),
               ),
             ),
         ],

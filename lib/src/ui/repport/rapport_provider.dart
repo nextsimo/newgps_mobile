@@ -92,7 +92,7 @@ class RepportProvider with ChangeNotifier {
     handleSelectDevice();
   }
 
-  bool _isFetching = true;
+  bool _isFetching = false;
 
   bool get isFetching => _isFetching;
 

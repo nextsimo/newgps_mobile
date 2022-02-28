@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:newgps/src/models/device.dart';
+import 'package:newgps/src/services/device_provider.dart';
 import 'package:newgps/src/services/newgps_service.dart';
 import 'package:newgps/src/utils/styles.dart';
+import 'package:provider/provider.dart';
 
 typedef HandleSelectDevice = void Function();
 typedef OnClickAll = void Function();
@@ -26,7 +28,8 @@ class AutoSearchWithAllWidget extends StatefulWidget {
       required this.clearTextController,
       required this.controller,
       required this.onSelectDevice,
-      this.width, this.withoutAll =false})
+      this.width,
+      this.withoutAll = false})
       : super(key: key);
 
   @override
@@ -98,7 +101,6 @@ class _AutoSearchWithAllWidgetState extends State<AutoSearchWithAllWidget> {
               onSelectDevice2: widget.onSelectDevice,
               handleSelectDevice: widget.handleSelectDevice,
               onClickAll: widget.onClickAll,
-              devices: devices.toList(),
               onSelectDevice: deviceFunc,
               width: widget.width,
             );
@@ -179,13 +181,11 @@ class OptionViewBuilderWidget extends StatelessWidget {
   final OnSelectDevice onSelectDevice2;
   final bool withoutAll;
 
-  final List<Device> devices;
   final void Function(Device) onSelectDevice;
   final HandleSelectDevice handleSelectDevice;
 
   const OptionViewBuilderWidget({
     Key? key,
-    required this.devices,
     required this.onSelectDevice,
     required this.onClickAll,
     required this.handleSelectDevice,
@@ -219,9 +219,9 @@ class OptionViewBuilderWidget extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-             Text(
-              withoutAll?  'Sélectionner une vehicule' :'Touts les véhicules' ,
-              style: const  TextStyle(
+            Text(
+              withoutAll ? 'Sélectionner une vehicule' : 'Touts les véhicules',
+              style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
               ),
@@ -248,6 +248,10 @@ class OptionViewBuilderWidget extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     bool _isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
+
+    DeviceProvider provider =
+        Provider.of<DeviceProvider>(context);
+    List<Device> devices = provider.devices;
     return Material(
       color: Colors.transparent,
       child: InkWell(

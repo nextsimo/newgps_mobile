@@ -5,6 +5,8 @@ import 'package:newgps/src/ui/last_position/last_position_provider.dart';
 import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../connected_device/connected_device_provider.dart';
+
 class LoginAsView extends StatelessWidget {
   const LoginAsView({Key? key}) : super(key: key);
 
@@ -89,7 +91,10 @@ class _BuildLoginAsWidgetState extends State<_BuildLoginAsWidget> {
                 lastPositionProvider: lastPositionProvider,
                 context: context); */
             setState(() => loading = false);
-
+            ConnectedDeviceProvider connectedDeviceProvider =
+                Provider.of(context, listen: false);
+            connectedDeviceProvider.updateConnectedDevice(true);
+            connectedDeviceProvider.createNewConnectedDeviceHistoric(true);
             Navigator.of(context).pushNamedAndRemoveUntil('/', (_) => false);
           } else {
             ///errorText = 'Mot de passe ou account est inccorect';
@@ -128,7 +133,8 @@ class _BuildLoginAsWidgetState extends State<_BuildLoginAsWidget> {
               ),
             if (!loading)
               Icon(
-                (widget.savedAccount.underUser ==null || widget.savedAccount.underUser!.isEmpty)
+                (widget.savedAccount.underUser == null ||
+                        widget.savedAccount.underUser!.isEmpty)
                     ? Icons.person
                     : Icons.supervisor_account,
                 size: 17,

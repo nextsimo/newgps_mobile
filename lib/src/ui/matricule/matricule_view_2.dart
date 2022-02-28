@@ -271,11 +271,13 @@ class BuildTextCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        content,
-        textAlign: TextAlign.center,
-        style: const TextStyle(fontSize: 8, fontWeight: FontWeight.w600),
+    return Expanded(
+      child: Center(
+        child: Text(
+          content,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 8, fontWeight: FontWeight.w600),
+        ),
       ),
     );
   }

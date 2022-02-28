@@ -162,50 +162,92 @@ class ResumeRepport extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final RepportProvider repportProvider = Provider.of(context, listen: false);
-    return ChangeNotifierProvider<ResumeRepportProvider>(
-        create: (__) => ResumeRepportProvider(repportProvider),
+    return ChangeNotifierProvider<ResumeRepportProvider>.value(
+        value: locator<ResumeRepportProvider>(),
         builder: (context, snapshot) {
+          final RepportProvider repportProvider =
+              Provider.of(context, listen: false);
+
           ResumeRepportProvider resumeRepportProvider =
-              Provider.of<ResumeRepportProvider>(context);
-          List<RepportResumeModel> resumes = resumeRepportProvider.resumes;
+              Provider.of<ResumeRepportProvider>(context, listen: false);
+          resumeRepportProvider.init(repportProvider);
 
-
-          if (resumes.isEmpty) {
-            return const ResumeRepportLoading();
-          }
-          return _BuildTable(resumes: resumes);
+          return Consumer<ResumeRepportProvider>(
+            builder: (_, p, __) {
+              if (p.resumes.isEmpty) {
+                return const ResumeRepportLoading();
+              }
+              return const _BuildTable();
+            },
+          );
         });
   }
 }
 
-class _BuildTable extends StatelessWidget {
+class _BuildTable extends StatefulWidget {
   const _BuildTable({
     Key? key,
-    required this.resumes,
   }) : super(key: key);
 
-  final List<RepportResumeModel> resumes;
+  @override
+  State<_BuildTable> createState() => _BuildTableState();
+}
+
+class _BuildTableState extends State<_BuildTable> {
+  final ScrollController scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    Provider.of<ResumeRepportProvider>(context, listen: false)
+        .initScrolleController(scrollController);
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    ResumeRepportProvider proivder =
+        Provider.of<ResumeRepportProvider>(context);
+    var resumes = proivder.resumes;
+
     return SafeArea(
       right: false,
       top: false,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Stack(
         children: [
-          const BuildHead(),
-          Expanded(
-            child: ListView.builder(
-              physics: const ClampingScrollPhysics(),
-              itemBuilder: (_, int index) {
-                RepportResumeModel repport = resumes.elementAt(index);
-                return RepportRow(repport: repport);
-              },
-              itemCount: resumes.length,
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const BuildHead(),
+              Expanded(
+                child: ListView.builder(
+                  controller: scrollController,
+                  physics: const ClampingScrollPhysics(),
+                  itemBuilder: (_, int index) {
+                    RepportResumeModel repport = resumes.elementAt(index);
+                    return RepportRow(repport: repport);
+                  },
+                  itemCount: resumes.length,
+                ),
+              ),
+            ],
           ),
+          if (proivder.loading)
+            const Material(
+              child: Center(
+                child: SizedBox(
+                  width: 90,
+                  height: 90,
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+            ),
         ],
       ),
     );
@@ -232,7 +274,9 @@ class RepportRow extends StatelessWidget {
       child: Row(
         children: [
           const BuildDivider(height: 10),
-          BuildTextCell('${repport.index}', flex: 1),
+          BuildTextCell(
+              '${locator<ResumeRepportProvider>().resumes.indexOf(repport) + 1}',
+              flex: 1),
           const BuildDivider(height: 10),
           Expanded(
             flex: 4,

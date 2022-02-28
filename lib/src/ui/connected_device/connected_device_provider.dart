@@ -61,7 +61,7 @@ class ConnectedDeviceProvider with ChangeNotifier {
     _conctedDevices = conctedDevices;
     notifyListeners();
   }
-  
+
   Future<void> _setConnectedToTrue() async {
     Account? account = shared.getAccount();
     Map<String, String?> deviceInfo = await _getDeviceInfo();
@@ -102,6 +102,21 @@ class ConnectedDeviceProvider with ChangeNotifier {
       'device_uid': deviceInfo['device_uid'],
       'os': deviceInfo['os'],
       'is_connected': true,
+    });
+  }
+
+  Future<void> createNewConnectedDeviceHistoric(bool state) async {
+    Account? account = shared.getAccount();
+    Map<String, String?> deviceInfo = await _getDeviceInfo();
+    await api.post(url: '/connected/devices/create2', body: {
+      'account_id': account?.account.accountId,
+      'user_id': account?.account.userID,
+      'device_brand': deviceInfo['device_brand'],
+      'platform': deviceInfo['platform'],
+      'device_uid': deviceInfo['device_uid'],
+      'os': deviceInfo['os'],
+      'is_connected': true,
+      'connected_state': state,
     });
   }
 

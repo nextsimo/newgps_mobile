@@ -9,8 +9,7 @@ import 'package:provider/provider.dart';
 import 'audio_widget.dart';
 
 class LogoutButton extends StatelessWidget {
-  final bool pop;
-  const LogoutButton({Key? key, this.pop = false}) : super(key: key);
+  const LogoutButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,14 +47,16 @@ class _LogoutButtonLandscape extends StatelessWidget {
                       Provider.of(context, listen: false);
                   HistoricProvider historicProvider =
                       Provider.of(context, listen: false);
-                  ConnectedDeviceProvider connectedDeviceProvider =
-                      Provider.of(context, listen: false);
+
                   lastPositionProvider.fresh();
                   historicProvider.fresh();
-                  connectedDeviceProvider.updateConnectedDevice(false);
                 } catch (e) {
                   debugPrint(e.toString());
                 }
+                ConnectedDeviceProvider connectedDeviceProvider =
+                    Provider.of(context, listen: false);
+                connectedDeviceProvider.updateConnectedDevice(false);
+                connectedDeviceProvider.createNewConnectedDeviceHistoric(false);
                 Navigator.of(context).pushNamed('/login');
               },
               label: 'Déconnexion',
@@ -104,6 +105,7 @@ class _LogoutButtonPortrait extends StatelessWidget {
                 ConnectedDeviceProvider connectedDeviceProvider =
                     Provider.of(context, listen: false);
                 connectedDeviceProvider.updateConnectedDevice(false);
+                connectedDeviceProvider.createNewConnectedDeviceHistoric(false);
 
                 Navigator.of(context)
                     .pushNamedAndRemoveUntil('/login', (_) => false);

@@ -5,14 +5,14 @@ import 'package:newgps/src/ui/repport/rapport_provider.dart';
 import 'package:provider/provider.dart';
 
 class AutoSearchField extends StatefulWidget {
-  const  AutoSearchField({Key? key}) : super(key: key);
+  const AutoSearchField({Key? key}) : super(key: key);
 
   @override
   State<AutoSearchField> createState() => _AutoSearchFieldState();
 }
 
 class _AutoSearchFieldState extends State<AutoSearchField> {
-    late FocusNode _focusNode;
+  late FocusNode _focusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +131,7 @@ class _BuildTextFieldState extends State<_BuildTextField> {
           suffixText: widget.focus.hasFocus
               ? ''
               : '${widget.repportProvider.devices.length}',
-          contentPadding: const EdgeInsets.fromLTRB(10, 14,10,0),
+          contentPadding: const EdgeInsets.fromLTRB(10, 14, 10, 0),
           filled: true,
           suffixIcon: const Icon(Icons.arrow_drop_down, size: 15),
           suffixIconConstraints: const BoxConstraints(),
@@ -156,7 +156,8 @@ class OptionViewBuilderWidget extends StatelessWidget {
     Key? key,
     required this.devices,
     required this.onSelectRepportResumeModel,
-    required this.repportProvider,required this.focusNode,
+    required this.repportProvider,
+    required this.focusNode,
   }) : super(key: key);
 
   @override
@@ -176,7 +177,7 @@ class OptionViewBuilderWidget extends StatelessWidget {
         child: Align(
           alignment: Alignment.topLeft,
           child: Container(
-          width: 180,
+            width: 180,
             constraints: BoxConstraints(
               maxHeight: _isPortrait
                   ? (size.height * 0.44)
@@ -213,7 +214,8 @@ class OptionViewBuilderWidget extends StatelessWidget {
         provider.autoSearchTextController.text = 'Touts les véhicules';
         repportProvider.selectAllDevices = true;
 
-        if (provider.selectedRepport.index != 0) {
+        if (provider.selectedRepport.index != 0 &&
+            provider.selectedRepport.index != 4) {
           provider.selectedRepport = provider.repportsType.first;
         }
       },
@@ -259,7 +261,8 @@ class OptionItem extends StatelessWidget {
     Key? key,
     required this.onSelectRepportResumeModel,
     required this.repportProvider,
-    required this.device,required this.focusNode,
+    required this.device,
+    required this.focusNode,
   }) : super(key: key);
 
   final void Function(Device p1) onSelectRepportResumeModel;

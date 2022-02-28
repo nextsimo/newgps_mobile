@@ -12,22 +12,43 @@ class ResumeRepportProvider with ChangeNotifier {
 
   List<RepportResumeModel> get resumes => _resumes;
 
+  late ScrollController scrollController;
+
   set resumes(List<RepportResumeModel> resumes) {
     _resumes = resumes;
     notifyListeners();
   }
 
   late Timer _timer;
-
-  ResumeRepportProvider(RepportProvider repportProvider) {
-    fetch(repportProvider: repportProvider);
+  late RepportProvider provider;
+  void init(RepportProvider repportProvider) {
+    provider = repportProvider;
+    fetch(page: 1);
     _timer = Timer.periodic(const Duration(seconds: 12), (_) {
-      fetch(repportProvider: repportProvider);
+      if (repportProvider.isFetching) refresh();
     });
+  }
+
+  void initScrolleController(ScrollController sc) {
+    scrollController = sc;
+
+    scrollController.addListener(scrollControllerListenr);
+  }
+
+  bool _stopPagination = false;
+  int page = 1;
+  void scrollControllerListenr() {
+    if (scrollController.position.pixels >=
+        scrollController.position.maxScrollExtent) {
+      if (_loadingResumeRepport) return;
+      page++;
+      if (!_stopPagination) fetch(page: page);
+    }
   }
 
   @override
   void dispose() {
+    scrollController.removeListener(scrollControllerListenr);
     _timer.cancel();
     super.dispose();
   }
@@ -65,7 +86,6 @@ class ResumeRepportProvider with ChangeNotifier {
   bool odrderByCurrentDistance = true;
   void updateByCurrentDistance(_) {
     resumes.sort((r1, r2) => r1.lastOdometerKm.compareTo(r2.lastOdometerKm));
-    resumes.sort((r1, r2) => r1.colorG.compareTo(r2.colorG));
     if (!odrderByCurrentDistance) resumes = resumes.reversed.toList();
     odrderByCurrentDistance = !odrderByCurrentDistance;
     selectedIndex = 3;
@@ -75,8 +95,16 @@ class ResumeRepportProvider with ChangeNotifier {
 
   bool odrderByCurrentSpeed = true;
   void updateByCurrentSpeed(_) {
-    resumes
-        .sort((r1, r2) => r1.lastValidSpeedKph.compareTo(r2.lastValidSpeedKph));
+    resumes.sort((r1, r2) {
+      if (r1.statut != 'En Route' &&
+          r2.statut != 'En Route' &&
+          r1.lastValidSpeedKph == 0 &&
+          r2.lastValidSpeedKph == 0) {
+        return r1.statut.compareTo(r2.statut);
+      }
+
+      return r1.lastValidSpeedKph.compareTo(r2.lastValidSpeedKph);
+    });
     if (!odrderByCurrentSpeed) resumes = resumes.reversed.toList();
     odrderByCurrentSpeed = !odrderByCurrentSpeed;
     selectedIndex = 4;
@@ -172,28 +200,64 @@ class ResumeRepportProvider with ChangeNotifier {
 
   bool _loadingResumeRepport = false;
 
-  Future<void> fetch(
-      {int index = 0,
-      bool download = false,
-      required RepportProvider repportProvider}) async {
+  bool loading = false;
+
+  Future<void> fetch({bool download = false, int page = 0}) async {
     if (_loadingResumeRepport) return;
     _loadingResumeRepport = true;
+    if (page > 1) {
+      loading = true;
+      notifyListeners();
+    }
     Account? account = shared.getAccount();
     String res;
     res = await api.post(
-      url: '/repport/resume/$index',
+      url: '/repport/resume',
       body: {
         'account_id': account?.account.accountId,
         'user_id': account?.account.userID,
         'download': download,
-        'date_from': (repportProvider.dateFrom.millisecondsSinceEpoch / 1000),
-        'date_to': (repportProvider.dateTo.millisecondsSinceEpoch / 1000),
+        'date_from': (provider.dateFrom.millisecondsSinceEpoch / 1000),
+        'date_to': (provider.dateTo.millisecondsSinceEpoch / 1000),
+        'page': page,
+        'items': page > 1 ? 20 : 70
       },
     );
     if (download) {
       // download file
 
     }
+    if (res.isNotEmpty) {
+      var r = repportResumeModelFromJson(res);
+      if (r.isEmpty) {
+        _stopPagination = true;
+        return;
+      }
+      _resumes.addAll(r);
+      _loadingResumeRepport = false;
+      loading = false;
+    }
+
+    notifyListeners();
+  }
+
+  Future<void> refresh({bool download = false}) async {
+    if (_loadingResumeRepport) return;
+    _loadingResumeRepport = true;
+    Account? account = shared.getAccount();
+    String res;
+    res = await api.post(
+      url: '/repport/resume',
+      body: {
+        'account_id': account?.account.accountId,
+        'user_id': account?.account.userID,
+        'download': download,
+        'date_from': (provider.dateFrom.millisecondsSinceEpoch / 1000),
+        'date_to': (provider.dateTo.millisecondsSinceEpoch / 1000),
+        'page': 1,
+        'items': _resumes.length,
+      },
+    );
     if (res.isNotEmpty) {
       _resumes = repportResumeModelFromJson(res);
       _loadingResumeRepport = false;

@@ -97,7 +97,6 @@ class _BuildMapWidget extends StatelessWidget {
       right: _isPortrait ? 0 : -5,
       top: _isPortrait ? (isIOS ? 112 : 92) : (isIOS ? 58 : 86),
       child: const LogoutButton(
-        pop: true,
       ),
     );
   }

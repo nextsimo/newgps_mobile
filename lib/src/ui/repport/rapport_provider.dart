@@ -38,6 +38,10 @@ class RepportProvider with ChangeNotifier {
       index: 4,
       title: 'Rapport distance',
     ),
+    RepportTypeModel(
+      index: 5,
+      title: 'Rapport connexion',
+    ),
   ];
 
   Future<void> downloadDocument(BuildContext context) async {
@@ -279,6 +283,7 @@ class RepportProvider with ChangeNotifier {
 
   void _initDate() {
     dateFrom = DateTime(dateTo.year, dateTo.month, dateTo.day, 0, 0, 0, 1);
+    dateTo = DateTime(dateTo.year, dateTo.month, dateTo.day, 23, 59, 0, 0);
     selectedTimeFrom = dateFrom;
     selectedTimeTo = dateTo;
   }
@@ -293,7 +298,14 @@ class RepportProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  bool selectAllDevices = true;
+  bool _selectAllDevices = true;
+
+  bool get selectAllDevices => _selectAllDevices;
+
+  set selectAllDevices(bool selectAllDevices) {
+    _selectAllDevices = selectAllDevices;
+    notifyListeners();
+  }
 
   RepportProvider(List<Device> ds) {
     devices = ds;

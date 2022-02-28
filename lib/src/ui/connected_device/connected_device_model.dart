@@ -1,42 +1,48 @@
 import 'dart:convert';
 
-List<ConnectedDeviceModel> connectedDeviceModelFromJson(String str) => List<ConnectedDeviceModel>.from(json.decode(str).map((x) => ConnectedDeviceModel.fromJson(x)));
+List<ConnectedDeviceModel> connectedDeviceModelFromJson(String str) =>
+    List<ConnectedDeviceModel>.from(
+        json.decode(str).map((x) => ConnectedDeviceModel.fromJson(x)));
 
-String connectedDeviceModelToJson(List<ConnectedDeviceModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String connectedDeviceModelToJson(List<ConnectedDeviceModel> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class ConnectedDeviceModel {
-    ConnectedDeviceModel({
-        required this.deviceUid,
-        required this.lastConnectedDate,
-        required this.deviceBrand,
-        required this.phoneNumber,
-        required this.platform,
-        required this.isConnected,
-        required this.lastLogoutDate,
-        required this.os,
-    });
+  ConnectedDeviceModel(
+      {required this.deviceUid,
+      required this.lastConnectedDate,
+      required this.deviceBrand,
+      required this.phoneNumber,
+      required this.platform,
+      required this.isConnected,
+      required this.lastLogoutDate,
+      required this.os,
+      required this.connectedState});
 
-    final String deviceUid;
-    final DateTime lastConnectedDate;
-    final String deviceBrand;
-    final String phoneNumber;
-    final String platform;
-    final bool isConnected;
-    final DateTime lastLogoutDate;
-    final String os;
+  final String deviceUid;
+  final DateTime lastConnectedDate;
+  final String deviceBrand;
+  final String phoneNumber;
+  final String platform;
+  final bool isConnected;
+  final DateTime lastLogoutDate;
+  final String os;
+  final bool connectedState;
 
-    factory ConnectedDeviceModel.fromJson(Map<String, dynamic> json) => ConnectedDeviceModel(
+  factory ConnectedDeviceModel.fromJson(Map<String, dynamic> json) =>
+      ConnectedDeviceModel(
         deviceUid: json["device_uid"],
         lastConnectedDate: DateTime.parse(json["last_connected_date"]),
         deviceBrand: json["device_brand"],
         phoneNumber: json["phone_number"] ?? '',
         platform: json["platform"],
         isConnected: json["is_connected"] == 1 ? true : false,
-        lastLogoutDate:DateTime.parse(json["last_logout_date"]),
-        os: json["os"]
-    );
+        lastLogoutDate: DateTime.parse(json["last_logout_date"]),
+        os: json["os_version"] ,
+        connectedState: json['connected_state'] ?? true,
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "device_uid": deviceUid,
         "last_connected_date": lastConnectedDate,
         "device_brand": deviceBrand,
@@ -44,5 +50,5 @@ class ConnectedDeviceModel {
         "platform": platform,
         "is_connected": isConnected,
         "last_logout_date": lastLogoutDate,
-    };
+      };
 }

@@ -53,18 +53,18 @@ class AlertView extends StatelessWidget {
       page: '/towing',
       inDev: false,
     ),
-    _AlertItem(
+/*     _AlertItem(
         icon: Icons.radio_button_on_sharp,
         label: 'Radar',
         page: '/radar',
-        inDev: false),
+        inDev: false), */
 
     _AlertItem(
         icon: Icons.fireplace,
         label: 'Température',
         page: '/temp',
         inDev: false),
-    _AlertItem(
+/*     _AlertItem(
         icon: Icons.flash_off_outlined,
         label: 'Débranchement',
         page: '/debranchement',
@@ -73,7 +73,7 @@ class AlertView extends StatelessWidget {
         icon: Icons.edit_road_rounded,
         label: 'Autoroute',
         page: '/highway',
-        inDev: false),
+        inDev: false), */
   ];
 
   @override

@@ -12,7 +12,14 @@ import 'package:newgps/src/widgets/buttons/main_button.dart';
 import 'package:provider/provider.dart';
 
 class DeviceProvider with ChangeNotifier {
-  List<Device> devices = [];
+  List<Device> _devices = [];
+
+  List<Device> get devices => _devices;
+
+  set devices(List<Device> devices) {
+    _devices = devices;
+    notifyListeners();
+  }
 
   bool _loading = true;
 

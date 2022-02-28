@@ -1,23 +1,26 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:newgps/src/services/device_provider.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/ui/driver_phone/driver_phone_provider.dart';
-import 'package:newgps/src/utils/locator.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/historic/historic_provider.dart';
-import 'package:newgps/src/ui/last_position/last_position_provider.dart';
-import 'package:newgps/src/ui/navigation/top_app_bar.dart';
-import 'package:newgps/src/ui/repport/details/repport_detials.dart';
-import 'package:newgps/src/ui/repport/rapport_provider.dart';
-import 'package:newgps/src/widgets/buttons/audio_widget.dart';
-import 'package:newgps/src/widgets/buttons/main_button.dart';
-import 'package:newgps/src/widgets/date_time_picker/date_map_picker.dart';
-import 'package:newgps/src/widgets/date_time_picker/time_range_widget.dart';
 import 'package:provider/provider.dart';
+import '../../services/device_provider.dart';
+import '../../services/newgps_service.dart';
+import '../../utils/locator.dart';
+import '../../utils/styles.dart';
+import '../../widgets/buttons/audio_widget.dart';
+import '../../widgets/buttons/main_button.dart';
+import '../../widgets/date_time_picker/date_map_picker.dart';
+import '../../widgets/date_time_picker/time_range_widget.dart';
+import '../connected_device/connected_device_provider.dart';
+import '../driver_phone/driver_phone_provider.dart';
+import '../historic/historic_provider.dart';
+import '../last_position/last_position_provider.dart';
+import '../navigation/top_app_bar.dart';
 import 'auto_search_repport_type.dart';
+import 'connexion/connxion_view.dart';
+import 'details/repport_detials.dart';
+import 'distance/view/distance_view.dart';
 import 'fuel/fuel_repport_view.dart';
+import 'rapport_provider.dart';
 import 'repport_auto_search.dart';
 import 'resume/resume_repport.dart';
 import 'trips/trips_view.dart';
@@ -101,9 +104,10 @@ class _BuildBody extends StatelessWidget {
                         return const FuelRepportView();
                       case 3:
                         return const TripsView();
-
                       case 4:
-                        return const TripsView();
+                        return const DistanceView();
+                      case 5:
+                        return const ConnexionRepportView();
                       default:
                         return const Material();
                     }
@@ -147,7 +151,8 @@ class _BuildHead extends StatelessWidget {
                 Row(
                   children: [
                     const SizedBox(width: 5),
-                    const AutoSearchField(),
+                    if (repportProvider.selectedRepport.index != 5)
+                      const AutoSearchField(),
                     const AutoSearchType(),
                     if (repportProvider.selectedRepport.index != 0)
                       DateTimePicker(
@@ -225,6 +230,8 @@ class _BuildHead extends StatelessWidget {
                       ),
                   ],
                 ),
+                if (repportProvider.selectedRepport.index == 5)
+                  const SizedBox(width: 180),
                 if (repportProvider.selectedRepport.index == 0)
                   SizedBox(
                       width: isPortrait
@@ -250,6 +257,11 @@ class _BuildHead extends StatelessWidget {
                         } catch (e) {
                           debugPrint(e.toString());
                         }
+                        ConnectedDeviceProvider connectedDeviceProvider =
+                            Provider.of(context, listen: false);
+                        connectedDeviceProvider.updateConnectedDevice(false);
+                        connectedDeviceProvider
+                            .createNewConnectedDeviceHistoric(false);
                         Navigator.of(context)
                             .pushNamedAndRemoveUntil('/login', (_) => false);
                       },

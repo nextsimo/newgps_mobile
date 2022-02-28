@@ -6,7 +6,6 @@ import '../../../utils/functions.dart';
 import '../../../utils/styles.dart';
 import '../../../widgets/buttons/main_button.dart';
 import '../../../widgets/show_devices_dialog.dart';
-import '../../login/login_as/save_account_provider.dart';
 import '../../navigation/top_app_bar.dart';
 import '../widgets/build_label.dart';
 import 'oil_change_view_provider.dart';
@@ -87,9 +86,6 @@ class _BuildPortraitContent extends StatelessWidget {
   Widget _buildStatusLabel(BuildContext context) {
     OilChangeAlertProvider provider =
         Provider.of<OilChangeAlertProvider>(context, listen: false);
-    var droit = Provider.of<SavedAcountProvider>(context, listen: false)
-        .userDroits
-        .droits[4];
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -142,9 +138,6 @@ class _BuildLandscapeContent extends StatelessWidget {
   Widget _buildStatusLabel(BuildContext context) {
     OilChangeAlertProvider provider =
         Provider.of<OilChangeAlertProvider>(context, listen: false);
-    var droit = Provider.of<SavedAcountProvider>(context, listen: false)
-        .userDroits
-        .droits[4];
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

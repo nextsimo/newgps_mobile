@@ -71,7 +71,6 @@ class _AutoSearchDeviceWithAllState extends State<AutoSearchDeviceWithAll> {
               void Function(Device device) deviceFunc, devices) {
             return OptionViewBuilderWidget(
               focusNode: _focusNode,
-              devices: devices.toList(),
               onSelectDevice: deviceFunc,
             );
           },
@@ -143,13 +142,11 @@ class BuildTextField extends StatelessWidget {
 }
 
 class OptionViewBuilderWidget extends StatelessWidget {
-  final List<Device> devices;
   final FocusNode focusNode;
   final void Function(Device) onSelectDevice;
 
   const OptionViewBuilderWidget({
     Key? key,
-    required this.devices,
     required this.onSelectDevice,
     required this.focusNode,
   }) : super(key: key);
@@ -206,11 +203,14 @@ class OptionViewBuilderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LastPositionProvider lastPositionProvider =
-        Provider.of<LastPositionProvider>(context, listen: false);
+        Provider.of<LastPositionProvider>(context);
     double bottom = MediaQuery.of(context).viewInsets.bottom;
     Size size = MediaQuery.of(context).size;
     bool _isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
+
+            List<Device> devices = deviceProvider.devices;
+
     return Material(
       color: Colors.transparent,
       child: InkWell(

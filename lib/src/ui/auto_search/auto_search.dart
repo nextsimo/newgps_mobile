@@ -8,19 +8,15 @@ import 'package:provider/provider.dart';
 
 class AutoSearchDevice extends StatefulWidget {
   final Future<void> Function(Device device)? onSelectDeviceFromOtherView;
-
   const AutoSearchDevice({Key? key, this.onSelectDeviceFromOtherView})
       : super(key: key);
-
   @override
   State<AutoSearchDevice> createState() => _AutoSearchDeviceState();
 }
 
 class _AutoSearchDeviceState extends State<AutoSearchDevice> {
   bool _init = true;
-
   late FocusNode _focusNode;
-
   @override
   Widget build(BuildContext context) {
     var outlineInputBorder = OutlineInputBorder(
@@ -77,7 +73,6 @@ class _AutoSearchDeviceState extends State<AutoSearchDevice> {
               void Function(Device device) deviceFunc, devices) {
             return OptionViewBuilderWidget(
               focusNode: _focusNode,
-              devices: devices.toList(),
               onSelectDevice: deviceFunc,
             );
           },
@@ -122,13 +117,11 @@ class _AutoSearchDeviceState extends State<AutoSearchDevice> {
 }
 
 class OptionViewBuilderWidget extends StatelessWidget {
-  final List<Device> devices;
   final FocusNode focusNode;
   final void Function(Device) onSelectDevice;
 
   const OptionViewBuilderWidget({
     Key? key,
-    required this.devices,
     required this.onSelectDevice,
     required this.focusNode,
   }) : super(key: key);
@@ -136,13 +129,13 @@ class OptionViewBuilderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DeviceProvider deviceProvider =
-        Provider.of<DeviceProvider>(context, listen: false);
+        Provider.of<DeviceProvider>(context);
     Size size = MediaQuery.of(context).size;
     bool _isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
 
     double bottom = MediaQuery.of(context).viewInsets.bottom;
-
+    List<Device> devices = deviceProvider.devices;
     return Material(
       color: Colors.transparent,
       child: InkWell(

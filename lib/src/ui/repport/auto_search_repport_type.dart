@@ -191,11 +191,10 @@ class OptionItem extends StatelessWidget {
         onSelectDevice(repportTypeModel);
         repportProvider.selectedRepport = repportTypeModel;
         focusNode.unfocus();
-
         if (repportTypeModel.index == 0 && !repportProvider.selectAllDevices) {
           repportProvider.selectAllDevices = true;
           repportProvider.handleSelectDevice();
-        } else if (repportTypeModel.index != 0 &&
+        } else if (repportTypeModel.index != 0 && repportTypeModel.index != 4 &&
             repportProvider.selectAllDevices) {
           repportProvider.selectedDevice = repportProvider.devices.first;
           repportProvider.selectAllDevices = false;

@@ -27,7 +27,7 @@ class CustomNavigationView extends StatelessWidget {
           Provider(create: (_) => FirebaseMessagingService(
 
           ), lazy: false),
-          Provider.value(value: navigationViewProvider)
+          Provider.value(value: navigationViewProvider),
         ],
         builder: (BuildContext context, __) {
           SavedAcountProvider pro =

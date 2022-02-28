@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newgps/src/services/firebase_messaging_service.dart';
 import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';
 import 'package:newgps/src/ui/navigation/top_app_bar.dart';
 import 'package:provider/provider.dart';
 import '../alert_widgets/shwo_all_device_widget.dart';
@@ -57,9 +56,7 @@ class HoodAlertView extends StatelessWidget {
   }
 
   _buildStatusLabel(BuildContext context, HoodAlertViewProvider provider) {
-    var droit = Provider.of<SavedAcountProvider>(context, listen: false)
-        .userDroits
-        .droits[4];
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

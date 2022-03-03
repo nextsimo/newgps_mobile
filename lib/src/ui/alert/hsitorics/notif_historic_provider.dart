@@ -137,6 +137,32 @@ class NotifHistoricPorvider with ChangeNotifier {
     notifyListeners();
   }
 
+
+    IconData getIcon(String type) {
+    switch (type) {
+      case 'fuel':
+        return Icons.ev_station_rounded;
+      case 'battery':
+        return Icons.battery_charging_full;
+      case 'geozone':
+        return const IconData(0xe802, fontFamily: 'geozone');
+      case 'speed':
+        return Icons.speed;
+      case 'startup':
+        return Icons.dangerous;
+      case 'imobility':
+        return Icons.verified_user_rounded;
+      case 'hood':
+        return Icons.radar;
+      case 'oil_change':
+        return Icons.ev_station_rounded;
+      case 'towing':
+        return Icons.stacked_line_chart_sharp;
+      default:
+        return Icons.car_repair_sharp;
+    }
+  }
+
   String getLabel(String type) {
     switch (type) {
       case 'fuel':
@@ -147,6 +173,16 @@ class NotifHistoricPorvider with ChangeNotifier {
         return 'vitesse';
       case 'geozone':
         return 'geozone';
+      case 'startup':
+        return 'demarage';
+      case 'imobility':
+        return 'Imobilisation';
+      case 'hood':
+        return 'Capot';
+      case 'oil_change':
+        return 'Vidange';
+      case 'towing':
+        return 'Dépannage';
       default:
         return '';
     }
@@ -223,7 +259,7 @@ class NotifHistoricPorvider with ChangeNotifier {
   Future<void> fetchHisto() async {
     loading = true;
     String res = await api.post(
-      url: '/notification/historics',
+      url: '/notification/historics2',
       body: await getBody(),
     );
     if (res.isNotEmpty) {

@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/device.dart';
-import 'package:newgps/src/services/device_provider.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/auto_search/auto_search.dart';
-import 'package:newgps/src/ui/historic/historic_provider.dart';
-import 'package:newgps/src/ui/historic/histroric_map_view.dart';
-import 'package:newgps/src/ui/historic/play_card.dart';
-import 'package:newgps/src/ui/last_position/card_info.dart';
-import 'package:newgps/src/ui/navigation/top_app_bar.dart';
-import 'package:newgps/src/widgets/buttons/appele_condcuteur_button.dart';
-import 'package:newgps/src/widgets/buttons/log_out_button.dart';
-import 'package:newgps/src/widgets/buttons/retate_icon_map.dart';
-import 'package:newgps/src/widgets/date_hour_widget.dart';
-import 'package:newgps/src/widgets/map_type_widget.dart';
+
 import 'package:provider/provider.dart';
+
+import '../../models/device.dart';
+import '../../services/device_provider.dart';
+import '../../utils/styles.dart';
+import '../../widgets/buttons/appele_condcuteur_button.dart';
+import '../../widgets/buttons/log_out_button.dart';
+import '../../widgets/buttons/retate_icon_map.dart';
+import '../../widgets/date_hour_widget.dart';
+import '../../widgets/map_type_widget.dart';
+import '../auto_search/auto_search.dart';
+import '../last_position/card_info.dart';
+import '../navigation/top_app_bar.dart';
+import 'historic_provider.dart';
+import 'histroric_map_view.dart';
+import 'play_card.dart';
 
 class HistoricView extends StatelessWidget {
   const HistoricView({Key? key}) : super(key: key);

@@ -26,4 +26,7 @@ class BuildTextCell extends StatelessWidget {
       ),
     );
   }
+
 }
+
+

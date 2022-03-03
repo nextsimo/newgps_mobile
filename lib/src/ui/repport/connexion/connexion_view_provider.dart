@@ -32,16 +32,16 @@ class ConnexionViewProvider with ChangeNotifier {
     loading = true;
     up = !up;
     switch (index) {
-      case 0:
+      case 1:
         orderBy = 'device_brand';
         break;
-      case 1:
+      case 2:
         orderBy = 'platform';
         break;
-      case 2:
+      case 3:
         orderBy = 'updated_at';
         break;
-      case 3:
+      case 4:
         orderBy = 'connected_state';
         break;
       default:

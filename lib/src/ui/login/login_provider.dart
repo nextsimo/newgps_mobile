@@ -72,7 +72,7 @@ class LoginProvider with ChangeNotifier {
     errorText = '';
     if (formKey.currentState!.validate()) {
       // request login
-
+      resumeRepportProvider.fresh();
       if (underCompteController.text.isNotEmpty) {
         await underAccountLogin(context);
         return;
@@ -85,6 +85,8 @@ class LoginProvider with ChangeNotifier {
         password: passwordController.text,
       );
       if (account != null) {
+        resumeRepportProvider.fresh();
+
         final LastPositionProvider lastPositionProvider =
             Provider.of<LastPositionProvider>(context, listen: false);
         final ConnectedDeviceProvider connectedDeviceProvider =

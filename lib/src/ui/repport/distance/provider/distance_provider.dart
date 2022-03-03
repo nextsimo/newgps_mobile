@@ -21,6 +21,28 @@ class DistanceRepportProvider with ChangeNotifier {
 
   bool loading = false;
 
+  late ScrollController scrollController;
+
+  bool _stopPagination = false;
+
+  void initContrtoller(ScrollController s) {
+    scrollController = s;
+    scrollController.addListener(_scrollListner);
+  }
+
+  @override
+  void dispose() {
+    scrollController.removeListener(_scrollListner);
+    super.dispose();
+  }
+
+  void _scrollListner() {
+    if (scrollController.position.pixels >=
+        scrollController.position.maxScrollExtent) {
+      if (!_stopPagination) fetchForAllDevices();
+    }
+  }
+
   void _init() {
     repport = RepportDistanceModel(
       distanceSum: 0,
@@ -67,11 +89,17 @@ class DistanceRepportProvider with ChangeNotifier {
       default:
         orderBy = 'description';
     }
-    await fetchForAllDevices();
+    await fetchForAllDevices(p: 1);
     loading = false;
   }
 
-  Future<void> fetchForAllDevices() async {
+  int page = 0;
+
+  Future<void> fetchForAllDevices({int? p}) async {
+    page++;
+    if (p != null) {
+      page = p;
+    }
     //_init();
     Account? account = shared.getAccount();
     String res = await api.post(
@@ -83,11 +111,24 @@ class DistanceRepportProvider with ChangeNotifier {
         'or': up ? 'asc' : 'desc',
         'date_from': provider.dateFrom.millisecondsSinceEpoch / 1000,
         'date_to': provider.dateTo.millisecondsSinceEpoch / 1000,
+        'page': page
       },
     );
 
     if (res.isNotEmpty) {
-      repport = repportDistanceModelFromJson(res);
+      RepportDistanceModel r = repportDistanceModelFromJson(res);
+
+      if (p != null) {
+        repport = r;
+      } else {
+        if (r.repports.isEmpty) {
+          _stopPagination = false;
+        } else {
+          repport.distanceSum = (repport.distanceSum + r.distanceSum);
+          repport.repports.addAll(r.repports);
+        }
+      }
+
       notifyListeners();
     }
   }

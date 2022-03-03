@@ -140,11 +140,7 @@ class _HistoricCard extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                      IconData(notifHistoric.hexIcon,
-                          fontFamily: notifHistoric.type),
-                      color: AppConsts.mainColor,
-                      size: 19),
+                  Icon(provider.getIcon(notifHistoric.type), color: AppConsts.mainColor, size: 19),
                   const SizedBox(height: 6),
                   Text(provider.getLabel(notifHistoric.type),
                       style: const TextStyle(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newgps/src/services/newgps_service.dart';
 import 'package:newgps/src/utils/device_size.dart';
 import 'package:newgps/src/ui/splash/splash_view_model.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +15,7 @@ class SplashView extends StatelessWidget {
         builder: (context, snapshot) {
           SplashViewModel model =
               Provider.of<SplashViewModel>(context, listen: false);
+              resumeRepportProvider.fresh();
           model.init(context);
           return Material(
             child: Center(

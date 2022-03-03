@@ -12,43 +12,36 @@ class ResumeRepportProvider with ChangeNotifier {
 
   List<RepportResumeModel> get resumes => _resumes;
 
-  late ScrollController scrollController;
-
   set resumes(List<RepportResumeModel> resumes) {
     _resumes = resumes;
     notifyListeners();
   }
 
+  fresh() {
+    _resumes = [];
+  }
+
   late Timer _timer;
+
   late RepportProvider provider;
+
+  void fetchDataFromOutside() {
+    fetch();
+  }
+
   void init(RepportProvider repportProvider) {
     provider = repportProvider;
-    fetch(page: 1);
     _timer = Timer.periodic(const Duration(seconds: 12), (_) {
-      if (repportProvider.isFetching) refresh();
+      if (provider.isFetching &&
+          provider.selectedRepport.index == 0 &&
+          navigationViewProvider.currentRoute == 'Rapport') {
+        fetch();
+      }
     });
-  }
-
-  void initScrolleController(ScrollController sc) {
-    scrollController = sc;
-
-    scrollController.addListener(scrollControllerListenr);
-  }
-
-  bool _stopPagination = false;
-  int page = 1;
-  void scrollControllerListenr() {
-    if (scrollController.position.pixels >=
-        scrollController.position.maxScrollExtent) {
-      if (_loadingResumeRepport) return;
-      page++;
-      if (!_stopPagination) fetch(page: page);
-    }
   }
 
   @override
   void dispose() {
-    scrollController.removeListener(scrollControllerListenr);
     _timer.cancel();
     super.dispose();
   }
@@ -108,6 +101,7 @@ class ResumeRepportProvider with ChangeNotifier {
     if (!odrderByCurrentSpeed) resumes = resumes.reversed.toList();
     odrderByCurrentSpeed = !odrderByCurrentSpeed;
     selectedIndex = 4;
+
     notifyListeners();
   }
 
@@ -117,6 +111,7 @@ class ResumeRepportProvider with ChangeNotifier {
     if (!odrderByMaxSpeed) resumes = resumes.reversed.toList();
     odrderByMaxSpeed = !odrderByMaxSpeed;
     selectedIndex = 5;
+
     notifyListeners();
   }
 
@@ -200,68 +195,48 @@ class ResumeRepportProvider with ChangeNotifier {
 
   bool _loadingResumeRepport = false;
 
-  bool loading = false;
+  bool initFetch = true;
 
-  Future<void> fetch({bool download = false, int page = 0}) async {
-    if (_loadingResumeRepport) return;
-    _loadingResumeRepport = true;
-    if (page > 1) {
-      loading = true;
+  Future<void> fetch({int index = 0, bool download = false}) async {
+    if (initFetch && resumes.isNotEmpty) {
       notifyListeners();
-    }
-    Account? account = shared.getAccount();
-    String res;
-    res = await api.post(
-      url: '/repport/resume',
-      body: {
-        'account_id': account?.account.accountId,
-        'user_id': account?.account.userID,
-        'download': download,
-        'date_from': (provider.dateFrom.millisecondsSinceEpoch / 1000),
-        'date_to': (provider.dateTo.millisecondsSinceEpoch / 1000),
-        'page': page,
-        'items': page > 1 ? 40 : 70
-      },
-    );
-    if (download) {
-      // download file
-
-    }
-    if (res.isNotEmpty) {
-      var r = repportResumeModelFromJson(res);
-      if (r.isEmpty) {
-        _stopPagination = true;
-        return;
-      }
-      _resumes.addAll(r);
-      _loadingResumeRepport = false;
-      loading = false;
+      initFetch = false;
     }
 
-    notifyListeners();
-  }
-
-  Future<void> refresh({bool download = false}) async {
     if (_loadingResumeRepport) return;
     _loadingResumeRepport = true;
     Account? account = shared.getAccount();
     String res;
     res = await api.post(
-      url: '/repport/resume',
+      url: '/repport/resume/$index',
       body: {
         'account_id': account?.account.accountId,
         'user_id': account?.account.userID,
-        'download': download,
-        'date_from': (provider.dateFrom.millisecondsSinceEpoch / 1000),
-        'date_to': (provider.dateTo.millisecondsSinceEpoch / 1000),
-        'page': 1,
-        'items': _resumes.length,
+        'download': false,
       },
     );
     if (res.isNotEmpty) {
       _resumes = repportResumeModelFromJson(res);
-      _loadingResumeRepport = false;
+      await calculDrivingTime(account?.account.accountId);
       notifyListeners();
     }
+    _loadingResumeRepport = false;
+  }
+
+  bool iscalculitingDrivingTime = false;
+  Future<void> calculDrivingTime(String? accountID) async {
+    if (iscalculitingDrivingTime) return;
+    iscalculitingDrivingTime = true;
+    for (var r in resumes) {
+      String drivingTime = await api.post(
+        url: '/rapport/calcul/driving/time',
+        body: {'account_id': accountID, 'device_id': r.deviceId},
+      );
+
+      r.drivingTime = drivingTime;
+      notifyListeners();
+    }
+
+    iscalculitingDrivingTime = false;
   }
 }

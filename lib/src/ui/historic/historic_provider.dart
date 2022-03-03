@@ -300,7 +300,9 @@ class HistoricProvider with ChangeNotifier {
     playedMarkers.clear();
     line.clear();
     historicIsPlayed = false;
-    notifyListeners();
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      notifyListeners();
+    });
   }
 
   Future<void> updateDate(BuildContext context) async {

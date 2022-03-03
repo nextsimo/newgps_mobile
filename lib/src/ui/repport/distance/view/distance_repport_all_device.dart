@@ -3,20 +3,39 @@ import 'package:newgps/src/ui/repport/distance/models/repport_distance_model.dar
 import 'package:newgps/src/ui/repport/distance/provider/distance_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../../utils/styles.dart';
-import '../../../matricule/matricule_view_2.dart';
 import '../../clickable_text_cell.dart';
 import '../../custom_devider.dart';
 import '../../rapport_provider.dart';
+import '../../text_cell.dart';
 
-class DistanceRepportAllDeviceView extends StatelessWidget {
+class DistanceRepportAllDeviceView extends StatefulWidget {
   const DistanceRepportAllDeviceView({Key? key}) : super(key: key);
+
+  @override
+  State<DistanceRepportAllDeviceView> createState() =>
+      _DistanceRepportAllDeviceViewState();
+}
+
+class _DistanceRepportAllDeviceViewState
+    extends State<DistanceRepportAllDeviceView> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    DistanceRepportProvider provider =
+        Provider.of<DistanceRepportProvider>(context, listen: false);
+
+    provider.initContrtoller(_scrollController);
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     Provider.of<RepportProvider>(context);
     DistanceRepportProvider provider =
         Provider.of<DistanceRepportProvider>(context, listen: false);
-    provider.fetchForAllDevices();
+    provider.fetchForAllDevices(p: 1);
 
     return Material(
       child: SafeArea(
@@ -62,6 +81,7 @@ class DistanceRepportAllDeviceView extends StatelessWidget {
                     ),
                     Expanded(
                       child: ListView.builder(
+                        controller: _scrollController,
                         physics: const ClampingScrollPhysics(),
                         itemCount: provider.repport.repports.length,
                         itemBuilder: (_, int index) {

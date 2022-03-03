@@ -18,15 +18,14 @@ class CustomNavigationView extends StatelessWidget {
 
     navigationViewProvider.pageController = myController;
     Account? account = shared.getAccount();
+    resumeRepportProvider.fetchDataFromOutside();
     return WillPopScope(
       onWillPop: () async {
         return true;
       },
       child: MultiProvider(
         providers: [
-          Provider(create: (_) => FirebaseMessagingService(
-
-          ), lazy: false),
+          Provider(create: (_) => FirebaseMessagingService(), lazy: false),
           Provider.value(value: navigationViewProvider),
         ],
         builder: (BuildContext context, __) {

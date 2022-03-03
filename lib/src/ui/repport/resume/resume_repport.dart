@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
-
+import 'package:newgps/src/models/device.dart';
+import 'package:newgps/src/models/repport_resume_model.dart';
+import 'package:newgps/src/services/newgps_service.dart';
+import 'package:newgps/src/ui/driver_phone/driver_phone_provider.dart';
+import 'package:newgps/src/ui/repport/resume/loading/resume_repport_loading.dart';
+import 'package:newgps/src/utils/functions.dart';
+import 'package:newgps/src/utils/locator.dart';
+import 'package:newgps/src/utils/styles.dart';
+import 'package:newgps/src/ui/repport/resume/resume_repport_provider.dart';
+import 'package:newgps/src/widgets/buttons/main_button.dart';
 import 'package:provider/provider.dart';
 
-import '../../../models/device.dart';
-import '../../../models/repport_resume_model.dart';
-import '../../../services/newgps_service.dart';
-import '../../../utils/functions.dart';
-import '../../../utils/locator.dart';
-import '../../../utils/styles.dart';
-import '../../../widgets/buttons/main_button.dart';
-import '../../driver_phone/driver_phone_provider.dart';
 import '../clickable_text_cell.dart';
 import '../custom_devider.dart';
 import '../rapport_provider.dart';
 import '../text_cell.dart';
-import 'loading/resume_repport_loading.dart';
-import 'resume_repport_provider.dart';
 
 class BuildHead extends StatelessWidget {
   const BuildHead({
@@ -162,12 +161,12 @@ class ResumeRepport extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ResumeRepportProvider>.value(
-        value: locator<ResumeRepportProvider>(),
-        builder: (context, snapshot) {
-          final RepportProvider repportProvider =
-              Provider.of(context, listen: false);
+    RepportProvider repportProvider =
+        Provider.of<RepportProvider>(context, listen: false);
 
+    return ChangeNotifierProvider<ResumeRepportProvider>.value(
+        value: resumeRepportProvider,
+        builder: (context, snapshot) {
           ResumeRepportProvider resumeRepportProvider =
               Provider.of<ResumeRepportProvider>(context, listen: false);
           resumeRepportProvider.init(repportProvider);
@@ -177,74 +176,44 @@ class ResumeRepport extends StatelessWidget {
               if (p.resumes.isEmpty) {
                 return const ResumeRepportLoading();
               }
-              return const _BuildTable();
+              return _BuildTable(resumes: p.resumes);
             },
           );
+/*           return Consumer<ResumeRepportProvider>(builder: (context, p, __) {
+            return _BuildTable(resumes: p.resumes);
+          }); */
         });
   }
 }
 
-class _BuildTable extends StatefulWidget {
+class _BuildTable extends StatelessWidget {
   const _BuildTable({
     Key? key,
+    required this.resumes,
   }) : super(key: key);
 
-  @override
-  State<_BuildTable> createState() => _BuildTableState();
-}
-
-class _BuildTableState extends State<_BuildTable> {
-  final ScrollController scrollController = ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-
-    Provider.of<ResumeRepportProvider>(context, listen: false)
-        .initScrolleController(scrollController);
-  }
-
-  @override
-  void dispose() {
-    scrollController.dispose();
-    super.dispose();
-  }
+  final List<RepportResumeModel> resumes;
 
   @override
   Widget build(BuildContext context) {
-    ResumeRepportProvider proivder =
-        Provider.of<ResumeRepportProvider>(context);
-    var resumes = proivder.resumes;
 
     return SafeArea(
       right: false,
       top: false,
-      child: Stack(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const BuildHead(),
-              Expanded(
-                child: ListView.builder(
-                  controller: scrollController,
-                  physics: const ClampingScrollPhysics(),
-                  itemBuilder: (_, int index) {
-                    RepportResumeModel repport = resumes.elementAt(index);
-                    return RepportRow(repport: repport);
-                  },
-                  itemCount: resumes.length,
-                ),
-              ),
-            ],
-          ),
-          if (proivder.loading)
-             Material(
-              color: Colors.transparent.withOpacity(0.5),
-              child: const Center(
-                child:  ResumeRepportLoading(),
-              ),
+          const BuildHead(),
+          Expanded(
+            child: ListView.builder(
+              physics: const ClampingScrollPhysics(),
+              itemBuilder: (_, int index) {
+                RepportResumeModel repport = resumes.elementAt(index);
+                return RepportRow(repport: repport);
+              },
+              itemCount: resumes.length,
             ),
+          ),
         ],
       ),
     );
@@ -271,9 +240,7 @@ class RepportRow extends StatelessWidget {
       child: Row(
         children: [
           const BuildDivider(height: 10),
-          BuildTextCell(
-              '${locator<ResumeRepportProvider>().resumes.indexOf(repport) + 1}',
-              flex: 1),
+          BuildTextCell('${repport.index}', flex: 1),
           const BuildDivider(height: 10),
           Expanded(
             flex: 4,

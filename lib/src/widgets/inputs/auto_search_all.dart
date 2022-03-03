@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newgps/src/models/device.dart';
-import 'package:newgps/src/services/device_provider.dart';
 import 'package:newgps/src/services/newgps_service.dart';
 import 'package:newgps/src/utils/styles.dart';
-import 'package:provider/provider.dart';
 
 typedef HandleSelectDevice = void Function();
 typedef OnClickAll = void Function();
@@ -103,6 +101,7 @@ class _AutoSearchWithAllWidgetState extends State<AutoSearchWithAllWidget> {
               onClickAll: widget.onClickAll,
               onSelectDevice: deviceFunc,
               width: widget.width,
+              devices: devices.toList(),
             );
           },
         ),
@@ -180,6 +179,7 @@ class OptionViewBuilderWidget extends StatelessWidget {
   final OnClickAll onClickAll;
   final OnSelectDevice onSelectDevice2;
   final bool withoutAll;
+  final List<Device> devices;
 
   final void Function(Device) onSelectDevice;
   final HandleSelectDevice handleSelectDevice;
@@ -191,7 +191,7 @@ class OptionViewBuilderWidget extends StatelessWidget {
     required this.handleSelectDevice,
     required this.onSelectDevice2,
     this.width,
-    this.withoutAll = false,
+    this.withoutAll = false,required this.devices,
   }) : super(key: key);
 
   Widget _buildToutsWidget(BuildContext context) {
@@ -248,10 +248,6 @@ class OptionViewBuilderWidget extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     bool _isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
-
-    DeviceProvider provider =
-        Provider.of<DeviceProvider>(context);
-    List<Device> devices = provider.devices;
     return Material(
       color: Colors.transparent,
       child: InkWell(

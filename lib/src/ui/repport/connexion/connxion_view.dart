@@ -6,9 +6,9 @@ import 'package:provider/provider.dart';
 
 import '../../../utils/styles.dart';
 import '../../connected_device/connected_device_model.dart';
-import '../../matricule/matricule_view_2.dart';
 import '../clickable_text_cell.dart';
 import '../custom_devider.dart';
+import '../text_cell.dart';
 import 'connexion_view_provider.dart';
 
 class ConnexionRepportView extends StatelessWidget {
@@ -75,17 +75,17 @@ class _BuildHead extends StatelessWidget {
           BuildClickableTextCell(
             "Marque de l'appreil",
             ontap: provider.orderByClick,
-            isSlected: 0 == provider.selectedIndex,
+            isSlected: 1 == provider.selectedIndex,
             isUp: provider.up,
-            index: 0,
+            index: 1,
           ),
           const BuildDivider(),
           BuildClickableTextCell(
             'Platforme',
             ontap: provider.orderByClick,
-            isSlected: 1 == provider.selectedIndex,
+            isSlected: 2 == provider.selectedIndex,
             isUp: provider.up,
-            index: 1,
+            index: 2,
           ),
           const BuildDivider(),
           BuildClickableTextCell(

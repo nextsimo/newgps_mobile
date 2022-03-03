@@ -195,7 +195,7 @@ class LastPositionProvider with ChangeNotifier {
           return markersProvider.getClusterMarker(cluster);
         }
         if (isText && !cluster.isMultiple) {
-          return await markersProvider
+          return  markersProvider
               .getTextMarker(cluster.items.first.device);
         }
         return const Marker(markerId: MarkerId(''), visible: false);

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:newgps/src/models/device.dart';
-import 'package:newgps/src/services/device_provider.dart';
 import 'package:newgps/src/services/newgps_service.dart';
 import 'package:newgps/src/utils/styles.dart';
 import 'package:newgps/src/ui/last_position/last_position_provider.dart';
@@ -72,6 +71,7 @@ class _AutoSearchDeviceWithAllState extends State<AutoSearchDeviceWithAll> {
             return OptionViewBuilderWidget(
               focusNode: _focusNode,
               onSelectDevice: deviceFunc,
+              devices: devices.toList(),
             );
           },
         ),
@@ -142,6 +142,7 @@ class BuildTextField extends StatelessWidget {
 }
 
 class OptionViewBuilderWidget extends StatelessWidget {
+  final List<Device> devices;
   final FocusNode focusNode;
   final void Function(Device) onSelectDevice;
 
@@ -149,12 +150,11 @@ class OptionViewBuilderWidget extends StatelessWidget {
     Key? key,
     required this.onSelectDevice,
     required this.focusNode,
+    this.devices = const [],
   }) : super(key: key);
 
   Widget _buildToutsWidget(
       LastPositionProvider lastPositionProvider, BuildContext context) {
-    DeviceProvider deviceProvider =
-        Provider.of<DeviceProvider>(context, listen: false);
     Orientation orientation = MediaQuery.of(context).orientation;
     return InkWell(
       onTap: () async {
@@ -208,8 +208,6 @@ class OptionViewBuilderWidget extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     bool _isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
-
-            List<Device> devices = deviceProvider.devices;
 
     return Material(
       color: Colors.transparent,

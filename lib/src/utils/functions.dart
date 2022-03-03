@@ -20,6 +20,11 @@ const String fuelLocalDataKey = 'fuel';
 const String batteryLocalDataKey = 'battery';
 const String speedLocalDataKey = 'speed';
 const String geozoneLocalDataKey = 'geozone';
+const String startUpLocalDataKey = 'startup';
+const String imobilityLocalDataKey = 'imobility';
+const String hoodLocalDataKey = 'hood';
+const String oilChangelocalDataKey = 'oil_change';
+const String towingLocalDataKey = 'towing';
 
 String formatDeviceDate(DateTime dateTime, [bool time = true]) {
   late DateFormat validFormatter;
@@ -216,6 +221,11 @@ Future<Map<String, String?>> getBody() async {
   String lastSpeedReadDate = await _getLastReadDate(speedLocalDataKey);
   // shared.sharedPreferences.getString(speedLocalDataKey) ?? '2001-12-23';
   String lastgeozoneReadDate = await _getLastReadDate(geozoneLocalDataKey);
+  String laststartUpReadDate = await _getLastReadDate(startUpLocalDataKey);
+  String lastImobilityReadDate = await _getLastReadDate(imobilityLocalDataKey);
+  String lastHoodReadDate = await _getLastReadDate(hoodLocalDataKey);
+  String lastOilChangeReadDate = await _getLastReadDate(oilChangelocalDataKey);
+  String lastTowingReadDate = await _getLastReadDate(towingLocalDataKey);
   // shared.sharedPreferences.getString(geozoneLocalDataKey) ?? '2001-12-23';
 
   log({
@@ -230,6 +240,11 @@ Future<Map<String, String?>> getBody() async {
     'last_battery_histo_read_date': lastBatteryReadDate,
     'last_speed_histo_read_date': lastSpeedReadDate,
     'last_geozone_histo_read_date': lastgeozoneReadDate,
+    'last_startup_histo_read_date': laststartUpReadDate,
+    'last_imobility_histo_read_date': lastImobilityReadDate,
+    'last_hood_histo_read_date': lastHoodReadDate,
+    'last_oil_change_histo_read_date': lastOilChangeReadDate,
+    'last_towing_histo_read_date': lastTowingReadDate,
     'account_id': account?.account.accountId
   };
 }

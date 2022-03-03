@@ -12,6 +12,8 @@ class NavigationProvider {
 
   String initAlertRoute = 'alert';
 
+  String currentRoute = 'position';
+
   void updateController(PageController controller) {
     pageController = controller;
   }
@@ -32,7 +34,7 @@ class NavigationProvider {
             description: ''),
         token: ''));
     fetchInitData(
-        lastPositionProvider: lastPositionProvider, context: DeviceSize.c);    
+        lastPositionProvider: lastPositionProvider, context: DeviceSize.c);
     pageController.jumpToPage(3);
   }
 }

@@ -78,7 +78,7 @@ class RepportsDetailsModel {
         timestamp: DateTime.parse(json["timestamp"]),
         address: json["address"],
         speedKph: json["speedKPH"],
-        fuelRemain: json["fuelRemain"],
+        fuelRemain: json["fuelRemain"].toInt(),
         fuelLevel: json["FuelLevel"].toDouble(),
         fuelTotal: json["FuelTotal"].toDouble(),
         heading: json["heading"],

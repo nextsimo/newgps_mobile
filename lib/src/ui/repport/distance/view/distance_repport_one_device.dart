@@ -4,10 +4,10 @@ import 'package:newgps/src/ui/repport/distance/provider/distance_provider.dart';
 import 'package:newgps/src/utils/functions.dart';
 import 'package:provider/provider.dart';
 import '../../../../utils/styles.dart';
-import '../../../matricule/matricule_view_2.dart';
 import '../../clickable_text_cell.dart';
 import '../../custom_devider.dart';
 import '../../rapport_provider.dart';
+import '../../text_cell.dart';
 
 class DistanceRepportOneDevice extends StatelessWidget {
   const DistanceRepportOneDevice({Key? key}) : super(key: key);

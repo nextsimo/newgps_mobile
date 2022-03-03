@@ -77,7 +77,7 @@ class RepportProvider with ChangeNotifier {
   @override
   void dispose() {
     super.dispose();
-    _isFetching = false;
+    _isFetching = true;
   }
 
   void ontapEnterRepportDevice(String val) {
@@ -92,7 +92,7 @@ class RepportProvider with ChangeNotifier {
     handleSelectDevice();
   }
 
-  bool _isFetching = false;
+  bool _isFetching = true;
 
   bool get isFetching => _isFetching;
 

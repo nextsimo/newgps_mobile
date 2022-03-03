@@ -16,8 +16,8 @@ class RepportDistanceModel {
     required this.repports,
   });
 
-  final int distanceSum;
-  final List<Repport> repports;
+   int distanceSum;
+   List<Repport> repports;
 
   factory RepportDistanceModel.fromJson(Map<String, dynamic> json) =>
       RepportDistanceModel(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:newgps/src/services/newgps_service.dart';
 import 'package:newgps/src/utils/functions.dart';
 import 'package:newgps/src/utils/styles.dart';
 import 'package:newgps/src/widgets/alert_icon_widget.dart';
@@ -86,9 +87,10 @@ class _CustomBottomNavigatioBarState extends State<CustomBottomNavigatioBar> {
               children: _items.map((item) {
                 return InkWell(
                   onTap: () async {
-                    if( item.index == widget.pageController.page ) return;
+                    if (item.index == widget.pageController.page) return;
                     widget.pageController.jumpToPage(item.index);
                     await playAudio(_items.elementAt(item.index).label);
+                    navigationViewProvider.currentRoute = _items.elementAt(item.index).label;
                   },
                   child: _BuildTabBarItem(
                     isSelected: item.index == _selectedIndex,

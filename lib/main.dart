@@ -8,4 +8,4 @@ Future<void> main() async {
   await Firebase.initializeApp();
   setup();
   runApp(const NewGpsApp());
-}
+} 

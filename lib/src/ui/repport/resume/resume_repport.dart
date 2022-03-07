@@ -206,6 +206,7 @@ class _BuildTable extends StatelessWidget {
           const BuildHead(),
           Expanded(
             child: ListView.builder(
+              padding: const EdgeInsets.only(bottom: 100),
               physics: const ClampingScrollPhysics(),
               itemBuilder: (_, int index) {
                 RepportResumeModel repport = resumes.elementAt(index);

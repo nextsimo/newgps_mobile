@@ -2,6 +2,7 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get_it/get_it.dart';
 import 'package:newgps/src/services/api_service.dart';
 import 'package:newgps/src/services/device_provider.dart';
+import 'package:newgps/src/services/firebase_messaging_service.dart';
 import 'package:newgps/src/services/location_service.dart';
 import 'package:newgps/src/services/shared_preferences_service.dart';
 import 'package:newgps/src/ui/driver_phone/driver_phone_provider.dart';
@@ -23,4 +24,6 @@ void setup() {
   locator.registerSingleton<ResumeRepportProvider>(ResumeRepportProvider());
   locator.registerSingleton<ResumeReportLoadingProvider>(
       ResumeReportLoadingProvider());
+  locator
+      .registerSingleton<FirebaseMessagingService>(FirebaseMessagingService());
 }

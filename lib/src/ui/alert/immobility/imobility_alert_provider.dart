@@ -45,10 +45,10 @@ class ImobilityAlertViewProvider with ChangeNotifier {
     await _fetchAlertSettings();
   }
 
-  Future<void> updateMaxHour(String newValue) async {
+  Future<void> updateMaxHour() async {
     await api.post(
       url: '/alert/imobility/update/hour',
-      body: {'id': imobilityAlertSettings?.id, 'max_hours': int.parse(newValue)},
+      body: {'id': imobilityAlertSettings?.id, 'max_hours': int.parse(hoursController.text)},
     );
     await _fetchAlertSettings();
   }

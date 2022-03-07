@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:newgps/src/models/account.dart';
 import 'package:newgps/src/utils/device_size.dart';
 import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';
@@ -14,7 +15,7 @@ class FirebaseMessagingService {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
 
-  FirebaseMessagingService() {
+  void init() {
     saveUserMessagingToken();
     SavedAcountProvider acountProvider =
         Provider.of<SavedAcountProvider>(DeviceSize.c, listen: false);
@@ -25,10 +26,30 @@ class FirebaseMessagingService {
       acountProvider.checkNotifcation();
       log("work work work");
     });
+  }
 
-/*     FirebaseMessaging.onBackgroundMessage((message) async {
-      acountProvider.checkNotifcation();
-    }); */
+  Future<void> disableAllSettings(String? account) async {
+    Account? account = shared.getAccount();
+    String? deviceUID = await _getDeviceToken();
+    await api.post(
+      url: '/disable/alert',
+      body: {'account_id': account, 'device_uid': deviceUID, 'state': false},
+    );
+    debugPrint('test');
+  }
+
+  Future<void> enableAllSettings() async {
+    Account? account = shared.getAccount();
+    String? deviceUID = await _getDeviceToken();
+    await api.post(
+      url: '/disable/alert',
+      body: {
+        'account_id': account?.account.accountId,
+        'device_uid': deviceUID,
+        'state': true
+      },
+    );
+    debugPrint('test');
   }
 
   Future<void> _initmessage() async {

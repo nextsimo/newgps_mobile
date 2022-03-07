@@ -12,31 +12,22 @@ class BadgeIcon extends StatelessWidget {
       builder: (_, int count, __) {
         if (count == 0) {
           return const SizedBox();
-        } else if (count > 99) {
-          return CircleAvatar(
-            radius: 20,
-            backgroundColor: Colors.red,
-            child: Center(
-              child: Text(
-                '$count+',
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w600),
-              ),
-            ),
-          );
         }
+
         return CircleAvatar(
           radius: 13,
           backgroundColor: Colors.red,
-          child: Center(
-            child: Text(
-              '$count',
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600),
+          child: Padding(
+            padding: const EdgeInsets.all(4),
+            child: FittedBox(
+              fit: BoxFit.fitWidth,
+              child: Text(
+                '$count',
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500),
+              ),
             ),
           ),
         );

@@ -174,7 +174,7 @@ class DeviceProvider with ChangeNotifier {
       url: '/devices',
       body: {
         'accountId': account?.account.accountId,
-        'user_id': account?.account.userID,
+        'user_id': account?.account.userID, 
         'is_web': false
       },
     );

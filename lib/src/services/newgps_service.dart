@@ -7,6 +7,7 @@ import 'package:newgps/src/ui/navigation/navigation_provider.dart';
 import '../ui/repport/resume/loading/resume_repport_loding_provider.dart';
 import '../ui/repport/resume/resume_repport_provider.dart';
 import 'api_service.dart';
+import 'firebase_messaging_service.dart';
 import 'location_service.dart';
 
 class NewgpsService {
@@ -22,6 +23,9 @@ class NewgpsService {
       locator<ResumeRepportProvider>();
   static ResumeReportLoadingProvider loading =
       locator<ResumeReportLoadingProvider>();
+
+  static FirebaseMessagingService messaging =
+      locator<FirebaseMessagingService>();
 }
 
 LocationService loc = NewgpsService.locationService;

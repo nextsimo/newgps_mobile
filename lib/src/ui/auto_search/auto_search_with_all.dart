@@ -97,6 +97,8 @@ class BuildTextField extends StatelessWidget {
 
     Orientation orientation = MediaQuery.of(context).orientation;
 
+
+  debugPrint('---------->   ------->${lastPositionProvider.autoSearchController.text}');
     if (devices.isEmpty) {
       lastPositionProvider.autoSearchController.text =
           'Chargement des véhicules..';

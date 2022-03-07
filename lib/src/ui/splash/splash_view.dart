@@ -15,13 +15,11 @@ class SplashView extends StatelessWidget {
         builder: (context, snapshot) {
           SplashViewModel model =
               Provider.of<SplashViewModel>(context, listen: false);
-              resumeRepportProvider.fresh();
+          resumeRepportProvider.fresh();
           model.init(context);
           return Material(
             child: Center(
-              child: Image.asset(
-                'assets/logo-200.png',
-              ),
+              child: Image.asset('assets/logo-200.png'),
             ),
           );
         });

@@ -20,13 +20,40 @@ class MatriculeProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  final ScrollController scrollController = ScrollController();
+
+  void _init() {
+    scrollController.addListener(_scrollListner);
+  }
+
+  bool _stopPagination = false;
+
+  void _scrollListner() {
+    if (scrollController.position.pixels >=
+        scrollController.position.maxScrollExtent) {
+      if (!_stopPagination)
+        fetchMatricules(searchStr: searchStr, fromListner: true);
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    scrollController.removeListener(_scrollListner);
+    scrollController.dispose();
+  }
+
   set matricules(List<MatriculeModel> matricules) {
     _matricules = matricules;
     notifyListeners();
   }
 
-  Future<void> search(String str) async =>
-      await fetchMatricules(searchStr: str);
+  Future<void> search(String str) async {
+    searchStr = str;
+    await fetchMatricules(searchStr: str);
+  }
+
+  String searchStr = '';
 
   Future<void> onSave(
       MatriculeModel newMatriculeData, BuildContext context) async {
@@ -34,7 +61,7 @@ class MatriculeProvider with ChangeNotifier {
     Account? account = shared.getAccount();
     debugPrint(jsonEncode(newMatriculeData.toJson()));
     String res = await api.post(
-      url: '/matricules/update',
+      url: '/matricules/update2',
       body: {
         'account_id': account?.account.accountId,
         'data': json.encode(newMatriculeData.toJson())
@@ -102,34 +129,54 @@ class MatriculeProvider with ChangeNotifier {
   }
 
   MatriculeProvider() {
-    fetchMatricules();
+    fetchMatricules(init: true);
+    _init();
   }
-  Future<void> fetchMatricules({String? searchStr}) async {
+  int page = 1;
+  bool loadding = false;
+  Future<void> fetchMatricules(
+      {String? searchStr, bool init = false, bool fromListner = false}) async {
+    if (loadding) return;
+    loadding = true;
+    if (!init) {
+      notifyListeners();
+    }
     Account? account = shared.getAccount();
     String res;
+    if (fromListner) {
+      page++;
+    }
     if (searchStr == null) {
       res = await api.post(
-        url: '/matricules',
+        url: '/matricules2',
         body: {
           'account_id': account?.account.accountId,
-          'user_id': account?.account.userID
+          'user_id': account?.account.userID,
+          'page': page,
         },
       );
     } else {
       res = await api.post(
-        url: '/matricules',
+        url: '/matricules2',
         body: {
           'account_id': account?.account.accountId,
           'search': searchStr,
-          'user_id': account?.account.userID
+          'user_id': account?.account.userID,
+          'page': page,
         },
       );
     }
 
     if (res.isNotEmpty) {
       oldMatricules.clear();
-      oldMatricules = matriculeModelFromJson(res);
-      matricules = matriculeModelFromJson(res);
+      List<MatriculeModel> ms = matriculeModelFromJson(res);
+      if (ms.isEmpty) {
+        _stopPagination = true;
+      }
+      oldMatricules.addAll(List<MatriculeModel>.from(ms));
+      matricules.addAll(List<MatriculeModel>.from(ms));
     }
+    loadding = false;
+    notifyListeners();
   }
 }

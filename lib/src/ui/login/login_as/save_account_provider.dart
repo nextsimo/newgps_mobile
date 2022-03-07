@@ -5,7 +5,9 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:newgps/src/models/account.dart';
 import 'package:newgps/src/models/user_droits.dart';
+import 'package:newgps/src/services/firebase_messaging_service.dart';
 import 'package:newgps/src/services/newgps_service.dart';
+import 'package:newgps/src/utils/device_size.dart';
 import 'package:newgps/src/utils/functions.dart';
 import 'package:newgps/src/ui/alert/alert_navigation.dart';
 import 'package:newgps/src/ui/camera/camera_view.dart';
@@ -17,6 +19,7 @@ import 'package:newgps/src/ui/last_position/last_position_view.dart';
 import 'package:newgps/src/ui/matricule/matricule_view_2.dart';
 import 'package:newgps/src/ui/repport/repport_view.dart';
 import 'package:newgps/src/ui/user/user_view.dart';
+import 'package:provider/provider.dart';
 import '../../user_empty_page.dart';
 
 class SavedAcountProvider with ChangeNotifier {
@@ -47,7 +50,8 @@ class SavedAcountProvider with ChangeNotifier {
   Future<void> checkNotifcation() async {
     String res = await api.post(
       url: '/notification/historics/count2',
-      body:await  getBody()..addAll({'device_id': await _getDeviceToken()}),
+      body: await getBody()
+        ..addAll({'device_id': await _getDeviceToken()}),
     );
 
     if (res.isNotEmpty) {
@@ -132,7 +136,8 @@ class SavedAcountProvider with ChangeNotifier {
 
   Future<void> fetchUserDroits() async {
     Account? account = shared.getAccount();
-    if (account!.account.userID == null || account.account.userID!.isEmpty) return;
+    if (account!.account.userID == null || account.account.userID!.isEmpty)
+      return;
     String res = await api.post(url: '/user/droits/show', body: {
       'account_id': account.account.accountId,
       'user_id': account.account.userID,
@@ -235,10 +240,15 @@ class SavedAcountProvider with ChangeNotifier {
     return null;
   }
 
-  void deleteAcount(String? user) {
+  void deleteAcount(String? user, {bool disableSetting = false}) {
     savedAcounts.removeWhere((ac) => ac.user == user);
     saveAcountsList(savedAcounts);
+    if (disableSetting) disapleAllNotification(user);
     notifyListeners();
+  }
+
+  void disapleAllNotification(String? account) {
+    NewgpsService.messaging.disableAllSettings(account);
   }
 
   void saveAcountsList(List<SavedAccount> acounts) {

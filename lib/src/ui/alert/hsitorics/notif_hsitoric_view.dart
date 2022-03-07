@@ -140,7 +140,8 @@ class _HistoricCard extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(provider.getIcon(notifHistoric.type), color: AppConsts.mainColor, size: 19),
+                  Icon(provider.getIcon(notifHistoric.type),
+                      color: AppConsts.mainColor, size: 19),
                   const SizedBox(height: 6),
                   Text(provider.getLabel(notifHistoric.type),
                       style: const TextStyle(
@@ -186,7 +187,24 @@ class _HistoricCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 5),
                   if (notifHistoric.countNotRead > 0)
-                    Container(
+                    CircleAvatar(
+                      radius: 10,
+                      backgroundColor: Colors.blue,
+                      child: Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: FittedBox(
+                          fit: BoxFit.fitWidth,
+                          child: Text(
+                            '${notifHistoric.countNotRead}',
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                      ),
+                    ),
+/*                     Container(
                       padding: const EdgeInsets.all(5),
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
@@ -200,7 +218,7 @@ class _HistoricCard extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                    ),
+                    ), */
                 ],
               ),
             ),

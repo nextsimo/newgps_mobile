@@ -28,6 +28,7 @@ class SharedPrefrencesService {
 
 
 
+
   List<String> getAcountsList(String key) {
     return sharedPreferences.getStringList(key) ?? const [];
   }

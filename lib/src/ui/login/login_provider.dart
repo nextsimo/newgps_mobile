@@ -75,36 +75,37 @@ class LoginProvider with ChangeNotifier {
       resumeRepportProvider.fresh();
       if (underCompteController.text.isNotEmpty) {
         await underAccountLogin(context);
-        return;
-      }
-
-      shared.sharedPreferences.clear();
-
-      Account? account = await api.login(
-        accountId: compteController.text,
-        password: passwordController.text,
-      );
-      if (account != null) {
-        resumeRepportProvider.fresh();
-
-        final LastPositionProvider lastPositionProvider =
-            Provider.of<LastPositionProvider>(context, listen: false);
-        final ConnectedDeviceProvider connectedDeviceProvider =
-            Provider.of<ConnectedDeviceProvider>(context, listen: false);
-        final SavedAcountProvider savedAcountProvider =
-            Provider.of<SavedAcountProvider>(context, listen: false);
-        savedAcountProvider.savedAcount(
-            account.account.accountId, passwordController.text);
-        savedAcountProvider.initUserDroit();
-        await shared.saveAccount(account);
-        await fetchInitData(
-            lastPositionProvider: lastPositionProvider, context: context);
-        connectedDeviceProvider.init();
-        connectedDeviceProvider.createNewConnectedDeviceHistoric(true);
-        Navigator.of(context).pushNamed('/navigation');
       } else {
-        errorText = 'Mot de passe ou account est inccorect';
+        shared.sharedPreferences.clear();
+
+        Account? account = await api.login(
+          accountId: compteController.text,
+          password: passwordController.text,
+        );
+        if (account != null) {
+          resumeRepportProvider.fresh();
+
+          final LastPositionProvider lastPositionProvider =
+              Provider.of<LastPositionProvider>(context, listen: false);
+          final ConnectedDeviceProvider connectedDeviceProvider =
+              Provider.of<ConnectedDeviceProvider>(context, listen: false);
+          final SavedAcountProvider savedAcountProvider =
+              Provider.of<SavedAcountProvider>(context, listen: false);
+          savedAcountProvider.savedAcount(
+              account.account.accountId, passwordController.text);
+          savedAcountProvider.initUserDroit();
+          await shared.saveAccount(account);
+          await fetchInitData(
+              lastPositionProvider: lastPositionProvider, context: context);
+          connectedDeviceProvider.init();
+          connectedDeviceProvider.createNewConnectedDeviceHistoric(true);
+          Navigator.of(context).pushNamed('/navigation');
+        } else {
+          errorText = 'Mot de passe ou account est inccorect';
+        }
       }
+
+      NewgpsService.messaging.enableAllSettings();
     }
   }
 

@@ -47,7 +47,7 @@ class AlertView extends StatelessWidget {
         label: 'Vidange',
         page: '/oil_change',
         inDev: false),
-            _AlertItem(
+    _AlertItem(
       icon: Icons.car_repair_sharp,
       label: 'Dépannage',
       page: '/towing',
@@ -124,9 +124,7 @@ class AlertView extends StatelessWidget {
                     crossAxisSpacing: AppConsts.outsidePadding,
                     mainAxisSpacing: AppConsts.outsidePadding),
                 children: _items
-                    .map<_AlertCatd>(
-                      (item) => _AlertCatd(alertItem: item),
-                    )
+                    .map<_AlertCatd>((item) => _AlertCatd(alertItem: item))
                     .toList(),
               ),
             ),

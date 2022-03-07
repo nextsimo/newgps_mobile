@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newgps/src/models/matricule.dart';
 import 'package:newgps/src/models/user_droits.dart';
+import 'package:newgps/src/utils/device_size.dart';
 import 'package:newgps/src/utils/styles.dart';
 import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';
 import 'package:newgps/src/ui/navigation/top_app_bar.dart';
@@ -55,127 +56,167 @@ class MatriculeDataView extends StatelessWidget {
         builder: (context, snapshot) {
           return Scaffold(
               resizeToAvoidBottomInset: true,
-              appBar: const CustomAppBar(actions: [
-              ]),
+              appBar: const CustomAppBar(actions: []),
               body: InteractiveViewer(
                 child: SingleChildScrollView(
-                  scrollDirection: _isPortrait ? Axis.horizontal : Axis.vertical,
-                  child: SizedBox(
-                    height: mediaQuery.size.height,
-                    child: SafeArea(
-                      right: false,
-                      bottom: false,
-                      top: false,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _BuildHead(
-                              mediaQuery: mediaQuery,
-                              matriculeProvider: matriculeProvider,
-                              isPortrait: _isPortrait),
-                          Container(
-                            width: _isPortrait
-                                ? mediaQuery.size.height
-                                : mediaQuery.size.width * 0.94,
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Table(
-                              border: TableBorder.all(color: Colors.grey),
-                              defaultVerticalAlignment:
-                                  TableCellVerticalAlignment.middle,
-                              defaultColumnWidth: const IntrinsicColumnWidth(),
-                              children: [
-                                TableRow(
-                                    decoration: BoxDecoration(
-                                        color:
-                                            AppConsts.mainColor.withOpacity(0.2)),
-                                    children: _items.map<Widget>((item) {
-                                      return SizedBox(
-                                        height: 14,
-                                        child: Center(
-                                          child: Text(
-                                            item,
-                                            textAlign: TextAlign.center,
-                                            style: const TextStyle(
-                                                fontSize: 8,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                        ),
-                                      );
-                                    }).toList()),
-                                ...matricules.map<TableRow>((matricule) {
-                                  MatriculeProvider provider =
-                                      Provider.of<MatriculeProvider>(context,
-                                          listen: false);
+                  scrollDirection: Axis.horizontal,
+                  child: Stack(
+                    children: [
+                      SizedBox(
+                        height: mediaQuery.size.height,
+                        child: SafeArea(
+                          right: false,
+                          bottom: false,
+                          top: false,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _BuildHead(
+                                  mediaQuery: mediaQuery,
+                                  matriculeProvider: matriculeProvider,
+                                  isPortrait: _isPortrait),
+                              Expanded(
+                                child: SingleChildScrollView(
+                                  controller:
+                                      matriculeProvider.scrollController,
+                                  padding: const EdgeInsets.only(bottom: 120),
+                                  child: Container(
+                                    width: _isPortrait
+                                        ? mediaQuery.size.height
+                                        : mediaQuery.size.width * 0.94,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0),
+                                    child: Table(
+                                      border:
+                                          TableBorder.all(color: Colors.grey),
+                                      defaultVerticalAlignment:
+                                          TableCellVerticalAlignment.middle,
+                                      defaultColumnWidth:
+                                          const IntrinsicColumnWidth(),
+                                      children: [
+                                        TableRow(
+                                            decoration: BoxDecoration(
+                                                color: AppConsts.mainColor
+                                                    .withOpacity(0.2)),
+                                            children:
+                                                _items.map<Widget>((item) {
+                                              return SizedBox(
+                                                height: 14,
+                                                child: Center(
+                                                  child: Text(
+                                                    item,
+                                                    textAlign: TextAlign.center,
+                                                    style: const TextStyle(
+                                                        fontSize: 8,
+                                                        fontWeight:
+                                                            FontWeight.w500),
+                                                  ),
+                                                ),
+                                              );
+                                            }).toList()),
+                                        ...matricules
+                                            .map<TableRow>((matricule) {
+                                          MatriculeProvider provider =
+                                              Provider.of<MatriculeProvider>(
+                                                  context,
+                                                  listen: false);
 /*                               var droit = Provider.of<SavedAcountProvider>(
-                                          context,
-                                          listen: false)
-                                      .userDroits
-                                      .droits[6]; */
-                                  return TableRow(children: [
-                                    BuildTextCell('${matricule.index}'),
-                                    EditableCell(
-                                      content: matricule.vehicleId,
-                                      onchanged: (_) => matricule.vehicleId = _,
-                                    ),
-                                    EditableCell(
-                                      content: matricule.vehicleModel,
-                                      onchanged: (_) =>
-                                          matricule.vehicleModel = _,
-                                    ),
+                                                  context,
+                                                  listen: false)
+                                              .userDroits
+                                              .droits[6]; */
+                                          return TableRow(children: [
+                                            BuildTextCell('${matricule.index}'),
+                                            EditableCell(
+                                              content: matricule.vehicleId,
+                                              onchanged: (_) =>
+                                                  matricule.vehicleId = _,
+                                            ),
+                                            EditableCell(
+                                              content: matricule.vehicleModel,
+                                              onchanged: (_) =>
+                                                  matricule.vehicleModel = _,
+                                            ),
 
-                                    EditableCell(
-                                      content: matricule.vehicleColor,
-                                      onchanged: (_) =>
-                                          matricule.vehicleColor = _,
+                                            EditableCell(
+                                              content: matricule.vehicleColor,
+                                              onchanged: (_) =>
+                                                  matricule.vehicleColor = _,
+                                            ),
+                                            //BuildTextCell(matricule.description),
+                                            EditableCell(
+                                              content: matricule.description,
+                                              onchanged: (_) =>
+                                                  matricule.description = _,
+                                            ),
+                                            EditableCell(
+                                              content: matricule.driverName,
+                                              onchanged: (_) =>
+                                                  matricule.driverName = _,
+                                            ),
+                                            EditableCell(
+                                              content: matricule.phone1,
+                                              onchanged: (_) =>
+                                                  matricule.phone1 = _,
+                                            ),
+                                            EditableCell(
+                                              content: matricule.phone2,
+                                              onchanged: (_) =>
+                                                  matricule.phone2 = _,
+                                            ),
+                                            EditableCell(
+                                              content:
+                                                  '${matricule.lastOdometerKM}',
+                                              onchanged: (_) =>
+                                                  matricule.lastOdometerKM =
+                                                      double.parse(_),
+                                            ),
+                                            EditableCell(
+                                              content:
+                                                  '${matricule.fuelCapacity}',
+                                              onchanged: (_) => matricule
+                                                  .fuelCapacity = int.parse(_),
+                                            ),
+                                            //if (droit.write)
+                                            Padding(
+                                              padding: const EdgeInsets.all(1),
+                                              child: MainButton(
+                                                onPressed: () async =>
+                                                    await provider.onSave(
+                                                        matricule, context),
+                                                height: 12,
+                                                label: 'Enregister',
+                                                fontSize: 8,
+                                                backgroundColor: Colors.green,
+                                                width: 88,
+                                              ),
+                                            ),
+                                          ]);
+                                        }).toList()
+                                      ],
                                     ),
-                                    //BuildTextCell(matricule.description),
-                                    EditableCell(
-                                      content: matricule.description,
-                                      onchanged: (_) => matricule.description = _,
-                                    ),
-                                    EditableCell(
-                                      content: matricule.driverName,
-                                      onchanged: (_) => matricule.driverName = _,
-                                    ),
-                                    EditableCell(
-                                      content: matricule.phone1,
-                                      onchanged: (_) => matricule.phone1 = _,
-                                    ),
-                                    EditableCell(
-                                      content: matricule.phone2,
-                                      onchanged: (_) => matricule.phone2 = _,
-                                    ),
-                                    EditableCell(
-                                      content: '${matricule.lastOdometerKM}',
-                                      onchanged: (_) => matricule.lastOdometerKM =
-                                          double.parse(_),
-                                    ),
-                                    EditableCell(
-                                      content: '${matricule.fuelCapacity}',
-                                      onchanged: (_) =>
-                                          matricule.fuelCapacity = int.parse(_),
-                                    ),
-                                    //if (droit.write)
-                                    Padding(
-                                      padding: const EdgeInsets.all(1),
-                                      child: MainButton(
-                                        onPressed: () async => await provider
-                                            .onSave(matricule, context),
-                                        height: 12,
-                                        label: 'Enregister',
-                                        fontSize: 8,
-                                        backgroundColor: Colors.green,
-                                        width: 88,
-                                      ),
-                                    ),
-                                  ]);
-                                }).toList()
-                              ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      if (matriculeProvider.loadding)
+                        SizedBox(
+                          width: DeviceSize.width,
+                          child: Material(
+                            color: Colors.transparent.withOpacity(0.5),
+                            child: const Center(
+                              child: SizedBox(
+                                width: 30,
+                                height: 30,
+                                child: CircularProgressIndicator(),
+                              ),
                             ),
                           ),
-                        ],
-                      ),
-                    ),
+                        ),
+                    ],
                   ),
                 ),
               ));

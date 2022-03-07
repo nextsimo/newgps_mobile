@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newgps/src/services/newgps_service.dart';
 import 'package:newgps/src/ui/connected_device/connected_device_provider.dart';
 import 'package:newgps/src/utils/styles.dart';
 import 'package:newgps/src/ui/historic/historic_provider.dart';
@@ -57,6 +58,7 @@ class _LogoutButtonLandscape extends StatelessWidget {
                     Provider.of(context, listen: false);
                 connectedDeviceProvider.updateConnectedDevice(false);
                 connectedDeviceProvider.createNewConnectedDeviceHistoric(false);
+                shared.clear('account');
                 Navigator.of(context).pushNamed('/login');
               },
               label: 'Déconnexion',
@@ -106,6 +108,7 @@ class _LogoutButtonPortrait extends StatelessWidget {
                     Provider.of(context, listen: false);
                 connectedDeviceProvider.updateConnectedDevice(false);
                 connectedDeviceProvider.createNewConnectedDeviceHistoric(false);
+                shared.clear('account');
 
                 Navigator.of(context)
                     .pushNamedAndRemoveUntil('/login', (_) => false);

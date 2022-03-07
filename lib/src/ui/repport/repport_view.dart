@@ -262,6 +262,8 @@ class _BuildHead extends StatelessWidget {
                         connectedDeviceProvider.updateConnectedDevice(false);
                         connectedDeviceProvider
                             .createNewConnectedDeviceHistoric(false);
+                        shared.clear('account');
+
                         Navigator.of(context)
                             .pushNamedAndRemoveUntil('/login', (_) => false);
                       },

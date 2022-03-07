@@ -4,6 +4,7 @@ import 'package:newgps/src/ui/alert/alert_widgets/shwo_all_device_widget.dart';
 import 'package:newgps/src/ui/alert/immobility/imobility_alert_provider.dart';
 import 'package:newgps/src/utils/styles.dart';
 import 'package:newgps/src/ui/navigation/top_app_bar.dart';
+import 'package:newgps/src/widgets/buttons/main_button.dart';
 import 'package:provider/provider.dart';
 import '../widgets/build_label.dart';
 
@@ -86,24 +87,34 @@ class _BuilTextFieldHour extends StatelessWidget {
         const Text('Temps arrêté'),
         Padding(
           padding: const EdgeInsets.only(right: 6),
-          child: SizedBox(
-            width: 100,
-            height: 40,
-            child: TextField(
-              controller: provider.hoursController,
-              keyboardType: TextInputType.number,
-              textInputAction: TextInputAction.send,
-              textAlignVertical: TextAlignVertical.top,
-              onSubmitted: provider.updateMaxHour,
-              decoration: const InputDecoration(
-                labelText: 'Heures',
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    width: 1.6,
+          child: Row(
+            children: [
+              SizedBox(
+                width: 100,
+                height: 40,
+                child: TextField(
+                  controller: provider.hoursController,
+                  keyboardType: TextInputType.number,
+                  textInputAction: TextInputAction.done,
+                  textAlignVertical: TextAlignVertical.top,
+                  decoration: const InputDecoration(
+                    labelText: 'Heures',
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 1.6,
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
+              const SizedBox(width: 10),
+              MainButton(
+                onPressed: () => provider.updateMaxHour(),
+                label: 'Enregitrer',
+                width: 90,
+                height: 40,
+              ),
+            ],
           ),
         ),
       ],

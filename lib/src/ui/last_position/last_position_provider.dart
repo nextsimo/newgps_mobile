@@ -65,7 +65,8 @@ class LastPositionProvider with ChangeNotifier {
       url: '/info',
       body: {
         'account_id': account?.account.accountId,
-        'device_id': deviceProvider.selectedDevice!.deviceId
+        'device_id': deviceProvider.selectedDevice!.deviceId,
+        'driving_time' : true,
       },
     );
 

@@ -55,8 +55,7 @@ class AlertNavigation extends StatelessWidget {
                   return MaterialPageRoute(
                       builder: (_) => const OilChangeAertView());
                 case '/towing':
-                  return MaterialPageRoute(
-                      builder: (_) => const TowingView());
+                  return MaterialPageRoute(builder: (_) => const TowingView());
                 case '/startup':
                   return MaterialPageRoute(builder: (_) => const StartupView());
                 case '/imobility':
@@ -96,8 +95,7 @@ class _BuildMapWidget extends StatelessWidget {
     return Positioned(
       right: _isPortrait ? 0 : -5,
       top: _isPortrait ? (isIOS ? 112 : 92) : (isIOS ? 58 : 86),
-      child: const LogoutButton(
-      ),
+      child: const LogoutButton(),
     );
   }
 }

@@ -82,10 +82,10 @@ class _BuildLoginAsWidgetState extends State<_BuildLoginAsWidget> {
           if (account != null) {
 /*             final HistoricProvider historicProvider =
                 Provider.of<HistoricProvider>(context, listen: false); */
-            final LastPositionProvider lastPositionProvider =
+/*             final LastPositionProvider lastPositionProvider =
                 Provider.of<LastPositionProvider>(context, listen: false);
-            lastPositionProvider.fresh();
-            await shared.saveAccount(account);
+            lastPositionProvider.fresh(); */
+            shared.saveAccount(account);
 /*             await fetchInitData(
                 historicProvider: historicProvider,
                 lastPositionProvider: lastPositionProvider,
@@ -147,7 +147,8 @@ class _BuildLoginAsWidgetState extends State<_BuildLoginAsWidget> {
             IconButton(
               iconSize: 16,
               icon: const Icon(Icons.close),
-              onPressed: () => provider.deleteAcount(widget.savedAccount.user),
+              onPressed: () => provider.deleteAcount(widget.savedAccount.user,
+                  disableSetting: true),
             ),
           ],
         ),

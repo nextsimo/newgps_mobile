@@ -137,8 +137,7 @@ class NotifHistoricPorvider with ChangeNotifier {
     notifyListeners();
   }
 
-
-    IconData getIcon(String type) {
+  IconData getIcon(String type) {
     switch (type) {
       case 'fuel':
         return Icons.ev_station_rounded;
@@ -216,6 +215,7 @@ class NotifHistoricPorvider with ChangeNotifier {
         'device_id': deviceId,
         'account_id': account?.account.accountId,
         'page': _page,
+        'notification_id': NewgpsService.messaging.notificationID,
       },
     );
     _page++;
@@ -260,7 +260,10 @@ class NotifHistoricPorvider with ChangeNotifier {
     loading = true;
     String res = await api.post(
       url: '/notification/historics2',
-      body: await getBody(),
+      body: await getBody()
+        ..addAll({
+          'notification_id': NewgpsService.messaging.notificationID,
+        }),
     );
     if (res.isNotEmpty) {
       histos = notifHistoricFromJson(res);

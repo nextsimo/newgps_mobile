@@ -213,7 +213,7 @@ Future<String> _getLastReadDate(String type) async {
   return json.decode(res)['last_read_date'];
 }
 
-Future<Map<String, String?>> getBody() async {
+Future<Map<String, dynamic>> getBody() async {
   String lastFuelReadDate = await _getLastReadDate(fuelLocalDataKey);
   //shared.sharedPreferences.getString(fuelLocalDataKey) ?? '2001-12-23';
   String lastBatteryReadDate = await _getLastReadDate(batteryLocalDataKey);

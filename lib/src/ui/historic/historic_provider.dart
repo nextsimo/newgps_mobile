@@ -79,6 +79,7 @@ class HistoricProvider with ChangeNotifier {
     notifyListeners();
   }
 
+
   Set<Marker> playedMarkers = {};
 
   Set<Polyline> line = {};

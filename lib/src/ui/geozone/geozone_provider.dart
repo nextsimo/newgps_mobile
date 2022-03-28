@@ -56,7 +56,10 @@ class GeozoneProvider with ChangeNotifier {
 
     String res = await api.post(
       url: '/alert/geozone/settings',
-      body: {'notification_id': notifID},
+      body: {
+        'notification_id': notifID,
+        'account_id': shared.getAccount()?.account.accountId,
+      },
     );
 
     if (res.isNotEmpty) {
@@ -146,13 +149,15 @@ class GeozoneProvider with ChangeNotifier {
     fetchGeozones();
   }
 
-  Future<void> onClickUpdate(GeozoneModel geozone, BuildContext context, {bool readonly=false}) async {
+  Future<void> onClickUpdate(GeozoneModel geozone, BuildContext context,
+      {bool readonly = false}) async {
     geozoneDialogProvider.onClickUpdate(geozone);
     bool? saved = await showDialog(
       context: context,
       builder: (_) => Dialog(
-          child:
-              GeozoneActionView(geozoneDialogProvider: geozoneDialogProvider, readonly: readonly)),
+          child: GeozoneActionView(
+              geozoneDialogProvider: geozoneDialogProvider,
+              readonly: readonly)),
     );
 
     if (saved!) {
@@ -187,7 +192,6 @@ class GeozoneProvider with ChangeNotifier {
   void deleteGeozone(BuildContext context, String geozoneId) async {
     bool res = await customDialog(context);
     Account? account = shared.getAccount();
-
     log('$res');
     if (res) {
       await api.post(url: '/delete/geozone', body: {

@@ -80,10 +80,13 @@ class ConnectedDeviceProvider with ChangeNotifier {
     if (_loading2) return;
     _loading2 = true;
     Account? account = shared.getAccount();
-    String res = await api.post(url: '/connected/devices', body: {
-      'account_id': account?.account.accountId,
-      'user_id': account?.account.userID,
-    });
+    String res = await api.post(
+      url: '/connected/devices',
+      body: {
+        'account_id': account?.account.accountId,
+        'user_id': account?.account.userID,
+      },
+    );
     conctedDevices = connectedDeviceModelFromJson(res);
     _loading2 = false;
   }

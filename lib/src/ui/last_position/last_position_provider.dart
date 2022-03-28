@@ -66,7 +66,7 @@ class LastPositionProvider with ChangeNotifier {
       body: {
         'account_id': account?.account.accountId,
         'device_id': deviceProvider.selectedDevice!.deviceId,
-        'driving_time' : true,
+        'driving_time': true,
       },
     );
 
@@ -131,7 +131,7 @@ class LastPositionProvider with ChangeNotifier {
   Future<void> init(BuildContext context) async {
     markersProvider = MarkersProvider(devices, context);
     _initCluster();
-    await deviceProvider.init(context);
+    await deviceProvider.init(context,init: true );
     await setDevicesMareker();
     await markersProvider.setMarkers(devices);
     notifyListeners();
@@ -196,8 +196,7 @@ class LastPositionProvider with ChangeNotifier {
           return markersProvider.getClusterMarker(cluster);
         }
         if (isText && !cluster.isMultiple) {
-          return  markersProvider
-              .getTextMarker(cluster.items.first.device);
+          return markersProvider.getTextMarker(cluster.items.first.device);
         }
         return const Marker(markerId: MarkerId(''), visible: false);
       };
@@ -302,9 +301,26 @@ class LastPositionProvider with ChangeNotifier {
 
   bool _loadingDevice = false;
 
+  void setDeviceOffline() {
+    Device? device = deviceProvider.selectedDevice;
+    if (device == null) return;
+    deviceProvider.selectedDevice = device;
+    markersProvider.onMarker.clear();
+    markersProvider.onMarker.add(markersProvider.getSimpleMarker(device));
+    moveCamera(
+        LatLng(deviceProvider.selectedDevice!.latitude,
+            deviceProvider.selectedDevice!.longitude),
+        zoom: 14);
+    notifyListeners();
+  }
+
   Future<void> fetchDevice(String deviceId, {bool isSelected = false}) async {
     if (_loadingDevice) return;
     _loadingDevice = true;
+
+    if (isSelected) {
+      setDeviceOffline();
+    }
 
     Account? account = shared.getAccount();
 
@@ -329,7 +345,7 @@ class LastPositionProvider with ChangeNotifier {
       markersProvider.onMarker.add(markersProvider.getSimpleMarker(device));
       notifyListeners();
     }
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(milliseconds: 300));
     if (isSelected) {
       if (polylines.isNotEmpty) {
         await buildRoutes();
@@ -364,13 +380,13 @@ class LastPositionProvider with ChangeNotifier {
   }
 
   bool _loading = false;
-  Future<void> fetchDevices(BuildContext context) async {
+  Future<void> fetchDevices(BuildContext context, {bool init = false}) async {
     lastDateFetchDevices = DateTime.now();
     if (_loading) return;
     debugPrint("-----------------------> ${lastDateFetchDevices.second}");
     debugPrint('start /api/devices called from last position');
     _loading = true;
-    await deviceProvider.fetchDevices();
+    await deviceProvider.fetchDevices(init: init);
     await setDevicesMareker();
   }
 }

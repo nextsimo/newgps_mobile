@@ -130,6 +130,17 @@ class RepportProvider with ChangeNotifier {
       case 3:
         await downlaodTrips('xlsx');
         break;
+      case 4:
+        if (autoSearchTextController.text == 'Touts les véhicules') {
+          await _downloadAllDeistanceDevices('xlsx');
+        } else {
+          await _downloadOneDeviceDistanceRepport('xlsx');
+        }
+        break;
+      case 5:
+        await downlaodConnexion('xlsx');
+        break;
+
       default:
     }
   }
@@ -147,6 +158,16 @@ class RepportProvider with ChangeNotifier {
         break;
       case 3:
         await downlaodTrips('pdf');
+        break;
+      case 4:
+        if (autoSearchTextController.text == 'Touts les véhicules') {
+          await _downloadAllDeistanceDevices('pdf');
+        } else {
+          await _downloadOneDeviceDistanceRepport('pdf');
+        }
+        break;
+      case 5:
+        await downlaodConnexion('pdf');
         break;
       default:
     }
@@ -175,8 +196,77 @@ class RepportProvider with ChangeNotifier {
     });
 
     await _downloadFile(
-        base64Str: res,
-        fileName: "rapport_detailler_${formatSimpleDate(dateFrom)}.$format",
+      base64Str: res,
+      fileName: "rapport_detailler_${formatSimpleDate(dateFrom)}.$format",
+      extension: format,
+    );
+  }
+
+  Future<void> _downloadAllDeistanceDevices(String format) async {
+    Account? account = shared.getAccount();
+    String res = await api.post(
+      url: '/repport/distance/all',
+      body: {
+        'account_id': account?.account.accountId,
+        'user_id': account?.account.userID,
+        'date_from': dateFrom.millisecondsSinceEpoch / 1000,
+        'date_to': dateTo.millisecondsSinceEpoch / 1000,
+        'order_by': 'updated_at',
+        'or': 'desc',
+        'download': true,
+        'format': format,
+      },
+    );
+
+    await _downloadFile(
+        base64Str: res.trim().toString(),
+        fileName: "distance_repport_all_${formatSimpleDate(dateFrom)}.$format",
+        extension: format);
+  }
+
+  Future<void> _downloadOneDeviceDistanceRepport(String format) async {
+    Account? account = shared.getAccount();
+    String res = await api.post(
+      url: '/repport/distance/device',
+      body: {
+        'account_id': account?.account.accountId,
+        'user_id': account?.account.userID,
+        'date_from': dateFrom.millisecondsSinceEpoch / 1000,
+        'date_to': dateTo.millisecondsSinceEpoch / 1000,
+        'order_by': 'updated_at',
+        'or': 'desc',
+        'download': true,
+        'format': format,
+        'device_id': selectedDevice.deviceId,
+      },
+    );
+
+    await _downloadFile(
+        base64Str: res.trim().toString(),
+        fileName:
+            "distance_repport_device_${formatSimpleDate(dateFrom)}.$format",
+        extension: format);
+  }
+
+  Future<void> downlaodConnexion(String format) async {
+    Account? account = shared.getAccount();
+    String res = await api.post(
+      url: '/repport/connected/devices',
+      body: {
+        'account_id': account?.account.accountId,
+        'user_id': account?.account.userID,
+        'date_from': dateFrom.toString(),
+        'date_to': dateTo.toString(),
+        'order_by': 'updated_at',
+        'up': 'desc',
+        'download': true,
+        'format': format,
+      },
+    );
+
+    await _downloadFile(
+        base64Str: res.trim().toString(),
+        fileName: "connexion_rapport_${formatSimpleDate(dateFrom)}.$format",
         extension: format);
   }
 

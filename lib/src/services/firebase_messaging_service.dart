@@ -28,42 +28,7 @@ class FirebaseMessagingService {
     });
   }
 
-  Future<void> disableAllSettings(String? account) async {
-    Account? account = shared.getAccount();
-    String? deviceUID = await _getDeviceToken();
-    await api.post(
-      url: '/disable/alert',
-      body: {'account_id': account, 'device_uid': deviceUID, 'state': false},
-    );
-    debugPrint('test');
-  }
-
-  Future<void> enableAllSettings() async {
-    Account? account = shared.getAccount();
-    String? deviceUID = await _getDeviceToken();
-    await api.post(
-      url: '/disable/alert',
-      body: {
-        'account_id': account?.account.accountId,
-        'device_uid': deviceUID,
-        'state': true
-      },
-    );
-    debugPrint('test');
-  }
-
-  Future<void> _initmessage() async {
-    RemoteMessage? remoteMessage = await messaging.getInitialMessage();
-    if (remoteMessage != null) {
-      SavedAcountProvider acountProvider =
-          Provider.of<SavedAcountProvider>(DeviceSize.c, listen: false);
-      navigationViewProvider.navigateToAlertHistoric(
-          accountId: remoteMessage.data['account_id']);
-      acountProvider.checkNotifcation();
-    }
-  }
-
-  Future<void> saveUserMessagingToken() async {
+    Future<void> saveUserMessagingToken() async {
     await messaging.requestPermission(
         alert: true,
         badge: true,
@@ -89,6 +54,42 @@ class FirebaseMessagingService {
     }
     log("Token update $res\nToken : $token");
   }
+
+  Future<void> disableAllSettings(String? account) async {
+    Account? account = shared.getAccount();
+    String? deviceUID = await _getDeviceToken();
+    await api.post(
+      url: '/disable/alert',
+      body: {'account_id': account, 'device_uid': deviceUID, 'state': false},
+    );
+    debugPrint('test');
+  }
+
+/*   Future<void> enableAllSettings() async {
+    Account? account = shared.getAccount();
+    String? deviceUID = await _getDeviceToken();
+    await api.post(
+      url: '/disable/alert',
+      body: {
+        'account_id': account?.account.accountId,
+        'device_uid': deviceUID,
+        'state': true
+      },
+    );
+    debugPrint('test');
+  } */
+
+  Future<void> _initmessage() async {
+    RemoteMessage? remoteMessage = await messaging.getInitialMessage();
+    if (remoteMessage != null) {
+      SavedAcountProvider acountProvider =
+          Provider.of<SavedAcountProvider>(DeviceSize.c, listen: false);
+      navigationViewProvider.navigateToAlertHistoric(
+          accountId: remoteMessage.data['account_id']);
+      acountProvider.checkNotifcation();
+    }
+  }
+
 
   Future<String?> _getDeviceToken() async {
     if (Platform.isAndroid) {

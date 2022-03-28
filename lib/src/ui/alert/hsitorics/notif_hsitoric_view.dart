@@ -188,17 +188,17 @@ class _HistoricCard extends StatelessWidget {
                   const SizedBox(height: 5),
                   if (notifHistoric.countNotRead > 0)
                     CircleAvatar(
-                      radius: 10,
+                      radius: 12,
                       backgroundColor: Colors.blue,
                       child: Padding(
-                        padding: const EdgeInsets.all(4),
+                        padding: const EdgeInsets.all(1),
                         child: FittedBox(
                           fit: BoxFit.fitWidth,
                           child: Text(
                             '${notifHistoric.countNotRead}',
                             style: const TextStyle(
                                 color: Colors.white,
-                                fontSize: 10,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w400),
                           ),
                         ),

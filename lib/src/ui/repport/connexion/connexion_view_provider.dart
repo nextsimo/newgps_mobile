@@ -55,14 +55,17 @@ class ConnexionViewProvider with ChangeNotifier {
     Account? account = shared.getAccount();
     debugPrint(provider.dateFrom.toString());
     debugPrint(provider.dateTo.toString());
-    String res = await api.post(url: '/repport/connected/devices', body: {
-      'account_id': account?.account.accountId,
-      'user_id': account?.account.userID,
-      'date_from': provider.dateFrom.toString(),
-      'date_to': provider.dateTo.toString(),
-      'order_by': orderBy,
-      'up': up ? 'asc' : 'desc',
-    });
+    String res = await api.post(
+      url: '/repport/connected/devices',
+      body: {
+        'account_id': account?.account.accountId,
+        'user_id': account?.account.userID,
+        'date_from': provider.dateFrom.toString(),
+        'date_to': provider.dateTo.toString(),
+        'order_by': orderBy,
+        'up': up ? 'asc' : 'desc',
+      },
+    );
     devices = connectedDeviceModelFromJson(res);
     debugPrint("{$devices}");
   }

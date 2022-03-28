@@ -56,7 +56,7 @@ class RepportResumeModel {
   String city;
   String phone1;
   String phone2;
-  String driverName;
+  final String driverName;
   int colorR;
   int colorG;
   int colorB;

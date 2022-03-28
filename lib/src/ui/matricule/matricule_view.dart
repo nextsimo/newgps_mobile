@@ -9,7 +9,6 @@ import '../../models/user_droits.dart';
 import '../../utils/styles.dart';
 import '../../widgets/buttons/main_button.dart';
 import '../login/login_as/save_account_provider.dart';
-import 'matricule_view_2.dart';
 
 class MatriculeViewTest extends StatelessWidget {
   const MatriculeViewTest({Key? key}) : super(key: key);

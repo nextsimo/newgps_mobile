@@ -76,7 +76,7 @@ class _BuildBody extends StatelessWidget {
     return InteractiveViewer(
       minScale: 0.1,
       maxScale: 4.0,
-      boundaryMargin: const EdgeInsets.all(50),
+      boundaryMargin: const EdgeInsets.symmetric(horizontal: 50),
       constrained: false,
       child: SizedBox(
         height: size.height,

@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:newgps/src/models/account.dart';
 import 'package:newgps/src/models/repports_details_model.dart';
 import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/ui/repport/rapport_provider.dart';
+
+import '../rapport_provider.dart';
 
 class RepportDetailsProvider with ChangeNotifier {
   RepportDetailsPaginateModel repportDetailsPaginateModel =
       RepportDetailsPaginateModel(repportsDetailsModel: []);
-
+  late RepportProvider provider;
   Future<void> fetchRepportModel(
       {required String deviceId,
       int index = 0,
@@ -42,6 +43,7 @@ class RepportDetailsProvider with ChangeNotifier {
     selectedDeviceId = repportProvider.selectedDevice.deviceId;
     dateTo = repportProvider.dateTo;
     dateFrom = repportProvider.dateFrom;
+    provider = repportProvider;
   }
 
   bool _init = true;
@@ -53,17 +55,17 @@ class RepportDetailsProvider with ChangeNotifier {
     if (selectedIndex == index && !up) {
       up = true;
       await fetchRepportModel(
-          deviceId: selectedDeviceId, index: index!, up: up);
+          deviceId: provider.selectedDevice.deviceId, index: index!, up: up);
       notifyListeners();
       return;
     }
     up = !up;
     selectedIndex = index!;
-    await fetchRepportModel(deviceId: selectedDeviceId, index: index, up: up);
+    await fetchRepportModel(deviceId: provider.selectedDevice.deviceId, index: index, up: up);
     notifyListeners();
   }
 
-  int page = 1;
+  int page = 0;
   Future<void> fetchMoreRepportModel(RepportProvider provider,
       {required String deviceId}) async {
     if (_init) {

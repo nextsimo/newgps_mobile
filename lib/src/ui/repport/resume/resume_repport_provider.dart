@@ -217,13 +217,12 @@ class ResumeRepportProvider with ChangeNotifier {
     );
     if (res.isNotEmpty) {
       _resumes = repportResumeModelFromJson(res);
-      await calculDrivingTime(account?.account.accountId);
       notifyListeners();
     }
     _loadingResumeRepport = false;
   }
 
-  bool iscalculitingDrivingTime = false;
+/*   bool iscalculitingDrivingTime = false;
   Future<void> calculDrivingTime(String? accountID) async {
     if (iscalculitingDrivingTime) return;
     iscalculitingDrivingTime = true;
@@ -238,5 +237,5 @@ class ResumeRepportProvider with ChangeNotifier {
     }
 
     iscalculitingDrivingTime = false;
-  }
+  } */
 }

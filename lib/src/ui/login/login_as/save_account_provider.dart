@@ -5,9 +5,8 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:newgps/src/models/account.dart';
 import 'package:newgps/src/models/user_droits.dart';
-import 'package:newgps/src/services/firebase_messaging_service.dart';
 import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/utils/device_size.dart';
+
 import 'package:newgps/src/utils/functions.dart';
 import 'package:newgps/src/ui/alert/alert_navigation.dart';
 import 'package:newgps/src/ui/camera/camera_view.dart';
@@ -19,7 +18,6 @@ import 'package:newgps/src/ui/last_position/last_position_view.dart';
 import 'package:newgps/src/ui/matricule/matricule_view_2.dart';
 import 'package:newgps/src/ui/repport/repport_view.dart';
 import 'package:newgps/src/ui/user/user_view.dart';
-import 'package:provider/provider.dart';
 import '../../user_empty_page.dart';
 
 class SavedAcountProvider with ChangeNotifier {
@@ -51,7 +49,7 @@ class SavedAcountProvider with ChangeNotifier {
     String res = await api.post(
       url: '/notification/historics/count2',
       body: await getBody()
-        ..addAll({'device_id': await _getDeviceToken()}),
+        ..addAll({'device_id': await _getDeviceToken(), 'notification_id': NewgpsService.messaging.notificationID}),
     );
 
     if (res.isNotEmpty) {
@@ -265,4 +263,6 @@ class SavedAccount {
   final String? key;
 
   SavedAccount({required this.user, required this.key, this.underUser = ''});
+
+  get password => null;
 }

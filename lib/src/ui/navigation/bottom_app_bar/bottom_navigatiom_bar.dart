@@ -17,11 +17,7 @@ class CustomBottomNavigatioBar extends StatefulWidget {
 
 class _CustomBottomNavigatioBarState extends State<CustomBottomNavigatioBar> {
   final List<BottomAppBarItem> _items = [
-    BottomAppBarItem(
-      icon: 'last_position',
-      label: 'Position',
-      index: 0,
-    ),
+    BottomAppBarItem(icon: 'last_position', label: 'Position', index: 0),
     BottomAppBarItem(icon: 'map_par_vehicule', label: 'Historique', index: 1),
     BottomAppBarItem(icon: 'report', label: 'Rapport', index: 2),
     BottomAppBarItem(icon: 'notification', label: 'Alerte', index: 3),
@@ -90,7 +86,8 @@ class _CustomBottomNavigatioBarState extends State<CustomBottomNavigatioBar> {
                     if (item.index == widget.pageController.page) return;
                     widget.pageController.jumpToPage(item.index);
                     await playAudio(_items.elementAt(item.index).label);
-                    navigationViewProvider.currentRoute = _items.elementAt(item.index).label;
+                    navigationViewProvider.currentRoute =
+                        _items.elementAt(item.index).label;
                   },
                   child: _BuildTabBarItem(
                     isSelected: item.index == _selectedIndex,

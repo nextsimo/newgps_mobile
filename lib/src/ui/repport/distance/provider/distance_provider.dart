@@ -13,6 +13,8 @@ class DistanceRepportProvider with ChangeNotifier {
     repports: [],
   );
 
+  int distanceSum = 0;
+
   List<Repport> repportsPerDevice = [];
 
   String orderBy = 'description';
@@ -44,10 +46,7 @@ class DistanceRepportProvider with ChangeNotifier {
   }
 
   void _init() {
-    repport = RepportDistanceModel(
-      distanceSum: 0,
-      repports: [],
-    );
+    repport = RepportDistanceModel(distanceSum: 0, repports: []);
     orderBy = 'description';
     up = true;
     loading = false;
@@ -95,6 +94,22 @@ class DistanceRepportProvider with ChangeNotifier {
 
   int page = 0;
 
+  Future<void> _fetchDistanceSum() async {
+    Account? account = shared.getAccount();
+
+    String res = await api.post(
+      url: '/repport/distance/sum',
+      body: {
+        'account_id': account?.account.accountId,
+        'user_id': account?.account.userID,
+        'date_from': provider.dateFrom.millisecondsSinceEpoch / 1000,
+        'date_to': provider.dateTo.millisecondsSinceEpoch / 1000,
+      },
+    );
+    distanceSum = int.parse(res);
+    notifyListeners();
+  }
+
   Future<void> fetchForAllDevices({int? p}) async {
     page++;
     if (p != null) {
@@ -124,11 +139,10 @@ class DistanceRepportProvider with ChangeNotifier {
         if (r.repports.isEmpty) {
           _stopPagination = false;
         } else {
-          repport.distanceSum = (repport.distanceSum + r.distanceSum);
           repport.repports.addAll(r.repports);
         }
       }
-
+      _fetchDistanceSum();
       notifyListeners();
     }
   }

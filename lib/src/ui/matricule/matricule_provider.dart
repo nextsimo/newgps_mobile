@@ -31,8 +31,9 @@ class MatriculeProvider with ChangeNotifier {
   void _scrollListner() {
     if (scrollController.position.pixels >=
         scrollController.position.maxScrollExtent) {
-      if (!_stopPagination)
+      if (!_stopPagination) {
         fetchMatricules(searchStr: searchStr, fromListner: true);
+      }
     }
   }
 
@@ -42,7 +43,7 @@ class MatriculeProvider with ChangeNotifier {
     scrollController.removeListener(_scrollListner);
     scrollController.dispose();
   }
-
+ 
   set matricules(List<MatriculeModel> matricules) {
     _matricules = matricules;
     notifyListeners();

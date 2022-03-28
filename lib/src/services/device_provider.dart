@@ -140,9 +140,9 @@ class DeviceProvider with ChangeNotifier {
     autoSearchController.text = selectedDevice?.description ?? '';
   }
 
-  Future<void> init(BuildContext context) async {
+  Future<void> init(BuildContext context, {bool init = false}) async {
     _loading = true;
-    await fetchDevices();
+    await fetchDevices(init: init);
     selectedDevice = devices.first;
     autoSearchController =
         TextEditingController(text: selectedDevice!.description);
@@ -167,16 +167,22 @@ class DeviceProvider with ChangeNotifier {
     }
   }
 
-  Future<void> fetchDevices() async {
-    debugPrint('start /api/devices called from device provider');
+  Future<void> fetchDevices({bool init = false}) async {
+    debugPrint('start /api/devices called from device provider -----> $init');
     Account? account = shared.getAccount();
+    Map<String, dynamic> body = {
+      'accountId': account?.account.accountId,
+      'user_id': account?.account.userID,
+      'is_web': false
+    };
+
+    if (init) {
+      body.addAll({'init': true});
+    }
+
     String res = await api.post(
       url: '/devices',
-      body: {
-        'accountId': account?.account.accountId,
-        'user_id': account?.account.userID, 
-        'is_web': false
-      },
+      body: body,
     );
     if (res.isNotEmpty) {
       devices = deviceFromMap(res);

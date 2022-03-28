@@ -14,8 +14,9 @@ import '../ui/repport/resume/resume_repport_provider.dart';
 final locator = GetIt.instance;
 
 void setup() {
+    locator.registerSingleton<SharedPrefrencesService>(SharedPrefrencesService());
+
   locator.registerSingleton<LocationService>(LocationService());
-  locator.registerSingleton<SharedPrefrencesService>(SharedPrefrencesService());
   locator.registerSingleton<ApiService>(ApiService());
   locator.registerSingleton<DeviceProvider>(DeviceProvider());
   locator.registerSingleton<FlutterTts>(FlutterTts());

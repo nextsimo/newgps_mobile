@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/account.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/utils/device_size.dart';
-import 'package:newgps/src/utils/functions.dart';
-import 'package:newgps/src/ui/last_position/last_position_provider.dart';
-import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';
 import 'package:provider/provider.dart';
+
+import '../../models/account.dart';
+import '../../services/newgps_service.dart';
+import '../../utils/device_size.dart';
+import '../../utils/functions.dart';
+import '../last_position/last_position_provider.dart';
+import '../login/login_as/save_account_provider.dart';
 
 class NavigationProvider {
   PageController pageController = PageController();
-
   String initAlertRoute = 'alert';
-
   String currentRoute = 'position';
-
-  void updateController(PageController controller) {
-    pageController = controller;
-  }
 
   void navigateToAlertHistoric({required String accountId}) async {
     SavedAcountProvider acountProvider =
@@ -28,13 +23,16 @@ class NavigationProvider {
         .fetchSavedAccount()
         .firstWhere((ac) => ac.user == accountId);
     shared.saveAccount(Account(
-        account: AccountClass(
-            accountId: accounts.user,
-            userID: accounts.underUser,
-            description: ''),
-        token: ''));
+      account: AccountClass(
+          password: accounts.password,
+          accountId: accounts.user,
+          userID: accounts.underUser,
+          description: ''),
+      token: accounts.password,
+    ));
     fetchInitData(
         lastPositionProvider: lastPositionProvider, context: DeviceSize.c);
     pageController.jumpToPage(3);
+    initAlertRoute = '/historics';
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:map_launcher/map_launcher.dart';
 import 'package:newgps/src/models/device.dart';
 import 'package:newgps/src/services/device_provider.dart';
 import 'package:newgps/src/services/newgps_service.dart';
@@ -7,7 +9,10 @@ import 'package:newgps/src/utils/functions.dart';
 import 'package:newgps/src/utils/locator.dart';
 import 'package:newgps/src/utils/styles.dart';
 import 'package:newgps/src/widgets/buttons/main_button.dart';
+import 'package:newgps/src/widgets/map_launcher/map_launcher_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'buttons/outlined_button.dart';
 import 'emoticone_builder/emoticone_widget.dart';
@@ -255,6 +260,34 @@ class _FloatingGroupInfoWindowInfoPortrait extends StatelessWidget {
                           )),
                         ],
                       ),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: MainButton(
+                            height: 35,
+                            onPressed: () async {
+                              openMapsSheet(context, device);
+                              return;
+                            },
+                            label: 'Iténiraire',
+                            icon: Icons.directions,
+                            backgroundColor: Colors.blue,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                            child: MainButton(
+                          height: 35,
+                          onPressed: () async {
+                            Share.share(
+                                'http://maps.google.com/?q=${device.latitude},${device.longitude}');
+                          },
+                          label: 'Partger localisation',
+                          backgroundColor: Colors.blueAccent,
+                        )),
+                      ],
+                    ),
                   ],
                 ),
               ],
@@ -372,7 +405,7 @@ class _FloatingGroupInfoWindowInfoLandscape extends StatelessWidget {
                                   fontSize: 12),
                             ),
                           const SizedBox(height: 4),
-                          const EmoticonWidget(),
+                          //const EmoticonWidget(),
 
                           Row(
                             children: [
@@ -567,6 +600,34 @@ class _FloatingGroupInfoWindowInfoLandscape extends StatelessWidget {
                             )),
                           ],
                         ),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: MainButton(
+                              height: 25,
+                              onPressed: () async {
+                                openMapsSheet(context, device);
+                                return;
+                              },
+                              label: 'Iténiraire',
+                              icon: Icons.directions,
+                              backgroundColor: Colors.blue,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                              child: MainButton(
+                            height: 25,
+                          onPressed: () async {
+                            Share.share(
+                                'http://maps.google.com/?q=${device.latitude},${device.longitude}');
+                          },
+                          label: 'Partger localisation',
+                          backgroundColor: Colors.blueAccent,
+                          )),
+                        ],
+                      ),
                     ],
                   ),
                 ],

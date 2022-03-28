@@ -10,7 +10,6 @@ import 'package:newgps/src/utils/styles.dart';
 import 'package:newgps/src/ui/repport/resume/resume_repport_provider.dart';
 import 'package:newgps/src/widgets/buttons/main_button.dart';
 import 'package:provider/provider.dart';
-
 import '../clickable_text_cell.dart';
 import '../custom_devider.dart';
 import '../rapport_provider.dart';
@@ -196,7 +195,6 @@ class _BuildTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
       right: false,
       top: false,

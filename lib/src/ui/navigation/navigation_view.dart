@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:newgps/src/models/account.dart';
 import 'package:newgps/src/services/firebase_messaging_service.dart';
 import 'package:newgps/src/services/newgps_service.dart';
@@ -24,7 +25,8 @@ class CustomNavigationView extends StatelessWidget {
 
     return WillPopScope(
       onWillPop: () async {
-        return true;
+        SystemNavigator.pop();
+        return false;
       },
       child: MultiProvider(
         providers: [

@@ -71,7 +71,7 @@ class _DistanceRepportAllDeviceViewState
                           Expanded(
                             child: Center(
                               child: Text(
-                                "${provider.repport.distanceSum}",
+                                "${provider.distanceSum}",
                                 style: const TextStyle(color: Colors.white),
                               ),
                             ),

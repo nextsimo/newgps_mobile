@@ -73,6 +73,7 @@ class LoginProvider with ChangeNotifier {
     if (formKey.currentState!.validate()) {
       // request login
       resumeRepportProvider.fresh();
+
       if (underCompteController.text.isNotEmpty) {
         await underAccountLogin(context);
       } else {
@@ -97,15 +98,22 @@ class LoginProvider with ChangeNotifier {
           await shared.saveAccount(account);
           await fetchInitData(
               lastPositionProvider: lastPositionProvider, context: context);
-          connectedDeviceProvider.init();
           connectedDeviceProvider.createNewConnectedDeviceHistoric(true);
-          Navigator.of(context).pushNamed('/navigation');
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil('/navigation', (_) => false);
         } else {
-          errorText = 'Mot de passe ou account est inccorect';
+          int? isActive = json.decode(await api.post(url: '/isactive', body: {
+            'account_id': compteController.text,
+            'password': passwordController.text,
+          }));
+
+          if (isActive == -1) {
+            errorText = 'Mot de passe ou compte est inccorect';
+          } else if (isActive == 0) {
+            errorText = 'Votre compte est suspendu';
+          }
         }
       }
-
-      NewgpsService.messaging.enableAllSettings();
     }
   }
 

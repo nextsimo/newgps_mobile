@@ -1,8 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:newgps/src/models/account.dart';
 import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/ui/last_position/last_position_provider.dart';
 import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';
+import 'package:newgps/src/ui/login/login_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../connected_device/connected_device_provider.dart';
@@ -24,8 +26,7 @@ class LoginAsView extends StatelessWidget {
                 alignment: WrapAlignment.spaceBetween,
                 children: provider.savedAcounts
                     .map(
-                      (account) => _BuildLoginAsWidget(savedAccount: account),
-                    )
+                        (account) => _BuildLoginAsWidget(savedAccount: account))
                     .toList(),
               ),
             );
@@ -52,6 +53,8 @@ class _BuildLoginAsWidgetState extends State<_BuildLoginAsWidget> {
   Widget build(BuildContext context) {
     final SavedAcountProvider provider =
         Provider.of<SavedAcountProvider>(context, listen: false);
+    final LoginProvider loginProvider =
+        Provider.of<LoginProvider>(context, listen: false);
     return SizedBox(
       width: 185,
       child: ElevatedButton(
@@ -97,8 +100,19 @@ class _BuildLoginAsWidgetState extends State<_BuildLoginAsWidget> {
             connectedDeviceProvider.createNewConnectedDeviceHistoric(true);
             Navigator.of(context).pushNamedAndRemoveUntil('/', (_) => false);
           } else {
-            ///errorText = 'Mot de passe ou account est inccorect';
+            int? isActive = json.decode(await api.post(url: '/isactive', body: {
+              'account_id': widget.savedAccount.user,
+            }));
+
+            if (isActive == -1) {
+              loginProvider.errorText = 'Le propriétaire du compte peut avoir changé le mot de passe';
+            } else if (isActive == 0) {
+              loginProvider.errorText = 'Votre compte est suspendu';
+            }
           }
+
+          setState(() => loading = false);
+
 /*           String src = await api.post(
               body: {
                 'accountId': savedAccount.user,

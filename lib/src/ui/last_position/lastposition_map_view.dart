@@ -17,7 +17,7 @@ class _LastpositionMapState extends State<LastpositionMap>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override

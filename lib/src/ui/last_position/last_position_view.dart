@@ -28,7 +28,7 @@ class _LastPositionViewState extends State<LastPositionView>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override

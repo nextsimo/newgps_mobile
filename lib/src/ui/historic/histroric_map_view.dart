@@ -19,7 +19,7 @@ class _HistoricMapViewState extends State<HistoricMapView>
   void initState() {
     super.initState();
     historicProvider = Provider.of(context, listen: false);
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override

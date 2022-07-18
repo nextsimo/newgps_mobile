@@ -301,7 +301,7 @@ class HistoricProvider with ChangeNotifier {
     playedMarkers.clear();
     line.clear();
     historicIsPlayed = false;
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       notifyListeners();
     });
   }
@@ -351,7 +351,7 @@ class HistoricProvider with ChangeNotifier {
     histoLine = {};
     histoLine.clear();
     playedMarkers = {};
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       loading = true;
     });
     if (init) {

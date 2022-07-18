@@ -16,7 +16,7 @@ import 'oil_change/oil_change_view.dart';
 import 'radar/radar_view.dart';
 import 'speed/speed_view.dart';
 import 'start_up/startup_view.dart';
-import 'temperature/temperature_view.dart';
+import 'temperature/components/temperature_view.dart';
 
 class AlertNavigation extends StatelessWidget {
   const AlertNavigation({Key? key}) : super(key: key);
@@ -44,7 +44,7 @@ class AlertNavigation extends StatelessWidget {
                       builder: (_) => const HoodAlertView());
                 case '/temp':
                   return MaterialPageRoute(
-                      builder: (_) => const TemperatureView());
+                      builder: (_) => const TemperatureBleView());
                 case '/radar':
                   return MaterialPageRoute(
                       builder: (_) => const RadarNotifView());

@@ -28,7 +28,7 @@ class _LoginLandscapeState extends State<LoginLandscape> {
   }
 
   void _scroll() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollController
           .jumpTo(_scrollController.position.maxScrollExtent * 0.5);
     });

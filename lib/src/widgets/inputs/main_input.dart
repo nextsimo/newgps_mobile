@@ -13,6 +13,7 @@ class MainInput extends StatelessWidget {
   final double? heigt;
   final bool autofocus;
   final TextInputType? textInputType;
+  final String? labelText;
 
   const MainInput({
     Key? key,
@@ -25,7 +26,7 @@ class MainInput extends StatelessWidget {
     this.color,
     this.width,
     this.heigt,
-    this.autofocus = false, this.textInputType,
+    this.autofocus = false, this.textInputType, this.labelText,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -43,11 +44,13 @@ class MainInput extends StatelessWidget {
           filled: true,
           fillColor: color ?? Colors.grey[300],
           hintText: hint,
+          labelText: labelText,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide.none,
           ),
-          prefixIconConstraints: const BoxConstraints(),
+          prefixIconConstraints: const BoxConstraints(
+          ),
           prefixIcon: icon == null
               ? const SizedBox()
               : Container(

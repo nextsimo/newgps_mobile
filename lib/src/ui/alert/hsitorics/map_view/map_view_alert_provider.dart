@@ -16,7 +16,7 @@ class MapViewAlertProvider with ChangeNotifier {
   }
 
   MapViewAlertProvider(Device device) {
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       fetchMarkers(device);
     });
   }

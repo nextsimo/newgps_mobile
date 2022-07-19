@@ -6,20 +6,22 @@ class MyEmptyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: EmptyWidget(
-        image: null,
-        packageImage: PackageImage.Image_1,
-        title: 'Aucune configuration',
-        subTitle: 'Veuillez ajouter une configuration',
-        titleTextStyle: const TextStyle(
-          fontSize: 22,
-          color: Color(0xff9da9c7),
-          fontWeight: FontWeight.w500,
-        ),
-        subtitleTextStyle: const TextStyle(
-          fontSize: 14,
-          color: Color(0xffabb8d6),
+    return Material(
+      child: Center(
+        child: EmptyWidget(
+          image: null,
+          packageImage: PackageImage.Image_3,
+          title: 'Aucune configuration',
+          subTitle: 'Veuillez ajouter une configuration',
+          titleTextStyle: const TextStyle(
+            fontSize: 22,
+            color: Color(0xff9da9c7),
+            fontWeight: FontWeight.w500,
+          ),
+          subtitleTextStyle: const TextStyle(
+            fontSize: 14,
+            color: Color(0xffabb8d6),
+          ),
         ),
       ),
     );

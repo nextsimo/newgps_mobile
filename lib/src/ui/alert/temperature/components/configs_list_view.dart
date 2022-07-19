@@ -1,10 +1,10 @@
-import 'package:empty_widget/empty_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:newgps/src/ui/alert/temperature/logic/config_temp_ble_model.dart';
 import 'package:provider/provider.dart';
 
 import '../logic/temperature_provider.dart';
 import 'add_button.dart';
+import 'empty_widget.dart';
 
 class ConfigListView extends StatelessWidget {
   const ConfigListView({Key? key}) : super(key: key);
@@ -19,7 +19,7 @@ class ConfigListView extends StatelessWidget {
             selector: (context, provider) => provider.configs,
             builder: (context, configs, _) {
               if (configs.isEmpty) {
-                return EmptyWidget();
+                return const MyEmptyWidget();
               }
               return ListView.separated(
                 padding: const EdgeInsets.all(16),

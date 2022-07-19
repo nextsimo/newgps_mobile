@@ -60,7 +60,7 @@ class AlertView extends StatelessWidget {
         inDev: false), */
 
     _AlertItem(
-        icon: Icons.fireplace,
+        icon: Icons.thermostat_rounded,
         label: 'Température',
         page: '/temp',
         inDev: false),

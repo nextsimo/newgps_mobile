@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:newgps/src/ui/alert/temperature/logic/temperature_provider.dart';
 import 'package:provider/provider.dart';
 

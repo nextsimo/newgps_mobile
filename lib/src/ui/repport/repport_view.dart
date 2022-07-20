@@ -23,6 +23,7 @@ import 'fuel/fuel_repport_view.dart';
 import 'rapport_provider.dart';
 import 'repport_auto_search.dart';
 import 'resume/resume_repport.dart';
+import 'temperature_ble/temperature_repport_ble_view.dart';
 import 'trips/trips_view.dart';
 
 class RepportView extends StatelessWidget {
@@ -108,6 +109,8 @@ class _BuildBody extends StatelessWidget {
                         return const DistanceView();
                       case 5:
                         return const ConnexionRepportView();
+                      case 6:
+                        return const TemperatureRepportBleView();
                       default:
                         return const Material();
                     }

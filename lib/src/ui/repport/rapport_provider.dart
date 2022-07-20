@@ -16,6 +16,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:open_file/open_file.dart';
 
 class RepportProvider with ChangeNotifier {
+
+
   late List<Device> devices;
   final List<RepportTypeModel> repportsType = const [
     RepportTypeModel(
@@ -41,6 +43,10 @@ class RepportProvider with ChangeNotifier {
     RepportTypeModel(
       index: 5,
       title: 'Rapport connexion',
+    ),
+    RepportTypeModel(
+      index: 6,
+      title: 'Rapport temperature',
     ),
   ];
 

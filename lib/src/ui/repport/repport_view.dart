@@ -203,14 +203,23 @@ class _BuildHead extends StatelessWidget {
                         ),
                       ),
                     const SizedBox(width: 6),
-                    MainButton(
-                      width: 70,
-                      onPressed: () =>
-                          repportProvider.downloadDocument(context),
-                      label: 'Télécharger',
-                      height: 24,
-                      fontSize: 10,
-                    ),
+                    if (repportProvider.selectedRepport.index != 6)
+                      MainButton(
+                        width: 70,
+                        onPressed: () =>
+                            repportProvider.downloadDocument(context),
+                        label: 'Télécharger',
+                        height: 24,
+                        fontSize: 10,
+                      ),
+                    if (repportProvider.selectedRepport.index == 6)
+                      MainButton(
+                          width: 70,
+                          onPressed: () => repportProvider.showTempGraphe(context),
+                          label: 'Graphique',
+                          height: 24,
+                          fontSize: 10,
+                        ),
                     const SizedBox(width: 10),
                     if (repportProvider.selectedRepport.index == 0)
                       Selector<RepportProvider, bool>(

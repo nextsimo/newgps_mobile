@@ -134,8 +134,9 @@ class SavedAcountProvider with ChangeNotifier {
 
   Future<void> fetchUserDroits() async {
     Account? account = shared.getAccount();
-    if (account!.account.userID == null || account.account.userID!.isEmpty)
+    if (account!.account.userID == null || account.account.userID!.isEmpty) {
       return;
+    }
     String res = await api.post(url: '/user/droits/show', body: {
       'account_id': account.account.accountId,
       'user_id': account.account.userID,

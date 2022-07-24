@@ -15,9 +15,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:open_file/open_file.dart';
 
+import 'temperature_ble/temp_ble_chart.dart';
+
 class RepportProvider with ChangeNotifier {
-
-
   late List<Device> devices;
   final List<RepportTypeModel> repportsType = const [
     RepportTypeModel(
@@ -49,6 +49,15 @@ class RepportProvider with ChangeNotifier {
       title: 'Rapport temperature',
     ),
   ];
+
+
+  // show graphe method
+  void showTempGraphe(BuildContext context) {
+    // navigate to graphe view
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return const TempBleChart();
+    }));
+  }
 
   Future<void> downloadDocument(BuildContext context) async {
     showDialog(

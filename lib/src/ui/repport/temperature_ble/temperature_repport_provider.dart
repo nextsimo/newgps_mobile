@@ -3,27 +3,29 @@ import 'package:flutter/material.dart';
 import '../../../models/account.dart';
 import '../../../services/newgps_service.dart';
 import '../rapport_provider.dart';
+import 'temp_ble_repport_model.dart';
 
 class TemperatureRepportProvider with ChangeNotifier {
   late RepportProvider provider;
 
-  List<dynamic> _devices = [];
+  List<TemBleRepportModel> _repports = [];
 
-  List<dynamic> get devices => _devices;
+  List<TemBleRepportModel> get repports => _repports;
 
-  set devices(List<dynamic> devices) {
-    _devices = devices;
+  set repports(List<TemBleRepportModel> repports) {
+    _repports = repports;
     notifyListeners();
   }
 
-  TemperatureRepportProvider(RepportProvider p) {
-    provider = p;
+  _listenToProvider() {
+    fetchTempBleRepport();
   }
+
   bool loading = false;
-  int selectedIndex = 2;
+  int selectedIndex = 1;
   bool up = false;
 
-  String orderBy = 'updated_at';
+  String orderBy = 'timestamp';
 
   Future<void> orderByClick(int? index) async {
     selectedIndex = index ?? 2;
@@ -32,40 +34,63 @@ class TemperatureRepportProvider with ChangeNotifier {
     up = !up;
     switch (index) {
       case 1:
-        orderBy = 'device_brand';
-        break;
       case 2:
-        orderBy = 'platform';
+        orderBy = 'timestamp';
         break;
       case 3:
-        orderBy = 'updated_at';
+        orderBy = 'temperature1';
         break;
       case 4:
-        orderBy = 'connected_state';
+        orderBy = 'temperature2';
+        break;
+      case 5:
+        orderBy = 'temperature3';
+        break;
+      case 6:
+        orderBy = 'temperature4';
         break;
       default:
-        orderBy = 'updated_at';
+        orderBy = 'timestamp';
+        break;
     }
-    await fetchConnectedDevices();
+    await fetchTempBleRepport();
     loading = false;
   }
 
-  Future<void> fetchConnectedDevices() async {
+  Future<void> fetchTempBleRepport() async {
     Account? account = shared.getAccount();
     debugPrint(provider.dateFrom.toString());
     debugPrint(provider.dateTo.toString());
     String res = await api.post(
-      url: '/repport/connected/devices',
+      url: '/tempble/index',
       body: {
         'account_id': account?.account.accountId,
+        'device_id': provider.selectedDevice.deviceId,
         'user_id': account?.account.userID,
         'date_from': provider.dateFrom.toString(),
         'date_to': provider.dateTo.toString(),
         'order_by': orderBy,
-        'up': up ? 'asc' : 'desc',
+        'order_direction': up ? 'asc' : 'desc',
       },
     );
-    // devices = connectedDeviceModelFromJson(res);
-    debugPrint("{$devices}");
+    if (res.isNotEmpty) {
+      repports = temBleRepportModelFromJson(res);
+    }
+  }
+
+  void init(RepportProvider p) async {
+    provider = p;
+    provider.addListener(_listenToProvider);
+
+    //await _fetchTempBleRepport();
+  }
+
+  // check temperature ble if is valid or not if equal to 3000 return non défini else return temperature value
+  String checkTemperature(num temperature) {
+    if (temperature == 3000) {
+      return 'Non défini';
+    } else {
+      return temperature.toString();
+    }
   }
 }

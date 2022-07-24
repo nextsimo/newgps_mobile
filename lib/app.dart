@@ -11,6 +11,8 @@ import 'package:newgps/src/ui/navigation/navigation_view.dart';
 import 'package:newgps/src/ui/splash/splash_view.dart';
 import 'package:provider/provider.dart';
 import 'src/ui/login/login_as/save_account_provider.dart';
+import 'src/ui/repport/temperature_ble/temperature_repport_provider.dart';
+
 class NewGpsApp extends StatelessWidget {
   const NewGpsApp({Key? key}) : super(key: key);
   @override
@@ -18,6 +20,9 @@ class NewGpsApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<DeviceProvider>.value(value: deviceProvider),
+        ChangeNotifierProvider<TemperatureRepportProvider>(
+          create: (_) => TemperatureRepportProvider(),
+        ),
         ChangeNotifierProvider<LastPositionProvider>(
             create: (_) => LastPositionProvider()),
         ChangeNotifierProvider<HistoricProvider>(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:newgps/src/ui/last_position/last_temp/last_temp_icon.dart';
 import 'package:provider/provider.dart';
 import '../../services/device_provider.dart';
 import '../../widgets/buttons/log_out_button.dart';
@@ -55,6 +56,7 @@ class _LastPositionViewState extends State<LastPositionView>
       appBar: CustomAppBar(
         onTap: lastPositionProvider.handleSelectDevice,
         actions: [
+          const LastTempIcon(),
           const LoadingIcon(),
           RotateIconMap(normalview: lastPositionProvider.normaleView),
           MapTypeWidget(onChange: (mapType) {

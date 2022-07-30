@@ -9,16 +9,57 @@ class TemperatureRepportProvider with ChangeNotifier {
   late RepportProvider provider;
 
   List<TemBleRepportModel> _repports = [];
+  List<TemBleRepportModel> repportsChart = [];
 
   List<TemBleRepportModel> get repports => _repports;
 
   set repports(List<TemBleRepportModel> repports) {
     _repports = repports;
+    _repports.removeLast();
+    setRepportsChart();
     notifyListeners();
   }
 
   _listenToProvider() {
     fetchTempBleRepport();
+  }
+
+  void setRepportsChart() {
+    for (var i = 0; i < _repports.length; i++) {
+      // skip 5 indexs
+      if (i % 5 == 0) {
+        repportsChart.add(_repports[i]);
+      }
+    }
+    // remove last element
+    repportsChart.removeLast();
+  }
+
+  double maxTemp = 0;
+  double minTemp = 0;
+  double minHour = 0;
+  double maxHour = 0;
+
+  void _setMaxMinTemp() {
+    double max = 0;
+    double min = 0;
+    for (TemBleRepportModel repport in repportsChart) {
+      if (repport.temperature1 > max) {
+        max = repport.temperature1.toDouble();
+      }
+      if (repport.temperature1 < min) {
+        min = repport.temperature1.toDouble();
+      }
+      // set max and min hour
+      if (repport.timestamp.hour > maxHour) {
+        maxHour = repport.timestamp.hour.toDouble();
+      }
+      if (repport.timestamp.hour < minHour) {
+        minHour = repport.timestamp.hour.toDouble();
+      }
+    }
+    maxTemp = max;
+    minTemp = min;
   }
 
   bool loading = false;
@@ -75,6 +116,7 @@ class TemperatureRepportProvider with ChangeNotifier {
     );
     if (res.isNotEmpty) {
       repports = temBleRepportModelFromJson(res);
+      _setMaxMinTemp();
     }
   }
 

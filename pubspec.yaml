@@ -40,6 +40,7 @@ dependencies:
   provider: ^6.0.2
   share_plus: ^4.0.3
   shared_preferences: ^2.0.13
+  side_sheet: ^1.0.2
   syncfusion_flutter_gauges: ^19.4.48
   timeago: ^3.2.1
   upgrader: ^3.12.1

@@ -4,12 +4,11 @@
 
 import 'dart:convert';
 
-List<TemBleRepportModel> temBleRepportModelFromJson(String str) =>
-    List<TemBleRepportModel>.from(
-        json.decode(str).map((x) => TemBleRepportModel.fromJson(x)));
+TemBleRepportModel temBleRepportModelFromJson(String str) =>
+    TemBleRepportModel.fromJson(json.decode(str));
 
-String temBleRepportModelToJson(List<TemBleRepportModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String temBleRepportModelToJson(TemBleRepportModel data) =>
+    json.encode(data.toJson());
 
 class TemBleRepportModel {
   TemBleRepportModel({
@@ -30,16 +29,16 @@ class TemBleRepportModel {
   });
 
   final int id;
-  final num temperature1;
+  final int temperature1;
   final int humidity1;
   final String imei;
   final bool isActive;
-  final DateTime timestamp;
+  final int timestamp;
   final int createdAt;
-  final DateTime updatedAt;
-  final num temperature2;
-  final num temperature3;
-  final num temperature4;
+  final int updatedAt;
+  final int temperature2;
+  final int temperature3;
+  final int temperature4;
   final int humidity2;
   final int humidity3;
   final int humidity4;
@@ -51,9 +50,9 @@ class TemBleRepportModel {
         humidity1: json["humidity1"],
         imei: json["imei"],
         isActive: json["is_active"],
-        timestamp: _timestampToDateTime(json["timestamp"]),
+        timestamp: json["timestamp"],
         createdAt: json["created_at"],
-        updatedAt: _timestampToDateTime(json["timestamp"]),
+        updatedAt: json["updated_at"],
         temperature2: json["temperature2"],
         temperature3: json["temperature3"],
         temperature4: json["temperature4"],
@@ -78,9 +77,4 @@ class TemBleRepportModel {
         "humidity3": humidity3,
         "humidity4": humidity4,
       };
-
-  // timestamp seconds to dateTime
-  static  DateTime _timestampToDateTime(int timestamp) {
-    return DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
-  }
 }

@@ -5,7 +5,6 @@ import '../../../utils/styles.dart';
 import '../clickable_text_cell.dart';
 import '../custom_devider.dart';
 import '../rapport_provider.dart';
-import 'temp_ble_chart.dart';
 import 'temp_ble_repport_model.dart';
 import 'temperature_repport_provider.dart';
 
@@ -104,12 +103,6 @@ class _RepportRow extends StatelessWidget {
           const BuildDivider(),
           _BuildTextCell(provider.checkTemperature(repport.temperature1)),
           const BuildDivider(),
-          _BuildTextCell(provider.checkTemperature(repport.temperature2)),
-          const BuildDivider(),
-          _BuildTextCell(provider.checkTemperature(repport.temperature3)),
-          const BuildDivider(),
-          _BuildTextCell(provider.checkTemperature(repport.temperature4)),
-          const BuildDivider(),
         ],
       ),
     );
@@ -152,7 +145,7 @@ class _BuildHead extends StatelessWidget {
           ),
           const BuildDivider(),
           BuildClickableTextCell(
-            'T1 (°C)',
+            'Température (°C)',
             ontap: (_) {},
             isSlected: false,
             isUp: true,
@@ -160,33 +153,7 @@ class _BuildHead extends StatelessWidget {
             flex: 1,
           ),
           const BuildDivider(),
-          BuildClickableTextCell(
-            'T2 (°C)',
-            ontap: (_) {},
-            isSlected: false,
-            isUp: true,
-            index: 4,
-            flex: 1,
-          ),
-          const BuildDivider(),
-          BuildClickableTextCell(
-            'T3 (°C)',
-            ontap: (_) {},
-            isSlected: false,
-            isUp: true,
-            index: 4,
-            flex: 1,
-          ),
-          const BuildDivider(),
-          BuildClickableTextCell(
-            'T4 (°C)',
-            ontap: (_) {},
-            isSlected: false,
-            isUp: true,
-            index: 4,
-            flex: 1,
-          ),
-          const BuildDivider(),
+         
         ],
       ),
     );

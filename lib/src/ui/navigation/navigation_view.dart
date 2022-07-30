@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:newgps/src/models/account.dart';
-import 'package:newgps/src/services/firebase_messaging_service.dart';
 import 'package:newgps/src/services/newgps_service.dart';
 import 'package:newgps/src/utils/device_size.dart';
 import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';

@@ -10,6 +10,7 @@ class TemperatureRepportProvider with ChangeNotifier {
 
   List<TemBleRepportModel> _repports = [];
   List<TemBleRepportModel> repportsChart = [];
+  List<int> showIndexed = [];
 
   List<TemBleRepportModel> get repports => _repports;
 
@@ -25,14 +26,21 @@ class TemperatureRepportProvider with ChangeNotifier {
   }
 
   void setRepportsChart() {
+
     for (var i = 0; i < _repports.length; i++) {
-      // skip 5 indexs
-      if (i % 5 == 0) {
+
+      // time between two repports is 30 minutes
+      if (i == 0) {
+        continue;
+      } else if (_repports[i].updatedAt.difference(_repports[i - 1].updatedAt).inMinutes == 15) {
         repportsChart.add(_repports[i]);
+        showIndexed.add(i);
       }
     }
-    // remove last element
-    repportsChart.removeLast();
+    // remove last element if is not empty
+    if (repportsChart.isNotEmpty) {
+      repportsChart.removeLast();
+    }
   }
 
   double maxTemp = 0;
@@ -108,13 +116,13 @@ class TemperatureRepportProvider with ChangeNotifier {
         'account_id': account?.account.accountId,
         'device_id': provider.selectedDevice.deviceId,
         'user_id': account?.account.userID,
-        'date_from': provider.dateFrom.toString(),
-        'date_to': provider.dateTo.toString(),
+        'date_from': (provider.dateFrom.millisecondsSinceEpoch / 1000),
+        'date_to': (provider.dateTo.millisecondsSinceEpoch / 1000),
         'order_by': orderBy,
         'order_direction': up ? 'asc' : 'desc',
       },
     );
-    if (res.isNotEmpty) {
+    if (res != '[]') {
       repports = temBleRepportModelFromJson(res);
       _setMaxMinTemp();
     }

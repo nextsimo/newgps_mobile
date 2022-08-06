@@ -4,14 +4,18 @@ import 'package:newgps/src/widgets/date_time_picker/time_input.dart';
 
 class TimeRangeWigdet extends StatelessWidget {
   final dynamic provider;
-  final void Function() onSave;
-  final void Function() onRestaure;
+  final void Function()? onSave;
+  final void Function()? onRestaure;
+  final bool Function()? onSaveAndClose;
+  final bool restaure;
 
   const TimeRangeWigdet(
       {Key? key,
       required this.provider,
-      required this.onSave,
-      required this.onRestaure})
+       this.onSave,
+      this.onRestaure,
+      this.restaure = true,
+      this.onSaveAndClose})
       : super(key: key);
 
   @override
@@ -50,16 +54,24 @@ class TimeRangeWigdet extends StatelessWidget {
             const SizedBox(height: 4),
             MainButton(
               height: 40,
-              onPressed: onSave,
+              onPressed: () {
+                if (onSave != null) {
+                  onSave!();
+                } 
+                if (onSaveAndClose != null) {
+                  bool res = onSaveAndClose!();
+                  if (res) Navigator.pop(context);
+                }
+              },
               label: 'Enregistrer',
             ),
             const SizedBox(height: 2),
-            MainButton(
-                          height: 40,
-
-              onPressed: onRestaure,
-              label: "Restaurer l'heure",
-            ),
+            if (restaure)
+              MainButton(
+                height: 40,
+                onPressed: onRestaure!,
+                label: "Restaurer l'heure",
+              ),
           ],
         ),
       ),

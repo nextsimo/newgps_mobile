@@ -6,6 +6,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:intl/intl.dart';
+import 'package:newgps/src/utils/device_size.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -25,6 +26,32 @@ const String imobilityLocalDataKey = 'imobility';
 const String hoodLocalDataKey = 'hood';
 const String oilChangelocalDataKey = 'oil_change';
 const String towingLocalDataKey = 'towing';
+
+// function to show delete dialog global and send function to delete item
+void showDeleteDialog(String title, String message,
+    Function deleteFunction) {
+  showDialog(
+      context: DeviceSize.c,
+      builder: (ctx) => AlertDialog(
+            title: Text(title),
+            content: Text(message),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(DeviceSize.c).pop();
+                },
+                child: const Text("Annuler"),
+              ),
+              TextButton(
+                onPressed: () {
+                  deleteFunction();
+                  Navigator.of(DeviceSize.c).pop();
+                },
+                child: const Text("Supprimer"),
+              ),
+            ],
+          ));
+}
 
 String formatDeviceDate(DateTime dateTime, [bool time = true]) {
   late DateFormat validFormatter;

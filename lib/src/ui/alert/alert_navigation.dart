@@ -13,6 +13,7 @@ import 'highway/nighway_notif_view.dart';
 import 'hsitorics/notif_hsitoric_view.dart';
 import 'immobility/imobility_alert_view.dart';
 import 'oil_change/oil_change_view.dart';
+import 'parking/parking_alert_view.dart';
 import 'radar/radar_view.dart';
 import 'speed/speed_view.dart';
 import 'start_up/startup_view.dart';
@@ -70,6 +71,9 @@ class AlertNavigation extends StatelessWidget {
                 case '/highway':
                   return MaterialPageRoute(
                       builder: (_) => const HighwayNotifView());
+                case '/parking':
+                  return MaterialPageRoute(
+                      builder: (_) => const ParkingAlertView());
                 default:
                   return MaterialPageRoute(builder: (_) => const AlertView());
               }

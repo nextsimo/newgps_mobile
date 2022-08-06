@@ -27,11 +27,11 @@ class TempBleChart extends StatelessWidget {
     return Column(
       children: [
         Text(
-          '$hours',
+          '$hours h',
           style: style,
         ),
         Text(
-          minutesLeft.toString(),
+          '$minutesLeft m',
           style: style,
         ),
       ],
@@ -65,7 +65,7 @@ class TempBleChart extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          // title
+          // titlew
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -74,6 +74,34 @@ class TempBleChart extends StatelessWidget {
                   lineTouchData: LineTouchData(enabled: true),
                   lineBarsData: [
                     LineChartBarData(
+                      barWidth: 3,
+                      showingIndicators: provider.showIndexed,
+                      shadow: const Shadow(
+                        blurRadius: 8,
+                        color: Colors.black26,
+                      ),
+                      belowBarData: BarAreaData(
+                        show: true,
+                        gradient: LinearGradient(
+                          colors: [
+                            const Color(0xff12c2e9).withOpacity(0.4),
+                            const Color(0xffc471ed).withOpacity(0.4),
+                            const Color(0xfff64f59).withOpacity(0.4),
+                          ],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                        ),
+                      ),
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color(0xff12c2e9),
+                          Color.fromARGB(255, 255, 104, 104),
+                          Color(0xfff64f59),
+                        ],
+                        stops: [0.1, 0.4, 0.9],
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                      ),
                       spots: provider.repports.map(
                         (model) {
                           debugPrint(
@@ -87,10 +115,9 @@ class TempBleChart extends StatelessWidget {
                         },
                       ).toList(),
                       isCurved: true,
-                      barWidth: 1.3,
                       color: Colors.green,
                       dotData: FlDotData(
-                        show: false,
+                        show: true,
                       ),
                     ),
                   ],
@@ -120,14 +147,15 @@ class TempBleChart extends StatelessWidget {
                   ),
                   backgroundColor: Colors.grey[300],
                   borderData: FlBorderData(
-                      border: const Border(
-                    left: BorderSide(
-                      color: Colors.black,
+                    border: const Border(
+                      left: BorderSide(
+                        color: Colors.black,
+                      ),
+                      bottom: BorderSide(
+                        color: Colors.black,
+                      ),
                     ),
-                    bottom: BorderSide(
-                      color: Colors.black,
-                    ),
-                  )),
+                  ),
                   gridData: FlGridData(
                     show: false,
                     drawHorizontalLine: false,

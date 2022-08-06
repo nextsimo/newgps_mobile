@@ -53,6 +53,7 @@ class AlertView extends StatelessWidget {
       page: '/towing',
       inDev: false,
     ),
+
 /*     _AlertItem(
         icon: Icons.radio_button_on_sharp,
         label: 'Radar',
@@ -64,6 +65,12 @@ class AlertView extends StatelessWidget {
         label: 'Température',
         page: '/temp',
         inDev: false),
+    _AlertItem(
+      icon: Icons.car_crash_sharp,
+      label: 'Parking',
+      page: '/parking',
+      inDev: false,
+    ),
 /*     _AlertItem(
         icon: Icons.flash_off_outlined,
         label: 'Débranchement',

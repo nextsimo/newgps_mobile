@@ -65,7 +65,7 @@ class ParkingAlertProvider extends ChangeNotifier {
   // add time slot to selectedDays list
   void toggleTimeSlot(BuildContext context) {
     if (!isAtLeastOneDaySelected()) return;
-    _showTimeSlotRange(context);
+    _showTimeSlotRange(context, _addToTimeSlotList);
     debugPrint("toggleTimeSlot");
   }
 
@@ -95,7 +95,7 @@ class ParkingAlertProvider extends ChangeNotifier {
   }
 
   // add time slot to timeSlots list
-  void _addToTimeSlotList() {
+  bool _addToTimeSlotList(_) {
     List<SlotTimeModel> newTimeSlots = List.from(timeSlots);
     DateTimeRange timeRange = DateTimeRange(
       start: selectedTimeFrom,
@@ -110,10 +110,13 @@ class ParkingAlertProvider extends ChangeNotifier {
     timeSlots = newTimeSlots;
     _removeShowDays(selectedDays);
     notifyListeners();
+    return true;
   }
 
   // show time range picker
-  void _showTimeSlotRange(BuildContext context) {
+  void _showTimeSlotRange(
+      BuildContext context, bool Function(SlotTimeModel? model) onSaveAndClose,
+      [SlotTimeModel? model]) {
     showDialog(
       context: context,
       builder: (_) => Dialog(
@@ -122,8 +125,7 @@ class ParkingAlertProvider extends ChangeNotifier {
           onSaveAndClose: () {
             if (isTimeSlotValid()) {
               debugPrint("time saved");
-              _addToTimeSlotList();
-              return true;
+              return onSaveAndClose(model);
             }
             Fluttertoast.showToast(
               msg: "Veuillez choisir une plage d'horaire valide",
@@ -165,14 +167,56 @@ class ParkingAlertProvider extends ChangeNotifier {
   }
 
   // show delete  confirmation dialog
-  void showDeleteConfirmationDialog( int day, int index) {
+  void showDeleteConfirmationDialog(int day, int index) {
     showDeleteDialog(
-         'Supprimer', 'Voulez-vous supprimer cette plage d\'horaire ?',
-        () {
-      _deleteTimeSlot(day,index);
-      
+        'Supprimer', 'Voulez-vous supprimer cette plage d\'horaire ?', () {
+      _deleteTimeSlot(day, index);
+
       notifyListeners();
     });
+  }
+
+  // check if dateTimeRange not in timeslot model
+  bool _isTimeSlotInTimeSlots(SlotTimeModel? slotTimeModel) {
+    if (slotTimeModel == null) return false;
+    return slotTimeModel.timeSlots.any((e) {
+      // starDateTime is in range
+      return (selectedTimeFrom.isAfter(e.start) &&
+              selectedTimeFrom.isBefore(e.end)) ||
+          ((selectedTimeTo.isAfter(e.start) && selectedTimeTo.isBefore(e.end)));
+    });
+  }
+
+  // add DateTimeRange to timeSlot model
+  bool _addTimeRangeToTimeSlot(SlotTimeModel? model) {
+    if (model == null) return false;
+    if (_isTimeSlotInTimeSlots(model)) {
+      Fluttertoast.showToast(
+        msg: "Plage d'horaire déjà existante !",
+        toastLength: Toast.LENGTH_LONG,
+      );
+      return false;
+    }
+    List<DateTimeRange> newTimeSlots = List.from(model.timeSlots);
+    newTimeSlots
+        .add(DateTimeRange(start: selectedTimeFrom, end: selectedTimeTo));
+    model.timeSlots = newTimeSlots;
+
+    // replace model in timeSlots list
+    List<SlotTimeModel> newTimeSlotsList = List.from(timeSlots);
+    // remove model from list
+    newTimeSlotsList.remove(model);
+    // add model to list
+    newTimeSlotsList.insert(0, model);
+    timeSlots = newTimeSlotsList;
+    notifyListeners();
+    return true;
+  }
+
+  // show dialog to add time range to timeSlot model
+  void showAddTimeRangeDialogToAddTimeSlot(
+      BuildContext context, SlotTimeModel model) {
+    _showTimeSlotRange(context, _addTimeRangeToTimeSlot, model);
   }
 
   // delete time slot from timeSlots list

@@ -20,6 +20,8 @@ class TimeSlotView extends StatelessWidget {
           final model = provider.timeSlots[index];
           return ListTile(
             title: Wrap(
+              spacing: 1,
+              runSpacing: 1,
               children: getTimeSlotsWidget(provider, model.timeSlots),
             ),
             leading: SizedBox(
@@ -31,7 +33,8 @@ class TimeSlotView extends StatelessWidget {
               children: [
                 IconButton(
                   icon: const Icon(Icons.add_circle_rounded),
-                  onPressed: () {},
+                  onPressed: () => provider.showAddTimeRangeDialogToAddTimeSlot(
+                      context, model),
                   color: Colors.green,
                 ),
                 IconButton(
@@ -52,10 +55,15 @@ class TimeSlotView extends StatelessWidget {
       ParkingAlertProvider provider, List<DateTimeRange> timeSlots) {
     return timeSlots.map<Widget>((e) {
       return Chip(
+        labelPadding: const EdgeInsets.symmetric(horizontal: 4),
         padding: EdgeInsets.zero,
         label: Text(
           '${provider.getHourMinute(e.start)} - ${provider.getHourMinute(e.end)}',
-          style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
+          style: const TextStyle(
+            fontSize: 9,
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
+          ),
         ),
       );
     }).toList();

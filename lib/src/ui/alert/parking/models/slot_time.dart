@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class SlotTimeModel {
-  final List<DateTimeRange> timeSlots;
+   List<DateTimeRange> timeSlots;
   final int day;
 
-  const SlotTimeModel({
+   SlotTimeModel({
     this.timeSlots = const [],
     required this.day,
   });

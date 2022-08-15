@@ -56,12 +56,12 @@ class _LastPositionViewState extends State<LastPositionView>
       appBar: CustomAppBar(
         onTap: lastPositionProvider.handleSelectDevice,
         actions: [
-          const LastTempIcon(),
           const LoadingIcon(),
           RotateIconMap(normalview: lastPositionProvider.normaleView),
           MapTypeWidget(onChange: (mapType) {
             deviceProvider.mapType = mapType;
           }),
+          const LastTempIcon(),
         ],
       ),
       body: Stack(

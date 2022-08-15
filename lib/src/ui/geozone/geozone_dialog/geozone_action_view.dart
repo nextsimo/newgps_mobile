@@ -259,7 +259,7 @@ class _PortraitDialog extends StatelessWidget {
             ),
           ),
         ),
-         Expanded(
+        Expanded(
           child: GeozoneMap(
             readonly: readonly,
           ),
@@ -360,9 +360,15 @@ class TypeSelectionGeozone extends StatelessWidget {
             ),
             DropdownMenuItem<int>(
               child: Text(
-                'Forme',
+                'Polygone',
               ),
               value: 1,
+            ),
+            DropdownMenuItem<int>(
+              child: Text(
+                'Point',
+              ),
+              value: 2,
             ),
           ],
         ),

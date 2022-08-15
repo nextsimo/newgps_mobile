@@ -59,26 +59,6 @@ class _RepportRow extends StatelessWidget {
   }) : super(key: key);
 
   // draw triangle in the screen to show the direction of the wind
-  Widget _buildTriangle(BuildContext context, double size, double angle) {
-    return Transform(
-      transform: Matrix4.identity()
-        ..setEntry(3, 2, 0.001)
-        ..rotateX(angle),
-      alignment: Alignment.center,
-      child: Container(
-        width: size,
-        height: size,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: Colors.black,
-            width: 1,
-          ),
-        ),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -162,9 +142,8 @@ class _BuildHead extends StatelessWidget {
 
 class _BuildTextCell extends StatelessWidget {
   final String content;
-  final Color color;
 
-  const _BuildTextCell(this.content, {Key? key, this.color = Colors.black})
+  const _BuildTextCell(this.content, {Key? key})
       : super(key: key);
 
   @override

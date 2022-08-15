@@ -24,7 +24,7 @@ class GeozoneModel {
   List<List<double>> cordinates;
   String geozoneId;
   int innerOuterValue;
-  int radius;
+  num radius;
   int zoneType;
   String mapImage;
   String description;

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:newgps/src/services/device_provider.dart';
+import 'package:newgps/src/services/geozone_service.dart'; 
 import 'package:newgps/src/ui/last_position/last_position_provider.dart';
+import 'package:newgps/src/utils/locator.dart';
 import 'package:provider/provider.dart';
 
 class LastpositionMap extends StatefulWidget {
@@ -49,10 +51,13 @@ class _LastpositionMapState extends State<LastpositionMap>
           return GoogleMap(
             myLocationEnabled: true,
             myLocationButtonEnabled: false,
+            circles: locator<GeozoneService>().circles,
+            polygons: locator<GeozoneService>().polygons,
             trafficEnabled: provider.traficClicked,
             mapType: deviceProvider.mapType,
             zoomControlsEnabled: false,
-            markers: provider.markersProvider.getMarkers(),
+            markers: provider.markersProvider.getMarkers()
+              ..addAll(locator<GeozoneService>().geozoneMarkers),
             polylines: provider.polylines,
             mapToolbarEnabled: false,
             onMapCreated: (controller) async {

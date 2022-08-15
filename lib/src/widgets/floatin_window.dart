@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:map_launcher/map_launcher.dart';
 import 'package:newgps/src/models/device.dart';
 import 'package:newgps/src/services/device_provider.dart';
 import 'package:newgps/src/services/newgps_service.dart';
@@ -12,10 +10,7 @@ import 'package:newgps/src/widgets/buttons/main_button.dart';
 import 'package:newgps/src/widgets/map_launcher/map_launcher_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import 'buttons/outlined_button.dart';
-import 'emoticone_builder/emoticone_widget.dart';
 
 class FloatingGroupWindowInfo extends StatefulWidget {
   final Device device;

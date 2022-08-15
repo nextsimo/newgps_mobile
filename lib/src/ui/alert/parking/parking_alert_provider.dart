@@ -206,8 +206,12 @@ class ParkingAlertProvider extends ChangeNotifier {
     List<SlotTimeModel> newTimeSlotsList = List.from(timeSlots);
     // remove model from list
     newTimeSlotsList.remove(model);
+    SlotTimeModel newModel = SlotTimeModel(
+      timeSlots: newTimeSlots,
+      day: model.day,
+    );
     // add model to list
-    newTimeSlotsList.insert(0, model);
+    newTimeSlotsList.insert(0, newModel);
     timeSlots = newTimeSlotsList;
     notifyListeners();
     return true;

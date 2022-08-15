@@ -7,9 +7,11 @@ import 'package:newgps/src/models/account.dart';
 import 'package:newgps/src/models/geozne_sttings_alert.dart';
 import 'package:newgps/src/models/geozone.dart';
 import 'package:newgps/src/services/firebase_messaging_service.dart';
+import 'package:newgps/src/services/geozone_service.dart';
 import 'package:newgps/src/services/newgps_service.dart';
 import 'package:newgps/src/ui/geozone/geozone_dialog/geozone_action_view.dart';
 import 'package:newgps/src/ui/geozone/geozone_dialog/geozone_dialog_provider.dart';
+import 'package:newgps/src/utils/locator.dart';
 import 'package:newgps/src/widgets/buttons/main_button.dart';
 
 class GeozoneProvider with ChangeNotifier {
@@ -92,14 +94,15 @@ class GeozoneProvider with ChangeNotifier {
     Account? account = shared.getAccount();
     String res = await api.post(url: '/add/geozone', body: {
       'accountId': account?.account.accountId,
-      'cordinates': geozoneDialogProvider.selectionType == 0
+      'cordinates': geozoneDialogProvider.selectionType == 0 ||
+              geozoneDialogProvider.selectionType == 2
           ? json.encode(List<List<double>>.from(geozoneDialogProvider.markers
               .map((e) => [e.position.latitude, e.position.longitude])
               .toList()))
           : json.encode(List<List<double>>.from(geozoneDialogProvider.pointLines
               .map((e) => [e.latitude, e.longitude])
               .toList())),
-      'radius': radius,
+      'radius': geozoneDialogProvider.selectionType == 0 ? radius : 1,
       'description': description,
       'geozone_type': geozoneDialogProvider.selectionType,
       'innerOuterValue': geozoneDialogProvider.innerOuterValue,
@@ -107,15 +110,26 @@ class GeozoneProvider with ChangeNotifier {
     });
 
     if (res.isEmpty) {
+      // show dialog that the geozone is already exists in frensh
       showDialog(
         context: context,
-        builder: (_) => const AlertDialog(
-          title: Text('Nom de geozone déja exister'),
+        builder: (context) => AlertDialog(
+          title: const Text('Geozone déjà existante'),
+          content: const Text('Veuillez choisir un autre nom'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
         ),
       );
+      debugPrint(res);
+      return;
     }
 
-    debugPrint(res);
     fetchGeozones();
   }
 
@@ -124,7 +138,8 @@ class GeozoneProvider with ChangeNotifier {
     Account? account = shared.getAccount();
     String res = await api.post(url: '/update/geozone', body: {
       'accountId': account?.account.accountId,
-      'cordinates': geozoneDialogProvider.selectionType == 0
+      'cordinates': geozoneDialogProvider.selectionType == 0 ||
+              geozoneDialogProvider.selectionType == 2
           ? json.encode(List<List<double>>.from(geozoneDialogProvider.markers
               .map((e) => [e.position.latitude, e.position.longitude])
               .toList()))
@@ -186,6 +201,7 @@ class GeozoneProvider with ChangeNotifier {
 
     if (res.isNotEmpty) {
       geozones = geozoneModelFromJson(res);
+      locator<GeozoneService>().fetchGeozoneFromApi();
     }
   }
 

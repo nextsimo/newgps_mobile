@@ -76,6 +76,7 @@ class _LogoutButtonPortrait extends StatelessWidget {
   final double height;
   const _LogoutButtonPortrait({
     Key? key,
+    // ignore: unused_element
     this.height = 35,
   }) : super(key: key);
 

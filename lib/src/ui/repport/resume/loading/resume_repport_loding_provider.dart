@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:newgps/src/services/newgps_service.dart';
 
@@ -22,7 +24,9 @@ class ResumeReportLoadingProvider with ChangeNotifier {
   void _init({int s = 16}) {
     try {
       frame = (1 / deviceProvider.devices.length);
-    } catch (e) {}
+    } catch (e) {
+      log("Error: $e");
+    }
     milliseconds = s;
   }
 

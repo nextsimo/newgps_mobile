@@ -60,10 +60,3 @@ class DaysWidget extends StatelessWidget {
     );
   }
 }
-
-class _Day {
-  final String label;
-  final int index;
-
-  const _Day({required this.label, required this.index});
-}

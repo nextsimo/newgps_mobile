@@ -29,7 +29,7 @@ class TemBleRepportModel {
   });
 
   final int id;
-  final int temperature1;
+  final num temperature1;
   final int humidity1;
   final String imei;
   final bool isActive;

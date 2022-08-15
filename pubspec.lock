@@ -399,6 +399,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.4"
+  label_marker:
+    dependency: "direct main"
+    description:
+      name: label_marker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   lazy_data_table:
     dependency: "direct main"
     description:

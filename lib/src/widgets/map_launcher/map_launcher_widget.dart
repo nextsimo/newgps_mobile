@@ -33,6 +33,6 @@ void openMapsSheet(BuildContext context, Device device) async {
       },
     );
   } catch (e) {
-    print(e);
+    debugPrint(e.toString());
   }
 }

@@ -334,10 +334,10 @@ void call(String phoneNumber) async {
         .timeout(const Duration(seconds: 2));
     log('----> $res');
     if (!res!) {
-      launch('tel:$phoneNumber');
+      launchUrl(Uri.parse('tel:$phoneNumber'));
     }
   } catch (e) {
-    launch('tel:$phoneNumber');
+    launchUrl(Uri.parse('tel:$phoneNumber'));
 
     log(e.toString());
   }

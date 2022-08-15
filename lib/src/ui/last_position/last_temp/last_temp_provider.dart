@@ -23,6 +23,9 @@ class LastTempProvider with ChangeNotifier {
     if (res.isNotEmpty) {
       model = temBleRepportModelFromJson(res);
       notifyListeners();
+    }else{
+      model = null;
+      notifyListeners();
     }
   }
 }

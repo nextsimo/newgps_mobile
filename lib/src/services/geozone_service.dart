@@ -11,6 +11,7 @@ class GeozoneService {
 
   // fetch geozone from server
   Future<void> fetchGeozoneFromApi() async {
+    clear();
     final res = await api.post(url: '/geozones', body: {
       "accountId": shared.getAccount()?.account.accountId,
     });
@@ -33,12 +34,14 @@ class GeozoneService {
         _addMarkerLabelToCircle(geo);
         circles.add(
           Circle(
-              circleId: CircleId(geo.geozoneId),
-              center: LatLng(geo.cordinates.first[0], geo.cordinates.first[1]),
-              radius: geo.radius.toDouble(),
-              fillColor: const Color.fromARGB(66, 136, 190, 61),
-              strokeColor:  geo.zoneType == 0 ?  AppConsts.mainColor : Colors.transparent,
-              strokeWidth: 3),
+            circleId: CircleId(geo.geozoneId),
+            center: LatLng(geo.cordinates.first[0], geo.cordinates.first[1]),
+            radius: geo.radius.toDouble(),
+            fillColor: const Color.fromARGB(66, 136, 190, 61),
+            strokeColor:
+                geo.zoneType == 0 ? AppConsts.mainColor : Colors.transparent,
+            strokeWidth: 3,
+          ),
         );
       }
       if (geo.zoneType == 1) {
@@ -77,7 +80,11 @@ class GeozoneService {
         markerId: MarkerId(model.geozoneId),
         label: model.description,
         position: center,
-        backgroundColor: Colors.green,
+        backgroundColor: model.zoneType == 2 ? Colors.blue : Colors.green,
+        textStyle: const TextStyle(
+          color: Colors.white,
+          fontSize: 33,
+        ),
       ),
     );
   }
@@ -93,5 +100,12 @@ class GeozoneService {
     }
     center = LatLng(sumX / cordinates.length, sumY / cordinates.length);
     return center;
+  }
+
+  // call when is logout
+  void clear() {
+    circles.clear();
+    polygons.clear();
+    geozoneMarkers.clear();
   }
 }

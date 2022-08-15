@@ -1,11 +1,15 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:newgps/src/models/geozone.dart';
 import 'package:newgps/src/utils/styles.dart';
+
+import '../../../models/device.dart';
 
 class GeozoneDialogProvider with ChangeNotifier {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -65,6 +69,36 @@ class GeozoneDialogProvider with ChangeNotifier {
   Future<void> pop(BuildContext context) async {
     Navigator.of(context).pop();
     clear();
+  }
+
+  Set<Marker> deviceMarkers = {};
+  // on selected device zoom to device position with animation
+  Future<void> zoomToDevice(Device device) async {
+    if (googleMapController != null) {
+      final CameraPosition target = CameraPosition(
+        target: LatLng(device.latitude, device.longitude),
+        // close zoom
+        zoom: 18,
+      );
+      await googleMapController!.animateCamera(
+        CameraUpdate.newCameraPosition(target),
+      );
+      // remove device marker
+      deviceMarkers.clear();
+      // add device marker to map
+      Uint8List imgRes = base64Decode(device.markerPng);
+      BitmapDescriptor bitmapDescriptor = BitmapDescriptor.fromBytes(imgRes);
+      deviceMarkers.add(Marker(
+        markerId: const MarkerId('deviceID'),
+        position: LatLng(device.latitude, device.longitude),
+        infoWindow: InfoWindow(
+          title: device.description,
+          snippet: device.description,
+        ),
+        icon: bitmapDescriptor,
+      ));
+      notifyListeners();
+    }
   }
 
   void onClickUpdate(GeozoneModel geozone) {

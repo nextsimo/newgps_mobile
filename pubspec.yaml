@@ -8,6 +8,7 @@ environment:
 dependencies:
   cupertino_icons: ^1.0.5
   device_info_plus: ^3.2.1
+  dropdown_search: ^5.0.2
   empty_widget: ^0.0.5
   faker: ^2.0.0
   firebase_core: ^1.12.0

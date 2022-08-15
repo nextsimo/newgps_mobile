@@ -9,6 +9,8 @@ import 'package:newgps/src/widgets/buttons/zoom_button.dart';
 import 'package:newgps/src/widgets/map_type_widget.dart';
 import 'package:provider/provider.dart';
 
+import '../../../widgets/inputs/select_device_widget.dart';
+
 class GeozoneActionView extends StatelessWidget {
   final GeozoneDialogProvider geozoneDialogProvider;
   final bool readonly;
@@ -205,33 +207,17 @@ class _PortraitDialog extends StatelessWidget {
                             geozoneDialogProvider.controllerGeozoneMetre,
                       ),
                     ),
-/*                     Expanded(
-                      flex: 4,
-                      child: GeoZoneSelectType(context: context),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: GeozoneInput(
-                        hint: 'Par defaut: 4000 m',
-                        validator: FormValidatorService.isNumber,
-                        controller:
-                            geozoneDialogProvider.controllerGeozoneMetre,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      flex: 2,
-                      child: MainButton(
-                        onPressed: () => geozoneDialogProvider.onSave(context),
-                        label: 'Enregister',
-                      ),
-                    ), */
                   ],
                 ),
+                //
                 const SizedBox(height: 10),
                 GeoZoneSelectType(
                   readonly: readonly,
                   context: context,
+                ),
+                const SizedBox(height: 10),
+                SelectedDeviceWidget(
+                  onSelected: geozoneDialogProvider.zoomToDevice,
                 ),
                 const SizedBox(height: 10),
                 Row(
@@ -282,7 +268,7 @@ class GeozoneMap extends StatelessWidget {
     return Stack(
       children: [
         GoogleMap(
-          markers: geozoneDialogProvider.markers,
+          markers: geozoneDialogProvider.markers..addAll(geozoneDialogProvider.deviceMarkers),
           onTap: readonly ? null : geozoneDialogProvider.addShape,
           circles: geozoneDialogProvider.circle,
           polygons: geozoneDialogProvider.polygone,

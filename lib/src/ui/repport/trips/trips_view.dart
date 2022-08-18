@@ -211,23 +211,18 @@ class _RepportRow extends StatelessWidget {
           const BuildDivider(),
           BuildTextCell('${trip.odometer}'),
           const BuildDivider(),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(1.0),
-                    child: MainButton(
-                      onPressed: () =>
-                          provider.navigateToRepportMap(context, trip),
-                      height: 18,
-                      fontSize: 9,
-                      label: 'Localiser',
-                    ),
-                  ),
+            Expanded(
+            child: InkWell(
+              onTap:  () => provider.navigateToRepportMap(context, trip),
+              child: const CircleAvatar(
+                  backgroundColor: AppConsts.blue,
+                radius: 9,
+                child:  Icon(
+                  Icons.location_pin,
+                  color: Colors.white,
+                  size: 12,
                 ),
-              ],
+              ),
             ),
           ),
           const BuildDivider(),

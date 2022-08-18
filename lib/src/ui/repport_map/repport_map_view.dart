@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:newgps/src/services/device_provider.dart';
 import 'package:newgps/src/ui/repport_map/repport_map_provider.dart';
 import 'package:newgps/src/utils/functions.dart';
 import 'package:provider/provider.dart';
+
+import '../../utils/styles.dart';
+import '../../widgets/map_type_widget.dart';
 
 class RepportMapView extends StatelessWidget {
   final Set<Marker> markers;
@@ -24,6 +28,10 @@ class RepportMapView extends StatelessWidget {
         builder: (context, __) {
           // read provider
           final provider = context.read<RepportMapProvider>();
+          final deviceProvider = context.read<DeviceProvider>();
+          MapType mapType = context.select((DeviceProvider provider) {
+            return provider.mapType;
+          });
           return Material(
             color: Colors.transparent,
             child: Stack(
@@ -42,6 +50,7 @@ class RepportMapView extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: GoogleMap(
+                            mapType: mapType,
                             initialCameraPosition: CameraPosition(
                                 target: LatLng(
                               markers.first.position.latitude,
@@ -55,47 +64,82 @@ class RepportMapView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
-                              margin: const EdgeInsets.all(10),
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.1),
-                                    blurRadius: 10,
-                                    spreadRadius: 5,
-                                  ),
-                                ],
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    formatDeviceDate(stopDate),
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                      color: AppConsts.mainColor,
+                                      width: AppConsts.borderWidth,
                                     ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.1),
+                                        blurRadius: 10,
+                                        spreadRadius: 5,
+                                      ),
+                                    ],
                                   ),
-                                  const SizedBox(
-                                    height: 17,
-                                    child: VerticalDivider(
-                                      thickness: 1.2,
-                                      color: Colors.grey,
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        formatDeviceDate(stopDate),
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 17,
+                                        child: VerticalDivider(
+                                          thickness: 1.2,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                      Text(
+                                        stopeTime,
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(1),
+                                  
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: AppConsts.mainColor,
+                                      width: AppConsts.borderWidth,
                                     ),
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.1),
+                                        blurRadius: 10,
+                                        spreadRadius: 5,
+                                      ),
+                                    ],
                                   ),
-                                  Text(
-                                    stopeTime,
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black,
-                                    ),
+                                  child: MapTypeWidget(
+                                    onChange: (mapType) {
+                                      deviceProvider.mapType = mapType;
+                                    },
+                                    
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                             Container(
                               margin: const EdgeInsets.all(10),
@@ -103,6 +147,10 @@ class RepportMapView extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                  color: AppConsts.mainColor,
+                                  width: AppConsts.borderWidth,
+                                ),
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.black.withOpacity(0.1),

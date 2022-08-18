@@ -1,8 +1,14 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:newgps/src/models/account.dart';
 import 'package:newgps/src/services/newgps_service.dart';
 import 'package:newgps/src/ui/repport/rapport_provider.dart';
 import 'package:newgps/src/ui/repport/trips/trips_model.dart';
+import 'package:newgps/src/ui/repport_map/repport_map_view.dart';
 
 class TripsProvider with ChangeNotifier {
   List<TripsRepportModel> trips = [];
@@ -105,5 +111,27 @@ class TripsProvider with ChangeNotifier {
       trips = tripsRepportModelFromJson(str);
       notifyListeners();
     }
+  }
+
+  // navigate to Repport map page
+  void navigateToRepportMap(BuildContext context, TripsRepportModel model) {
+    // mareker from base 64 string
+    Uint8List imgRes = base64Decode(model.marker);
+    BitmapDescriptor bitmapDescriptor = BitmapDescriptor.fromBytes(imgRes);
+    Marker marker = Marker(
+      zIndex: 1,
+      position: LatLng(model.latitude, model.longitude),
+      anchor: const Offset(0.5, 0.1),
+      markerId: MarkerId('${model.latitude},${model.longitude}___pos'),
+      icon: bitmapDescriptor,
+    );
+    showDialog(
+        context: context,
+        builder: (_) => RepportMapView(
+              markers: {marker},
+              stopeTime: model.stopedTime,
+              stopDate: model.endDate,
+              deviceDescription: repportProvider.selectedDevice.description,
+            ));
   }
 }

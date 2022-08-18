@@ -23,6 +23,9 @@ class TripsRepportModel {
     required this.stopedTime,
     required this.drivingTimeBySeconds,
     required this.stopedTimeBySeconds,
+    required this.marker,
+    required this.latitude,
+    required this.longitude,
   });
 
   DateTime startDate;
@@ -35,6 +38,9 @@ class TripsRepportModel {
   String stopedTime;
   int stopedTimeBySeconds;
   int drivingTimeBySeconds;
+  final String marker;
+  final double latitude;
+  final double longitude;
 
   factory TripsRepportModel.fromJson(Map<String, dynamic> json) =>
       TripsRepportModel(
@@ -48,6 +54,9 @@ class TripsRepportModel {
         stopedTime: json["stoped_time"].toString(),
         stopedTimeBySeconds: json["stoped_time_by_seconds"],
         drivingTimeBySeconds: json["driving_time_by_seconds"],
+        marker: json["marker"],
+        latitude: json["latitude"].toDouble(),
+        longitude: json["longitude"].toDouble(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -59,5 +68,8 @@ class TripsRepportModel {
         "start_address": startAddress,
         "end_address": endAddress,
         "stoped_time": stopedTime,
+        "stoped_time_by_seconds": stopedTimeBySeconds,
+        "driving_time_by_seconds": drivingTimeBySeconds,
+        "marker": marker,
       };
 }

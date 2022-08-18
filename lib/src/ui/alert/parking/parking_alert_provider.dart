@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:newgps/src/services/firebase_messaging_service.dart';
 import 'package:newgps/src/ui/alert/parking/models/slot_time.dart';
 
+import '../../../services/newgps_service.dart';
 import '../../../utils/functions.dart';
 import '../../../widgets/date_time_picker/time_range_widget.dart';
 
@@ -11,6 +15,14 @@ class ParkingAlertProvider extends ChangeNotifier {
   bool get isActive => _isActive;
 
   List<int> selectedDays = [];
+
+  late int _notificationId;
+
+  ParkingAlertProvider([FirebaseMessagingService? messagingService]) {
+    if (messagingService != null) {
+      _notificationId = messagingService.notificationID;
+    }
+  }
 
   List<SlotTimeModel> timeSlots = [];
 
@@ -230,5 +242,38 @@ class ParkingAlertProvider extends ChangeNotifier {
     timeSlots = newTimeSlots;
     _addShowDays(day);
     notifyListeners();
+  }
+
+  // save time slots to database
+  Future<void> saveTimeSlots() async {
+    debugPrint("saveTimeSlots");
+    final res = await api.post(
+      url: "/notautorised/startup",
+      body: {
+        "timeSlots": convertSlotTimeModelToString(timeSlots),
+        'account_id': shared.getAccount()?.account.accountId,
+        'notification_id': _notificationId
+      },
+    );
+    log("----> saveTimeSlots : $res");
+    debugPrint("saveTimeSlots");
+    _fetchTimeSlots();
+  }
+
+  // fetch time slots from database
+  Future<void> _fetchTimeSlots() async {
+    debugPrint("fetchTimeSlots");
+    final res = await api.post(
+      url: "/notautorised/index",
+      body: {
+        'notification_id': _notificationId
+      },
+    );
+    log("----> fetchTimeSlots : $res");
+    debugPrint("fetchTimeSlots");
+    if (res.isNotEmpty) {
+      timeSlots = convertStringToSlotTimeModel(res);
+      notifyListeners();
+    }
   }
 }

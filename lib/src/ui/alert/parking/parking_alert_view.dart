@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:newgps/src/services/firebase_messaging_service.dart';
 import 'package:newgps/src/ui/alert/parking/components/time_slot_list_view.dart';
 import 'package:newgps/src/ui/alert/parking/parking_alert_provider.dart';
+import 'package:newgps/src/widgets/buttons/main_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../navigation/top_app_bar.dart';
@@ -14,13 +16,20 @@ class ParkingAlertView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ParkingAlertProvider>(
+    return ChangeNotifierProxyProvider<FirebaseMessagingService,
+            ParkingAlertProvider>(
         create: (_) => ParkingAlertProvider(),
+        lazy: false,
+        update: (_, messaging, provider) {
+          return ParkingAlertProvider(messaging);
+        },
         builder: (context, snapshot) {
+          final provider = context.read<ParkingAlertProvider>();
           return Scaffold(
             appBar: const CustomAppBar(
               actions: [CloseButton(color: Colors.black)],
             ),
+            resizeToAvoidBottomInset: false,
             body: SafeArea(
               right: false,
               bottom: false,
@@ -32,7 +41,7 @@ class ParkingAlertView extends StatelessWidget {
                       children: const [
                         SizedBox(height: 10),
                         BuildLabel(
-                          label: 'parking no autorisé',
+                          label: 'démarrage non autorisé',
                           icon: Icons.car_crash,
                         ),
                         SizedBox(height: 5),
@@ -46,6 +55,15 @@ class ParkingAlertView extends StatelessWidget {
                   const SizedBox(height: 10),
                   const AddTimeButton(),
                   const TimeSlotView(),
+                  // button to save all the changes
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: MainButton(
+                      onPressed: provider.saveTimeSlots,
+                      label: 'Enregistrer',
+                    ),
+                  ),
+                  const SizedBox(height: 120),
                 ],
               ),
             ),

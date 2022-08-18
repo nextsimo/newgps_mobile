@@ -3,6 +3,7 @@ import 'package:newgps/src/utils/functions.dart';
 import 'package:newgps/src/utils/styles.dart';
 import 'package:newgps/src/ui/repport/rapport_provider.dart';
 import 'package:newgps/src/ui/repport/trips/trips_model.dart';
+import 'package:newgps/src/widgets/buttons/main_button.dart';
 import 'package:provider/provider.dart';
 
 import '../clickable_text_cell.dart';
@@ -114,8 +115,7 @@ class _BuildHead extends StatelessWidget {
             isUp: provider.orderByStopedTime,
             ontap: provider.updateByStopedTime,
           ),
-                    const BuildDivider(),
-
+          const BuildDivider(),
           BuildClickableTextCell(
             'Distance parcorue(Km)',
             isSlected: 3 == provider.selectedIndex,
@@ -130,6 +130,41 @@ class _BuildHead extends StatelessWidget {
             ontap: provider.updateByOdometer,
           ),
           const BuildDivider(),
+          const _BuildHeadCard(
+            label: 'Localiser l\'arrêt',
+          ),
+          const BuildDivider(),
+        ],
+      ),
+    );
+  }
+}
+
+class _BuildHeadCard extends StatelessWidget {
+  final String label;
+  const _BuildHeadCard({
+    Key? key,
+    required this.label,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 7,
+            ),
+          ),
+          const Icon(
+            Icons.map,
+            color: AppConsts.mainColor,
+            size: 15,
+          ),
         ],
       ),
     );
@@ -146,6 +181,8 @@ class _RepportRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // read provdider
+    TripsProvider provider = context.read<TripsProvider>();
     return Container(
       decoration: const BoxDecoration(
         border: Border(
@@ -173,6 +210,26 @@ class _RepportRow extends StatelessWidget {
           BuildTextCell('${trip.distance}'),
           const BuildDivider(),
           BuildTextCell('${trip.odometer}'),
+          const BuildDivider(),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(1.0),
+                    child: MainButton(
+                      onPressed: () =>
+                          provider.navigateToRepportMap(context, trip),
+                      height: 18,
+                      fontSize: 9,
+                      label: 'Localiser',
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
           const BuildDivider(),
         ],
       ),

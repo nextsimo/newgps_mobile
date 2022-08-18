@@ -14,7 +14,7 @@ class TimeSlotView extends StatelessWidget {
     return Expanded(
       child: ListView.separated(
         separatorBuilder: (_, __) => const Divider(),
-        padding: const EdgeInsets.fromLTRB(14, 16, 14, 130),
+        padding: const EdgeInsets.fromLTRB(14, 16, 14, 0),
         itemCount: provider.timeSlots.length,
         itemBuilder: (context, index) {
           final model = provider.timeSlots[index];

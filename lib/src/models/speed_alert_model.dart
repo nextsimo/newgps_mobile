@@ -24,7 +24,7 @@ class SpeedAlertSettings {
       SpeedAlertSettings(
         id: json["id"],
         maxSpeed: json["max_speed"],
-        isActive: json["is_active"] == 1 ? true : false,
+        isActive: json["is_active"],
       );
 
   Map<String, dynamic> toJson() => {

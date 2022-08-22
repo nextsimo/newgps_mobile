@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:newgps/src/ui/navigation/top_app_bar.dart';
+import 'package:newgps/src/utils/styles.dart';
 import 'package:provider/provider.dart';
 import 'temperature_repport_provider.dart';
 
@@ -80,28 +81,8 @@ class TempBleChart extends StatelessWidget {
                         blurRadius: 8,
                         color: Colors.black26,
                       ),
-                      belowBarData: BarAreaData(
-                        show: true,
-                        gradient: LinearGradient(
-                          colors: [
-                            const Color(0xff12c2e9).withOpacity(0.4),
-                            const Color(0xffc471ed).withOpacity(0.4),
-                            const Color(0xfff64f59).withOpacity(0.4),
-                          ],
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                        ),
-                      ),
-                      gradient: const LinearGradient(
-                        colors: [
-                          Color(0xff12c2e9),
-                          Color.fromARGB(255, 255, 104, 104),
-                          Color(0xfff64f59),
-                        ],
-                        stops: [0.1, 0.4, 0.9],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                      ),
+
+
                       spots: provider.repports.map(
                         (model) {
                           debugPrint(
@@ -115,14 +96,15 @@ class TempBleChart extends StatelessWidget {
                         },
                       ).toList(),
                       isCurved: true,
-                      color: Colors.green,
+                      color: Colors.red,
                       dotData: FlDotData(
                         show: true,
+
                       ),
                     ),
                   ],
-                  maxY: 80,
-                  minY: -45,
+                  maxY: provider.maxTemp,
+                  minY: provider.minTemp,
                   titlesData: FlTitlesData(
                     bottomTitles: AxisTitles(
                       sideTitles: SideTitles(
@@ -135,7 +117,7 @@ class TempBleChart extends StatelessWidget {
                       sideTitles: SideTitles(
                         showTitles: true,
                         getTitlesWidget: leftTitleWidgets,
-                        interval: 5,
+                        interval: (( provider.maxTemp - provider.minTemp) ~/ 3).toDouble(),
                       ),
                     ),
                     topTitles: AxisTitles(
@@ -145,7 +127,7 @@ class TempBleChart extends StatelessWidget {
                       sideTitles: SideTitles(showTitles: false),
                     ),
                   ),
-                  backgroundColor: Colors.grey[300],
+                  backgroundColor: AppConsts.mainColor.withOpacity(0.2),
                   borderData: FlBorderData(
                     border: const Border(
                       left: BorderSide(
@@ -161,7 +143,7 @@ class TempBleChart extends StatelessWidget {
                     drawHorizontalLine: false,
                     drawVerticalLine: false,
                   ),
-                  clipData: FlClipData.all(),
+                  //clipData: FlClipData.all(),
                 ),
               ),
             ),

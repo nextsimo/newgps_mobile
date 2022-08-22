@@ -31,9 +31,10 @@ class NotifHistoricView extends StatelessWidget {
                     bottom: false,
                     top: false,
                     right: false,
-                    child: Selector<NotifHistoricPorvider, List<NotifHistoric>>(
-                        selector: (_, __) => __.histos,
+                    child: Selector<NotifHistoricPorvider, bool>(
+                        selector: (_, __) => __.loading,
                         builder: (_, histos, __) {
+                          final histos = porvider.histos;
                           if (porvider.loading) {
                             return const Center(
                               child: SizedBox(

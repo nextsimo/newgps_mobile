@@ -49,9 +49,9 @@ class TemperatureRepportProvider with ChangeNotifier {
   double maxHour = 0;
 
   void _setMaxMinTemp() {
-    double max = 0;
-    double min = 0;
-    for (TemBleRepportModel repport in repportsChart) {
+    double max = _repports.first.temperature1.toDouble();
+    double min = _repports.first.temperature1.toDouble();
+    for (TemBleRepportModel repport in _repports) {
       if (repport.temperature1 > max) {
         max = repport.temperature1.toDouble();
       }
@@ -66,8 +66,8 @@ class TemperatureRepportProvider with ChangeNotifier {
         minHour = repport.timestamp.hour.toDouble();
       }
     }
-    maxTemp = max;
-    minTemp = min;
+    maxTemp = max + 2;
+    minTemp = min - 2;
   }
 
   bool loading = false;

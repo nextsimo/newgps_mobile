@@ -94,6 +94,7 @@ class GeozoneProvider with ChangeNotifier {
     Account? account = shared.getAccount();
     String res = await api.post(url: '/add/geozone', body: {
       'accountId': account?.account.accountId,
+      'devices':  geozoneDialogProvider.selectedDevices.join(','),
       'cordinates': geozoneDialogProvider.selectionType == 0 ||
               geozoneDialogProvider.selectionType == 2
           ? json.encode(List<List<double>>.from(geozoneDialogProvider.markers
@@ -151,6 +152,7 @@ class GeozoneProvider with ChangeNotifier {
       'geozone_type': geozoneDialogProvider.selectionType,
       'innerOuterValue': geozoneDialogProvider.innerOuterValue,
       'zoom': geozoneDialogProvider.currentZoome,
+      'devices':  geozoneDialogProvider.selectedDevices.join(','),
     });
 
     if (res.isEmpty) {
@@ -166,6 +168,7 @@ class GeozoneProvider with ChangeNotifier {
 
   Future<void> onClickUpdate(GeozoneModel geozone, BuildContext context,
       {bool readonly = false}) async {
+    geozoneDialogProvider.selectedDevices = geozone.devices;
     geozoneDialogProvider.onClickUpdate(geozone);
     bool? saved = await showDialog(
       context: context,

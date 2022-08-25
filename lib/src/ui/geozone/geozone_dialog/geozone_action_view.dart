@@ -218,6 +218,7 @@ class _PortraitDialog extends StatelessWidget {
                 const SizedBox(height: 10),
                 SelectedDeviceWidget(
                   onSelected: geozoneDialogProvider.zoomToDevice,
+                  selectedDevices: geozoneDialogProvider.selectedDevices,
                 ),
                 const SizedBox(height: 10),
                 Row(

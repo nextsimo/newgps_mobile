@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 //import 'dart:html' as html;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:newgps/src/models/account.dart';
 import 'package:newgps/src/models/device.dart';
 import 'package:newgps/src/models/repport_resume_model.dart';
@@ -50,13 +51,16 @@ class RepportProvider with ChangeNotifier {
     ),
   ];
 
-
   // show graphe method
   void showTempGraphe(BuildContext context) {
     // navigate to graphe view
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return const TempBleChart();
     }));
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
   }
 
   Future<void> downloadDocument(BuildContext context) async {

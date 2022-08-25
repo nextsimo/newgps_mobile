@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:newgps/src/ui/navigation/top_app_bar.dart';
 import 'package:newgps/src/utils/styles.dart';
 import 'package:provider/provider.dart';
@@ -55,100 +56,114 @@ class TempBleChart extends StatelessWidget {
   Widget build(BuildContext context) {
     // read provider
     final provider = context.read<TemperatureRepportProvider>();
-    return Scaffold(
-      appBar: const CustomAppBar(
-        actions: [
-          CloseButton(
-            color: Colors.black,
-          ),
-        ],
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          // titlew
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: LineChart(
-                LineChartData(
-                  lineTouchData: LineTouchData(enabled: true),
-                  lineBarsData: [
-                    LineChartBarData(
-                      barWidth: 3,
-                      showingIndicators: provider.showIndexed,
-                      shadow: const Shadow(
-                        blurRadius: 8,
-                        color: Colors.black26,
+    return WillPopScope(
+      onWillPop: () async {
+        SystemChrome.setPreferredOrientations([
+          DeviceOrientation.portraitDown,
+          DeviceOrientation.portraitUp,
+        ]);
+        return true;
+      },
+      child: Scaffold(
+        appBar: CustomAppBar(
+          actions: [
+            CloseButton(
+              color: Colors.black,
+              onPressed: () {
+                Navigator.of(context).pop();
+                SystemChrome.setPreferredOrientations([
+                  DeviceOrientation.portraitDown,
+                  DeviceOrientation.portraitUp,
+                ]);
+              },
+            ),
+          ],
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            // titlew
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: LineChart(
+                  LineChartData(
+                    lineTouchData: LineTouchData(enabled: true),
+                    lineBarsData: [
+                      LineChartBarData(
+                        barWidth: 3,
+                        showingIndicators: provider.showIndexed,
+                        shadow: const Shadow(
+                          blurRadius: 8,
+                          color: Colors.black26,
+                        ),
+                        spots: provider.repports.map(
+                          (model) {
+                            debugPrint(
+                                "T---> ${model.updatedAt} -> ${model.temperature1}");
+                            return FlSpot(
+                              ((model.updatedAt.hour.toDouble() * 60) +
+                                  model.updatedAt.minute +
+                                  (model.updatedAt.second / 60)),
+                              model.temperature1.toDouble(),
+                            );
+                          },
+                        ).toList(),
+                        isCurved: true,
+                        color: Colors.red,
+                        dotData: FlDotData(
+                          show: true,
+                        ),
                       ),
-
-
-                      spots: provider.repports.map(
-                        (model) {
-                          debugPrint(
-                              "T---> ${model.updatedAt} -> ${model.temperature1}");
-                          return FlSpot(
-                            ((model.updatedAt.hour.toDouble() * 60) +
-                                model.updatedAt.minute +
-                                (model.updatedAt.second / 60)),
-                            model.temperature1.toDouble(),
-                          );
-                        },
-                      ).toList(),
-                      isCurved: true,
-                      color: Colors.red,
-                      dotData: FlDotData(
-                        show: true,
-
+                    ],
+                    maxY: provider.maxTemp,
+                    minY: provider.minTemp,
+                    titlesData: FlTitlesData(
+                      bottomTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          interval: 30,
+                          getTitlesWidget: bottomTitleWidgets,
+                        ),
+                      ),
+                      leftTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          getTitlesWidget: leftTitleWidgets,
+                          interval: ((provider.maxTemp - provider.minTemp) ~/ 3)
+                              .toDouble(),
+                        ),
+                      ),
+                      topTitles: AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      rightTitles: AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
                       ),
                     ),
-                  ],
-                  maxY: provider.maxTemp,
-                  minY: provider.minTemp,
-                  titlesData: FlTitlesData(
-                    bottomTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        interval: 30,
-                        getTitlesWidget: bottomTitleWidgets,
+                    backgroundColor: AppConsts.mainColor.withOpacity(0.2),
+                    borderData: FlBorderData(
+                      border: const Border(
+                        left: BorderSide(
+                          color: Colors.black,
+                        ),
+                        bottom: BorderSide(
+                          color: Colors.black,
+                        ),
                       ),
                     ),
-                    leftTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        getTitlesWidget: leftTitleWidgets,
-                        interval: (( provider.maxTemp - provider.minTemp) ~/ 3).toDouble(),
-                      ),
+                    gridData: FlGridData(
+                      show: false,
+                      drawHorizontalLine: false,
+                      drawVerticalLine: false,
                     ),
-                    topTitles: AxisTitles(
-                      sideTitles: SideTitles(showTitles: false),
-                    ),
-                    rightTitles: AxisTitles(
-                      sideTitles: SideTitles(showTitles: false),
-                    ),
+                    //clipData: FlClipData.all(),
                   ),
-                  backgroundColor: AppConsts.mainColor.withOpacity(0.2),
-                  borderData: FlBorderData(
-                    border: const Border(
-                      left: BorderSide(
-                        color: Colors.black,
-                      ),
-                      bottom: BorderSide(
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  gridData: FlGridData(
-                    show: false,
-                    drawHorizontalLine: false,
-                    drawVerticalLine: false,
-                  ),
-                  //clipData: FlClipData.all(),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

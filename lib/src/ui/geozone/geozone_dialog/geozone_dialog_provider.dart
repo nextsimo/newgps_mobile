@@ -8,8 +8,10 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:newgps/src/models/geozone.dart';
 import 'package:newgps/src/utils/styles.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../models/device.dart';
+import '../../../services/newgps_service.dart';
 
 class GeozoneDialogProvider with ChangeNotifier {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -46,6 +48,8 @@ class GeozoneDialogProvider with ChangeNotifier {
   }
 
   void clear() {
+    deviceMarkers.clear();
+    deviceMarkers.clear();
     _innerOuterValue = 0;
     _selectionType = 0;
     controllerGeozoneName.text = "";
@@ -71,35 +75,91 @@ class GeozoneDialogProvider with ChangeNotifier {
     clear();
   }
 
+  // get tow points from list of points to fit the map  to the screen
+  List<LatLng> _getTwoPoints(List<LatLng> points) {
+    if (points.length < 2) {
+      return points;
+    }
+    double minLat = points.first.latitude;
+    double maxLat = points.first.latitude;
+    double minLng = points.first.longitude;
+    double maxLng = points.first.longitude;
+    for (LatLng point in points) {
+      if (point.latitude < minLat) {
+        minLat = point.latitude;
+      }
+      if (point.latitude > maxLat) {
+        maxLat = point.latitude;
+      }
+      if (point.longitude < minLng) {
+        minLng = point.longitude;
+      }
+      if (point.longitude > maxLng) {
+        maxLng = point.longitude;
+      }
+    }
+    return [
+      LatLng(minLat, minLng),
+      LatLng(maxLat, maxLng),
+    ];
+  }
+
+  // zoom to list of points
+  Future<void> _zoomToPoints(List<LatLng> points) async {
+    if (points.isNotEmpty) {
+      final List<LatLng> twoPoints = _getTwoPoints(points);
+      final bounds = LatLngBounds(
+        southwest: twoPoints.first,
+        northeast: twoPoints.last,
+      );
+
+      // zoom and center to bounds
+      await googleMapController!.animateCamera(
+        CameraUpdate.newLatLngBounds(bounds, 40),
+      );
+    }
+  }
+
+  final uuid = const Uuid();
+  // generate unique id for marker
+  String _generateUniqueId() {
+    return uuid.v4();
+  }
+
   Set<Marker> deviceMarkers = {};
   // on selected device zoom to device position with animation
-  Future<void> zoomToDevice(Device device) async {
-    if (googleMapController != null) {
-      final CameraPosition target = CameraPosition(
-        target: LatLng(device.latitude, device.longitude),
-        // close zoom
-        zoom: 18,
-      );
-      await googleMapController!.animateCamera(
-        CameraUpdate.newCameraPosition(target),
-      );
-      // remove device marker
-      deviceMarkers.clear();
+  Future<void> zoomToDevice(List<String> device) async {
+    selectedDevices = device;
+    debugPrint('selected device ${device.length}');
+    List<Device> devices = List<Device>.from(
+        deviceProvider.devices.where((d) => device.contains(d.description)));
+    List<LatLng> points =
+        List<LatLng>.from(devices.map((d) => LatLng(d.latitude, d.longitude)));
+    _zoomToPoints(points);
+
+    // remove device marker
+    deviceMarkers.clear();
+    notifyListeners();
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    for (Device d in devices) {
       // add device marker to map
-      Uint8List imgRes = base64Decode(device.markerPng);
+      Uint8List imgRes = base64Decode(d.markerPng);
       BitmapDescriptor bitmapDescriptor = BitmapDescriptor.fromBytes(imgRes);
       deviceMarkers.add(Marker(
-        markerId: const MarkerId('deviceID'),
-        position: LatLng(device.latitude, device.longitude),
+        markerId: MarkerId(_generateUniqueId()),
+        position: LatLng(d.latitude, d.longitude),
         infoWindow: InfoWindow(
-          title: device.description,
-          snippet: device.description,
+          title: d.description,
+          snippet: d.description,
         ),
         icon: bitmapDescriptor,
       ));
-      notifyListeners();
     }
+    notifyListeners();
   }
+
+  List<String> selectedDevices = [];
 
   void onClickUpdate(GeozoneModel geozone) {
     controllerGeozoneName.text = geozone.description;
@@ -318,5 +378,7 @@ class GeozoneDialogProvider with ChangeNotifier {
     markers.clear();
     polygone.clear();
     circle.clear();
+    deviceMarkers.clear();
+    selectedDevices = [];
   }
 }

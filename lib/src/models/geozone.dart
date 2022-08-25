@@ -19,6 +19,7 @@ class GeozoneModel {
     required this.zoneType,
     required this.mapImage,
     required this.description,
+    required this.devices,
   });
 
   List<List<double>> cordinates;
@@ -28,6 +29,7 @@ class GeozoneModel {
   int zoneType;
   String mapImage;
   String description;
+  final List<String> devices;
 
   factory GeozoneModel.fromJson(Map<String, dynamic> json) => GeozoneModel(
         cordinates: List<List<double>>.from(json["cordinates"]
@@ -38,6 +40,7 @@ class GeozoneModel {
         zoneType: json["zoneType"],
         mapImage: json["map_image"],
         description: json["description"],
+        devices: List<String>.from(json['devices'].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {

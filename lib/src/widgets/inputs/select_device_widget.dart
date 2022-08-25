@@ -5,9 +5,10 @@ import 'package:newgps/src/services/newgps_service.dart';
 import '../../models/device.dart';
 
 class SelectedDeviceWidget extends StatelessWidget {
-  final Function(Device) onSelected;
+  final Function(List<String>) onSelected;
+  final List<String> selectedDevices;
 
-  const SelectedDeviceWidget({Key? key, required this.onSelected})
+  const SelectedDeviceWidget({Key? key, required this.onSelected, required this.selectedDevices})
       : super(key: key);
 
   @override
@@ -22,34 +23,40 @@ class SelectedDeviceWidget extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(6),
       ),
-      child: DropdownSearch<Device>(
-        items: deviceProvider.devices,
+      child: DropdownSearch<String>.multiSelection(
+        items: List<String>.from(
+          deviceProvider.devices.map((Device device) => device.description),
+        ),
         dropdownDecoratorProps: const DropDownDecoratorProps(
           dropdownSearchDecoration: InputDecoration(
-            hintText: "Selectioné une appareil",
+            hintText: "",
             contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
           ),
         ),
-        itemAsString: (item) => item.description,
-        onChanged: (Device? d) {
-          if (d != null) {
-            onSelected(d);
-          }
+        onChanged: (List<String> d) {
+          onSelected(d);
         },
-        popupProps: PopupProps.menu(
+        selectedItems: selectedDevices,
+        popupProps: PopupPropsMultiSelection.modalBottomSheet(
+          showSelectedItems: false,
           showSearchBox: true,
           emptyBuilder: (context, ___) =>
               const Center(child: Text('Aucun appareil trouvé')),
-          itemBuilder: (context, item, isSelected) => ListTile(
-            title: Text(
-              item.description,
-              style: TextStyle(
-                color: isSelected ? Colors.white : Colors.black,
-                fontSize: 14,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+          itemBuilder: (context, item, isSelected) => Row(
+            children: [
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  item,
+                  style: TextStyle(
+                    color: isSelected ? Colors.white : Colors.black,
+                    fontSize: 14,
+                    fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                  ),
+                ),
               ),
-            ),
-            selected: isSelected,
+
+            ],
           ),
         ),
       ),

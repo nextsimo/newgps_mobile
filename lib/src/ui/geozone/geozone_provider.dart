@@ -92,23 +92,27 @@ class GeozoneProvider with ChangeNotifier {
   Future<void> addGeozone(double radius, LatLng center, String description,
       BuildContext context) async {
     Account? account = shared.getAccount();
-    String res = await api.post(url: '/add/geozone', body: {
-      'accountId': account?.account.accountId,
-      'devices':  geozoneDialogProvider.selectedDevices.join(','),
-      'cordinates': geozoneDialogProvider.selectionType == 0 ||
-              geozoneDialogProvider.selectionType == 2
-          ? json.encode(List<List<double>>.from(geozoneDialogProvider.markers
-              .map((e) => [e.position.latitude, e.position.longitude])
-              .toList()))
-          : json.encode(List<List<double>>.from(geozoneDialogProvider.pointLines
-              .map((e) => [e.latitude, e.longitude])
-              .toList())),
-      'radius': geozoneDialogProvider.selectionType == 0 ? radius : 1,
-      'description': description,
-      'geozone_type': geozoneDialogProvider.selectionType,
-      'innerOuterValue': geozoneDialogProvider.innerOuterValue,
-      'zoom': geozoneDialogProvider.currentZoome,
-    });
+    String res = await api.post(
+      url: '/add/geozone',
+      body: {
+        'accountId': account?.account.accountId,
+        'devices': geozoneDialogProvider.selectedDevices.join(','),
+        'cordinates': geozoneDialogProvider.selectionType == 0 ||
+                geozoneDialogProvider.selectionType == 2
+            ? json.encode(List<List<double>>.from(geozoneDialogProvider.markers
+                .map((e) => [e.position.latitude, e.position.longitude])
+                .toList()))
+            : json.encode(List<List<double>>.from(geozoneDialogProvider
+                .pointLines
+                .map((e) => [e.latitude, e.longitude])
+                .toList())),
+        'radius': geozoneDialogProvider.selectionType == 0 ? radius : 1,
+        'description': description,
+        'geozone_type': geozoneDialogProvider.selectionType,
+        'innerOuterValue': geozoneDialogProvider.innerOuterValue,
+        'zoom': geozoneDialogProvider.currentZoome,
+      },
+    );
 
     if (res.isEmpty) {
       // show dialog that the geozone is already exists in frensh
@@ -152,7 +156,7 @@ class GeozoneProvider with ChangeNotifier {
       'geozone_type': geozoneDialogProvider.selectionType,
       'innerOuterValue': geozoneDialogProvider.innerOuterValue,
       'zoom': geozoneDialogProvider.currentZoome,
-      'devices':  geozoneDialogProvider.selectedDevices.join(','),
+      'devices': geozoneDialogProvider.selectedDevices.join(','),
     });
 
     if (res.isEmpty) {

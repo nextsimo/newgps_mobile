@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 
 import 'call_service_view.dart';
 import 'login_as/login_as_view.dart';
+import 'sous_user_check.dart';
 
 class LoginPortrait extends StatelessWidget {
   final MainButton loginButton;
@@ -19,7 +20,7 @@ class LoginPortrait extends StatelessWidget {
   Widget build(BuildContext context) {
     LoginProvider provider = Provider.of<LoginProvider>(context, listen: false);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppConsts.outsidePadding),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Center(
         child: Form(
           key: provider.formKey,
@@ -50,12 +51,8 @@ class LoginPortrait extends StatelessWidget {
                   onEditeComplete: () => loginButton.onPressed(),
                 ),
                 const SizedBox(height: 10),
-                MainInput(
-                  icon: Icons.person,
-                  hint: 'Sous utilisateur',
-                  controller: provider.underCompteController,
-                  onEditeComplete: () => FocusScope.of(context).nextFocus(),
-                ),
+                const SousUserCheck(),
+
                 const SizedBox(height: 20),
                 loginButton,
                 const SizedBox(height: 10),

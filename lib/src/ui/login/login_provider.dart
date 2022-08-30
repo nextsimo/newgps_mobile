@@ -20,6 +20,17 @@ class LoginProvider with ChangeNotifier {
   final GlobalKey<FormState> updateFormKey = GlobalKey<FormState>();
 
   late String _errorText = '';
+  bool isUnderCompte = false;
+
+
+  // set under user checkbox value
+  void setUnderCompte(bool? value) {
+    if (value != null) {
+      underCompteController.text = '';
+      isUnderCompte = value;
+      notifyListeners();
+    }
+  }
 
   String get errorText => _errorText;
 
@@ -78,7 +89,6 @@ class LoginProvider with ChangeNotifier {
         await underAccountLogin(context);
       } else {
         shared.sharedPreferences.clear();
-
         Account? account = await api.login(
           accountId: compteController.text,
           password: passwordController.text,

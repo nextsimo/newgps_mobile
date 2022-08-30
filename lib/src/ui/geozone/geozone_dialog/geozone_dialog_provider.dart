@@ -149,10 +149,7 @@ class GeozoneDialogProvider with ChangeNotifier {
       deviceMarkers.add(Marker(
         markerId: MarkerId(_generateUniqueId()),
         position: LatLng(d.latitude, d.longitude),
-        infoWindow: InfoWindow(
-          title: d.description,
-          snippet: d.description,
-        ),
+        zIndex: -1,
         icon: bitmapDescriptor,
       ));
     }
@@ -307,13 +304,13 @@ class GeozoneDialogProvider with ChangeNotifier {
       Circle(
         circleId: CircleId(pos.toString()),
         center: pos,
-        radius: 1,
+        radius: 0,
         fillColor: AppConsts.mainColor.withOpacity(0.3),
         strokeColor: AppConsts.mainColor,
         strokeWidth: 2,
       ),
     );
-    addMaerkOnSidesOfCircle(pos, false);
+    //addMaerkOnSidesOfCircle(pos, false);
   }
 
   void _addCircle({bool fromDarg = false}) {
@@ -321,16 +318,19 @@ class GeozoneDialogProvider with ChangeNotifier {
     pointLines.clear();
     circle.clear();
     markers.clear();
-    markers.add(Marker(
+    markers.add(
+      Marker(
         markerId: MarkerId(pos.toString()),
         position: pos,
         draggable: true,
-        onDragEnd: (_pos) {
+        onDrag: (_pos) {
           pos = _pos;
           _clear();
           _addCircle(fromDarg: true);
           notifyListeners();
-        }));
+        },
+      ),
+    );
     circle.add(Circle(
       circleId: CircleId(pos.toString()),
       visible: true,
@@ -340,8 +340,7 @@ class GeozoneDialogProvider with ChangeNotifier {
       strokeColor: AppConsts.mainColor,
       strokeWidth: 4,
     ));
-
-    addMaerkOnSidesOfCircle(pos);
+    //addMaerkOnSidesOfCircle(pos);
   }
 
   void calculeDistanceBetweenTowPos(LatLng latLng1, LatLng latLng2) {

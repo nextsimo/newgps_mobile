@@ -10,7 +10,6 @@ import 'package:newgps/src/services/newgps_service.dart';
 import 'package:newgps/src/utils/functions.dart';
 import 'package:newgps/src/ui/alert/alert_navigation.dart';
 import 'package:newgps/src/ui/camera/camera_view.dart';
-import 'package:newgps/src/ui/driver_view/driver_view.dart';
 import 'package:newgps/src/ui/geozone/geozone_view.dart';
 import 'package:newgps/src/ui/gestion/gestion_view.dart';
 import 'package:newgps/src/ui/historic/historic_view.dart';
@@ -18,6 +17,7 @@ import 'package:newgps/src/ui/last_position/last_position_view.dart';
 import 'package:newgps/src/ui/matricule/matricule_view_2.dart';
 import 'package:newgps/src/ui/repport/repport_view.dart';
 import 'package:newgps/src/ui/user/user_view.dart';
+import '../../driver_view/pages/driver_view.dart';
 import '../../user_empty_page.dart';
 
 class SavedAcountProvider with ChangeNotifier {

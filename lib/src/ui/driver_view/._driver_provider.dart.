@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:newgps/src/models/device.dart';
 import 'package:newgps/src/services/newgps_service.dart';
 
@@ -94,3 +94,4 @@ class DataDevice {
       required this.color,
       required this.deviceId});
 }
+ */

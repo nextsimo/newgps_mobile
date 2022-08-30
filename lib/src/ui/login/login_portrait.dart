@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:newgps/src/utils/functions.dart';
-import 'package:newgps/src/utils/styles.dart';
 import 'package:newgps/src/ui/login/login_provider.dart';
 import 'package:newgps/src/widgets/buttons/main_button.dart';
 import 'package:newgps/src/widgets/inputs/main_input.dart';

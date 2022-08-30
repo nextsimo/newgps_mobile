@@ -22,7 +22,8 @@ class LoginAsView extends StatelessWidget {
             return SizedBox(
               width: double.infinity,
               child: Wrap(
-                runSpacing: 3,
+                runSpacing: 7,
+                spacing: 0,
                 alignment: WrapAlignment.spaceBetween,
                 children: provider.savedAcounts
                     .map(
@@ -56,7 +57,7 @@ class _BuildLoginAsWidgetState extends State<_BuildLoginAsWidget> {
     final LoginProvider loginProvider =
         Provider.of<LoginProvider>(context, listen: false);
     return SizedBox(
-      width: 185,
+      width: MediaQuery.of(context).size.width * 0.44,
       child: ElevatedButton(
         style: ButtonStyle(
             padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
@@ -64,7 +65,7 @@ class _BuildLoginAsWidgetState extends State<_BuildLoginAsWidget> {
                 MaterialStateProperty.all<Color>(Colors.blueAccent),
             shape: MaterialStateProperty.all<OutlinedBorder>(
                 RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)))),
+                    borderRadius: BorderRadius.circular(8)))),
         onPressed: () async {
           // log('Bearer ${savedAccount.key}');
           setState(() => loading = true);

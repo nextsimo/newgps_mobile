@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 
 import '../../widgets/inputs/main_input.dart';
@@ -17,9 +15,10 @@ class SousUserCheck extends StatelessWidget {
     return Column(
       children: [
         CheckboxListTile(
-            title: const Text('Sous utilisateur'),
-            value: val,
-            onChanged: provider.setUnderCompte),
+          title: const Text('Sous utilisateur'),
+          value: val,
+          onChanged: provider.setUnderCompte,
+        ),
         if (val)
           MainInput(
             icon: Icons.person,

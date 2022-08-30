@@ -1,4 +1,4 @@
-import 'dart:math';
+/* import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:newgps/src/utils/styles.dart';
@@ -7,10 +7,10 @@ import 'package:newgps/src/widgets/buttons/log_out_button.dart';
 import 'package:newgps/src/widgets/inputs/auto_search_all.dart';
 import 'package:provider/provider.dart';
 
-import 'driver_provider.dart';
+import '.driver_provider.dart';
 
-class DriverView extends StatelessWidget {
-  const DriverView({Key? key}) : super(key: key);
+class ______DriverView extends StatelessWidget {
+  const ______DriverView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -120,3 +120,4 @@ class _BuildDriverCard extends StatelessWidget {
     );
   }
 }
+ */

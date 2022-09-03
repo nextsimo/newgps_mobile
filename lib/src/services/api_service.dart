@@ -65,6 +65,28 @@ class ApiService {
     }
   }
 
+  Future<String> get(
+      {required String url, Map<String, String> newHeader = const {}}) async {
+    header.addAll(newHeader);
+
+    try {
+      Response response =
+          await _client.get(Uri.parse(_baseUrl + url), headers: header);
+
+      debugPrint(_baseUrl + url);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        debugPrint('$url succes');
+        return response.body;
+      }
+      debugPrint('$url filed ${response.body}');
+      return '';
+    } catch (e) {
+      debugPrint('$url failed $e');
+      return '';
+    }
+  }
+
   Future<Uint8List> postBytes(
       {required String url,
       required Map<String, dynamic> body,

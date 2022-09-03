@@ -11,11 +11,22 @@ import 'package:newgps/src/models/info_model.dart';
 import 'package:newgps/src/services/newgps_service.dart';
 import 'package:newgps/src/ui/last_position/markers_provider.dart';
 
+import '../../services/geozone_service.dart';
+import '../../utils/locator.dart';
+
 class LastPositionProvider with ChangeNotifier {
   late List<Device> _devices = [];
   late Set<Polyline> polylines = {};
   late DateTime lastDateFetchDevices = DateTime.now();
   late bool notifyMap = false;
+  bool _showGeozone = false;
+
+  bool get showGeozone => _showGeozone;
+
+  set showGeozone(bool showGeozone) {
+    _showGeozone = showGeozone;
+    notifyListeners();
+  }
 
   bool _init = false;
 
@@ -40,6 +51,12 @@ class LastPositionProvider with ChangeNotifier {
     } else {
       await fetchDevice(deviceProvider.selectedDevice!.deviceId);
     }
+  }
+
+  // get geozone shapes
+  Set<Marker> getGeozoneShapes() {
+    if (!showGeozone) return {};
+    return locator<GeozoneService>().geozoneMarkers;
   }
 
   bool get matriculeClicked => _matriculeClicked;
@@ -131,7 +148,7 @@ class LastPositionProvider with ChangeNotifier {
   Future<void> init(BuildContext context) async {
     markersProvider = MarkersProvider(devices, context);
     _initCluster();
-    await deviceProvider.init(context,init: true );
+    await deviceProvider.init(context, init: true);
     await setDevicesMareker();
     await markersProvider.setMarkers(devices);
     notifyListeners();
@@ -169,16 +186,6 @@ class LastPositionProvider with ChangeNotifier {
     }
   }
 
-/*   void onTapEnter(String val) {
-    deviceProvider.selectedDevice = devices.firstWhere(
-      (device) {
-        return device.description.toLowerCase().contains(val.toLowerCase());
-      },
-    );
-    handleSelectDevice();
-    notifyListeners();
-    fetchDevice(deviceProvider.selectedDevice!.deviceId);
-  } */
 
   void updateSimpleClusterMarkers(Set<Marker> ms) {
     markersProvider.clusterMarkers = ms;
@@ -332,7 +339,8 @@ class LastPositionProvider with ChangeNotifier {
       body: {
         'accountId': account?.account.accountId,
         'deviceId': deviceId,
-        'is_web': false
+        'is_web': false,
+        'icon': 'BinTruck',
       },
     );
 

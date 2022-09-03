@@ -60,7 +60,6 @@ flutter:
   assets:
     - assets/
     - assets/icons/
-    - assets/markers/
     - fonts/
     - fonts/icons/
 

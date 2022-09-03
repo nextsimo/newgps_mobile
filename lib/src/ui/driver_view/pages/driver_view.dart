@@ -48,7 +48,6 @@ class _BuildDriversList extends StatelessWidget {
 
 class _BuildDriverCard extends StatelessWidget {
   const _BuildDriverCard({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return  Container(

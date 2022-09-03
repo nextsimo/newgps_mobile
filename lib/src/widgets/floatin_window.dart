@@ -10,6 +10,7 @@ import 'package:newgps/src/widgets/buttons/main_button.dart';
 import 'package:newgps/src/widgets/map_launcher/map_launcher_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import '../ui/icon_change/change_icon_view.dart';
 import 'buttons/outlined_button.dart';
 
 class FloatingGroupWindowInfo extends StatefulWidget {
@@ -74,7 +75,7 @@ class _FloatingGroupInfoWindowInfoPortrait extends StatelessWidget {
           color: Colors.transparent,
           child: Container(
             margin: const EdgeInsets.all(16),
-            padding: const EdgeInsets.all(7),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(AppConsts.mainradius),
               color: Colors.white,
@@ -82,14 +83,15 @@ class _FloatingGroupInfoWindowInfoPortrait extends StatelessWidget {
             child: Stack(
               children: [
                 Positioned(
-                    top: 0,
-                    right: 0,
-                    child: IconButton(
-                        padding: EdgeInsets.zero,
-                        icon: const Icon(Icons.close),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        })),
+                  top: 0,
+                  right: 0,
+                  child: IconButton(
+                      padding: EdgeInsets.zero,
+                      icon: const Icon(Icons.close),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      }),
+                ),
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -100,11 +102,19 @@ class _FloatingGroupInfoWindowInfoPortrait extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // Matricule
-                        if (device.description.isNotEmpty)
-                          Text(device.description,
-                              style: const TextStyle(
-                                  color: AppConsts.blue,
-                                  fontWeight: FontWeight.bold)),
+                        Row(
+                          children: [
+                            if (device.description.isNotEmpty)
+                              Text(device.description,
+                                  style: const TextStyle(
+                                      color: AppConsts.blue,
+                                      fontWeight: FontWeight.bold)),
+                            const SizedBox(width: 10),
+                             IconChangeView(
+                              selectedDevice: device,
+                             ),
+                          ],
+                        ),
                         const SizedBox(height: 20),
 
                         Row(
@@ -614,12 +624,12 @@ class _FloatingGroupInfoWindowInfoLandscape extends StatelessWidget {
                           Expanded(
                               child: MainButton(
                             height: 25,
-                          onPressed: () async {
-                            Share.share(
-                                'http://maps.google.com/?q=${device.latitude},${device.longitude}');
-                          },
-                          label: 'Partger localisation',
-                          backgroundColor: Colors.blueAccent,
+                            onPressed: () async {
+                              Share.share(
+                                  'http://maps.google.com/?q=${device.latitude},${device.longitude}');
+                            },
+                            label: 'Partger localisation',
+                            backgroundColor: Colors.blueAccent,
                           )),
                         ],
                       ),

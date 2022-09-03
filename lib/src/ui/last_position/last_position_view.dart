@@ -3,7 +3,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:newgps/src/ui/last_position/last_temp/last_temp_icon.dart';
 import 'package:provider/provider.dart';
 import '../../services/device_provider.dart';
+import '../../utils/styles.dart';
 import '../../widgets/buttons/log_out_button.dart';
+import '../../widgets/buttons/main_button.dart';
 import '../../widgets/buttons/retate_icon_map.dart';
 import '../../widgets/buttons/zoom_button.dart';
 import '../../widgets/loading_icon.dart';
@@ -50,6 +52,9 @@ class _LastPositionViewState extends State<LastPositionView>
     final DeviceProvider deviceProvider =
         Provider.of<DeviceProvider>(context, listen: false);
 
+    bool _isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
+
     //lastPositionProvider.fetchInitDevice(context, init: true);
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -91,7 +96,53 @@ class _LastPositionViewState extends State<LastPositionView>
               ],
             ),
           ),
-          const GroupedButton(),
+          Positioned(
+            top: 45,
+            right: _isPortrait ? AppConsts.outsidePadding : 11.5,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const GroupedButton(),
+                const SizedBox(height: 5),
+                Selector<LastPositionProvider, bool>(
+                  builder: (_, bool clicked, __) {
+                    return MainButton(
+                      borderColor: AppConsts.mainColor,
+                      height: _isPortrait ? 30 : 25,
+                      width: 112,
+                      textColor: clicked ? AppConsts.mainColor : Colors.white,
+                      backgroundColor:
+                          clicked ? Colors.white : AppConsts.mainColor,
+                      onPressed: () {
+                        lastPositionProvider.ontraficClicked(!clicked);
+                      },
+                      label: 'Trafic',
+                    );
+                  },
+                  selector: (_, p) => p.traficClicked,
+                ),
+                const SizedBox(height: 5),
+                Selector<LastPositionProvider, bool>(
+                  builder: (_, bool clicked, __) {
+                    return MainButton(
+                      borderColor: AppConsts.mainColor,
+                      height: _isPortrait ? 30 : 25,
+                      width: 112,
+                      textColor: clicked ? AppConsts.mainColor : Colors.white,
+                      backgroundColor:
+                          clicked ? Colors.white : AppConsts.mainColor,
+                      onPressed: () {
+                        lastPositionProvider.showGeozone =
+                            !lastPositionProvider.showGeozone;
+                      },
+                      label: 'Geozone',
+                    );
+                  },
+                  selector: (_, p) => p.showGeozone,
+                ),
+              ],
+            ),
+          ),
           const AutoSearchDeviceWithAll(),
         ],
       ),

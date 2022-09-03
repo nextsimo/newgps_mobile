@@ -171,6 +171,7 @@ class _ShowListDevicesState extends State<_ShowListDevices> {
       markerPng: '',
       phone1: '',
       phone2: '',
+      deviceIcon: '',
       markerTextPng: '');
   @override
   Widget build(BuildContext context) {

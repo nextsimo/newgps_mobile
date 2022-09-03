@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:newgps/src/services/device_provider.dart';
-import 'package:newgps/src/services/geozone_service.dart'; 
+import 'package:newgps/src/services/geozone_service.dart';
 import 'package:newgps/src/ui/last_position/last_position_provider.dart';
 import 'package:newgps/src/utils/locator.dart';
 import 'package:provider/provider.dart';
@@ -57,7 +57,7 @@ class _LastpositionMapState extends State<LastpositionMap>
             mapType: deviceProvider.mapType,
             zoomControlsEnabled: false,
             markers: provider.markersProvider.getMarkers()
-              ..addAll(locator<GeozoneService>().geozoneMarkers),
+              ..addAll(p.getGeozoneShapes()),
             polylines: provider.polylines,
             mapToolbarEnabled: false,
             onMapCreated: (controller) async {

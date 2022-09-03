@@ -2,14 +2,18 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:newgps/src/models/account.dart';
 import 'package:newgps/src/models/device.dart';
 import 'package:newgps/src/models/info_model.dart';
 import 'package:newgps/src/services/newgps_service.dart';
 import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';
+import 'package:newgps/src/utils/device_size.dart';
 import 'package:newgps/src/widgets/buttons/main_button.dart';
 import 'package:provider/provider.dart';
+
+import '../models/device_icon_model.dart';
 
 class DeviceProvider with ChangeNotifier {
   List<Device> _devices = [];
@@ -48,9 +52,44 @@ class DeviceProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // is selected icon
+  bool isSelectedIcon(DeviceIconModel icon) {
+    return selectedDevice?.deviceIcon == icon.name;
+  }
+
+  // fetch list of icons from server
+  Future<void> _fetchDevicesIconsList() async {
+    String res = await api.get(
+      url: '/devices/icons',
+    );
+
+    if (res.isEmpty) return;
+
+    icons = deviceIconFromJson(res);
+  }
+
   Device? selectedDevice;
 
   int selectedTabIndex = 0;
+
+  List<DeviceIconModel> icons = [];
+
+  // change icon for device
+  Future<void> changeIcon({required String name, required String deviceId}) async {
+    final accoutId = shared.getAccount()?.account.accountId;
+    await api.get(
+        url: '/device/change/$deviceId/$accoutId/$name');
+    // show toast message in french
+    Fluttertoast.showToast(
+      msg:
+          'Icone changé avec succès! votre changement sera visible dans quelques secondes',
+      toastLength: Toast.LENGTH_LONG,
+    );
+
+    Navigator.of(DeviceSize.c).pop();
+    Navigator.of(DeviceSize.c).pop();
+    // show loading
+  }
 
   Future<void> startStopDevice(
       String command, BuildContext context, Device device) async {
@@ -142,6 +181,7 @@ class DeviceProvider with ChangeNotifier {
 
   Future<void> init(BuildContext context, {bool init = false}) async {
     _loading = true;
+    _fetchDevicesIconsList();
     await fetchDevices(init: init);
     selectedDevice = devices.first;
     autoSearchController =
@@ -173,7 +213,8 @@ class DeviceProvider with ChangeNotifier {
     Map<String, dynamic> body = {
       'accountId': account?.account.accountId,
       'user_id': account?.account.userID,
-      'is_web': false
+      'is_web': false,
+      'icon': 'BinTruck',
     };
 
     if (init) {

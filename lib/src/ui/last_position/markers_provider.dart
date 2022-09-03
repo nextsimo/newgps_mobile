@@ -244,11 +244,15 @@ class MarkersProvider {
         ? base64Decode(device.markerTextPng)
         : base64Decode(device.markerPng); */
     BitmapDescriptor bitmapDescriptor = BitmapDescriptor.fromBytes(imgRes);
+
+    double angle =
+        (device.deviceIcon == 'default' ? 0 : (device.heading+ 100)).toDouble();
     return Marker(
       onTap: () => _onTapMarker(device),
       markerId: MarkerId('${device.latitude},${device.longitude}'),
       position: position,
       icon: bitmapDescriptor,
+      rotation: angle,
     );
   }
 

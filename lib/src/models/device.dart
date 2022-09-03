@@ -34,6 +34,7 @@ class Device {
     required this.phone2,
     required this.markerTextPng,
     this.equipmentType = '',
+    required this.deviceIcon,
   });
 
   final String description;
@@ -58,11 +59,13 @@ class Device {
   final String phone2;
   final String markerTextPng;
   final String equipmentType;
+  final String deviceIcon;
 
   factory Device.fromMap(Map<String, dynamic> json) {
     return Device(
       description: json["description"],
       deviceId: json["DeviceID"],
+      deviceIcon:  json["deviceIcon"] ?? 'default',
       dateTime: DateTime.fromMillisecondsSinceEpoch(json["timestamp"] * 1000),
       latitude: json["latitude"].toDouble(),
       longitude: json["longitude"].toDouble(),
@@ -106,11 +109,4 @@ class Device {
         "marker_png": markerPng,
       };
 
-/*   static String _getPhoneNumber(String data, [int index = 0]) {
-    try {
-      return data.split(',')[index];
-    } catch (e) {
-      return '';
-    }
-  } */
 }

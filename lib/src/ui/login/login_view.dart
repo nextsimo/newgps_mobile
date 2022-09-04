@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/ui/login/login_landscape.dart';
-import 'package:newgps/src/ui/login/login_portrait.dart';
-import 'package:newgps/src/ui/login/login_provider.dart';
-import 'package:newgps/src/widgets/buttons/main_button.dart';
+import 'login_landscape.dart';
+import 'login_portrait.dart';
+import 'login_provider.dart';
+import '../../widgets/buttons/main_button.dart';
 import 'package:provider/provider.dart';
 import 'package:upgrader/upgrader.dart';
 

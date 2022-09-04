@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:newgps/src/services/newgps_service.dart';
+import '../../../../services/newgps_service.dart';
 
 class ResumeReportLoadingProvider with ChangeNotifier {
   double _value = 0.0;

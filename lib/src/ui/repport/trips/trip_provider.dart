@@ -3,11 +3,11 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:newgps/src/models/account.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/ui/repport/rapport_provider.dart';
-import 'package:newgps/src/ui/repport/trips/trips_model.dart';
-import 'package:newgps/src/ui/repport_map/repport_map_view.dart';
+import '../../../models/account.dart';
+import '../../../services/newgps_service.dart';
+import '../rapport_provider.dart';
+import 'trips_model.dart';
+import '../../repport_map/repport_map_view.dart';
 
 class TripsProvider with ChangeNotifier {
   List<TripsRepportModel> trips = [];

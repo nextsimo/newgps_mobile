@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/widgets/inputs/search_widget.dart';
+import '../services/newgps_service.dart';
+import 'inputs/search_widget.dart';
 import '../models/device.dart';
 import '../utils/styles.dart';
 

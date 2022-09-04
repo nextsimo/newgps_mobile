@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:newgps/src/utils/functions.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';
-import 'package:newgps/src/widgets/alert_icon_widget.dart';
+import '../../../utils/functions.dart';
+import '../../../utils/styles.dart';
+import '../../login/login_as/save_account_provider.dart';
+import '../../../widgets/alert_icon_widget.dart';
 import 'package:provider/provider.dart';
 
 import 'bottom_navigatiom_bar.dart';

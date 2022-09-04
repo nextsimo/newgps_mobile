@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/gestion/gestion_provider.dart';
-import 'package:newgps/src/ui/navigation/top_app_bar.dart';
-import 'package:newgps/src/widgets/buttons/log_out_button.dart';
+import '../../utils/styles.dart';
+import 'gestion_provider.dart';
+import '../navigation/top_app_bar.dart';
+import '../../widgets/buttons/log_out_button.dart';
 import 'package:provider/provider.dart';
 
 class GestionView extends StatelessWidget {

@@ -2,11 +2,11 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/account.dart';
-import 'package:newgps/src/models/user_droits.dart';
-import 'package:newgps/src/models/user_model.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/widgets/buttons/main_button.dart';
+import '../../models/account.dart';
+import '../../models/user_droits.dart';
+import '../../models/user_model.dart';
+import '../../services/newgps_service.dart';
+import '../../widgets/buttons/main_button.dart';
 
 class UserProvider with ChangeNotifier {
   List<User> _users = [];

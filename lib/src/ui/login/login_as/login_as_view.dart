@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/account.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';
-import 'package:newgps/src/ui/login/login_provider.dart';
+import '../../../models/account.dart';
+import '../../../services/newgps_service.dart';
+import 'save_account_provider.dart';
+import '../login_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../connected_device/connected_device_provider.dart';

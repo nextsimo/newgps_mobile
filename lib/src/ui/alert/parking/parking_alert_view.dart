@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/services/firebase_messaging_service.dart';
-import 'package:newgps/src/ui/alert/parking/components/time_slot_list_view.dart';
-import 'package:newgps/src/ui/alert/parking/parking_alert_provider.dart';
-import 'package:newgps/src/widgets/buttons/main_button.dart';
+import '../../../services/firebase_messaging_service.dart';
+import 'components/time_slot_list_view.dart';
+import 'parking_alert_provider.dart';
+import '../../../widgets/buttons/main_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../navigation/top_app_bar.dart';

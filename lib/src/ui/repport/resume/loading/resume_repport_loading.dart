@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/utils/styles.dart';
+import '../../../../services/newgps_service.dart';
+import '../../../../utils/styles.dart';
 import 'package:provider/provider.dart';
 
 import 'resume_repport_loding_provider.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';
+import '../ui/login/login_as/save_account_provider.dart';
 import 'package:provider/provider.dart';
 
 class BadgeIcon extends StatelessWidget {

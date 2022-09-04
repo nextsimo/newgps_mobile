@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/device.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/repport/rapport_provider.dart';
+import '../../models/device.dart';
+import '../../utils/styles.dart';
+import 'rapport_provider.dart';
 import 'package:provider/provider.dart';
 
 class AutoSearchField extends StatefulWidget {

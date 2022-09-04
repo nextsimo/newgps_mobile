@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/utils/styles.dart';
+import '../../utils/styles.dart';
 
 class CallServiceView extends StatelessWidget {
   const CallServiceView({Key? key}) : super(key: key);

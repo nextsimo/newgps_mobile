@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/device.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/camera/camera_provider.dart';
-import 'package:newgps/src/ui/navigation/top_app_bar.dart';
-import 'package:newgps/src/widgets/buttons/log_out_button.dart';
-import 'package:newgps/src/widgets/inputs/auto_search_all.dart';
+import '../../models/device.dart';
+import '../../utils/styles.dart';
+import 'camera_provider.dart';
+import '../navigation/top_app_bar.dart';
+import '../../widgets/buttons/log_out_button.dart';
+import '../../widgets/inputs/auto_search_all.dart';
 import 'package:provider/provider.dart';
 
 class CameraView extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:newgps/src/utils/styles.dart';
+import '../../utils/styles.dart';
 import 'date_map_picker.dart';
 
 

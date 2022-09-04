@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/device.dart';
-import 'package:newgps/src/services/device_provider.dart';
-import 'package:newgps/src/ui/driver_phone/driver_phone_provider.dart';
-import 'package:newgps/src/utils/locator.dart';
+import '../../models/device.dart';
+import '../../services/device_provider.dart';
+import '../../ui/driver_phone/driver_phone_provider.dart';
+import '../../utils/locator.dart';
 import 'package:provider/provider.dart';
 
 import 'main_button.dart';

@@ -4,13 +4,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_maps_cluster_manager/google_maps_cluster_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:newgps/src/models/device.dart';
-import 'package:newgps/src/models/user_droits.dart';
-import 'package:newgps/src/utils/device_size.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/last_position/last_position_provider.dart';
-import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';
-import 'package:newgps/src/widgets/floatin_window.dart';
+import '../../models/device.dart';
+import '../../models/user_droits.dart';
+import '../../utils/device_size.dart';
+import '../../utils/styles.dart';
+import 'last_position_provider.dart';
+import '../login/login_as/save_account_provider.dart';
+import '../../widgets/floatin_window.dart';
 import 'package:provider/provider.dart';
 
 class Place with ClusterItem {
@@ -244,15 +244,11 @@ class MarkersProvider {
         ? base64Decode(device.markerTextPng)
         : base64Decode(device.markerPng); */
     BitmapDescriptor bitmapDescriptor = BitmapDescriptor.fromBytes(imgRes);
-
-    double angle =
-        (device.deviceIcon == 'default' ? 0 : (device.heading+ 100)).toDouble();
     return Marker(
       onTap: () => _onTapMarker(device),
       markerId: MarkerId('${device.latitude},${device.longitude}'),
       position: position,
       icon: bitmapDescriptor,
-      rotation: angle,
     );
   }
 

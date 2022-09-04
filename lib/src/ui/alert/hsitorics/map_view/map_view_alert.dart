@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:newgps/src/models/device.dart';
-import 'package:newgps/src/services/device_provider.dart';
-import 'package:newgps/src/ui/alert/hsitorics/map_view/map_view_alert_provider.dart';
-import 'package:newgps/src/widgets/map_type_widget.dart';
+import '../../../../models/device.dart';
+import '../../../../services/device_provider.dart';
+import 'map_view_alert_provider.dart';
+import '../../../../widgets/map_type_widget.dart';
 import 'package:provider/provider.dart';
 
 class MapViewALert extends StatelessWidget {

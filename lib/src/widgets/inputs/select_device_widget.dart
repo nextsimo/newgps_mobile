@@ -1,6 +1,6 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-import 'package:newgps/src/services/newgps_service.dart';
+import '../../services/newgps_service.dart';
 
 import '../../models/device.dart';
 

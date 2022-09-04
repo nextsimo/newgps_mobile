@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:loadmore/loadmore.dart';
-import 'package:newgps/src/models/repports_details_model.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/utils/functions.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/repport/details/repport_details_provider.dart';
-import 'package:newgps/src/ui/repport/rapport_provider.dart';
+import '../../../models/repports_details_model.dart';
+import '../../../services/newgps_service.dart';
+import '../../../utils/functions.dart';
+import '../../../utils/styles.dart';
+import 'repport_details_provider.dart';
+import '../rapport_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../clickable_text_cell.dart';

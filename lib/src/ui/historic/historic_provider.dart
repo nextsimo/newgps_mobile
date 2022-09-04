@@ -5,15 +5,15 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:newgps/src/models/account.dart';
-import 'package:newgps/src/models/device.dart';
-import 'package:newgps/src/models/historic_model.dart';
-import 'package:newgps/src/models/info_model.dart';
-import 'package:newgps/src/models/user_droits.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/utils/device_size.dart';
-import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';
-import 'package:newgps/src/widgets/floatin_window.dart';
+import '../../models/account.dart';
+import '../../models/device.dart';
+import '../../models/historic_model.dart';
+import '../../models/info_model.dart';
+import '../../models/user_droits.dart';
+import '../../services/newgps_service.dart';
+import '../../utils/device_size.dart';
+import '../login/login_as/save_account_provider.dart';
+import '../../widgets/floatin_window.dart';
 import 'package:provider/provider.dart';
 
 import 'date_map_picker/time_range_widget.dart';

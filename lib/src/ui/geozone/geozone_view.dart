@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/geozne_sttings_alert.dart';
-import 'package:newgps/src/models/geozone.dart';
-import 'package:newgps/src/services/firebase_messaging_service.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';
-import 'package:newgps/src/ui/navigation/top_app_bar.dart';
-import 'package:newgps/src/widgets/buttons/log_out_button.dart';
-import 'package:newgps/src/widgets/buttons/main_button.dart';
-import 'package:newgps/src/widgets/inputs/search_widget.dart';
+import '../../models/geozne_sttings_alert.dart';
+import '../../models/geozone.dart';
+import '../../services/firebase_messaging_service.dart';
+import '../../utils/styles.dart';
+import '../login/login_as/save_account_provider.dart';
+import '../navigation/top_app_bar.dart';
+import '../../widgets/buttons/log_out_button.dart';
+import '../../widgets/buttons/main_button.dart';
+import '../../widgets/inputs/search_widget.dart';
 import 'package:provider/provider.dart';
 import 'geozone_provider.dart';
 

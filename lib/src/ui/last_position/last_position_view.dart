@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:newgps/src/ui/last_position/last_temp/last_temp_icon.dart';
+import 'last_temp/last_temp_icon.dart';
 import 'package:provider/provider.dart';
 import '../../services/device_provider.dart';
 import '../../utils/styles.dart';

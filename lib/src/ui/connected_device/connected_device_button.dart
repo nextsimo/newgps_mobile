@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/ui/connected_device/connected_device_provider.dart';
-import 'package:newgps/src/utils/styles.dart';
+import 'connected_device_provider.dart';
+import '../../utils/styles.dart';
 import 'package:provider/provider.dart';
 
 class ConnectedDeviceButton extends StatelessWidget {

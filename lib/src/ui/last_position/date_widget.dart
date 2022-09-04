@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/utils/functions.dart';
-import 'package:newgps/src/ui/last_position/last_position_provider.dart';
+import '../../utils/functions.dart';
+import 'last_position_provider.dart';
 import 'package:provider/provider.dart';
 
 class DateWidget extends StatelessWidget {

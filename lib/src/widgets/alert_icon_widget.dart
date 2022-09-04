@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/navigation/bottom_app_bar/bottom_navigatiom_bar.dart';
+import '../utils/styles.dart';
+import '../ui/navigation/bottom_app_bar/bottom_navigatiom_bar.dart';
 import 'badge_icon.dart';
 
 class AlertTabBarItem extends StatelessWidget {

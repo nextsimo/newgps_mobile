@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:newgps/src/utils/functions.dart';
-import 'package:newgps/src/ui/login/login_provider.dart';
-import 'package:newgps/src/widgets/buttons/main_button.dart';
-import 'package:newgps/src/widgets/inputs/main_input.dart';
-import 'package:newgps/src/widgets/inputs/password_input.dart';
+import '../../utils/functions.dart';
+import 'login_provider.dart';
+import '../../widgets/buttons/main_button.dart';
+import '../../widgets/inputs/main_input.dart';
+import '../../widgets/inputs/password_input.dart';
 import 'package:provider/provider.dart';
 
 import 'call_service_view.dart';

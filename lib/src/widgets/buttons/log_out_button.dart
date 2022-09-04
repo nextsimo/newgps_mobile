@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/ui/connected_device/connected_device_provider.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/historic/historic_provider.dart';
-import 'package:newgps/src/ui/last_position/last_position_provider.dart';
-import 'package:newgps/src/widgets/buttons/main_button.dart';
+import '../../services/newgps_service.dart';
+import '../../ui/connected_device/connected_device_provider.dart';
+import '../../utils/styles.dart';
+import '../../ui/historic/historic_provider.dart';
+import '../../ui/last_position/last_position_provider.dart';
+import 'main_button.dart';
 import 'package:provider/provider.dart';
 
 import 'audio_widget.dart';

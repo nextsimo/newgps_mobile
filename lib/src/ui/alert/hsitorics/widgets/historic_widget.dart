@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/device.dart';
-import 'package:newgps/src/services/device_provider.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/alert/hsitorics/notif_historic_provider.dart';
+import '../../../../models/device.dart';
+import '../../../../services/device_provider.dart';
+import '../../../../services/newgps_service.dart';
+import '../../../../utils/styles.dart';
+import '../notif_historic_provider.dart';
 import 'package:provider/provider.dart';
 
 class BuildSearchHistoric extends StatefulWidget {

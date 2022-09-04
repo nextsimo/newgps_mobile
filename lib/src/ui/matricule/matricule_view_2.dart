@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/matricule.dart';
-import 'package:newgps/src/models/user_droits.dart';
-import 'package:newgps/src/utils/device_size.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';
-import 'package:newgps/src/ui/navigation/top_app_bar.dart';
-import 'package:newgps/src/widgets/buttons/log_out_button.dart';
-import 'package:newgps/src/widgets/buttons/main_button.dart';
-import 'package:newgps/src/widgets/inputs/search_widget.dart';
+import '../../models/matricule.dart';
+import '../../models/user_droits.dart';
+import '../../utils/device_size.dart';
+import '../../utils/styles.dart';
+import '../login/login_as/save_account_provider.dart';
+import '../navigation/top_app_bar.dart';
+import '../../widgets/buttons/log_out_button.dart';
+import '../../widgets/buttons/main_button.dart';
+import '../../widgets/inputs/search_widget.dart';
 import 'package:provider/provider.dart';
 
 import 'matricule_provider.dart';

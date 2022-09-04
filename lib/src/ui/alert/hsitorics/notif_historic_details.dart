@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
-import 'package:newgps/src/models/notif_hsitoric_model.dart';
-import 'package:newgps/src/utils/functions.dart';
-import 'package:newgps/src/ui/alert/hsitorics/notif_historic_provider.dart';
-import 'package:newgps/src/ui/alert/hsitorics/notif_hsitoric_view.dart';
-import 'package:newgps/src/ui/alert/hsitorics/widgets/historic_widget.dart';
-import 'package:newgps/src/ui/navigation/top_app_bar.dart';
-import 'package:newgps/src/widgets/buttons/main_button.dart';
+import '../../../models/notif_hsitoric_model.dart';
+import '../../../utils/functions.dart';
+import 'notif_historic_provider.dart';
+import 'notif_hsitoric_view.dart';
+import 'widgets/historic_widget.dart';
+import '../../navigation/top_app_bar.dart';
+import '../../../widgets/buttons/main_button.dart';
 import 'package:provider/provider.dart';
 
 class NotifHistorisDetails extends StatelessWidget {

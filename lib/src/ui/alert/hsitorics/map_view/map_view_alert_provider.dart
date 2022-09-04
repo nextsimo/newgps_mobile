@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:newgps/src/models/device.dart';
+import '../../../../models/device.dart';
 
 class MapViewAlertProvider with ChangeNotifier {
   Set<Marker> _markers = {};

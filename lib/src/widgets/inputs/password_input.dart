@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/utils/styles.dart';
+import '../../utils/styles.dart';
 
 class PasswordInput extends StatefulWidget {
   final IconData icon;

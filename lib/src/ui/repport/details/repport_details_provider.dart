@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/account.dart';
-import 'package:newgps/src/models/repports_details_model.dart';
-import 'package:newgps/src/services/newgps_service.dart';
+import '../../../models/account.dart';
+import '../../../models/repports_details_model.dart';
+import '../../../services/newgps_service.dart';
 
 import '../rapport_provider.dart';
 

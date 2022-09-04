@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:newgps/src/ui/alert/hood/hood_alert_view.dart';
-import 'package:newgps/src/ui/alert/towing/towing_view.dart';
+import 'hood/hood_alert_view.dart';
+import 'towing/towing_view.dart';
 import '../../services/newgps_service.dart';
 import '../../widgets/buttons/log_out_button.dart';
 import 'alert_view.dart';

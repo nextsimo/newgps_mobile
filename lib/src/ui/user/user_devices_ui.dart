@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/device.dart';
-import 'package:newgps/src/models/user_model.dart';
-import 'package:newgps/src/services/device_provider.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/widgets/inputs/search_widget.dart';
+import '../../models/device.dart';
+import '../../models/user_model.dart';
+import '../../services/device_provider.dart';
+import '../../services/newgps_service.dart';
+import '../../utils/styles.dart';
+import '../../widgets/inputs/search_widget.dart';
 import 'package:provider/provider.dart';
 
 class UserDevicesUi extends StatefulWidget {

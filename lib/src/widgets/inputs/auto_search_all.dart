@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/device.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/utils/styles.dart';
+import '../../models/device.dart';
+import '../../services/newgps_service.dart';
+import '../../utils/styles.dart';
 
 typedef HandleSelectDevice = void Function();
 typedef OnClickAll = void Function();

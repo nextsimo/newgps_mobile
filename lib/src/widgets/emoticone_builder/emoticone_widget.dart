@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/utils/device_size.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/widgets/emoticone_builder/emoticon_provider.dart';
+import '../../utils/device_size.dart';
+import '../../utils/styles.dart';
+import 'emoticon_provider.dart';
 import 'package:provider/provider.dart';
 
 class EmoticonWidget extends StatelessWidget {

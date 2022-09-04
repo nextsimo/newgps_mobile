@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:newgps/src/widgets/buttons/main_button.dart';
+import '../../../../widgets/buttons/main_button.dart';
 import 'package:provider/provider.dart';
 
 import '../logic/temperature_provider.dart';

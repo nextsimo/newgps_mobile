@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/utils/functions.dart';
-import 'package:newgps/src/utils/styles.dart';
+import '../../utils/functions.dart';
+import '../../utils/styles.dart';
 
 class DateTimePicker extends StatelessWidget {
   final double width;

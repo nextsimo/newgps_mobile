@@ -3,17 +3,17 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/account.dart';
-import 'package:newgps/src/models/device.dart';
-import 'package:newgps/src/models/notif_hsitoric_model.dart';
-import 'package:newgps/src/services/device_provider.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/ui/driver_phone/driver_phone_provider.dart';
-import 'package:newgps/src/utils/functions.dart';
-import 'package:newgps/src/ui/alert/hsitorics/map_view/map_view_alert.dart';
-import 'package:newgps/src/ui/alert/hsitorics/notif_historic_details.dart';
-import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';
-import 'package:newgps/src/utils/locator.dart';
+import '../../../models/account.dart';
+import '../../../models/device.dart';
+import '../../../models/notif_hsitoric_model.dart';
+import '../../../services/device_provider.dart';
+import '../../../services/newgps_service.dart';
+import '../../driver_phone/driver_phone_provider.dart';
+import '../../../utils/functions.dart';
+import 'map_view/map_view_alert.dart';
+import 'notif_historic_details.dart';
+import '../../login/login_as/save_account_provider.dart';
+import '../../../utils/locator.dart';
 import 'package:provider/provider.dart';
 
 class NotifHistoricPorvider with ChangeNotifier {

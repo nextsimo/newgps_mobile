@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/device.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/ui/driver_phone/drive_add_dialog.dart';
-import 'package:newgps/src/utils/functions.dart';
+import '../../models/device.dart';
+import '../../services/newgps_service.dart';
+import 'drive_add_dialog.dart';
+import '../../utils/functions.dart';
 
 class DriverPhoneProvider {
   Future<void> checkPhoneDriver(

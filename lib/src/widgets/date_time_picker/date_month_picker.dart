@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/repport/rapport_provider.dart';
+import '../../utils/styles.dart';
+import '../../ui/repport/rapport_provider.dart';
 import 'package:provider/provider.dart';
 
 class DateMonthPicker extends StatelessWidget {

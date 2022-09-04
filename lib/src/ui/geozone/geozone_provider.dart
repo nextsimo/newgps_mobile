@@ -3,16 +3,16 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:newgps/src/models/account.dart';
-import 'package:newgps/src/models/geozne_sttings_alert.dart';
-import 'package:newgps/src/models/geozone.dart';
-import 'package:newgps/src/services/firebase_messaging_service.dart';
-import 'package:newgps/src/services/geozone_service.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/ui/geozone/geozone_dialog/geozone_action_view.dart';
-import 'package:newgps/src/ui/geozone/geozone_dialog/geozone_dialog_provider.dart';
-import 'package:newgps/src/utils/locator.dart';
-import 'package:newgps/src/widgets/buttons/main_button.dart';
+import '../../models/account.dart';
+import '../../models/geozne_sttings_alert.dart';
+import '../../models/geozone.dart';
+import '../../services/firebase_messaging_service.dart';
+import '../../services/geozone_service.dart';
+import '../../services/newgps_service.dart';
+import 'geozone_dialog/geozone_action_view.dart';
+import 'geozone_dialog/geozone_dialog_provider.dart';
+import '../../utils/locator.dart';
+import '../../widgets/buttons/main_button.dart';
 
 class GeozoneProvider with ChangeNotifier {
   late List<GeozoneModel> _geozones = [];

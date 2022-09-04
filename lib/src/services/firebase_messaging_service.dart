@@ -4,9 +4,9 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/account.dart';
-import 'package:newgps/src/utils/device_size.dart';
-import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';
+import '../models/account.dart';
+import '../utils/device_size.dart';
+import '../ui/login/login_as/save_account_provider.dart';
 import 'package:provider/provider.dart';
 import 'newgps_service.dart';
 

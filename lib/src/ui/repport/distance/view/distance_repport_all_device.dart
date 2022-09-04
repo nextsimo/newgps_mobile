@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/ui/repport/distance/models/repport_distance_model.dart';
-import 'package:newgps/src/ui/repport/distance/provider/distance_provider.dart';
+import '../models/repport_distance_model.dart';
+import '../provider/distance_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../../utils/styles.dart';
 import '../../clickable_text_cell.dart';

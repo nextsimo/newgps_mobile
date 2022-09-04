@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/utils/functions.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/historic/date_map_picker/time_range_widget.dart';
-import 'package:newgps/src/ui/historic/historic_provider.dart';
+import '../../../utils/functions.dart';
+import '../../../utils/styles.dart';
+import 'time_range_widget.dart';
+import '../historic_provider.dart';
 import 'package:provider/provider.dart';
 
 class DateMapPicker extends StatelessWidget {

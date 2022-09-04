@@ -1,4 +1,4 @@
-import 'package:newgps/src/models/account.dart';
+import '../models/account.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefrencesService {

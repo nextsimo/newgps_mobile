@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:newgps/src/utils/styles.dart';
+import '../../utils/styles.dart';
 
 class MainButton extends StatefulWidget {
   final String label;

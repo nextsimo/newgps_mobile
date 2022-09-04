@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_cluster_manager/google_maps_cluster_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:newgps/src/models/account.dart';
-import 'package:newgps/src/models/device.dart';
-import 'package:newgps/src/models/info_model.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/ui/last_position/markers_provider.dart';
+import '../../models/account.dart';
+import '../../models/device.dart';
+import '../../models/info_model.dart';
+import '../../services/newgps_service.dart';
+import 'markers_provider.dart';
 
 import '../../services/geozone_service.dart';
 import '../../utils/locator.dart';

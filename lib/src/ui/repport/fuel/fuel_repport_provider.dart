@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/account.dart';
-import 'package:newgps/src/models/fuel_repport_model.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/ui/repport/rapport_provider.dart';
+import '../../../models/account.dart';
+import '../../../models/fuel_repport_model.dart';
+import '../../../services/newgps_service.dart';
+import '../rapport_provider.dart';
 
 class FuelRepportProvider with ChangeNotifier {
   List<FuelRepportData> repports = [];

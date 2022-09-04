@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/services/newgps_service.dart';
+import '../../services/newgps_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class VolumeWidget extends StatefulWidget {

@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:newgps/src/models/account.dart';
+import '../models/account.dart';
 
 class ApiService {
   final Client _client = Client();

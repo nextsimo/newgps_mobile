@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:newgps/src/services/firebase_messaging_service.dart';
-import 'package:newgps/src/ui/alert/parking/models/slot_time.dart';
+import '../../../services/firebase_messaging_service.dart';
+import 'models/slot_time.dart';
 
 import '../../../services/newgps_service.dart';
 import '../../../utils/functions.dart';

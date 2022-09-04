@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/device_icon_model.dart';
-import 'package:newgps/src/services/newgps_service.dart';
+import '../../models/device_icon_model.dart';
+import '../../services/newgps_service.dart';
 import '../../models/device.dart';
 import '../../utils/styles.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/ui/historic/date_map_picker/time_input.dart';
-import 'package:newgps/src/ui/historic/historic_provider.dart';
-import 'package:newgps/src/widgets/buttons/main_button.dart';
+import 'time_input.dart';
+import '../historic_provider.dart';
+import '../../../widgets/buttons/main_button.dart';
 import 'package:provider/provider.dart';
 
 class TimeRangeWigdet extends StatelessWidget {

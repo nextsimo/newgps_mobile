@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/utils/functions.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/widgets/alert_icon_widget.dart';
+import '../../../services/newgps_service.dart';
+import '../../../utils/functions.dart';
+import '../../../utils/styles.dart';
+import '../../../widgets/alert_icon_widget.dart';
 
 class CustomBottomNavigatioBar extends StatefulWidget {
   final PageController pageController;

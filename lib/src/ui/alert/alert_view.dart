@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/utils/device_size.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/navigation/top_app_bar.dart';
-import 'package:newgps/src/widgets/badge_icon.dart';
-import 'package:newgps/src/widgets/buttons/main_button.dart';
+import '../../utils/device_size.dart';
+import '../../utils/styles.dart';
+import '../navigation/top_app_bar.dart';
+import '../../widgets/badge_icon.dart';
+import '../../widgets/buttons/main_button.dart';
 
 class AlertView extends StatelessWidget {
   const AlertView({Key? key}) : super(key: key);

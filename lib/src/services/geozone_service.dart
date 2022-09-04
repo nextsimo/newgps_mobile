@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:label_marker/label_marker.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/utils/styles.dart';
+import 'newgps_service.dart';
+import '../utils/styles.dart';
 
 import '../models/geozone.dart';
 

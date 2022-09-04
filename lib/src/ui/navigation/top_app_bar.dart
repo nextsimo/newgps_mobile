@@ -1,13 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/account.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/ui/connected_device/connected_device_button.dart';
-import 'package:newgps/src/ui/connected_device/connected_device_view.dart';
-import 'package:newgps/src/utils/functions.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/widgets/buttons/main_button.dart';
+import '../../models/account.dart';
+import '../../services/newgps_service.dart';
+import '../connected_device/connected_device_button.dart';
+import '../connected_device/connected_device_view.dart';
+import '../../utils/functions.dart';
+import '../../utils/styles.dart';
+import '../../widgets/buttons/main_button.dart';
 
 class CustomAppBar extends PreferredSize {
   final double height;

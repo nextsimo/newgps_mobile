@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/device.dart';
-import 'package:newgps/src/services/device_provider.dart';
-import 'package:newgps/src/utils/functions.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/historic/historic_provider.dart';
-import 'package:newgps/src/ui/historic/speed_status_histo.dart';
+import '../../models/device.dart';
+import '../../services/device_provider.dart';
+import '../../utils/functions.dart';
+import '../../utils/styles.dart';
+import 'historic_provider.dart';
+import 'speed_status_histo.dart';
 import 'package:provider/provider.dart';
 
 class PlayCard extends StatelessWidget {

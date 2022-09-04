@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:newgps/src/models/account.dart';
-import 'package:newgps/src/services/geozone_service.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/utils/device_size.dart';
-import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';
-import 'package:newgps/src/utils/locator.dart';
+import '../../models/account.dart';
+import '../../services/geozone_service.dart';
+import '../../services/newgps_service.dart';
+import '../../utils/device_size.dart';
+import '../login/login_as/save_account_provider.dart';
+import '../../utils/locator.dart';
 import 'package:provider/provider.dart';
 import 'package:upgrader/upgrader.dart';
 import 'bottom_app_bar/bottom_navigatiom_bar.dart';

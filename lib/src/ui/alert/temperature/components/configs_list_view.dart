@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/ui/alert/temperature/logic/config_temp_ble_model.dart';
+import '../logic/config_temp_ble_model.dart';
 import 'package:provider/provider.dart';
 
 import '../logic/temperature_provider.dart';

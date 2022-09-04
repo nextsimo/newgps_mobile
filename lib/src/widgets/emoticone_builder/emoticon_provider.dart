@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/widgets/buttons/main_button.dart';
+import '../buttons/main_button.dart';
 
 class EmoticonProvider with ChangeNotifier {
   void showEmotsDialog(BuildContext context) {

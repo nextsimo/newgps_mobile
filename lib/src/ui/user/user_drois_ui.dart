@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/user_droits.dart';
-import 'package:newgps/src/utils/styles.dart';
+import '../../models/user_droits.dart';
+import '../../utils/styles.dart';
 
 class UserDroitsUi extends StatefulWidget {
   final UserDroits userDroits;

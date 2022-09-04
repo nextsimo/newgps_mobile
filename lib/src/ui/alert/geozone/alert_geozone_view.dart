@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/alert/widgets/build_label.dart';
-import 'package:newgps/src/ui/navigation/top_app_bar.dart';
+import '../../../utils/styles.dart';
+import '../widgets/build_label.dart';
+import '../../navigation/top_app_bar.dart';
 
 class AlertGeozoneView extends StatelessWidget {
   const AlertGeozoneView({Key? key}) : super(key: key);

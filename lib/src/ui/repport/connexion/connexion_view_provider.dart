@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/ui/repport/rapport_provider.dart';
+import '../rapport_provider.dart';
 
 import '../../../models/account.dart';
 import '../../../services/newgps_service.dart';

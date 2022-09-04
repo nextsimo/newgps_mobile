@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:newgps/src/models/device.dart';
+import 'device.dart';
 
 class HistoricModel {
   late int currentPage;

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:newgps/src/utils/styles.dart';
+import '../../../utils/styles.dart';
 
 class NewgInput extends StatelessWidget {
   final String? placeholder;

@@ -1,9 +1,9 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:newgps/src/services/firebase_messaging_service.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/ui/alert/temperature/logic/config_temp_ble_model.dart';
-import 'package:newgps/src/ui/alert/temperature/logic/temp_global_setting.dart';
+import '../../../../services/firebase_messaging_service.dart';
+import '../../../../services/newgps_service.dart';
+import 'config_temp_ble_model.dart';
+import 'temp_global_setting.dart';
 
 class TemperatureBleProvider with ChangeNotifier {
   late int notificationId;

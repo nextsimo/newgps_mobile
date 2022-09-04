@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/account.dart';
-import 'package:newgps/src/models/device.dart';
-import 'package:newgps/src/services/firebase_messaging_service.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/ui/alert/oil_change/oi_change_device_settings.dart';
-import 'package:newgps/src/ui/alert/oil_change/oi_change_settings.dart';
+import '../../../models/account.dart';
+import '../../../models/device.dart';
+import '../../../services/firebase_messaging_service.dart';
+import '../../../services/newgps_service.dart';
+import 'oi_change_device_settings.dart';
+import 'oi_change_settings.dart';
 
 class OilChangeAlertProvider with ChangeNotifier {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/navigation/top_app_bar.dart';
-import 'package:newgps/src/widgets/buttons/log_out_button.dart';
+import '../utils/styles.dart';
+import 'navigation/top_app_bar.dart';
+import '../widgets/buttons/log_out_button.dart';
 
 class UserEmptyPage extends StatelessWidget {
   const UserEmptyPage({Key? key}) : super(key: key);

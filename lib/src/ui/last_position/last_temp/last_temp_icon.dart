@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/ui/last_position/last_temp/last_temp_provider.dart';
-import 'package:newgps/src/ui/last_position/last_temp/last_temp_view.dart';
-import 'package:newgps/src/utils/styles.dart';
+import 'last_temp_provider.dart';
+import 'last_temp_view.dart';
+import '../../../utils/styles.dart';
 import 'package:provider/provider.dart';
 
 import '../last_position_provider.dart';

@@ -6,8 +6,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:newgps/src/models/geozone.dart';
-import 'package:newgps/src/utils/styles.dart';
+import '../../../models/geozone.dart';
+import '../../../utils/styles.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../models/device.dart';

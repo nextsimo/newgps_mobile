@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/services/device_provider.dart';
-import 'package:newgps/src/utils/styles.dart';
+import '../services/device_provider.dart';
+import '../utils/styles.dart';
 import 'package:provider/provider.dart';
 
 class LoadingIcon extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/account.dart';
+import '../../models/account.dart';
 import 'package:provider/provider.dart';
 
 import '../../services/newgps_service.dart';

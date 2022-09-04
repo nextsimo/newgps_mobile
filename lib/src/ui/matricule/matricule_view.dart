@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lazy_data_table/lazy_data_table.dart';
-import 'package:newgps/src/ui/matricule/matricule_provider.dart';
-import 'package:newgps/src/ui/navigation/top_app_bar.dart';
+import 'matricule_provider.dart';
+import '../navigation/top_app_bar.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/matricule.dart';

@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/account.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/ui/connected_device/connected_device_provider.dart';
-import 'package:newgps/src/utils/functions.dart';
-import 'package:newgps/src/ui/last_position/last_position_provider.dart';
-import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';
+import '../../models/account.dart';
+import '../../services/newgps_service.dart';
+import '../connected_device/connected_device_provider.dart';
+import '../../utils/functions.dart';
+import '../last_position/last_position_provider.dart';
+import 'login_as/save_account_provider.dart';
 import 'package:provider/provider.dart';
 
 class LoginProvider with ChangeNotifier {

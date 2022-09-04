@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/user_droits.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/alert/widgets/build_label.dart';
-import 'package:newgps/src/ui/login/login_as/save_account_provider.dart';
-import 'package:newgps/src/ui/navigation/top_app_bar.dart';
+import '../../../models/user_droits.dart';
+import '../../../utils/styles.dart';
+import '../widgets/build_label.dart';
+import '../../login/login_as/save_account_provider.dart';
+import '../../navigation/top_app_bar.dart';
 import 'package:provider/provider.dart';
 
 class HighwayNotifView extends StatefulWidget {

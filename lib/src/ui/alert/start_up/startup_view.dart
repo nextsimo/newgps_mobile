@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/services/firebase_messaging_service.dart';
-import 'package:newgps/src/ui/alert/alert_widgets/shwo_all_device_widget.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/navigation/top_app_bar.dart';
+import '../../../services/firebase_messaging_service.dart';
+import '../alert_widgets/shwo_all_device_widget.dart';
+import '../../../utils/styles.dart';
+import '../../navigation/top_app_bar.dart';
 import 'package:provider/provider.dart';
 import '../widgets/build_label.dart';
 import 'startup_provider.dart';

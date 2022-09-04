@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/repport/rapport_provider.dart';
-import 'package:newgps/src/ui/repport/repport_type_model.dart';
+import '../../utils/styles.dart';
+import 'rapport_provider.dart';
+import 'repport_type_model.dart';
 import 'package:provider/provider.dart';
 
 class AutoSearchType extends StatefulWidget {

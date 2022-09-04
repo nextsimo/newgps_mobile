@@ -4,9 +4,9 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
-import 'package:newgps/src/models/account.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/ui/connected_device/connected_device_model.dart';
+import '../../models/account.dart';
+import '../../services/newgps_service.dart';
+import 'connected_device_model.dart';
 
 class ConnectedDeviceProvider with ChangeNotifier {
   final DeviceInfoPlugin _deviceInfo = DeviceInfoPlugin();

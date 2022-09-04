@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/ui/repport/distance/provider/distance_provider.dart';
+import '../provider/distance_provider.dart';
 import 'package:provider/provider.dart';
 import '../../rapport_provider.dart';
 import 'distance_repport_all_device.dart';

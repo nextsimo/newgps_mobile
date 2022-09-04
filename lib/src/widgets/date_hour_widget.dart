@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/utils/functions.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/historic/historic_provider.dart';
+import '../utils/functions.dart';
+import '../utils/styles.dart';
+import '../ui/historic/historic_provider.dart';
 import 'package:provider/provider.dart';
 
 class DateHourWidget extends StatelessWidget {

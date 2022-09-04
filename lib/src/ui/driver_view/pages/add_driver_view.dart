@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/utils/styles.dart';
+import '../../../utils/styles.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/add_driver_provider.dart';

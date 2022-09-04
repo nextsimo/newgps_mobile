@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/account.dart';
-import 'package:newgps/src/models/batter_alert_historic.dart';
-import 'package:newgps/src/models/battery_alert_model.dart';
-import 'package:newgps/src/services/firebase_messaging_service.dart';
-import 'package:newgps/src/services/newgps_service.dart';
+import '../../../models/account.dart';
+import '../../../models/batter_alert_historic.dart';
+import '../../../models/battery_alert_model.dart';
+import '../../../services/firebase_messaging_service.dart';
+import '../../../services/newgps_service.dart';
 
 class BatteryProvider with ChangeNotifier {
   FirebaseMessagingService? messagingService;

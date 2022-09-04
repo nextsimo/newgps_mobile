@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/ui/connected_device/connected_device_model.dart';
-import 'package:newgps/src/ui/connected_device/connected_device_provider.dart';
-import 'package:newgps/src/utils/functions.dart';
-import 'package:newgps/src/widgets/buttons/main_button.dart';
+import 'connected_device_model.dart';
+import 'connected_device_provider.dart';
+import '../../utils/functions.dart';
+import '../../widgets/buttons/main_button.dart';
 import 'package:provider/provider.dart';
 
 class ConnectedDeviceView extends StatelessWidget {

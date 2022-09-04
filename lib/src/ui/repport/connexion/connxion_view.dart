@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/ui/repport/rapport_provider.dart';
-import 'package:newgps/src/utils/functions.dart';
-import 'package:newgps/src/widgets/buttons/main_button.dart';
+import '../rapport_provider.dart';
+import '../../../utils/functions.dart';
+import '../../../widgets/buttons/main_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../../utils/styles.dart';

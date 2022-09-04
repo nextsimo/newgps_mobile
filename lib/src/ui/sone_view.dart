@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/navigation/top_app_bar.dart';
+import '../utils/styles.dart';
+import 'navigation/top_app_bar.dart';
 
 class SoonPage extends StatelessWidget {
   const SoonPage({Key? key}) : super(key: key);

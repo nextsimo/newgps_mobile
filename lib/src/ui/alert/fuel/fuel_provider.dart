@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/account.dart';
-import 'package:newgps/src/models/fuel_notif_historic.dart';
-import 'package:newgps/src/models/fuel_settings_model.dart';
-import 'package:newgps/src/services/firebase_messaging_service.dart';
-import 'package:newgps/src/services/newgps_service.dart';
+import '../../../models/account.dart';
+import '../../../models/fuel_notif_historic.dart';
+import '../../../models/fuel_settings_model.dart';
+import '../../../services/firebase_messaging_service.dart';
+import '../../../services/newgps_service.dart';
 
 class FuelProvider with ChangeNotifier {
   FirebaseMessagingService? messagingService;

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:newgps/src/services/device_provider.dart';
-import 'package:newgps/src/utils/functions.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/geozone/geozone_dialog/geozone_dialog_provider.dart';
-import 'package:newgps/src/widgets/buttons/main_button.dart';
-import 'package:newgps/src/widgets/buttons/zoom_button.dart';
-import 'package:newgps/src/widgets/map_type_widget.dart';
+import '../../../services/device_provider.dart';
+import '../../../utils/functions.dart';
+import '../../../utils/styles.dart';
+import 'geozone_dialog_provider.dart';
+import '../../../widgets/buttons/main_button.dart';
+import '../../../widgets/buttons/zoom_button.dart';
+import '../../../widgets/map_type_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../../../widgets/inputs/select_device_widget.dart';

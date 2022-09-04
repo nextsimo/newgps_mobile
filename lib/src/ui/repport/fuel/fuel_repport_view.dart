@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/device.dart';
-import 'package:newgps/src/models/fuel_repport_model.dart';
-import 'package:newgps/src/utils/functions.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/repport/fuel/fuel_repport_provider.dart';
-import 'package:newgps/src/ui/repport/rapport_provider.dart';
+import '../../../models/device.dart';
+import '../../../models/fuel_repport_model.dart';
+import '../../../utils/functions.dart';
+import '../../../utils/styles.dart';
+import 'fuel_repport_provider.dart';
+import '../rapport_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../clickable_text_cell.dart';

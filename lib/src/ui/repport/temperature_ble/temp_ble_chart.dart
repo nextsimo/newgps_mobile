@@ -1,8 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:newgps/src/ui/navigation/top_app_bar.dart';
-import 'package:newgps/src/utils/styles.dart';
+import '../../navigation/top_app_bar.dart';
+import '../../../utils/styles.dart';
 import 'package:provider/provider.dart';
 import 'temperature_repport_provider.dart';
 

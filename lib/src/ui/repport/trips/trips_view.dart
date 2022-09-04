@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/utils/functions.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/repport/rapport_provider.dart';
-import 'package:newgps/src/ui/repport/trips/trips_model.dart';
+import '../../../utils/functions.dart';
+import '../../../utils/styles.dart';
+import '../rapport_provider.dart';
+import 'trips_model.dart';
 import 'package:provider/provider.dart';
 
 import '../clickable_text_cell.dart';

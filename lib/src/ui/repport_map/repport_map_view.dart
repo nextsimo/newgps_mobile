@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:newgps/src/services/device_provider.dart';
-import 'package:newgps/src/ui/repport_map/repport_map_provider.dart';
-import 'package:newgps/src/utils/functions.dart';
+import '../../services/device_provider.dart';
+import 'repport_map_provider.dart';
+import '../../utils/functions.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/styles.dart';

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/account.dart';
-import 'package:newgps/src/models/device.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/utils/functions.dart';
-import 'package:newgps/src/widgets/buttons/main_button.dart';
-import 'package:newgps/src/widgets/inputs/main_input.dart';
+import '../../models/account.dart';
+import '../../models/device.dart';
+import '../../services/newgps_service.dart';
+import '../../utils/functions.dart';
+import '../../widgets/buttons/main_button.dart';
+import '../../widgets/inputs/main_input.dart';
 
 class DriverAddDialog extends StatefulWidget {
   final Device device;

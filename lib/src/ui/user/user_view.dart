@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/user_model.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/navigation/top_app_bar.dart';
-import 'package:newgps/src/ui/user/user_drois_ui.dart';
-import 'package:newgps/src/ui/user/user_provider.dart';
-import 'package:newgps/src/widgets/buttons/log_out_button.dart';
-import 'package:newgps/src/widgets/buttons/main_button.dart';
+import '../../models/user_model.dart';
+import '../../utils/styles.dart';
+import '../navigation/top_app_bar.dart';
+import 'user_drois_ui.dart';
+import 'user_provider.dart';
+import '../../widgets/buttons/log_out_button.dart';
+import '../../widgets/buttons/main_button.dart';
 import 'package:provider/provider.dart';
 
 import 'user_devices_ui.dart';

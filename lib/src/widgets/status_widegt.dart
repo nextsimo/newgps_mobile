@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/device.dart';
+import '../models/device.dart';
 
 class StatusWidget extends StatelessWidget {
   const StatusWidget({

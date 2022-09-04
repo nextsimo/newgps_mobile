@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/notif_hsitoric_model.dart';
-import 'package:newgps/src/utils/functions.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/alert/hsitorics/notif_historic_provider.dart';
-import 'package:newgps/src/ui/navigation/top_app_bar.dart';
+import '../../../models/notif_hsitoric_model.dart';
+import '../../../utils/functions.dart';
+import '../../../utils/styles.dart';
+import 'notif_historic_provider.dart';
+import '../../navigation/top_app_bar.dart';
 import 'package:provider/provider.dart';
 
 class NotifHistoricView extends StatelessWidget {

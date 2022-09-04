@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/device.dart';
-import 'package:newgps/src/services/device_provider.dart';
+import '../../models/device.dart';
+import '../../services/device_provider.dart';
 import 'package:provider/provider.dart';
 
 class MenuDevices extends StatelessWidget {

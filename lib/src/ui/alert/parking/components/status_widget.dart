@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/ui/alert/parking/parking_alert_provider.dart';
+import '../parking_alert_provider.dart';
 import 'package:provider/provider.dart';
 
 class StatusAlertWidget extends StatelessWidget {

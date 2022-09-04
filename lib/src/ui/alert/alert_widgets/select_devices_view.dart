@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/ui/alert/alert_widgets/select_devices_provider.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/widgets/buttons/main_button.dart';
-import 'package:newgps/src/widgets/inputs/search_widget.dart';
+import 'select_devices_provider.dart';
+import '../../../utils/styles.dart';
+import '../../../widgets/buttons/main_button.dart';
+import '../../../widgets/inputs/search_widget.dart';
 import 'package:provider/provider.dart';
 import '../../../models/device.dart';
 

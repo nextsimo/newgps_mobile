@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/device.dart';
-import 'package:newgps/src/services/device_provider.dart';
-import 'package:newgps/src/utils/styles.dart';
-import 'package:newgps/src/ui/historic/historic_provider.dart';
-import 'package:newgps/src/ui/last_position/last_position_provider.dart';
+import '../../models/device.dart';
+import '../../services/device_provider.dart';
+import '../../utils/styles.dart';
+import '../historic/historic_provider.dart';
+import '../last_position/last_position_provider.dart';
 import 'package:provider/provider.dart';
 
 class AutoSearchDevice extends StatefulWidget {

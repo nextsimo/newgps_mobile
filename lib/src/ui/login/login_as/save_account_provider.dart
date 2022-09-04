@@ -3,20 +3,20 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/account.dart';
-import 'package:newgps/src/models/user_droits.dart';
-import 'package:newgps/src/services/newgps_service.dart';
+import '../../../models/account.dart';
+import '../../../models/user_droits.dart';
+import '../../../services/newgps_service.dart';
 
-import 'package:newgps/src/utils/functions.dart';
-import 'package:newgps/src/ui/alert/alert_navigation.dart';
-import 'package:newgps/src/ui/camera/camera_view.dart';
-import 'package:newgps/src/ui/geozone/geozone_view.dart';
-import 'package:newgps/src/ui/gestion/gestion_view.dart';
-import 'package:newgps/src/ui/historic/historic_view.dart';
-import 'package:newgps/src/ui/last_position/last_position_view.dart';
-import 'package:newgps/src/ui/matricule/matricule_view_2.dart';
-import 'package:newgps/src/ui/repport/repport_view.dart';
-import 'package:newgps/src/ui/user/user_view.dart';
+import '../../../utils/functions.dart';
+import '../../alert/alert_navigation.dart';
+import '../../camera/camera_view.dart';
+import '../../geozone/geozone_view.dart';
+import '../../gestion/gestion_view.dart';
+import '../../historic/historic_view.dart';
+import '../../last_position/last_position_view.dart';
+import '../../matricule/matricule_view_2.dart';
+import '../../repport/repport_view.dart';
+import '../../user/user_view.dart';
 import '../../driver_view/pages/driver_view.dart';
 import '../../user_empty_page.dart';
 

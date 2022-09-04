@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:newgps/src/models/device.dart';
-import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/ui/alert/temperature/logic/temperature_provider.dart';
+import '../../../../models/device.dart';
+import '../../../../services/newgps_service.dart';
+import '../logic/temperature_provider.dart';
 import 'package:provider/provider.dart';
 
 class MyDevicesList extends StatelessWidget {

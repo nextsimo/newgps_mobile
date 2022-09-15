@@ -18,7 +18,7 @@ class CameraProvider with ChangeNotifier {
 
   void handleSelection() {
     if (auto.deviceID == 'all') {
-      auto.controller.text = 'Touts les véhicules';
+      auto.controller.text = 'Tous les véhicules';
     } else {
       auto.controller.text = auto.selectedDevice.description;
     }
@@ -39,7 +39,7 @@ class CameraProvider with ChangeNotifier {
 
 class _AutoSearchHandler {
   TextEditingController controller =
-      TextEditingController(text: 'Touts les véhicules');
+      TextEditingController(text: 'Tous les véhicules');
 
   late void Function(String id) onSelect;
   late void Function() handleSelectDevice;

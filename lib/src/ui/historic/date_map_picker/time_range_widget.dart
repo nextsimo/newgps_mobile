@@ -37,7 +37,7 @@ class TimeRangeWigdet extends StatelessWidget {
           MainButton(
             onPressed: () {
               provider.onTimeRangeSaveClicked();
-              provider.fetchHistorics(1, true);
+              provider.fetchHistorics(context,1, true);
               Navigator.of(context).pop();
               //provider.dateTimeSavedButtonClicked = true;
               //Navigator.of(context).pop();
@@ -48,7 +48,7 @@ class TimeRangeWigdet extends StatelessWidget {
           MainButton(
             onPressed: () {
               provider.onTimeRangeRestaureClicked();
-              provider.fetchHistorics(1, true);
+              provider.fetchHistorics(context, 1, true);
               Navigator.of(context).pop();
 /*               provider.notifyDateTime();
               provider.dateTimeSavedButtonClicked = true;

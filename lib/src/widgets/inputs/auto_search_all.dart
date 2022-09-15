@@ -220,7 +220,7 @@ class OptionViewBuilderWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              withoutAll ? 'Sélectionner une vehicule' : 'Touts les véhicules',
+              withoutAll ? 'Sélectionner une vehicule' : 'Tous les véhicules',
               style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w500,

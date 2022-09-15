@@ -47,7 +47,7 @@ class RepportProvider with ChangeNotifier {
     ),
     RepportTypeModel(
       index: 6,
-      title: 'Rapport temperature',
+      title: 'Rapport température',
     ),
   ];
 
@@ -150,7 +150,7 @@ class RepportProvider with ChangeNotifier {
         await downlaodTrips('xlsx');
         break;
       case 4:
-        if (autoSearchTextController.text == 'Touts les véhicules') {
+        if (autoSearchTextController.text == 'Tous les véhicules') {
           await _downloadAllDeistanceDevices('xlsx');
         } else {
           await _downloadOneDeviceDistanceRepport('xlsx');
@@ -159,7 +159,9 @@ class RepportProvider with ChangeNotifier {
       case 5:
         await downlaodConnexion('xlsx');
         break;
-
+      case 6:
+        await downloadTempRepport('xlsx');
+        break;
       default:
     }
   }
@@ -179,7 +181,7 @@ class RepportProvider with ChangeNotifier {
         await downlaodTrips('pdf');
         break;
       case 4:
-        if (autoSearchTextController.text == 'Touts les véhicules') {
+        if (autoSearchTextController.text == 'Tous les véhicules') {
           await _downloadAllDeistanceDevices('pdf');
         } else {
           await _downloadOneDeviceDistanceRepport('pdf');
@@ -187,6 +189,9 @@ class RepportProvider with ChangeNotifier {
         break;
       case 5:
         await downlaodConnexion('pdf');
+        break;
+      case 6:
+        await downloadTempRepport('pdf');
         break;
       default:
     }
@@ -267,6 +272,31 @@ class RepportProvider with ChangeNotifier {
         extension: format);
   }
 
+  // download temp repport
+  Future<void> downloadTempRepport(String format) async {
+    Account? account = shared.getAccount();
+
+    String res = await api.post(
+      url: '/tempble/index',
+      body: {
+        'account_id': account?.account.accountId,
+        'device_id': selectedDevice.deviceId,
+        'user_id': account?.account.userID,
+        'date_from': (dateFrom.millisecondsSinceEpoch / 1000),
+        'date_to': (dateTo.millisecondsSinceEpoch / 1000),
+        'order_by': 'created_at',
+        'order_direction': 'asc',
+        'download': true,
+        'format': format
+      },
+    );
+
+    await _downloadFile(
+        base64Str: res.trim().toString(),
+        fileName: "temp_repport_${formatSimpleDate(dateFrom)}.$format",
+        extension: format);
+  }
+
   Future<void> downlaodConnexion(String format) async {
     Account? account = shared.getAccount();
     String res = await api.post(
@@ -304,9 +334,10 @@ class RepportProvider with ChangeNotifier {
     );
 
     await _downloadFile(
-        base64Str: res.trim().toString(),
-        fileName: "voyage_rapport_${formatSimpleDate(dateFrom)}.$format",
-        extension: format);
+      base64Str: res.trim().toString(),
+      fileName: "voyage_rapport_${formatSimpleDate(dateFrom)}.$format",
+      extension: format,
+    );
   }
 
   Future<void> downloadFuelRepport(String format) async {
@@ -434,7 +465,7 @@ class RepportProvider with ChangeNotifier {
 
   void handleSelectDevice() {
     if (selectAllDevices) {
-      autoSearchTextController.text = 'Touts les véhicules';
+      autoSearchTextController.text = 'Tous les véhicules';
     } else {
       autoSearchTextController.text = selectedDevice.description;
     }

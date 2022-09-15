@@ -62,14 +62,8 @@ class _LastpositionMapState extends State<LastpositionMap>
             mapToolbarEnabled: false,
             onMapCreated: (controller) async {
               provider.mapController = controller;
-
-              controller.moveCamera(
-                  CameraUpdate.newCameraPosition(const CameraPosition(
-                bearing: 0,
-                target: LatLng(33.589886, -7.603869),
-                zoom: 6.5,
-              )));
-
+              // zoom camera 
+              provider.handleZoomCamera();
               provider.markersProvider.simpleMarkerManager
                   .setMapId(controller.mapId);
               provider.markersProvider.textMarkerManager

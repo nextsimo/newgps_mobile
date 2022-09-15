@@ -52,7 +52,7 @@ class _AutoSearchDeviceState extends State<AutoSearchDevice> {
                 'Chargement des véhicules..') {
               deviceProvider.autoSearchController.text =
                   deviceProvider.devices.first.description;
-                  historicProvider.fetchHistorics();
+                  historicProvider.fetchHistorics(context);
             }
             return fieldViewBuilderWidget(deviceProvider, outlineInputBorder,
                 _focusNode, onFieldSubmitted, historicProvider);

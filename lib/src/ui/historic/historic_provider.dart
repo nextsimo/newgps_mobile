@@ -5,6 +5,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:newgps/src/ui/last_position/last_position_provider.dart';
 import '../../models/account.dart';
 import '../../models/device.dart';
 import '../../models/historic_model.dart';
@@ -78,7 +79,6 @@ class HistoricProvider with ChangeNotifier {
     mapController = null;
     notifyListeners();
   }
-
 
   Set<Marker> playedMarkers = {};
 
@@ -172,6 +172,7 @@ class HistoricProvider with ChangeNotifier {
       notifyListeners();
       return;
     }
+
     // clear all markers
     int _index = stopedIndex;
     bool _init = true;
@@ -255,7 +256,7 @@ class HistoricProvider with ChangeNotifier {
     SavedAcountProvider pro =
         Provider.of<SavedAcountProvider>(context, listen: false);
     _droit = pro.userDroits.droits[2];
-    fetchHistorics(1, true);
+    fetchHistorics(context,1, true);
   }
 
   void normaleView() {
@@ -335,7 +336,7 @@ class HistoricProvider with ChangeNotifier {
       dateTo.second,
     );
 
-    fetchHistorics(1, true);
+    fetchHistorics(context,1, true);
   }
 
   void updateTimeRange(BuildContext context) async {
@@ -347,7 +348,67 @@ class HistoricProvider with ChangeNotifier {
     );
   }
 
-  Future<void> fetchHistorics([int page = 1, bool init = false]) async {
+  // get tow points from list of points to fit the map  to the screen
+  List<LatLng> _getTwoPoints(List<LatLng> points) {
+    if (points.length < 2) {
+      return points;
+    }
+    double minLat = points.first.latitude;
+    double maxLat = points.first.latitude;
+    double minLng = points.first.longitude;
+    double maxLng = points.first.longitude;
+    for (LatLng point in points) {
+      if (point.latitude < minLat) {
+        minLat = point.latitude;
+      }
+      if (point.latitude > maxLat) {
+        maxLat = point.latitude;
+      }
+      if (point.longitude < minLng) {
+        minLng = point.longitude;
+      }
+      if (point.longitude > maxLng) {
+        maxLng = point.longitude;
+      }
+    }
+    return [
+      LatLng(minLat, minLng),
+      LatLng(maxLat, maxLng),
+    ];
+  }
+
+  // zo
+
+  // zoom to list of points
+  Future<void> _zoomToPoints(List<LatLng> points) async {
+    if (points.isNotEmpty) {
+      final bounds = boundsFromLatLngList(points);
+
+      // zoom and center to bounds
+      await mapController!.animateCamera(
+        CameraUpdate.newLatLngBounds(bounds, 100),
+      );
+    }
+  }
+
+  LatLngBounds boundsFromLatLngList(List<LatLng> list) {
+    double? x0, x1, y0, y1;
+    for (LatLng latLng in list) {
+      if (x0 == null) {
+        x0 = x1 = latLng.latitude;
+        y0 = y1 = latLng.longitude;
+      } else {
+        if (latLng.latitude > x1!) x1 = latLng.latitude;
+        if (latLng.latitude < x0) x0 = latLng.latitude;
+        if (latLng.longitude > y1!) y1 = latLng.longitude;
+        if (latLng.longitude < y0!) y0 = latLng.longitude;
+      }
+    }
+    return LatLngBounds(
+        northeast: LatLng(x1!, y1!), southwest: LatLng(x0!, y0!));
+  }
+
+  Future<void> fetchHistorics(BuildContext context, [int page = 1, bool init = false])async {
     histoLine = {};
     histoLine.clear();
     playedMarkers = {};
@@ -383,9 +444,12 @@ class HistoricProvider with ChangeNotifier {
         markers.add(getSimpleMarker(device));
       }
       if (historicModel.currentPage < historicModel.lastPage) {
-        fetchHistorics(++page);
+        fetchHistorics(context,++page);
         return;
-      } /*  moveCamera(markers.first.position);
+      }
+      _zoomToPoints(markers.map((e) => e.position).toList());
+      context.read<LastPositionProvider>().fetch(context);
+      /*  moveCamera(markers.first.position);
       mapController?.moveCamera(CameraUpdate.newCameraPosition(
           const CameraPosition(
               target: LatLng(32.300815, -9.227203), zoom: 5.5)));
@@ -412,7 +476,7 @@ class HistoricProvider with ChangeNotifier {
     loading = false;
   }
 
-  void onTapEnter(String val) {
+  void onTapEnter(BuildContext context, String val) {
     deviceProvider.selectedDevice = deviceProvider.devices.firstWhere(
       (device) {
         return device.description.toLowerCase().contains(val.toLowerCase());
@@ -420,7 +484,7 @@ class HistoricProvider with ChangeNotifier {
     );
     deviceProvider.handleSelectDevice();
     notifyListeners();
-    fetchHistorics();
+    fetchHistorics(context);
   }
 
   Future<void> _onTapMarker(Device device) async {

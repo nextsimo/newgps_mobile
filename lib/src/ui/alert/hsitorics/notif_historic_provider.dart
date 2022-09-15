@@ -105,11 +105,11 @@ class NotifHistoricPorvider with ChangeNotifier {
   }
 
   TextEditingController autoSearchController =
-      TextEditingController(text: 'Touts les véhicules');
+      TextEditingController(text: 'Tous les véhicules');
 
   void handleSelectDevice() {
     if (deviceID == 'all') {
-      autoSearchController.text = 'Touts les véhicules';
+      autoSearchController.text = 'Tous les véhicules';
     } else {
       autoSearchController.text = selectedDevice.description;
     }

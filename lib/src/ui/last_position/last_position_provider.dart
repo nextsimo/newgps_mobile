@@ -44,6 +44,57 @@ class LastPositionProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // handle zoome camera
+  Future<void> handleZoomCamera() async {
+    if (mapController != null) {
+      // check if group of deveices is selected
+      if (markersProvider.fetchGroupesDevices) {
+        _zoomToPoints(List<LatLng>.from(markersProvider.devices
+            .map((e) => LatLng(e.latitude, e.longitude))));
+      } else {
+        if (deviceProvider.selectedDevice == null) return;
+        Device device = deviceProvider.selectedDevice!;
+        mapController?.animateCamera(
+          CameraUpdate.newCameraPosition(
+            CameraPosition(
+              target: LatLng(device.latitude, device.longitude),
+              zoom: 15,
+            ),
+          ),
+        );
+      }
+    }
+  }
+
+  // zoom to list of points
+  Future<void> _zoomToPoints(List<LatLng> points) async {
+    if (points.isNotEmpty) {
+      final bounds = boundsFromLatLngList(points);
+
+      // zoom and center to bounds
+      await mapController!.animateCamera(
+        CameraUpdate.newLatLngBounds(bounds, 100),
+      );
+    }
+  }
+
+  LatLngBounds boundsFromLatLngList(List<LatLng> list) {
+    double? x0, x1, y0, y1;
+    for (LatLng latLng in list) {
+      if (x0 == null) {
+        x0 = x1 = latLng.latitude;
+        y0 = y1 = latLng.longitude;
+      } else {
+        if (latLng.latitude > x1!) x1 = latLng.latitude;
+        if (latLng.latitude < x0) x0 = latLng.latitude;
+        if (latLng.longitude > y1!) y1 = latLng.longitude;
+        if (latLng.longitude < y0!) y0 = latLng.longitude;
+      }
+    }
+    return LatLngBounds(
+        northeast: LatLng(x1!, y1!), southwest: LatLng(x0!, y0!));
+  }
+
   Future<void> fetch(BuildContext context) async {
     debugPrint("----------------> ${markersProvider.fetchGroupesDevices}");
     if (markersProvider.fetchGroupesDevices) {
@@ -180,12 +231,11 @@ class LastPositionProvider with ChangeNotifier {
 
   void handleSelectDevice({bool notify = true}) {
     if (markersProvider.fetchGroupesDevices) {
-      autoSearchController.text = 'Touts les véhicules';
+      autoSearchController.text = 'Tous les véhicules';
     } else {
       autoSearchController.text = deviceProvider.selectedDevice!.description;
     }
   }
-
 
   void updateSimpleClusterMarkers(Set<Marker> ms) {
     markersProvider.clusterMarkers = ms;

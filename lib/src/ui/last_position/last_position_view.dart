@@ -132,6 +132,7 @@ class _LastPositionViewState extends State<LastPositionView>
                       backgroundColor:
                           clicked ? Colors.white : AppConsts.mainColor,
                       onPressed: () {
+                        lastPositionProvider.fetch(context);
                         lastPositionProvider.showGeozone =
                             !lastPositionProvider.showGeozone;
                       },

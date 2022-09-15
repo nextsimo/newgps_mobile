@@ -152,7 +152,7 @@ class _ShowListDevicesState extends State<_ShowListDevices> {
 
   Device emptyDevice = Device(
       markerText: '',
-      description: 'Touts les véhicules',
+      description: 'Tous les véhicules',
       deviceId: '',
       dateTime: DateTime.now(),
       latitude: 0,

@@ -211,7 +211,7 @@ class OptionViewBuilderWidget extends StatelessWidget {
     return InkWell(
       onTap: () async {
         focusNode.unfocus();
-        provider.autoSearchTextController.text = 'Touts les véhicules';
+        provider.autoSearchTextController.text = 'Tous les véhicules';
         repportProvider.selectAllDevices = true;
 
         if (provider.selectedRepport.index != 0 &&
@@ -234,7 +234,7 @@ class OptionViewBuilderWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text(
-              'Touts les véhicules',
+              'Tous les véhicules',
               style: TextStyle(
                 fontSize: 10,
                 fontWeight: FontWeight.w600,

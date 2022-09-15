@@ -43,6 +43,8 @@ class MarkersProvider {
   List<Place> clusterItemsText = [];
   double currentZoom = 12;
 
+  get selectedDevice => null;
+
   Future<void> onClickGroupment(bool state, List<Device> ds) async {
     showCluster = state;
     await setMarkers(ds);

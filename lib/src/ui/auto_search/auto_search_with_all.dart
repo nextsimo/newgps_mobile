@@ -104,7 +104,7 @@ class BuildTextField extends StatelessWidget {
           'Chargement des véhicules..';
     } else if (lastPositionProvider.autoSearchController.text ==
         'Chargement des véhicules..') {
-      lastPositionProvider.autoSearchController.text = 'Touts les véhicules';
+      lastPositionProvider.autoSearchController.text = 'Tous les véhicules';
     }
 
     return IgnorePointer(
@@ -180,7 +180,7 @@ class OptionViewBuilderWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text(
-              'Touts les véhicules',
+              'Tous les véhicules',
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w500,

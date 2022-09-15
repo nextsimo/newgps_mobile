@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:newgps/src/services/newgps_service.dart';
 import '../../../utils/styles.dart';
 import 'package:provider/provider.dart';
 
+import '../../../widgets/map_launcher/map_launcher_widget.dart';
 import '../last_position_provider.dart';
 
 class SuiviWidget extends StatelessWidget {
@@ -52,7 +54,13 @@ class _SuiviWidgetLandscape extends StatelessWidget {
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20))),
             ),
-            onPressed: () => lastPositionProvider.buildRoutes(),
+            onPressed: () {
+            if (deviceProvider.selectedDevice != null && isEmpty) {
+              openMapsSheet(context, deviceProvider.selectedDevice!, false);
+            } else {
+              lastPositionProvider.buildRoutes();
+            }
+            },
             child: Row(
               children: [
                 lastPositionProvider.loadingRoute
@@ -60,10 +68,13 @@ class _SuiviWidgetLandscape extends StatelessWidget {
                         width: 10,
                         height: 10,
                         child: Center(
-                            child: CircularProgressIndicator(
-                                strokeWidth: 1.0,
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                    Colors.white))),
+                          child: CircularProgressIndicator(
+                            strokeWidth: 1.0,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Colors.white,
+                            ),
+                          ),
+                        ),
                       )
                     : lastPositionProvider.navigationStarted
                         ? const Icon(Icons.navigation, size: 18)
@@ -113,7 +124,13 @@ class _SuiviWidgetPortrait extends StatelessWidget {
                 RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20))),
           ),
-          onPressed: () => lastPositionProvider.buildRoutes(),
+          onPressed: () {
+            if (deviceProvider.selectedDevice != null && isEmpty) {
+              openMapsSheet(context, deviceProvider.selectedDevice!, false);
+            } else {
+              lastPositionProvider.buildRoutes();
+            }
+          },
           child: Row(
             children: [
               lastPositionProvider.loadingRoute
@@ -127,7 +144,8 @@ class _SuiviWidgetPortrait extends StatelessWidget {
                                   AlwaysStoppedAnimation<Color>(Colors.white))),
                     )
                   : lastPositionProvider.navigationStarted
-                      ? const Icon(Icons.navigation, size: 18, color: Colors.blue)
+                      ? const Icon(Icons.navigation,
+                          size: 18, color: Colors.blue)
                       : Image.asset(
                           'assets/icons/map_arrow.png',
                           width: 18,

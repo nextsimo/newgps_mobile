@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:newgps/src/ui/last_position/last_position_provider.dart';
+import 'package:provider/provider.dart';
 import '../../../services/newgps_service.dart';
 import '../../../utils/functions.dart';
 import '../../../utils/styles.dart';
@@ -62,6 +64,7 @@ class _CustomBottomNavigatioBarState extends State<CustomBottomNavigatioBar> {
     return OrientationBuilder(builder: (context, or) {
       bool isPortrait = or == Orientation.portrait;
       Size size = MediaQuery.of(context).size;
+      final lastPositionProvider = context.read<LastPositionProvider>();
       return Container(
         color: Colors.white,
         child: SafeArea(
@@ -84,6 +87,9 @@ class _CustomBottomNavigatioBarState extends State<CustomBottomNavigatioBar> {
                 return InkWell(
                   onTap: () async {
                     if (item.index == widget.pageController.page) return;
+                    if( item.index == 0){
+                      lastPositionProvider.handleZoomCamera();
+                    }
                     widget.pageController.jumpToPage(item.index);
                     await playAudio(_items.elementAt(item.index).label);
                     navigationViewProvider.currentRoute =

@@ -97,7 +97,7 @@ class TempBleChart extends StatelessWidget {
                           blurRadius: 8,
                           color: Colors.black26,
                         ),
-                        spots: provider.repports.map(
+                        spots: provider.repportsChart.map(
                           (model) {
                             debugPrint(
                                 "T---> ${model.updatedAt} -> ${model.temperature1}");

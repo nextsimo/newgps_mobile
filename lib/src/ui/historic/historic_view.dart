@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:provider/provider.dart';
 
@@ -8,6 +9,7 @@ import '../../utils/styles.dart';
 import '../../widgets/buttons/appele_condcuteur_button.dart';
 import '../../widgets/buttons/log_out_button.dart';
 import '../../widgets/buttons/retate_icon_map.dart';
+import '../../widgets/buttons/zoom_button.dart';
 import '../../widgets/date_hour_widget.dart';
 import '../../widgets/map_type_widget.dart';
 import '../auto_search/auto_search.dart';
@@ -85,7 +87,7 @@ class HistoricView extends StatelessWidget {
                 if (isPlayed) return const SizedBox();
                 return AutoSearchDevice(
                   onSelectDeviceFromOtherView: (Device device) async =>
-                      provider.fetchHistorics(1, true),
+                      provider.fetchHistorics(context, 1, true),
                 );
               }),
           const Padding(
@@ -138,6 +140,17 @@ class HistoricView extends StatelessWidget {
                   ),
                 );
               }),
+          Positioned(
+            left: 4,
+            top: 75,
+            child: Selector<HistoricProvider, GoogleMapController?>(
+              builder: (_, c, __) {
+                if (c == null) return const SizedBox();
+                return MapZoomWidget(controller: c);
+              },
+              selector: (_, p) => p.mapController,
+            ),
+          ),
           Selector<HistoricProvider, bool>(
               selector: (_, p) => p.historicIsPlayed,
               builder: (_, bool isPlayed, ___) {

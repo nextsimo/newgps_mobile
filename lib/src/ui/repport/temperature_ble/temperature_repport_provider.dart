@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../../../models/account.dart';
@@ -14,10 +16,9 @@ class TemperatureRepportProvider with ChangeNotifier {
 
   List<TemBleRepportModel> get repports => _repports;
 
-  set repports(List<TemBleRepportModel> repports) {
-    _repports = repports;
-    _repports.removeLast();
-    setRepportsChart();
+  set repports(List<TemBleRepportModel> r) {
+    _repports = r;
+    _setRepportsChart();
     notifyListeners();
   }
 
@@ -25,22 +26,22 @@ class TemperatureRepportProvider with ChangeNotifier {
     fetchTempBleRepport();
   }
 
-  void setRepportsChart() {
+  void _setRepportsChart() {
+    repportsChart = [];
+    // add first element
+    repportsChart.add(repports[0]);
+    // add element only if the deference between the previous and the current is greater than 15 minutes
+    var selectedRepport = repports[0];
 
-    for (var i = 0; i < _repports.length; i++) {
-
-      // time between two repports is 30 minutes
-      if (i == 0) {
-        continue;
-      } else if (_repports[i].updatedAt.difference(_repports[i - 1].updatedAt).inMinutes == 15) {
-        repportsChart.add(_repports[i]);
-        showIndexed.add(i);
+    for (var r in repports) {
+      if (selectedRepport.updatedAt.difference(r.updatedAt).inMinutes >= 30) {
+        repportsChart.add(r);
+        selectedRepport = r;
       }
     }
-    // remove last element if is not empty
-    if (repportsChart.isNotEmpty) {
-      repportsChart.removeLast();
-    }
+    // log the length of the repports
+    log('repports length: ${repports.length}');
+    log('====> repportsChart length: ${repportsChart.length}');
   }
 
   double maxTemp = 0;

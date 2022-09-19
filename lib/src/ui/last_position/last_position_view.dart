@@ -66,7 +66,7 @@ class _LastPositionViewState extends State<LastPositionView>
           MapTypeWidget(onChange: (mapType) {
             deviceProvider.mapType = mapType;
           }),
-          const LastTempIcon(),
+          //const LastTempIcon(),
         ],
       ),
       body: Stack(

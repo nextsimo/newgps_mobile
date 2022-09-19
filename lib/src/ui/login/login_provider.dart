@@ -11,17 +11,15 @@ import 'package:provider/provider.dart';
 
 class LoginProvider with ChangeNotifier {
   final TextEditingController compteController = TextEditingController();
-
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
   final TextEditingController underCompteController = TextEditingController();
-
+  
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<FormState> updateFormKey = GlobalKey<FormState>();
 
   late String _errorText = '';
   bool isUnderCompte = false;
-
 
   // set under user checkbox value
   void setUnderCompte(bool? value) {
@@ -108,6 +106,7 @@ class LoginProvider with ChangeNotifier {
           await shared.saveAccount(account);
           await fetchInitData(
               lastPositionProvider: lastPositionProvider, context: context);
+          connectedDeviceProvider.init();
           connectedDeviceProvider.createNewConnectedDeviceHistoric(true);
           Navigator.of(context)
               .pushNamedAndRemoveUntil('/navigation', (_) => false);

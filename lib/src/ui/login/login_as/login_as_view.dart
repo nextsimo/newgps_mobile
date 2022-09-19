@@ -97,8 +97,11 @@ class _BuildLoginAsWidgetState extends State<_BuildLoginAsWidget> {
             setState(() => loading = false);
             ConnectedDeviceProvider connectedDeviceProvider =
                 Provider.of(context, listen: false);
-            connectedDeviceProvider.updateConnectedDevice(true);
-            connectedDeviceProvider.createNewConnectedDeviceHistoric(true);
+            await connectedDeviceProvider.updateConnectedDevice(true);
+            await connectedDeviceProvider
+                .createNewConnectedDeviceHistoric(true);
+            connectedDeviceProvider.init();
+
             Navigator.of(context).pushNamedAndRemoveUntil('/', (_) => false);
           } else {
             int? isActive = json.decode(await api.post(url: '/isactive', body: {
@@ -106,7 +109,8 @@ class _BuildLoginAsWidgetState extends State<_BuildLoginAsWidget> {
             }));
 
             if (isActive == -1) {
-              loginProvider.errorText = 'Le propriétaire du compte peut avoir changé le mot de passe';
+              loginProvider.errorText =
+                  'Le propriétaire du compte peut avoir changé le mot de passe';
             } else if (isActive == 0) {
               loginProvider.errorText = 'Votre compte est suspendu';
             }

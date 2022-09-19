@@ -62,7 +62,7 @@ class _LastpositionMapState extends State<LastpositionMap>
             mapToolbarEnabled: false,
             onMapCreated: (controller) async {
               provider.mapController = controller;
-              // zoom camera 
+              // zoom camera
               provider.handleZoomCamera();
               provider.markersProvider.simpleMarkerManager
                   .setMapId(controller.mapId);
@@ -79,7 +79,10 @@ class _LastpositionMapState extends State<LastpositionMap>
               provider.markersProvider.textMarkerManager.updateMap();
             },
             initialCameraPosition: const CameraPosition(
-                target: LatLng(31.7917, -7.0926), zoom: 6.5),
+              bearing: 0,
+              target: LatLng(33.589886, -7.603869),
+              zoom: 6.5,
+            ),
           );
         });
   }

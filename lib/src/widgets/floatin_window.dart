@@ -246,7 +246,7 @@ class _FloatingGroupInfoWindowInfoPortrait extends StatelessWidget {
                               height: 35,
                               onPressed: () async {
                                 await _showStartStopDilaog(context, provider,
-                                    'IgnitionEnable', 'démarrer');
+                                    'IgnitionEnable:TCP', 'démarrer');
                               },
                               label: 'Démarrer',
                               backgroundColor: Colors.green,
@@ -258,7 +258,7 @@ class _FloatingGroupInfoWindowInfoPortrait extends StatelessWidget {
                             height: 35,
                             onPressed: () async {
                               await _showStartStopDilaog(context, provider,
-                                  'IgnitionDisable', 'arrêter');
+                                  'IgnitionDisable:TCP', 'arrêter');
                             },
                             label: 'Arrêter',
                             backgroundColor: Colors.red,
@@ -586,7 +586,7 @@ class _FloatingGroupInfoWindowInfoLandscape extends StatelessWidget {
                                 height: 25,
                                 onPressed: () async {
                                   await _showStartStopDilaog(context, provider,
-                                      'IgnitionEnable', 'démarrer');
+                                      'IgnitionEnable:TCP', 'démarrer');
                                 },
                                 label: 'Démarrer',
                                 backgroundColor: Colors.green,
@@ -598,7 +598,7 @@ class _FloatingGroupInfoWindowInfoLandscape extends StatelessWidget {
                               height: 25,
                               onPressed: () async {
                                 await _showStartStopDilaog(context, provider,
-                                    'IgnitionDisable', 'arrêter');
+                                    'IgnitionDisable:TCP', 'arrêter');
                               },
                               label: 'Arrêter',
                               backgroundColor: Colors.red,

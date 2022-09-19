@@ -111,10 +111,10 @@ class DeviceProvider with ChangeNotifier {
 
     if (res.isNotEmpty) {
       Navigator.of(context).pop();
-      bool isStart = command == 'IgnitionEnable';
+      bool isStart = command == 'IgnitionEnable:TCP';
       String message = isStart ? 'Le démarrage' : "L'arrêt";
 
-      if (json.decode(res).containsKey('Success')) {
+      if (res == 'success') {
         showDialog(
             context: context,
             builder: (_) {

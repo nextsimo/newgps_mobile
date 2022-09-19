@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'src/services/device_provider.dart';
 import 'src/services/newgps_service.dart';
 import 'src/ui/connected_device/connected_device_provider.dart';
@@ -32,35 +33,42 @@ class NewGpsApp extends StatelessWidget {
         ChangeNotifierProvider<ConnectedDeviceProvider>(
             create: (_) => ConnectedDeviceProvider()),
       ],
-      child: MaterialApp(
-        initialRoute: '/',
-        routes: {
-          // When navigating to the "/" route, build the FirstScreen widget.
-          '/': (context) => const SplashView(),
-          '/navigation': (context) => CustomNavigationView(),
-          '/login': (context) => const LoginView(),
-          // When navigating to the "/second" route, build the SecondScreen widget.
-        },
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate
-        ],
-        supportedLocales: const [Locale('fr')],
-        debugShowCheckedModeBanner: false,
-        builder: (context, child) => MediaQuery(
-            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-            child: child!),
-        title: 'NEW GPS',
-        theme: ThemeData(
-          primaryColor: AppConsts.mainColor,
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ButtonStyle(
-                backgroundColor: MaterialStateColor.resolveWith(
-                    (states) => AppConsts.mainColor)),
-          ),
-        ),
-      ),
+      child: ScreenUtilInit(
+          designSize: const Size(360, 690),
+          minTextAdapt: true,
+          splitScreenMode: true,
+          builder: (context, __) {
+            return MaterialApp(
+              initialRoute: '/',
+              routes: {
+                // When navigating to the "/" route, build the FirstScreen widget.
+                '/': (context) => const SplashView(),
+                '/navigation': (context) => CustomNavigationView(),
+                '/login': (context) => const LoginView(),
+                // When navigating to the "/second" route, build the SecondScreen widget.
+              },
+              localizationsDelegates: const [
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate
+              ],
+              supportedLocales: const [Locale('fr')],
+              debugShowCheckedModeBanner: false,
+              builder: (context, child) => MediaQuery(
+                  data: MediaQuery.of(context)
+                      .copyWith(alwaysUse24HourFormat: true),
+                  child: child!),
+              title: 'NEW GPS',
+              theme: ThemeData(
+                primaryColor: AppConsts.mainColor,
+                elevatedButtonTheme: ElevatedButtonThemeData(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateColor.resolveWith(
+                          (states) => AppConsts.mainColor)),
+                ),
+              ),
+            );
+          }),
     );
   }
 }

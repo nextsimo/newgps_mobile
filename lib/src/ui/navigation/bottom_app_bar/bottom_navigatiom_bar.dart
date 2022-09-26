@@ -19,6 +19,7 @@ class CustomBottomNavigatioBar extends StatefulWidget {
 
 class _CustomBottomNavigatioBarState extends State<CustomBottomNavigatioBar> {
   final List<BottomAppBarItem> _items = [
+    BottomAppBarItem(icon: 'classic', label: 'Classic', index: 10),
     BottomAppBarItem(icon: 'last_position', label: 'Position', index: 0),
     BottomAppBarItem(icon: 'map_par_vehicule', label: 'Historique', index: 1),
     BottomAppBarItem(icon: 'report', label: 'Rapport', index: 2),
@@ -27,7 +28,7 @@ class _CustomBottomNavigatioBarState extends State<CustomBottomNavigatioBar> {
     BottomAppBarItem(icon: 'user', label: 'Utilisateur', index: 5),
     BottomAppBarItem(icon: 'matricule', label: 'Matricule', index: 6),
     BottomAppBarItem(icon: 'cam', label: 'Camera', index: 7),
-    BottomAppBarItem(icon: 'gestion', label: 'Gestion', index: 8),
+    //BottomAppBarItem(icon: 'gestion', label: 'Gestion', index: 8),
     BottomAppBarItem(icon: 'driver', label: 'Conduite', index: 9),
   ];
 
@@ -87,7 +88,7 @@ class _CustomBottomNavigatioBarState extends State<CustomBottomNavigatioBar> {
                 return InkWell(
                   onTap: () async {
                     if (item.index == widget.pageController.page) return;
-                    if( item.index == 0){
+                    if (item.index == 0) {
                       lastPositionProvider.handleZoomCamera();
                     }
                     widget.pageController.jumpToPage(item.index);

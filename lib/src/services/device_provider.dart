@@ -64,7 +64,6 @@ class DeviceProvider with ChangeNotifier {
     );
 
     if (res.isEmpty) return;
-
     icons = deviceIconFromJson(res);
   }
 

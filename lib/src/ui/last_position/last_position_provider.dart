@@ -144,6 +144,9 @@ class LastPositionProvider with ChangeNotifier {
   }
 
   void normaleView() {
+    _zoomToPoints(List<LatLng>.from(
+        markersProvider.devices.map((e) => LatLng(e.latitude, e.longitude))));
+    return;
     mapController!.animateCamera(
       CameraUpdate.newCameraPosition(
         const CameraPosition(
@@ -417,9 +420,8 @@ class LastPositionProvider with ChangeNotifier {
   }
 
   Future<void> setDevicesMareker({bool fromSelect = false}) async {
-    if (fromSelect) {
-      normaleView();
-    }
+    normaleView();
+
     polylines = {};
     navigationStarted = false;
     _devices = deviceProvider.devices;

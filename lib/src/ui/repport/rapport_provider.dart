@@ -221,7 +221,7 @@ class RepportProvider with ChangeNotifier {
 
     await _downloadFile(
       base64Str: res,
-      fileName: "rapport_detailler_${formatSimpleDate(dateFrom)}.$format",
+      fileName: "rapport_detailler_${formatSimpleDate(dateFrom, false, '-')}",
       extension: format,
     );
   }
@@ -244,7 +244,8 @@ class RepportProvider with ChangeNotifier {
 
     await _downloadFile(
         base64Str: res.trim().toString(),
-        fileName: "distance_repport_all_${formatSimpleDate(dateFrom)}.$format",
+        fileName:
+            "distance_rapport_all_${formatSimpleDate(dateFrom, false, '-')}",
         extension: format);
   }
 
@@ -268,7 +269,7 @@ class RepportProvider with ChangeNotifier {
     await _downloadFile(
         base64Str: res.trim().toString(),
         fileName:
-            "distance_repport_device_${formatSimpleDate(dateFrom)}.$format",
+            "distance_rapport_device_${formatSimpleDate(dateFrom, false, '-')}",
         extension: format);
   }
 
@@ -293,7 +294,8 @@ class RepportProvider with ChangeNotifier {
 
     await _downloadFile(
         base64Str: res.trim().toString(),
-        fileName: "temp_repport_${formatSimpleDate(dateFrom)}.$format",
+        fileName:
+            "${selectedDevice.description}-temp-${formatSimpleDate(dateFrom, false, '-')}",
         extension: format);
   }
 
@@ -315,7 +317,8 @@ class RepportProvider with ChangeNotifier {
 
     await _downloadFile(
         base64Str: res.trim().toString(),
-        fileName: "connexion_rapport_${formatSimpleDate(dateFrom)}.$format",
+        fileName:
+            "connexion_rapport_${formatSimpleDate(dateFrom, false, '-')}",
         extension: format);
   }
 
@@ -335,7 +338,8 @@ class RepportProvider with ChangeNotifier {
 
     await _downloadFile(
       base64Str: res.trim().toString(),
-      fileName: "voyage_rapport_${formatSimpleDate(dateFrom)}.$format",
+      fileName:
+          "voyage_rapport_${formatSimpleDate(dateFrom, false, '-')}",
       extension: format,
     );
   }
@@ -362,7 +366,8 @@ class RepportProvider with ChangeNotifier {
     );
     await _downloadFile(
         base64Str: res,
-        fileName: "carburant_rapport_${formatSimpleDate(dateFrom)}.$format",
+        fileName:
+            "carburant_rapport_${formatSimpleDate(dateFrom, false, '-')}",
         extension: format);
   }
 
@@ -382,7 +387,7 @@ class RepportProvider with ChangeNotifier {
 
     await _downloadFile(
         base64Str: res,
-        fileName: "rapport_resumer_${formatSimpleDate(dateFrom)}",
+        fileName: "rapport_resumer_${formatSimpleDate(dateFrom, false, '-')}",
         extension: format);
   }
 
@@ -397,6 +402,8 @@ class RepportProvider with ChangeNotifier {
       File file = File("$dir/" + fileName + '.$extension');
       await file.create(recursive: true);
       await file.writeAsBytes(bytes);
+      // set name of file
+
       await OpenFile.open(file.path);
       debugPrint(file.path);
     } catch (e) {

@@ -256,7 +256,7 @@ class HistoricProvider with ChangeNotifier {
     SavedAcountProvider pro =
         Provider.of<SavedAcountProvider>(context, listen: false);
     _droit = pro.userDroits.droits[2];
-    fetchHistorics(context,1, true);
+    fetchHistorics(context, 1, true);
   }
 
   void normaleView() {
@@ -289,7 +289,9 @@ class HistoricProvider with ChangeNotifier {
       url: '/info',
       body: {
         'account_id': account?.account.accountId,
-        'device_id': deviceProvider.selectedDevice?.deviceId
+        'device_id': deviceProvider.selectedDevice?.deviceId,
+        'date_from': dateFrom.millisecondsSinceEpoch,
+        'date_to': dateTo.millisecondsSinceEpoch,
       },
     );
 
@@ -336,7 +338,7 @@ class HistoricProvider with ChangeNotifier {
       dateTo.second,
     );
 
-    fetchHistorics(context,1, true);
+    fetchHistorics(context, 1, true);
   }
 
   void updateTimeRange(BuildContext context) async {
@@ -408,7 +410,24 @@ class HistoricProvider with ChangeNotifier {
         northeast: LatLng(x1!, y1!), southwest: LatLng(x0!, y0!));
   }
 
-  Future<void> fetchHistorics(BuildContext context, [int page = 1, bool init = false])async {
+  // set start and end markers
+  Future<void> _setStartEndMarkers() async {
+    if (markers.length > 1) {
+      final endBitmapDescriptor = await BitmapDescriptor.fromAssetImage(
+          const ImageConfiguration(), 'assets/markers/end.png');
+      markers.add(
+        Marker(
+          markerId: const MarkerId('end'),
+          position: markers.last.position,
+          icon: endBitmapDescriptor,
+          zIndex: -1,
+        ),
+      );
+    }
+  }
+
+  Future<void> fetchHistorics(BuildContext context,
+      [int page = 1, bool init = false]) async {
     histoLine = {};
     histoLine.clear();
     playedMarkers = {};
@@ -434,6 +453,7 @@ class HistoricProvider with ChangeNotifier {
         'is_mobile': true
       },
     );
+
     if (res.isNotEmpty) {
       HistoricModel _newHistoricModel = HistoricModel.fromMap(jsonDecode(res));
       historicModel.currentPage = _newHistoricModel.currentPage;
@@ -441,14 +461,28 @@ class HistoricProvider with ChangeNotifier {
       historicModel.total = _newHistoricModel.total;
       historicModel.devices?.addAll(_newHistoricModel.devices!);
       for (Device device in _newHistoricModel.devices!) {
+        // check if the first index
+        if (historicModel.devices?.indexOf(device) == 0) {
+          final startBitmapDescriptor = await BitmapDescriptor.fromAssetImage(
+              const ImageConfiguration(), 'assets/markers/start.png');
+          markers.add(
+            Marker(
+              markerId: const MarkerId('start'),
+              position: LatLng(device.latitude, device.longitude),
+              icon: startBitmapDescriptor,
+              zIndex: -1,
+            ),
+          );
+        }
         markers.add(getSimpleMarker(device));
       }
       if (historicModel.currentPage < historicModel.lastPage) {
-        fetchHistorics(context,++page);
+        fetchHistorics(context, ++page);
         return;
       }
       _zoomToPoints(markers.map((e) => e.position).toList());
       context.read<LastPositionProvider>().fetch(context);
+
       /*  moveCamera(markers.first.position);
       mapController?.moveCamera(CameraUpdate.newCameraPosition(
           const CameraPosition(
@@ -473,6 +507,8 @@ class HistoricProvider with ChangeNotifier {
         )
       }));
     }
+    await _setStartEndMarkers();
+
     loading = false;
   }
 

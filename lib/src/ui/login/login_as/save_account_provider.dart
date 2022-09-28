@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:newgps/src/ui/classic/classic_view.dart';
 import '../../../models/account.dart';
 import '../../../models/user_droits.dart';
 import '../../../services/newgps_service.dart';
@@ -49,7 +50,10 @@ class SavedAcountProvider with ChangeNotifier {
     String res = await api.post(
       url: '/notification/historics/count2',
       body: await getBody()
-        ..addAll({'device_id': await _getDeviceToken(), 'notification_id': NewgpsService.messaging.notificationID}),
+        ..addAll({
+          'device_id': await _getDeviceToken(),
+          'notification_id': NewgpsService.messaging.notificationID
+        }),
     );
 
     if (res.isNotEmpty) {
@@ -106,6 +110,7 @@ class SavedAcountProvider with ChangeNotifier {
     const CameraView(),
     const GestionView(),
     const DriverView(),
+    const ClassicView(),
   ];
 
   List<Widget> buildPages() {

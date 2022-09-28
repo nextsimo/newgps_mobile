@@ -132,6 +132,7 @@ class TemperatureRepportProvider with ChangeNotifier {
   void init(RepportProvider p) async {
     provider = p;
     provider.addListener(_listenToProvider);
+    await fetchTempBleRepport();
 
     //await _fetchTempBleRepport();
   }

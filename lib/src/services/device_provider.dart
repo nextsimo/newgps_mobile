@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -12,7 +11,6 @@ import '../ui/login/login_as/save_account_provider.dart';
 import '../utils/device_size.dart';
 import '../widgets/buttons/main_button.dart';
 import 'package:provider/provider.dart';
-
 import '../models/device_icon_model.dart';
 
 class DeviceProvider with ChangeNotifier {
@@ -74,10 +72,10 @@ class DeviceProvider with ChangeNotifier {
   List<DeviceIconModel> icons = [];
 
   // change icon for device
-  Future<void> changeIcon({required String name, required String deviceId}) async {
+  Future<void> changeIcon(
+      {required String name, required String deviceId}) async {
     final accoutId = shared.getAccount()?.account.accountId;
-    await api.get(
-        url: '/device/change/$deviceId/$accoutId/$name');
+    await api.get(url: '/device/change/$deviceId/$accoutId/$name');
     // show toast message in french
     Fluttertoast.showToast(
       msg:
@@ -216,9 +214,9 @@ class DeviceProvider with ChangeNotifier {
       'icon': 'BinTruck',
     };
 
-    if (init) {
+/*     if (init) {
       body.addAll({'init': true});
-    }
+    } */
 
     String res = await api.post(
       url: '/devices',

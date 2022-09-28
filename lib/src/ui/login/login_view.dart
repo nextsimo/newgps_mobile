@@ -25,12 +25,17 @@ class LoginView extends StatelessWidget {
               onPressed: () => provider.login(context),
             );
             return UpgradeAlert(
-              messages: UpgraderMessages(code: 'fr'),
-              countryCode: 'MA',
-              showIgnore: false,
-              shouldPopScope: () => false,
-              showLater: false,
-              canDismissDialog: false,
+              upgrader: Upgrader(
+                debugDisplayOnce: false,
+                canDismissDialog: false,
+                debugDisplayAlways: false,
+                dialogStyle: UpgradeDialogStyle.material,
+                messages: UpgraderMessages(code: 'fr'),
+                shouldPopScope: () => false,
+                onLater: () => false,
+                onIgnore: () => false,
+                showReleaseNotes: true,
+              ),
               //debugAlwaysUpgrade: true,
               child: Scaffold(
                 backgroundColor: Colors.white,

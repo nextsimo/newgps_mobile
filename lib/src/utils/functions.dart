@@ -100,12 +100,12 @@ void showCallConducteurDialog(BuildContext context, Device? device) {
       });
 }
 
-String formatSimpleDate(DateTime dateTime, [bool time = false]) {
+String formatSimpleDate(DateTime dateTime, [bool time = false, String separator = '/']) {
   late DateFormat validFormatter;
   if (time) {
     validFormatter = DateFormat('dd/MM/yyyy HH:mm');
   } else {
-    validFormatter = DateFormat('dd/MM/yyyy');
+    validFormatter = DateFormat('dd${separator}MM${separator}yyyy');
   }
   String formatted;
   try {

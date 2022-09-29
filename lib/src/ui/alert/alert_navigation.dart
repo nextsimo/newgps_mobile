@@ -94,11 +94,11 @@ class _BuildMapWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isIOS = Platform.isIOS;
-    bool _isPortrait =
+    bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
     return Positioned(
-      right: _isPortrait ? 0 : -5,
-      top: _isPortrait ? (isIOS ? 112 : 92) : (isIOS ? 58 : 86),
+      right: isPortrait ? 0 : -5,
+      top: isPortrait ? (isIOS ? 112 : 92) : (isIOS ? 58 : 86),
       child: const LogoutButton(),
     );
   }

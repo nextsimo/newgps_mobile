@@ -17,15 +17,24 @@ class ConnectedDeviceProvider with ChangeNotifier {
     _initFetches();
   }
 
+  late Timer _timer;
+
   Future<void> _initFetches() async {
     await _setConnectedToTrue();
     _fetchCountedConnectedDevices();
     _fetchConnectedDevices();
-    Timer.periodic(const Duration(seconds: 15), (_) async {
+    _timer = Timer.periodic(const Duration(seconds: 15), (_) async {
       await _setConnectedToTrue();
       _fetchCountedConnectedDevices();
       _fetchConnectedDevices();
     });
+  }
+
+  // dispose and cancel timer
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   // counted connected device

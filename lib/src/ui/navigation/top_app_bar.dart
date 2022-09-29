@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import '../../models/account.dart';
 import '../../services/newgps_service.dart';
+import '../../utils/utils.dart';
 import '../connected_device/connected_device_button.dart';
 import '../connected_device/connected_device_view.dart';
 import '../../utils/functions.dart';
@@ -40,9 +41,15 @@ class CustomAppBar extends PreferredSize {
             leading: Row(
               children: [
                 const SizedBox(width: 10),
-                Image.asset(
-                  'assets/logo-200.png',
-                  width: 30,
+                Hero(
+                  tag: Utils.logoHeroTag,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: Image.asset(
+                      'assets/logo-200.png',
+                      width: 30,
+                    ),
+                  ),
                 ),
               ],
             ),

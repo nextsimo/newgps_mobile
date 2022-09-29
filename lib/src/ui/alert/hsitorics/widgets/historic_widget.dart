@@ -25,7 +25,7 @@ class _BuildSearchHistoricState extends State<BuildSearchHistoric> {
 
     Size size = MediaQuery.of(context).size;
     Orientation orientation = MediaQuery.of(context).orientation;
-    bool _isPortrait = orientation == Orientation.portrait;
+    bool isPortrait = orientation == Orientation.portrait;
 
     NotifHistoricPorvider porvider =
         Provider.of<NotifHistoricPorvider>(context, listen: false);
@@ -34,7 +34,7 @@ class _BuildSearchHistoricState extends State<BuildSearchHistoric> {
       right: false,
       top: false,
       child: Container(
-        width: _isPortrait ? size.width : size.width * 0.35,
+        width: isPortrait ? size.width : size.width * 0.35,
         margin: const EdgeInsets.fromLTRB(10, 3, 3, 3),
         child: Autocomplete<Device>(
           fieldViewBuilder: (BuildContext context, TextEditingController _,

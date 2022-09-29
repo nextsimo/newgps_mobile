@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../services/newgps_service.dart';
-import '../../ui/connected_device/connected_device_provider.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import '../../utils/styles.dart';
-import '../../ui/historic/historic_provider.dart';
-import '../../ui/last_position/last_position_provider.dart';
 import 'main_button.dart';
-import 'package:provider/provider.dart';
 
 import 'audio_widget.dart';
 
@@ -43,6 +39,9 @@ class _LogoutButtonLandscape extends StatelessWidget {
             MainButton(
               height: 28,
               onPressed: () {
+                Phoenix.rebirth(context);
+
+/* 
                 try {
                   LastPositionProvider lastPositionProvider =
                       Provider.of(context, listen: false);
@@ -58,8 +57,7 @@ class _LogoutButtonLandscape extends StatelessWidget {
                     Provider.of(context, listen: false);
                 connectedDeviceProvider.updateConnectedDevice(false);
                 connectedDeviceProvider.createNewConnectedDeviceHistoric(false);
-                shared.clear('account');
-                Navigator.of(context).pushNamed('/login');
+                shared.clear('account'); */
               },
               label: 'Déconnexion',
               backgroundColor: Colors.red,
@@ -95,7 +93,9 @@ class _LogoutButtonPortrait extends StatelessWidget {
             MainButton(
               height: height,
               onPressed: () {
-                try {
+                Phoenix.rebirth(context);
+
+/*                 try {
                   LastPositionProvider lastPositionProvider =
                       Provider.of(context, listen: false);
                   HistoricProvider historicProvider =
@@ -109,10 +109,7 @@ class _LogoutButtonPortrait extends StatelessWidget {
                     Provider.of(context, listen: false);
                 connectedDeviceProvider.updateConnectedDevice(false);
                 connectedDeviceProvider.createNewConnectedDeviceHistoric(false);
-                shared.clear('account');
-
-                Navigator.of(context)
-                    .pushNamedAndRemoveUntil('/login', (_) => false);
+                shared.clear('account'); */
               },
               label: 'Deconnexion',
               backgroundColor: Colors.red,

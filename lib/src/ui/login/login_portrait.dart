@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:newgps/src/utils/utils.dart';
 import '../../utils/functions.dart';
 import 'login_provider.dart';
 import '../../widgets/buttons/main_button.dart';
@@ -27,12 +28,18 @@ class LoginPortrait extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (kIsWeb)
-                  Image.network(
-                    'https://api.newgps.ma/api/icons/logo.svg',
-                    width: 100,
+                Hero(
+                  tag: Utils.logoHeroTag,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: Center(
+                      child: Image.asset(
+                        'assets/logo-200.png',
+                        width: 100,
+                      ),
+                    ),
                   ),
-                if (!kIsWeb) Image.asset('assets/logo-200.png', width: 100),
+                ),
                 const SizedBox(height: 20),
                 MainInput(
                   icon: Icons.folder,
@@ -51,7 +58,6 @@ class LoginPortrait extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 const SousUserCheck(),
-
                 const SizedBox(height: 20),
                 loginButton,
                 const SizedBox(height: 10),

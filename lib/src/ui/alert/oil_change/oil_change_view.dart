@@ -127,10 +127,10 @@ class _BuildLandscapeContent extends StatelessWidget {
         const SizedBox(height: 10),
         if (provider.settingPerDevice.deviceId != 'all')
           const Expanded(
+              flex: 2,
               child: Center(
                 child: _BuildDeviceSettingLandscape(),
-              ),
-              flex: 2),
+              )),
       ],
     );
   }

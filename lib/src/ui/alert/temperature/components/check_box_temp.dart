@@ -12,7 +12,7 @@ class CheckBoxTemp extends StatelessWidget {
     // read provider
     final TemperatureBleProvider provider =
         context.read<TemperatureBleProvider>();
-    final int _selectedIndex = context
+    final int selectedIndex = context
         .select<TemperatureBleProvider, int>(((value) => value.selectedIndex));
 
     return Row(
@@ -20,14 +20,14 @@ class CheckBoxTemp extends StatelessWidget {
         _MyCheckBox(
           label: "Dans l'intervalle",
           index: 0,
-          selected: _selectedIndex == 0,
+          selected: selectedIndex == 0,
           onTap: provider.setSelectedIndex,
         ),
         const SizedBox(width: 10),
         _MyCheckBox(
           label: "Hors intervalle",
           index: 1,
-          selected: _selectedIndex == 1,
+          selected: selectedIndex == 1,
           onTap: provider.setSelectedIndex,
         ),
       ],

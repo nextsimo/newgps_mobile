@@ -7,11 +7,11 @@ class ValidationMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String _message = context.select<TemperatureBleProvider, String>(
+    final String message = context.select<TemperatureBleProvider, String>(
         ((value) => value.validationMessage));
 
     return Text(
-      _message,
+      message,
       style: const TextStyle(
         fontSize: 15,
         fontWeight: FontWeight.w400,

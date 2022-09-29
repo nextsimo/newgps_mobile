@@ -86,12 +86,12 @@ class AlertView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    bool _isPortrait =
+    bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
       appBar: const CustomAppBar(),
       body: Container(
-        margin: EdgeInsets.only(top: _isPortrait ? 8 : 6),
+        margin: EdgeInsets.only(top: isPortrait ? 8 : 6),
         width: size.width,
         height: DeviceSize.height,
         child: Column(
@@ -111,7 +111,7 @@ class AlertView extends StatelessWidget {
                           Navigator.of(context).pushNamed('/historics'),
                       label: 'Historiques',
                       width: 110,
-                      height: _isPortrait ? 35 : 27,
+                      height: isPortrait ? 35 : 27,
                       backgroundColor: Colors.orange,
                     ),
                   ),

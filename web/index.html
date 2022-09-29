@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<html>
-
-<head>
+<!DOCTYPE html><html><head>
   <base href="$FLUTTER_BASE_HREF">
 
   <meta charset="UTF-8">
@@ -22,9 +19,20 @@
       image-rendering: pixelated;
     }
   </style>
+  <link rel="stylesheet" type="text/css" href="splash/style.css">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+  <script src="splash/splash.js"></script>
 </head>
 
-<body>
+<body>  <picture id="splash">
+      <source srcset="splash/img/light-1x.png 1x, splash/img/light-2x.png 2x, splash/img/light-3x.png 3x, splash/img/light-4x.png 4x" media="(prefers-color-scheme: light)">
+      <source srcset="splash/img/dark-1x.png 1x, splash/img/dark-2x.png 2x, splash/img/dark-3x.png 3x, splash/img/dark-4x.png 4x" media="(prefers-color-scheme: dark)">
+      <img class="center" aria-hidden="true" src="splash/img/light-1x.png" alt="">
+  </picture>
+  
+  
+  
+
   <script type="text/javascript">
     let useHtml = true;
     if (useHtml) {
@@ -33,8 +41,7 @@
       window.flutterWebRenderer = "canvaskit";
     }
   </script>
-  <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsG254ZYJK0LJ0jVJ9Wy8shaAOaDiYIPE&region=MA&language=fr">
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsG254ZYJK0LJ0jVJ9Wy8shaAOaDiYIPE&amp;region=MA&amp;language=fr">
     </script>
   <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-messaging.js"></script>
@@ -117,6 +124,6 @@
       loadMainDartJs();
     }
   </script>
-</body>
 
-</html>
+
+</body></html>

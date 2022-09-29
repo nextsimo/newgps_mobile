@@ -9,7 +9,6 @@ import 'src/utils/styles.dart';
 import 'src/ui/last_position/last_position_provider.dart';
 import 'src/ui/login/login_view.dart';
 import 'src/ui/navigation/navigation_view.dart';
-import 'src/ui/splash/splash_view.dart';
 import 'package:provider/provider.dart';
 import 'src/ui/login/login_as/save_account_provider.dart';
 import 'src/ui/repport/temperature_ble/temperature_repport_provider.dart';
@@ -39,10 +38,10 @@ class NewGpsApp extends StatelessWidget {
           splitScreenMode: true,
           builder: (context, __) {
             return MaterialApp(
-              initialRoute: '/',
+              initialRoute: '/login',
               routes: {
                 // When navigating to the "/" route, build the FirstScreen widget.
-                '/': (context) => const SplashView(),
+                //'/': (context) => const L(),
                 '/navigation': (context) => CustomNavigationView(),
                 '/login': (context) => const LoginView(),
                 // When navigating to the "/second" route, build the SecondScreen widget.

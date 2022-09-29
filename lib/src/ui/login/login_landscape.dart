@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:newgps/src/utils/utils.dart';
 import '../../utils/functions.dart';
 import 'login_provider.dart';
 import '../../widgets/buttons/main_button.dart';
@@ -61,7 +62,7 @@ class _LoginLandscapeState extends State<LoginLandscape> {
                     children: [
                       if (kIsWeb)
                         Image.network(
-                          'https://api.newgps.ma/api/icons/logo.svg',
+                          '${Utils.baseUrl}/icons/logo.svg',
                           width: 100,
                         ),
                       if (!kIsWeb)

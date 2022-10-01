@@ -86,7 +86,7 @@ class LoginProvider with ChangeNotifier {
       if (underCompteController.text.isNotEmpty) {
         await underAccountLogin(context);
       } else {
-        shared.sharedPreferences.clear();
+        shared.sharedPreferences?.clear();
         Account? account = await api.login(
           accountId: compteController.text,
           password: passwordController.text,

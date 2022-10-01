@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:newgps/src/models/device.dart';
+import 'package:newgps/src/ui/classic/classic_view_map.dart';
 import 'package:newgps/src/ui/navigation/top_app_bar.dart';
 import 'package:newgps/src/utils/functions.dart';
 import 'package:newgps/src/utils/styles.dart';
@@ -18,12 +19,18 @@ class ClassicView extends StatelessWidget {
     return ChangeNotifierProvider(
         create: (context) => ClassicProvider(),
         builder: (providerContext, __) {
+          final provider = providerContext.watch<ClassicProvider>();
           return Scaffold(
             appBar: const CustomAppBar(
               actions: [],
             ),
-            body: _FirstClassicView(
-              providerContext: providerContext,
+            body: PageView(
+              physics: const NeverScrollableScrollPhysics(),
+              controller: provider.pageController,
+              children: [
+                _FirstClassicView(providerContext: providerContext),
+                const ClassicViewMap()
+              ],
             ),
           );
         });
@@ -111,6 +118,7 @@ class _BuildDeviceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.read<ClassicProvider>();
     const boxShadow = [
       BoxShadow(
         color: Color(0x19000000),
@@ -118,121 +126,124 @@ class _BuildDeviceCard extends StatelessWidget {
         offset: Offset(0, 3),
       ),
     ];
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-      margin: const EdgeInsets.symmetric(horizontal: 15),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: boxShadow,
-        color: Colors.white,
-      ),
-      child: Column(
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _BuildState(device: device),
-              const SizedBox(width: 15),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+    return GestureDetector(
+      onTap: () => provider.gotoMapView(device, providerContext),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        margin: const EdgeInsets.symmetric(horizontal: 15),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: boxShadow,
+          color: Colors.white,
+        ),
+        child: Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _BuildState(device: device),
+                const SizedBox(width: 15),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        device.description,
+                        style: const TextStyle(
+                          color: Color(0xff1a316c),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      if (device.address.isEmpty)
+                        const Text(
+                          'Adresse non disponible',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 8,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        )
+                      else
+                        Text(
+                          device.address,
+                          style: const TextStyle(
+                            color: Color(0xff080b12),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+                ClassicDeviceTemp(
+                  device: device,
+                ),
+              ],
+            ),
+            const Divider(),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
                   children: [
-                    Text(
-                      device.description,
-                      style: const TextStyle(
-                        color: Color(0xff1a316c),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
+                    const Text(
+                      'Dernière connexion',
+                      style: TextStyle(
+                        color: Color(0xff080b12),
+                        fontSize: 10,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
-                    const SizedBox(height: 5),
-                    if (device.address.isEmpty)
-                      const Text(
-                        'Adresse non disponible',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 8,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      )
-                    else
-                      Text(
-                        device.address,
-                        style: const TextStyle(
-                          color: Color(0xff080b12),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
+                    const SizedBox(width: 7),
+                    Container(
+                      height: 22,
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: AppConsts.mainColor.withOpacity(0.1),
+                      ),
+                      child: Center(
+                        child: Text(
+                          formatDeviceDate(device.dateTime),
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: AppConsts.mainColor,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
+                    ),
                   ],
                 ),
-              ),
-              ClassicDeviceTemp(
-                device: device,
-              ),
-            ],
-          ),
-          const Divider(),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  const Text(
-                    'Dernière connexion',
-                    style: TextStyle(
-                      color: Color(0xff080b12),
-                      fontSize: 10,
-                      fontWeight: FontWeight.w500,
+                Container(
+                  width: 89,
+                  height: 19,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(300),
+                    border: Border.all(
+                      color: AppConsts.mainColor,
+                      width: 1,
                     ),
                   ),
-                  const SizedBox(width: 7),
-                  Container(
-                    height: 22,
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: AppConsts.mainColor.withOpacity(0.1),
-                    ),
-                    child: Center(
-                      child: Text(
-                        formatDeviceDate(device.dateTime),
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          color: AppConsts.mainColor,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600,
-                        ),
+                  child: Center(
+                    child: Text(
+                      '${device.distanceKm.toInt()} km',
+                      style: const TextStyle(
+                        color: AppConsts.mainColor,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
-                ],
-              ),
-              Container(
-                width: 89,
-                height: 19,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(300),
-                  border: Border.all(
-                    color: AppConsts.mainColor,
-                    width: 1,
-                  ),
                 ),
-                child: Center(
-                  child: Text(
-                    '${device.distanceKm.toInt()} km',
-                    style: const TextStyle(
-                      color: AppConsts.mainColor,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

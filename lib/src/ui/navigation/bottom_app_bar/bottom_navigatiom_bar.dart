@@ -26,7 +26,7 @@ class _CustomBottomNavigatioBarState extends State<CustomBottomNavigatioBar> {
     BottomAppBarItem(icon: 'geozone', label: 'Geozone', index: 4),
     BottomAppBarItem(icon: 'user', label: 'Utilisateur', index: 5),
     BottomAppBarItem(icon: 'matricule', label: 'Matricule', index: 6),
-    BottomAppBarItem(icon: 'cam', label: 'Camera', index: 7),
+    BottomAppBarItem(icon: 'temp', label: 'Température', index: 7),
     BottomAppBarItem(icon: 'driver', label: 'Conduite', index: 9),
     BottomAppBarItem(icon: 'classic', label: 'Classic', index: 10),
   ];

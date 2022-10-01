@@ -9,9 +9,10 @@ import 'package:provider/provider.dart';
 
 import 'temp_device_temp/temp_device.dart';
 import 'temp_card_provider.dart';
+import 'temp_graphic/temp_card_graphic_view.dart';
 
-class ClassicView extends StatelessWidget {
-  const ClassicView({Key? key}) : super(key: key);
+class TempCardView extends StatelessWidget {
+  const TempCardView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class ClassicView extends StatelessWidget {
             appBar: const CustomAppBar(
               actions: [],
             ),
-            body: _FirstClassicView(
+            body: _FirstTempCardView(
               providerContext: providerContext,
             ),
           );
@@ -30,9 +31,9 @@ class ClassicView extends StatelessWidget {
   }
 }
 
-class _FirstClassicView extends StatelessWidget {
+class _FirstTempCardView extends StatelessWidget {
   final BuildContext providerContext;
-  const _FirstClassicView({
+  const _FirstTempCardView({
     Key? key,
     required this.providerContext,
   }) : super(key: key);
@@ -129,42 +130,16 @@ class _BuildDeviceCard extends StatelessWidget {
       child: Column(
         children: [
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              _BuildState(device: device),
-              const SizedBox(width: 15),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      device.description,
-                      style: const TextStyle(
-                        color: Color(0xff1a316c),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    if (device.address.isEmpty)
-                      const Text(
-                        'Adresse non disponible',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 8,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      )
-                    else
-                      Text(
-                        device.address,
-                        style: const TextStyle(
-                          color: Color(0xff080b12),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                  ],
+                child: Text(
+                  device.description,
+                  style: const TextStyle(
+                    color: Color(0xff1a316c),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
               ClassicDeviceTemp(
@@ -173,65 +148,9 @@ class _BuildDeviceCard extends StatelessWidget {
             ],
           ),
           const Divider(),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  const Text(
-                    'Dernière connexion',
-                    style: TextStyle(
-                      color: Color(0xff080b12),
-                      fontSize: 10,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(width: 7),
-                  Container(
-                    height: 22,
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: AppConsts.mainColor.withOpacity(0.1),
-                    ),
-                    child: Center(
-                      child: Text(
-                        formatDeviceDate(device.dateTime),
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          color: AppConsts.mainColor,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Container(
-                width: 89,
-                height: 19,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(300),
-                  border: Border.all(
-                    color: AppConsts.mainColor,
-                    width: 1,
-                  ),
-                ),
-                child: Center(
-                  child: Text(
-                    '${device.distanceKm.toInt()} km',
-                    style: const TextStyle(
-                      color: AppConsts.mainColor,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+           TempGraphicView(
+            device: device,
+           ),
         ],
       ),
     );

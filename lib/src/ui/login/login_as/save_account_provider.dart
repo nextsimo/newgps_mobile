@@ -17,6 +17,7 @@ import '../../historic/historic_view.dart';
 import '../../last_position/last_position_view.dart';
 import '../../matricule/matricule_view_2.dart';
 import '../../repport/repport_view.dart';
+import '../../temp_card/temp_card_view.dart';
 import '../../user/user_view.dart';
 import '../../driver_view/pages/driver_view.dart';
 import '../../user_empty_page.dart';
@@ -107,7 +108,7 @@ class SavedAcountProvider with ChangeNotifier {
     const GeozoneView(),
     const UsersView(),
     const MatriculeView(),
-    const CameraView(),
+    const TempCardView(),
     const GestionView(),
     const DriverView(),
     const ClassicView(),
@@ -128,7 +129,7 @@ class SavedAcountProvider with ChangeNotifier {
       if (userDroits.droits[4].read) const AlertNavigation(),
       if (userDroits.droits[5].read) const GeozoneView(),
       if (userDroits.droits[7].read) const MatriculeView(),
-      if (userDroits.droits[8].read) const CameraView(),
+      if (userDroits.droits[8].read) const TempCardView(),
       if (userDroits.droits[9].read) const GestionView(),
       if (userDroits.droits[10].read) const DriverView(),
     ];
@@ -173,8 +174,9 @@ class SavedAcountProvider with ChangeNotifier {
     getSavedAccount();
   }
 
-  bool accountExist(String? user, String? key) {
-    bool res = shared.getAcountsList(acountsKey).contains(user);
+  Future<bool> accountExist(String? user, String? key) async {
+   final list = await shared.getAcountsList(acountsKey);
+   final res  = list.contains(user);
     return res;
   }
 
@@ -195,8 +197,8 @@ class SavedAcountProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void getSavedAccount() {
-    List<String> strings = shared.getAcountsList(acountsKey);
+  Future<void> getSavedAccount() async {
+    List<String> strings = await shared.getAcountsList(acountsKey);
     if (strings.isNotEmpty) {
       savedAcounts = List<SavedAccount>.from(strings
           .map<SavedAccount>(
@@ -210,8 +212,8 @@ class SavedAcountProvider with ChangeNotifier {
     }
   }
 
-  List<SavedAccount> fetchSavedAccount() {
-    List<String> strings = shared.getAcountsList(acountsKey);
+  Future<List<SavedAccount>> fetchSavedAccount() async {
+    List<String> strings = await shared.getAcountsList(acountsKey);
     if (strings.isNotEmpty) {
       return List<SavedAccount>.from(strings
           .map<SavedAccount>(
@@ -226,8 +228,8 @@ class SavedAcountProvider with ChangeNotifier {
     return [];
   }
 
-  SavedAccount? getAccount(String? accontID) {
-    List<String> strings = shared.getAcountsList(acountsKey);
+  Future<SavedAccount?> getAccount(String? accontID) async {
+    List<String> strings = await shared.getAcountsList(acountsKey);
     if (strings.isNotEmpty) {
       List<SavedAccount> _acconts =
           savedAcounts = List<SavedAccount>.from(strings

@@ -6,6 +6,7 @@ class VolumeWidget extends StatefulWidget {
   const VolumeWidget({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _VolumeWidgetState createState() => _VolumeWidgetState();
 }
 
@@ -18,7 +19,7 @@ class _VolumeWidgetState extends State<VolumeWidget> {
   }
 
   _getInitVolumeState() {
-    double? res = shared.sharedPreferences.getDouble('volume');
+    double? res = shared.sharedPreferences?.getDouble('volume');
     volume = res ?? 1.0;
   }
 
@@ -38,7 +39,7 @@ class _VolumeWidgetState extends State<VolumeWidget> {
           volume = 0.0;
         }
         setState(() {});
-        shared.sharedPreferences.setDouble('volume', volume);
+        shared.sharedPreferences?.setDouble('volume', volume);
       },
       child: SizedBox(
         width: 35,

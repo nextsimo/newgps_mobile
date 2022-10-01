@@ -44,6 +44,8 @@ class TemperatureRepportProvider with ChangeNotifier {
     log('====> repportsChart length: ${repportsChart.length}');
   }
 
+
+
   double maxTemp = 0;
   double minTemp = 0;
   double minHour = 0;

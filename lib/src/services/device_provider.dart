@@ -95,7 +95,7 @@ class DeviceProvider with ChangeNotifier {
         Provider.of<SavedAcountProvider>(context, listen: false);
 
     SavedAccount? savedAccount =
-        savedAcountProvider.getAccount(account!.account.accountId);
+        await savedAcountProvider.getAccount(account!.account.accountId);
     String res = await api.post(
       url: '/startstop/device',
       body: {

@@ -35,6 +35,8 @@ class Device {
     required this.markerTextPng,
     this.equipmentType = '',
     required this.deviceIcon,
+    this.batteryLevel = 0,
+    this.signalStrength = 0,
   });
 
   final String description;
@@ -60,12 +62,14 @@ class Device {
   final String markerTextPng;
   final String equipmentType;
   final String deviceIcon;
+  final double batteryLevel;
+  final int signalStrength;
 
   factory Device.fromMap(Map<String, dynamic> json) {
     return Device(
       description: json["description"],
       deviceId: json["DeviceID"],
-      deviceIcon:  json["deviceIcon"] ?? 'default',
+      deviceIcon: json["deviceIcon"] ?? 'default',
       dateTime: DateTime.fromMillisecondsSinceEpoch(json["timestamp"] * 1000),
       latitude: json["latitude"].toDouble(),
       longitude: json["longitude"].toDouble(),
@@ -85,7 +89,9 @@ class Device {
       phone1: json["phone1"] ?? '',
       phone2: json["phone2"] ?? '',
       markerTextPng: json["marker_text_png"],
-      equipmentType: json['equipmentType'] ?? ''
+      equipmentType: json['equipmentType'] ?? '',
+      batteryLevel: (json['batteryLevel'] ?? 0).toDouble(),
+      signalStrength: json['signalStrength'] ?? 0,
     );
   }
 
@@ -108,5 +114,4 @@ class Device {
         "statut": statut,
         "marker_png": markerPng,
       };
-
 }

@@ -19,9 +19,10 @@ class NavigationProvider {
 
     LastPositionProvider lastPositionProvider =
         Provider.of<LastPositionProvider>(DeviceSize.c, listen: false);
-    SavedAccount? accounts = acountProvider
-        .fetchSavedAccount()
-        .firstWhere((ac) => ac.user == accountId);
+        final res = await acountProvider
+        .fetchSavedAccount();
+    SavedAccount? accounts = 
+        res.firstWhere((ac) => ac.user == accountId);
     shared.saveAccount(Account(
       account: AccountClass(
           password: accounts.password,

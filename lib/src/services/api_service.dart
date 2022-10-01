@@ -80,6 +80,9 @@ class ApiService {
   Future<String> get(
       {required String url, Map<String, String> newHeader = const {}}) async {
     header.addAll(newHeader);
+    String token = await _fetchToken();
+    header.addAll(newHeader);
+    header['Authorization'] = 'Bearer $token';
 
     try {
       Response response =
@@ -104,11 +107,16 @@ class ApiService {
       required Map<String, dynamic> body,
       Map<String, String> newHeader = const {}}) async {
     try {
-      Response response = await _client
-          .post(Uri.parse(Utils.baseUrl + url), body: json.encode(body), headers: {
-        'Content-Type': 'application/octet-stream',
-        'Accept': 'application/json',
-      });
+      header.addAll(newHeader);
+      String token = await _fetchToken();
+      header.addAll(newHeader);
+      header['Authorization'] = 'Bearer $token';
+      Response response = await _client.post(Uri.parse(Utils.baseUrl + url),
+          body: json.encode(body),
+          headers: {
+            'Content-Type': 'application/octet-stream',
+            'Accept': 'application/json',
+          });
 
       log(Utils.baseUrl + url);
 
@@ -150,6 +158,8 @@ class ApiService {
   Future<String> simplePost(
       {required String url, required Map<String, dynamic> body}) async {
     try {
+      String token = await _fetchToken();
+      header['Authorization'] = 'Bearer $token';
       Response response = await _client.post(
         Uri.parse(Utils.baseUrl + url),
         body: json.encode(body),

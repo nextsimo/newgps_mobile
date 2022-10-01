@@ -43,6 +43,8 @@ class AccountClass {
         userID: json["userID"], password: json['password'],
       );
 
+  String? get key => null;
+
   Map<String, dynamic> toMap() =>
       {"accountID": accountId, "description": description, "userID": userID, 'password' : password};
 }

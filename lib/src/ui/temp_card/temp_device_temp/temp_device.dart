@@ -56,9 +56,7 @@ class _BuildStreamerWigdet extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(
-              color: _buildStatutColor(tempertaure ?? 0),
-              width: 1.8,
-            ),
+                color: _buildStatutColor(tempertaure ?? 0), width: 1.8),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Row(

@@ -65,8 +65,7 @@ class TempGraphicView extends StatelessWidget {
                         leftTitles: AxisTitles(
                           sideTitles: SideTitles(
                             showTitles: true,
-/*                             interval:
-                              ((provider.maxTemp - provider.minTemp) ~/ 3).toDouble(),  */
+/* w */
 /*                 getTitlesWidget: leftTitleWidgets,
                           interval:
                               ((provider.maxTemp - provider.minTemp) ~/ 3).toDouble(), */

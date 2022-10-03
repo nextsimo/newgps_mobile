@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../services/device_provider.dart';
+import '../../widgets/custom_info_windows.dart';
 import 'historic_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -45,24 +46,35 @@ class _HistoricMapViewState extends State<HistoricMapView>
           builder: (_, HistoricProvider provider, __) {
         final DeviceProvider deviceProvider =
             Provider.of<DeviceProvider>(context, listen: false);
-        return GoogleMap(
-          polylines: provider.getLines(),
-          zoomControlsEnabled: false,
-          myLocationEnabled: true,
-          myLocationButtonEnabled: false,
-          markers: provider.getMarker(),
-          mapType: deviceProvider.mapType,
-          onMapCreated: (controller) async {
-            provider.mapController = controller;
-            controller
-                .moveCamera(CameraUpdate.newCameraPosition(const CameraPosition(
-              bearing: 0,
-              target: LatLng(33.589886, -7.603869),
-              zoom: 6.5,
-            )));
-          },
-          initialCameraPosition:
-              const CameraPosition(target: LatLng(31.7917, -7.0926), zoom: 6),
+        return Stack(
+          children: [
+            GoogleMap(
+              polylines: provider.getLines(),
+              zoomControlsEnabled: false,
+              myLocationEnabled: true,
+              myLocationButtonEnabled: false,
+              markers: provider.getMarker(),
+              mapType: deviceProvider.mapType,
+              onCameraMove: provider.onCameraMove,
+              onTap: provider.onTapMap,
+              onMapCreated: (controller) async {
+                provider.mapController = controller;
+                provider.customInfoWindowController.googleMapController =
+                    controller;
+                controller.moveCamera(
+                    CameraUpdate.newCameraPosition(const CameraPosition(
+                  bearing: 0,
+                  target: LatLng(33.589886, -7.603869),
+                  zoom: 6.5,
+                )));
+              },
+              initialCameraPosition: const CameraPosition(
+                  target: LatLng(31.7917, -7.0926), zoom: 6),
+            ),
+            MyCustomInfoWindows(
+              controller: provider.customInfoWindowController,
+            ),
+          ],
         );
       }),
     );

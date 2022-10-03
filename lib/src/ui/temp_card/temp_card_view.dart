@@ -3,8 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:newgps/src/models/device.dart';
 import 'package:newgps/src/ui/navigation/top_app_bar.dart';
-import 'package:newgps/src/utils/functions.dart';
-import 'package:newgps/src/utils/styles.dart';
 import 'package:provider/provider.dart';
 
 import 'temp_device_temp/temp_device.dart';
@@ -20,9 +18,7 @@ class TempCardView extends StatelessWidget {
         create: (context) => TempCardProvider(),
         builder: (providerContext, __) {
           return Scaffold(
-            appBar: const CustomAppBar(
-              actions: [],
-            ),
+            appBar: const CustomAppBar(actions: []),
             body: _FirstTempCardView(
               providerContext: providerContext,
             ),
@@ -148,9 +144,9 @@ class _BuildDeviceCard extends StatelessWidget {
             ],
           ),
           const Divider(),
-           TempGraphicView(
+          TempGraphicView(
             device: device,
-           ),
+          ),
         ],
       ),
     );
@@ -158,6 +154,7 @@ class _BuildDeviceCard extends StatelessWidget {
 }
 
 // build statu color depend on status string
+// ignore: unused_element
 class _BuildState extends StatelessWidget {
   final Device device;
   const _BuildState({Key? key, required this.device}) : super(key: key);

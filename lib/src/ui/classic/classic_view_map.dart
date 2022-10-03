@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:newgps/src/services/newgps_service.dart';
 import 'package:newgps/src/utils/styles.dart';
+import 'package:newgps/src/widgets/custom_info_windows.dart';
 import 'package:provider/provider.dart';
 import 'classic_provider.dart';
 
@@ -38,12 +39,7 @@ class _ClassicViewMapState extends State<ClassicViewMap>
                 onTap: provider.onTapMap,
               );
             }),
-            CustomInfoWindow(
-              controller: provider.customInfoWindowController,
-              height: 100,
-              width: 200,
-              offset: 50,
-            ),
+            MyCustomInfoWindows(controller: provider.customInfoWindowController),
             InkWell(
               onTap: () => provider.backToClassicView(context),
               child: Container(

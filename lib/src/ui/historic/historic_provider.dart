@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:typed_data';
 
+import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:newgps/src/ui/last_position/last_position_provider.dart';
@@ -13,6 +14,7 @@ import '../../models/info_model.dart';
 import '../../models/user_droits.dart';
 import '../../services/newgps_service.dart';
 import '../../utils/device_size.dart';
+import '../../widgets/custom_info_windows.dart';
 import '../login/login_as/save_account_provider.dart';
 import '../../widgets/floatin_window.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +23,9 @@ import 'date_map_picker/time_range_widget.dart';
 
 class HistoricProvider with ChangeNotifier {
   late Set<Marker> markers = {};
+
+  final CustomInfoWindowController customInfoWindowController =
+      CustomInfoWindowController();
 
   late DateTime dateFrom;
   late DateTime dateTo;
@@ -78,6 +83,16 @@ class HistoricProvider with ChangeNotifier {
     autoSearchController.dispose();
     mapController = null;
     notifyListeners();
+  }
+
+  // on camera move
+  void onCameraMove(CameraPosition cameraPosition) {
+    customInfoWindowController.onCameraMove!();
+  }
+
+  // ontap map
+  void onTapMap(LatLng latLng) {
+    customInfoWindowController.hideInfoWindow!();
   }
 
   Set<Marker> playedMarkers = {};
@@ -557,9 +572,14 @@ class HistoricProvider with ChangeNotifier {
       log(e.toString());
       bitmapDescriptor = BitmapDescriptor.defaultMarker;
     }
-
+    Device myDevice = device.copyWith(
+      description: deviceProvider.selectedDevice?.description ?? '',
+    );
     return Marker(
-      onTap: () => _onTapMarker(device),
+      onTap: () => customInfoWindowController.addInfoWindow!(
+        ClassicInfoWindows(device: myDevice),
+        position,
+      ),
       markerId: MarkerId('${device.latitude},${device.longitude}'),
       position: position,
       icon: bitmapDescriptor,

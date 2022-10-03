@@ -5,8 +5,8 @@ import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/ui/classic/classic_info_windows.dart';
 import '../../models/device.dart';
+import '../../widgets/custom_info_windows.dart';
 
 class ClassicProvider with ChangeNotifier {
   bool _loading = false;

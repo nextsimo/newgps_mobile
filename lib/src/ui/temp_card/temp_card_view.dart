@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:newgps/src/models/device.dart';
 import 'package:newgps/src/ui/navigation/top_app_bar.dart';
+import 'package:newgps/src/utils/styles.dart';
 import 'package:provider/provider.dart';
 
 import 'temp_device_temp/temp_device.dart';
 import 'temp_card_provider.dart';
+import 'temp_graphic/download_today_repport.dart';
 import 'temp_graphic/temp_card_graphic_view.dart';
 
 class TempCardView extends StatelessWidget {
@@ -113,6 +115,7 @@ class _BuildDeviceCard extends StatelessWidget {
         color: Color(0x19000000),
         blurRadius: 13,
         offset: Offset(0, 3),
+        
       ),
     ];
     return Container(
@@ -131,9 +134,10 @@ class _BuildDeviceCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   device.description,
+                
                   style: const TextStyle(
-                    color: Color(0xff1a316c),
-                    fontSize: 16,
+                    color: Colors.black,
+                    fontSize: 14,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -143,10 +147,11 @@ class _BuildDeviceCard extends StatelessWidget {
               ),
             ],
           ),
-          const Divider(),
+          const SizedBox(height: 20),
           TempGraphicView(
             device: device,
           ),
+           DownloadTodayRepport(device: device),
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newgps/src/models/device.dart';
+import 'package:newgps/src/utils/styles.dart';
 import 'package:provider/provider.dart';
 
 import 'temp_device_temp.dart';
@@ -51,31 +52,26 @@ class _BuildStreamerWigdet extends StatelessWidget {
       builder: (context, snapshot) {
         final tempertaure =
             context.read<TempCardDeviceTempProvider>().temperature;
-        return Container(
-          padding: const EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(
-                color: _buildStatutColor(tempertaure ?? 0), width: 1.8),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Row(
-            children: [
-              Icon(
-                Icons.thermostat,
+        return Row(
+          children: [
+            Text(
+              '${tempertaure ?? '--'}',
+              style:  TextStyle(
                 color: _buildStatutColor(tempertaure ?? 0),
+                fontSize: 33,
+                fontWeight: FontWeight.w600,
               ),
-              const SizedBox(width: 5),
-              Text(
-                '${tempertaure ?? '--'}  °C',
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
+            ),
+            const SizedBox(width: 5),
+            const Text(
+              '°C',
+              style:  TextStyle(
+                color: Colors.black,
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
               ),
-            ],
-          ),
+            ),
+          ],
         );
       },
     );
@@ -84,7 +80,7 @@ class _BuildStreamerWigdet extends StatelessWidget {
   // get color depend on the temperature
   Color _buildStatutColor(double temp) {
     if (temp <= 0) {
-      return Colors.blue;
+      return AppConsts.mainColor;
     } else {
       return Colors.red;
     }

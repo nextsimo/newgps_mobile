@@ -92,7 +92,6 @@ class TempBleChart extends StatelessWidget {
                     lineBarsData: [
                       LineChartBarData(
                         barWidth: 3,
-                        showingIndicators: provider.showIndexed,
                         shadow: const Shadow(
                           blurRadius: 8,
                           color: Colors.black26,

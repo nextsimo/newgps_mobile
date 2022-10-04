@@ -12,7 +12,6 @@ class TemperatureRepportProvider with ChangeNotifier {
 
   List<TemBleRepportModel> _repports = [];
   List<TemBleRepportModel> repportsChart = [];
-  List<int> showIndexed = [];
 
   List<TemBleRepportModel> get repports => _repports;
 

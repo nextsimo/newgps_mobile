@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 //import 'dart:html' as html;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -399,7 +398,7 @@ class RepportProvider with ChangeNotifier {
       await _requestStoragePermission();
       Uint8List bytes = base64.decode(base64Str);
       String? dir = (await getApplicationSupportDirectory()).path;
-      File file = File("$dir/" + fileName + '.$extension');
+      File file = File("$dir/$fileName$extension");
       await file.create(recursive: true);
       await file.writeAsBytes(bytes);
       // set name of file

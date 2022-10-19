@@ -398,12 +398,12 @@ class RepportProvider with ChangeNotifier {
       await _requestStoragePermission();
       Uint8List bytes = base64.decode(base64Str);
       String? dir = (await getApplicationSupportDirectory()).path;
-      File file = File("$dir/$fileName$extension");
+      File file = File("$dir/$fileName.$extension");
       await file.create(recursive: true);
       await file.writeAsBytes(bytes);
       // set name of file
 
-      await OpenFile.open(file.path);
+      await OpenFile.open(file.path, type: "application/$extension");
       debugPrint(file.path);
     } catch (e) {
       debugPrint(e.toString());

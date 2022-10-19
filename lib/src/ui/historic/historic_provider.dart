@@ -492,17 +492,11 @@ class HistoricProvider with ChangeNotifier {
         markers.add(getSimpleMarker(device));
       }
       if (historicModel.currentPage < historicModel.lastPage) {
+        // ignore: use_build_context_synchronously
         fetchHistorics(context, ++page);
         return;
       }
       _zoomToPoints(markers.map((e) => e.position).toList());
-      context.read<LastPositionProvider>().fetch(context);
-
-      /*  moveCamera(markers.first.position);
-      mapController?.moveCamera(CameraUpdate.newCameraPosition(
-          const CameraPosition(
-              target: LatLng(32.300815, -9.227203), zoom: 5.5)));
- */
     }
 
     int index = -1;

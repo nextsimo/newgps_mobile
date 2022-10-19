@@ -105,7 +105,7 @@ class TempCardProvider with ChangeNotifier {
       await file.writeAsBytes(bytes);
       // set name of file
 
-      await OpenFile.open(file.path);
+      await OpenFile.open(file.path, type: "application/$extension");
       debugPrint(file.path);
     } catch (e) {
       debugPrint(e.toString());

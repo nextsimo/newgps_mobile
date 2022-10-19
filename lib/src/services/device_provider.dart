@@ -83,7 +83,9 @@ class DeviceProvider with ChangeNotifier {
       toastLength: Toast.LENGTH_LONG,
     );
 
+    // ignore: use_build_context_synchronously
     Navigator.of(DeviceSize.c).pop();
+    // ignore: use_build_context_synchronously
     Navigator.of(DeviceSize.c).pop();
     // show loading
   }

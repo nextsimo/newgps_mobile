@@ -112,7 +112,7 @@ class OilChangeAlertProvider with ChangeNotifier {
         'is_active': settingPerDevice.isActive,
         'next_oil_change': settingPerDevice.nextOilChange,
         'alert_befor': settingPerDevice.alertBefor,
-        'device_id': settingPerDevice.deviceId,
+        'device_id': settingPerDevice.deviceId
       },
     );
     await _fetchSettingPerDevice();

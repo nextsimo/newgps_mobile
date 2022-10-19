@@ -17,30 +17,32 @@ class TempGraphicProvider extends ChangeNotifier {
   bool loading = true;
 
   Future<void> fetchTempBleRepport(Device device) async {
-    loading = true;
-    Account? account = shared.getAccount();
-    final now = DateTime.now();
-    String res = await api.post(
-      url: '/tempble/index',
-      body: {
-        'account_id': account?.account.accountId,
-        'device_id': device.deviceId,
-        'user_id': account?.account.userID,
-        'date_from': DateTime(now.year, now.month, now.day, 0, 0, 0)
-                .millisecondsSinceEpoch /
-            1000,
-        'date_to': DateTime(now.year, now.month, now.day, 23, 59, 59)
-                .millisecondsSinceEpoch /
-            1000,
-        'order_by': 'timestamp',
-        'order_direction': 'desc',
-      },
-    );
-    if (res != '[]' && res.isNotEmpty) {
-      repportsChart = temBleRepportModelFromJson(res);
-      _setRepportsChart();
-      _setMaxMinTemp();
-    }
+    try {
+      loading = true;
+      Account? account = shared.getAccount();
+      final now = DateTime.now();
+      String res = await api.post(
+        url: '/tempble/index',
+        body: {
+          'account_id': account?.account.accountId,
+          'device_id': device.deviceId,
+          'user_id': account?.account.userID,
+          'date_from': DateTime(now.year, now.month, now.day, 0, 0, 0)
+                  .millisecondsSinceEpoch /
+              1000,
+          'date_to': DateTime(now.year, now.month, now.day, 23, 59, 59)
+                  .millisecondsSinceEpoch /
+              1000,
+          'order_by': 'timestamp',
+          'order_direction': 'desc',
+        },
+      );
+      if (res != '[]' && res.isNotEmpty) {
+        repportsChart = temBleRepportModelFromJson(res);
+        _setRepportsChart();
+        _setMaxMinTemp();
+      }
+    } catch (_) {}
     loading = false;
     notifyListeners();
   }
@@ -57,7 +59,9 @@ class TempGraphicProvider extends ChangeNotifier {
         newRepports.remove(r);
       }
     }
-    repportsChart = List<TemBleRepportModel>.from(newRepports);
+    if (newRepports.isNotEmpty) {
+      repportsChart = List<TemBleRepportModel>.from(newRepports);
+    }
     // sort the repports by date
     log("repport length: ${repportsChart.length}");
   }

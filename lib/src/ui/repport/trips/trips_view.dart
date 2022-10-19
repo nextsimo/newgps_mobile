@@ -76,11 +76,12 @@ class _BuildHead extends StatelessWidget {
             isSlected: 0 == provider.selectedIndex,
             isUp: provider.orderByStartDate,
             ontap: provider.updateStartDateOrder,
+            flex: 2,
           ),
           const BuildDivider(),
           BuildClickableTextCell(
             'Adresse de début',
-            flex: 2,
+            flex: 3,
             isSlected: 5 == provider.selectedIndex,
             isUp: provider.orderByStartAdresse,
             ontap: provider.updateByStartAdresse,
@@ -98,11 +99,12 @@ class _BuildHead extends StatelessWidget {
             isSlected: 1 == provider.selectedIndex,
             isUp: provider.orderByEndDate,
             ontap: provider.updateEndDateOrder,
+            flex: 2,
           ),
           const BuildDivider(),
           BuildClickableTextCell(
             'Adresse du fin',
-            flex: 2,
+            flex: 3,
             isSlected: 6 == provider.selectedIndex,
             isUp: provider.orderByEndAdresse,
             ontap: provider.updateByEndAdresse,
@@ -116,21 +118,21 @@ class _BuildHead extends StatelessWidget {
           ),
           const BuildDivider(),
           BuildClickableTextCell(
-            'Distance parcorue(Km)',
+            'D. parcorue(Km)',
             isSlected: 3 == provider.selectedIndex,
             isUp: provider.orderByDistance,
             ontap: provider.updateByDistance,
           ),
           const BuildDivider(),
           BuildClickableTextCell(
-            'Kilométrage(Km)',
+            'Kilométrage',
             isSlected: 4 == provider.selectedIndex,
             isUp: provider.odrderByOdometer,
             ontap: provider.updateByOdometer,
           ),
           const BuildDivider(),
           const _BuildHeadCard(
-            label: 'Localiser l\'arrêt',
+            label: 'Localiser',
           ),
           const BuildDivider(),
         ],
@@ -194,15 +196,18 @@ class _RepportRow extends StatelessWidget {
       child: Row(
         children: [
           const BuildDivider(),
-          BuildTextCell(formatDeviceDate(trip.startDate)),
+          BuildTextCell(
+            formatDeviceDate(trip.startDate),
+            flex: 2,
+          ),
           const BuildDivider(),
-          BuildTextCell(trip.startAddress, flex: 2),
+          BuildTextCell(trip.startAddress, flex: 3),
           const BuildDivider(),
           BuildTextCell(trip.drivingTime),
           const BuildDivider(),
-          BuildTextCell(formatDeviceDate(trip.endDate)),
+          BuildTextCell(formatDeviceDate(trip.endDate), flex: 2),
           const BuildDivider(),
-          BuildTextCell(trip.endAddress, flex: 2),
+          BuildTextCell(trip.endAddress, flex: 3),
           const BuildDivider(),
           BuildTextCell(trip.stopedTime),
           const BuildDivider(),
@@ -210,13 +215,13 @@ class _RepportRow extends StatelessWidget {
           const BuildDivider(),
           BuildTextCell('${trip.odometer}'),
           const BuildDivider(),
-            Expanded(
+          Expanded(
             child: InkWell(
-              onTap:  () => provider.navigateToRepportMap(context, trip),
+              onTap: () => provider.navigateToRepportMap(context, trip),
               child: const CircleAvatar(
-                  backgroundColor: AppConsts.blue,
+                backgroundColor: AppConsts.blue,
                 radius: 9,
-                child:  Icon(
+                child: Icon(
                   Icons.location_pin,
                   color: Colors.white,
                   size: 12,

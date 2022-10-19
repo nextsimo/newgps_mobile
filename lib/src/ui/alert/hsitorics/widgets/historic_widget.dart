@@ -213,7 +213,7 @@ class OptionViewBuilderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     double bottom = MediaQuery.of(context).viewInsets.bottom;
     Size size = MediaQuery.of(context).size;
-    bool _isPortrait =
+    bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
     return Material(
       color: Colors.transparent,
@@ -227,7 +227,7 @@ class OptionViewBuilderWidget extends StatelessWidget {
             alignment: Alignment.topLeft,
             child: Container(
               margin: const EdgeInsets.only(right: 12),
-              width: _isPortrait ? size.width : size.width * 0.35,
+              width: isPortrait ? size.width : size.width * 0.35,
               decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(
@@ -237,7 +237,7 @@ class OptionViewBuilderWidget extends StatelessWidget {
                 color: Colors.transparent,
                 child: Container(
                   constraints: BoxConstraints(
-                    maxHeight: _isPortrait
+                    maxHeight: isPortrait
                         ? (size.height * 0.43)
                         : (bottom * 0.4),
                   ),

@@ -9,7 +9,9 @@ import 'package:provider/provider.dart';
 
 class UserDevicesUi extends StatefulWidget {
   final User user;
-  const UserDevicesUi({Key? key, required this.user}) : super(key: key);
+  final int flex;
+  const UserDevicesUi({Key? key, required this.user, required this.flex})
+      : super(key: key);
 
   @override
   State<UserDevicesUi> createState() => _UserDevicesUiState();
@@ -59,61 +61,52 @@ class _UserDevicesUiState extends State<UserDevicesUi> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        InkWell(
-          onTap: () {
-            if (isMenuOpen) {
-              closeMenu();
-            } else {
-              openMenu();
-            }
-          },
-          child: Container(
-            key: _key,
-            width: 103,
-            height: 25,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(
-                  color: AppConsts.mainColor, width: AppConsts.borderWidth),
-              borderRadius: BorderRadius.circular(AppConsts.mainradius),
-            ),
-            alignment: Alignment.centerLeft,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    const SizedBox(width: 4),
-                    Icon(
-                      Icons.search,
+    return Expanded(
+      flex: widget.flex,
+      child: InkWell(
+        onTap: () {
+          if (isMenuOpen) {
+            closeMenu();
+          } else {
+            openMenu();
+          }
+        },
+        child: Container(
+          key: _key,
+          height: 25,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(
+                color: AppConsts.mainColor, width: AppConsts.borderWidth),
+            borderRadius: BorderRadius.circular(AppConsts.mainradius),
+          ),
+          alignment: Alignment.centerLeft,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  const SizedBox(width: 4),
+                  Icon(
+                    Icons.search,
+                    color: Colors.grey[400],
+                    size: 10,
+                  ),
+                  Text(
+                    'Ajouter vehicule',
+                    style: TextStyle(
+                      fontSize: 10,
                       color: Colors.grey[400],
-                      size: 10,
                     ),
-                    Text(
-                      'Ajouter vehicule',
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: Colors.grey[400],
-                      ),
-                    ),
-                  ],
-                ),
-                const Icon(Icons.arrow_drop_down, color: Colors.grey, size: 10)
-              ],
-            ),
+                  ),
+                ],
+              ),
+              const Icon(Icons.arrow_drop_down,
+                  color: Colors.grey, size: 10)
+            ],
           ),
         ),
-        const SizedBox(width: 5),
-        Text(
-          '${widget.user.devices.length} Selectioné',
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
-        ),
-      ],
+      ),
     );
   }
 }

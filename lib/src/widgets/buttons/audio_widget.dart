@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import '../../services/newgps_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class VolumeWidget extends StatefulWidget {
-  const VolumeWidget({Key? key}) : super(key: key);
+class DeleteVolumeWidget extends StatefulWidget {
+  const DeleteVolumeWidget({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
-  _VolumeWidgetState createState() => _VolumeWidgetState();
+  _DeleteVolumeWidgetState createState() => _DeleteVolumeWidgetState();
 }
 
-class _VolumeWidgetState extends State<VolumeWidget> {
+class _DeleteVolumeWidgetState extends State<DeleteVolumeWidget> {
   @override
   void initState() {
     super.initState();

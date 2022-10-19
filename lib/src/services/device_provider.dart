@@ -109,6 +109,7 @@ class DeviceProvider with ChangeNotifier {
     );
 
     if (res.isNotEmpty) {
+      // ignore: use_build_context_synchronously
       Navigator.of(context).pop();
       bool isStart = command == 'IgnitionEnable:TCP';
       String message = isStart ? 'Le démarrage' : "L'arrêt";

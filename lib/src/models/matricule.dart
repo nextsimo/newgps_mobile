@@ -39,13 +39,13 @@ class MatriculeModel {
   final String deviceID;
 
   factory MatriculeModel.fromJson(Map<String, dynamic> json) => MatriculeModel(
-      vehicleId: json["vehicleID"],
+      vehicleId: json["vehicleID"] ?? '',
       description: json["description"],
       lastOdometerKM: json["lastOdometerKM"].toDouble(),
-      fuelCapacity: json["fuelCapacity"],
-      vehicleColor: json["vehicleColor"],
-      vehicleModel: json["vehicleModel"],
-      phone1: json["phone1"],
+      fuelCapacity: json["fuelCapacity"] ?? 0,
+      vehicleColor: json["vehicleColor"] ?? '',
+      vehicleModel: json["vehicleModel"]  ?? '',
+      phone1: json["phone1"]  ,
       phone2: json["phone2"],
       driverName: json["driverName"] ?? '',
       index: json["index"],

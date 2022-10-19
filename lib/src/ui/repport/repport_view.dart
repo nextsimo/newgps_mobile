@@ -257,7 +257,6 @@ class _BuildHead extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const VolumeWidget(),
                     MainButton(
                       height: 24,
                       onPressed: () {

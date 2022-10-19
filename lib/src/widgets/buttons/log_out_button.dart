@@ -35,7 +35,6 @@ class _LogoutButtonLandscape extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: [
-            const VolumeWidget(),
             MainButton(
               height: 28,
               onPressed: () {
@@ -89,7 +88,6 @@ class _LogoutButtonPortrait extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: [
-            const VolumeWidget(),
             MainButton(
               height: height,
               onPressed: () {

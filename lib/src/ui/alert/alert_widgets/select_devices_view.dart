@@ -68,6 +68,7 @@ class SelectDeviceUi extends StatelessWidget {
                           label: 'Enregistrer',
                           onPressed: () async {
                             await onSaveDevices(List.from(provider.selectedDevices));
+                            // ignore: use_build_context_synchronously
                             Navigator.of(context).pop();
                           },
                         ),

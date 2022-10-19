@@ -4,7 +4,9 @@ import '../../utils/styles.dart';
 
 class UserDroitsUi extends StatefulWidget {
   final UserDroits userDroits;
-  const UserDroitsUi({Key? key, required this.userDroits}) : super(key: key);
+    final int flex;
+
+  const UserDroitsUi({Key? key, required this.userDroits, required this.flex}) : super(key: key);
 
   @override
   State<UserDroitsUi> createState() => _UserDroitsUiState();
@@ -50,39 +52,39 @@ class _UserDroitsUiState extends State<UserDroitsUi> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        if (isMenuOpen) {
-          closeMenu();
-        } else {
-          openMenu();
-        }
-      },
-      child: Container(
-        key: _key,
-        width: 103,
-        height: 25,
-        margin: const EdgeInsets.symmetric(horizontal: 2),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(
-                color: AppConsts.mainColor, width: AppConsts.borderWidth),
-            borderRadius: BorderRadius.circular(AppConsts.mainradius)),
-        alignment: Alignment.centerLeft,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const SizedBox(width: 3),
-            Text(
-              'Modifier les droits',
-              style: TextStyle(
-                fontSize: 10,
-                color: Colors.grey[400],
-                fontWeight: FontWeight.w500,
+    return Expanded(
+      child: InkWell(
+        onTap: () {
+          if (isMenuOpen) {
+            closeMenu();
+          } else {
+            openMenu();
+          }
+        },
+        child: Container(
+          key: _key,
+          height: 25,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(
+                  color: AppConsts.mainColor, width: AppConsts.borderWidth),
+              borderRadius: BorderRadius.circular(AppConsts.mainradius)),
+          alignment: Alignment.centerLeft,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const SizedBox(width: 3),
+              Text(
+                'Modifier les droits',
+                style: TextStyle(
+                  fontSize: 10,
+                  color: Colors.grey[400],
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ),
-            const Icon(Icons.arrow_drop_down, color: Colors.grey, size: 10)
-          ],
+              const Icon(Icons.arrow_drop_down, color: Colors.grey, size: 10)
+            ],
+          ),
         ),
       ),
     );

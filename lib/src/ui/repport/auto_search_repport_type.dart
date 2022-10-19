@@ -35,7 +35,7 @@ class _AutoSearchTypeState extends State<AutoSearchType> {
           width: 140,
           margin: const EdgeInsets.all(AppConsts.outsidePadding),
           child: Autocomplete<RepportTypeModel>(
-            initialValue: const TextEditingValue(text: 'Rapport résumer'),
+            initialValue: const TextEditingValue(text: 'Rapport résumé'),
             fieldViewBuilder: (BuildContext context, TextEditingController _,
                 FocusNode focusNode, Function onFieldSubmitted) {
                   _focusNode = focusNode;

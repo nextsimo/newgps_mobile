@@ -22,11 +22,11 @@ class RepportProvider with ChangeNotifier {
   final List<RepportTypeModel> repportsType = const [
     RepportTypeModel(
       index: 0,
-      title: 'Rapport résumer',
+      title: 'Rapport résumé',
     ),
     RepportTypeModel(
       index: 1,
-      title: 'Rapport détaillés',
+      title: 'Rapport détaillé',
     ),
     RepportTypeModel(
       index: 2,

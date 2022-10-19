@@ -137,7 +137,7 @@ class BuildHead extends StatelessWidget {
             isSlected: repportProvider.selectedIndex == 12,
             isUp: repportProvider.orderByDateActualisation,
           ),
-          const BuildDivider(height: 20),
+/*           const BuildDivider(height: 20),
           const SizedBox(
             width: 80,
             child: Center(
@@ -145,7 +145,7 @@ class BuildHead extends StatelessWidget {
               'Redémarrer boitier',
               style: TextStyle(fontSize: 8, fontWeight: FontWeight.w500),
             )),
-          ),
+          ), */
           const BuildDivider(height: 20),
         ],
       ),
@@ -297,7 +297,7 @@ class RepportRow extends StatelessWidget {
           BuildTextCell(repport.city, flex: 2),
           const BuildDivider(height: 10),
           BuildTextCell(formatDeviceDate(repport.lastValideDate), flex: 4),
-          const BuildDivider(height: 10),
+/*           const BuildDivider(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 1),
             child: MainButton(
@@ -307,7 +307,7 @@ class RepportRow extends StatelessWidget {
               label: 'Redémarrer',
               fontSize: 5,
             ),
-          ),
+          ), */
           const BuildDivider(height: 10),
         ],
       ),

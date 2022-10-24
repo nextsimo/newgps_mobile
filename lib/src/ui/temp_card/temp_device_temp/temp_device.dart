@@ -38,6 +38,18 @@ class _BuildStreamerWigdet extends StatelessWidget {
 
   final Device device;
 
+  // format temperature to 2 decimal and add sign + or -
+  String _formatTemperature(double? temperature) {
+    if (temperature == null) {
+      return '--';
+    }
+    if (temperature == 0) {
+      return '0';
+    }
+    String sign = temperature < 0 ? '' : '+';
+    return '$sign${temperature.toStringAsFixed(2)}';
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -55,8 +67,8 @@ class _BuildStreamerWigdet extends StatelessWidget {
         return Row(
           children: [
             Text(
-              '${tempertaure ?? '--'}',
-              style:  TextStyle(
+              _formatTemperature(tempertaure ?? 0),
+              style: TextStyle(
                 color: _buildStatutColor(tempertaure ?? 0),
                 fontSize: 33,
                 fontWeight: FontWeight.w600,
@@ -65,7 +77,7 @@ class _BuildStreamerWigdet extends StatelessWidget {
             const SizedBox(width: 5),
             const Text(
               '°C',
-              style:  TextStyle(
+              style: TextStyle(
                 color: Colors.black,
                 fontSize: 13,
                 fontWeight: FontWeight.w600,

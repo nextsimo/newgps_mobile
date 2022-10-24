@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newgps/src/ui/alert/speed/legal_speed_view.dart';
 import '../../../models/user_droits.dart';
 import '../../../services/firebase_messaging_service.dart';
 import '../../../utils/styles.dart';
@@ -33,45 +34,65 @@ class SpeedAlertView extends StatelessWidget {
               child: SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 50),
-                  child: Padding(
-                    padding: const EdgeInsets.all(AppConsts.outsidePadding),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 10),
-                        const BuildLabel(
-                          icon: Icons.speed,
-                          label: 'vitesse',
-                        ),
-                        const SizedBox(height: 30),
-                        Row(
-                          children: [
-                            _buildInput(provider, readOnly: !droit.write),
-                            const SizedBox(width: 10),
-                            Switch(
-                                value: provider.active,
-                                onChanged:
-                                    droit.write ? provider.onTapSwitch : null),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        if (droit.write)
-                          MainButton(
-                            width: 210,
-                            backgroundColor: provider.active
-                                ? AppConsts.mainColor
-                                : Colors.blueGrey,
-                            onPressed: provider.onTapSaved,
-                            label: 'Enregistrer',
-                          ),
-                      ],
-                    ),
+                  child: Column(
+                    children: [
+                      _buildNordmalSpeedAlert(provider, droit),
+                      const SizedBox(height: 20),
+                      const LegalSpeedView(),
+                    ],
                   ),
                 ),
               ),
             ),
           );
         });
+  }
+
+  Container _buildNordmalSpeedAlert(SpeedAlertProvider provider, Droit droit) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 10),
+          const BuildLabel(
+            icon: Icons.speed,
+            label: 'vitesse',
+          ),
+          const SizedBox(height: 30),
+          Row(
+            children: [
+              _buildInput(provider, readOnly: !droit.write),
+              const SizedBox(width: 10),
+              Switch(
+                  value: provider.active,
+                  onChanged: droit.write ? provider.onTapSwitch : null),
+            ],
+          ),
+          const SizedBox(height: 20),
+          if (droit.write)
+            MainButton(
+              width: 210,
+              backgroundColor:
+                  provider.active ? AppConsts.mainColor : Colors.blueGrey,
+              onPressed: provider.onTapSaved,
+              label: 'Enregistrer',
+            ),
+        ],
+      ),
+    );
   }
 
   Widget _buildInput(SpeedAlertProvider provider, {bool readOnly = false}) {

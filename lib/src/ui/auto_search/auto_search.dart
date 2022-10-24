@@ -28,11 +28,11 @@ class _AutoSearchDeviceState extends State<AutoSearchDevice> {
         Provider.of<HistoricProvider>(context, listen: false);
 
     Size size = MediaQuery.of(context).size;
-    bool _isPortrait =
+    bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
     return SafeArea(
       child: Container(
-        width: _isPortrait ? size.width * .6 : size.width * 0.35,
+        width: isPortrait ? size.width * .6 : size.width * 0.35,
         margin: const EdgeInsets.all(AppConsts.outsidePadding),
         child: Autocomplete<Device>(
           fieldViewBuilder: (BuildContext context, TextEditingController _,
@@ -133,7 +133,7 @@ class OptionViewBuilderWidget extends StatelessWidget {
     DeviceProvider deviceProvider =
         Provider.of<DeviceProvider>(context);
     Size size = MediaQuery.of(context).size;
-    bool _isPortrait =
+    bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
 
     double bottom = MediaQuery.of(context).viewInsets.bottom;
@@ -147,10 +147,10 @@ class OptionViewBuilderWidget extends StatelessWidget {
         child: Align(
           alignment: Alignment.topLeft,
           child: Container(
-            width: _isPortrait ? size.width * .6 : size.width * 0.35,
+            width: isPortrait ? size.width * .6 : size.width * 0.35,
             margin: const EdgeInsets.only(top: 3),
             constraints: BoxConstraints(
-              maxHeight: _isPortrait
+              maxHeight: isPortrait
                   ? (size.height * 0.44)
                   : (bottom == 0.0 ? size.height * 0.5 : bottom * 0.5),
             ),

@@ -217,9 +217,9 @@ class DeviceProvider with ChangeNotifier {
       'icon': 'BinTruck',
     };
 
-/*     if (init) {
+    if (init) {
       body.addAll({'init': true});
-    } */
+    }
 
     String res = await api.post(
       url: '/devices',

@@ -36,6 +36,7 @@ class _DriverAddDialogState extends State<DriverAddDialog> {
       });
 
       if (res == 'succes') {
+        // ignore: use_build_context_synchronously
         Navigator.of(context).pop<bool>(true);
       }
     }

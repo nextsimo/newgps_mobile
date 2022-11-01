@@ -3,6 +3,7 @@ import '../../models/device.dart';
 import '../../services/newgps_service.dart';
 
 class CameraProvider with ChangeNotifier {
+  // ignore: library_private_types_in_public_api
   late _AutoSearchHandler auto;
 
   List<Device> devices = [];
@@ -45,6 +46,7 @@ class _AutoSearchHandler {
   late void Function() handleSelectDevice;
 
   _AutoSearchHandler(
+      // ignore: no_leading_underscores_for_local_identifiers
       void Function(String id) myFunc, void Function() _handleSelectedDevice) {
     onSelect = myFunc;
     handleSelectDevice = _handleSelectedDevice;

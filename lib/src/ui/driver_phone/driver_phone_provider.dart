@@ -37,10 +37,12 @@ class DriverPhoneProvider {
     if (res == true) {
       await callNewData!();
       if (sDevice == null) {
+        // ignore: use_build_context_synchronously
         showCallConducteurDialog(context, deviceProvider.selectedDevice);
       } else {
         Device device = deviceProvider.devices
             .firstWhere((element) => element.deviceId == sDevice.deviceId);
+        // ignore: use_build_context_synchronously
         showCallConducteurDialog(context, device);
       }
     }

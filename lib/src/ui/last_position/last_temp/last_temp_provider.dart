@@ -6,8 +6,7 @@ import 'last_temp_info_model.dart';
 class LastTempProvider with ChangeNotifier {
   TemBleRepportModel? model;
 
-
-  LastTempProvider(){
+  LastTempProvider() {
     fetchLastTempRepport();
   }
 
@@ -23,7 +22,7 @@ class LastTempProvider with ChangeNotifier {
     if (res.isNotEmpty) {
       model = temBleRepportModelFromJson(res);
       notifyListeners();
-    }else{
+    } else {
       model = null;
       notifyListeners();
     }

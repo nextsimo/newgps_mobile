@@ -81,12 +81,10 @@ class LoginProvider with ChangeNotifier {
     errorText = '';
     if (formKey.currentState!.validate()) {
       // request login
-      resumeRepportProvider.fresh();
 
       if (underCompteController.text.isNotEmpty) {
         await underAccountLogin(context);
       } else {
-        shared.sharedPreferences?.clear();
         Account? account = await api.login(
           accountId: compteController.text,
           password: passwordController.text,
@@ -95,10 +93,13 @@ class LoginProvider with ChangeNotifier {
           resumeRepportProvider.fresh();
 
           final LastPositionProvider lastPositionProvider =
+              // ignore: use_build_context_synchronously
               Provider.of<LastPositionProvider>(context, listen: false);
           final ConnectedDeviceProvider connectedDeviceProvider =
+              // ignore: use_build_context_synchronously
               Provider.of<ConnectedDeviceProvider>(context, listen: false);
           final SavedAcountProvider savedAcountProvider =
+              // ignore: use_build_context_synchronously
               Provider.of<SavedAcountProvider>(context, listen: false);
           savedAcountProvider.savedAcount(
               account.account.accountId, passwordController.text);
@@ -108,6 +109,7 @@ class LoginProvider with ChangeNotifier {
               lastPositionProvider: lastPositionProvider, context: context);
           connectedDeviceProvider.init();
           connectedDeviceProvider.createNewConnectedDeviceHistoric(true);
+          // ignore: use_build_context_synchronously
           Navigator.of(context)
               .pushNamedAndRemoveUntil('/navigation', (_) => false);
         } else {

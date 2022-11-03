@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 import 'dart:typed_data';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
@@ -68,6 +69,35 @@ class ApiService {
       if (response.statusCode == 200 || response.statusCode == 201) {
         debugPrint('$url succes');
         return response.body;
+      }
+      debugPrint('$url filed ${response.body}');
+      return '';
+    } catch (e) {
+      debugPrint('$url failed $e');
+      return '';
+    }
+  }
+
+  Future<String> postGzipCode(
+      {required String url,
+      required Map<String, dynamic> body,
+      Map<String, String> newHeader = const {}}) async {
+    String token = await _fetchToken();
+    header.addAll(newHeader);
+    header['Authorization'] = 'Bearer $token';
+
+    try {
+      Response response = await _client.post(Uri.parse(Utils.baseUrl + url),
+          body: json.encode(body), headers: header);
+
+      debugPrint(Utils.baseUrl + url);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        debugPrint('$url succes');
+        final decodedData = GZipCodec().decode(response.bodyBytes);
+        // remove header
+        
+        return utf8.decode(decodedData, allowMalformed: true);
       }
       debugPrint('$url filed ${response.body}');
       return '';

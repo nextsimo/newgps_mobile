@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
@@ -246,7 +247,9 @@ class SavedAcountProvider with ChangeNotifier {
     return null;
   }
 
+
   void deleteAcount(String? user, {bool disableSetting = false}) {
+    log("---> ${_savedAcounts.length}");
     savedAcounts.removeWhere((ac) => ac.user == user);
     saveAcountsList(savedAcounts);
     if (disableSetting) disapleAllNotification(user);

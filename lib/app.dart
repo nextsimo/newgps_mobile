@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:newgps/src/ui/splash/splash_view.dart';
 import 'src/services/device_provider.dart';
 import 'src/services/newgps_service.dart';
 import 'src/ui/connected_device/connected_device_provider.dart';
@@ -38,8 +39,9 @@ class NewGpsApp extends StatelessWidget {
           splitScreenMode: true,
           builder: (context, __) {
             return MaterialApp(
-              initialRoute: '/login',
+              initialRoute: '/splash',
               routes: {
+                '/splash': (context) => const SplashView(),
                 // When navigating to the "/" route, build the FirstScreen widget.
                 //'/': (context) => const L(),
                 '/navigation': (context) => CustomNavigationView(),

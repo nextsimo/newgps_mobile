@@ -420,8 +420,9 @@ class LastPositionProvider with ChangeNotifier {
   }
 
   Future<void> setDevicesMareker({bool fromSelect = false}) async {
-    normaleView();
-
+    if (fromSelect) {
+      normaleView();
+    }
     polylines = {};
     navigationStarted = false;
     _devices = deviceProvider.devices;

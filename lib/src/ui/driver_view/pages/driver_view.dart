@@ -5,7 +5,6 @@ import 'package:newgps/src/utils/styles.dart';
 import 'package:provider/provider.dart';
 import '../../navigation/top_app_bar.dart';
 import '../providers/driver_view_provider.dart';
-import 'add_driver_view.dart';
 
 class DriverView extends StatelessWidget {
   const DriverView({Key? key}) : super(key: key);
@@ -193,6 +192,7 @@ class _BuildHeader extends StatelessWidget {
   }
 }
 
+// ignore: unused_element
 class _BuildDriversList extends StatelessWidget {
   const _BuildDriversList({Key? key}) : super(key: key);
 

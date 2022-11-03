@@ -457,8 +457,9 @@ class HistoricProvider with ChangeNotifier {
       await fetchInfoData();
     }
     Account? account = shared.getAccount();
-    String res = await api.post(
-      url: '/historic',
+
+    String res = await api.postGzipCode(
+      url: '/historic2',
       body: {
         'accountId': account?.account.accountId,
         'deviceId': deviceProvider.selectedDevice?.deviceId,
@@ -468,14 +469,13 @@ class HistoricProvider with ChangeNotifier {
         'is_mobile': true
       },
     );
-
     if (res.isNotEmpty) {
-      HistoricModel _newHistoricModel = HistoricModel.fromMap(jsonDecode(res));
-      historicModel.currentPage = _newHistoricModel.currentPage;
-      historicModel.lastPage = _newHistoricModel.lastPage;
-      historicModel.total = _newHistoricModel.total;
-      historicModel.devices?.addAll(_newHistoricModel.devices!);
-      for (Device device in _newHistoricModel.devices!) {
+      HistoricModel newHistoricModel = HistoricModel.fromMap(jsonDecode(res));
+      historicModel.currentPage = newHistoricModel.currentPage;
+      historicModel.lastPage = newHistoricModel.lastPage;
+      historicModel.total = newHistoricModel.total;
+      historicModel.devices?.addAll(newHistoricModel.devices!);
+      for (Device device in newHistoricModel.devices!) {
         // check if the first index
         if (historicModel.devices?.indexOf(device) == 0) {
           final startBitmapDescriptor = await BitmapDescriptor.fromAssetImage(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:newgps/src/services/newgps_service.dart';
 import '../../utils/styles.dart';
 import 'main_button.dart';
 
@@ -91,6 +92,7 @@ class _LogoutButtonPortrait extends StatelessWidget {
             MainButton(
               height: height,
               onPressed: () {
+                shared.clear('account');
                 Phoenix.rebirth(context);
 
 /*                 try {

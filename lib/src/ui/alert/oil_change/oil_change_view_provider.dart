@@ -111,6 +111,7 @@ class OilChangeAlertProvider with ChangeNotifier {
         'setting_id': settings!.id,
         'is_active': settingPerDevice.isActive,
         'next_oil_change': settingPerDevice.nextOilChange,
+        'last_oil_change': settingPerDevice.lastOilChange,
         'alert_befor': settingPerDevice.alertBefor,
         'device_id': settingPerDevice.deviceId
       },

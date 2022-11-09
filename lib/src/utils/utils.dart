@@ -16,7 +16,7 @@ import 'functions.dart';
 class Utils {
   static void handleSplashScreen(WidgetsBinding widgetsBinding) async {
     FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 2));
     FlutterNativeSplash.remove();
   }
 

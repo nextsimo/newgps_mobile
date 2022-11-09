@@ -17,49 +17,51 @@ class SplashViewModel with ChangeNotifier {
 
   void checkIfUserIsAuth(BuildContext context) async {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-          Account? account = shared.getAccount();
-    if (account != null) {
-      int? isActive = json.decode(await api.post(url: '/isactive', body: {
-        'account_id': account.account.accountId,
-        'password': account.account.password,
-        'user_id': account.account.userID,
-      }));
+      Account? account = shared.getAccount();
+      if (account != null) {
+        int? isActive = json.decode(await api.post(url: '/isactive', body: {
+          'account_id': account.account.accountId,
+          'password': account.account.password,
+          'user_id': account.account.userID,
+        }));
 
-      SavedAcountProvider savedAcountProvider =
-          // ignore: use_build_context_synchronously
-          Provider.of<SavedAcountProvider>(context, listen: false);
-      if (isActive == 1) {
-        LastPositionProvider lastPositionProvider =
+        SavedAcountProvider savedAcountProvider =
             // ignore: use_build_context_synchronously
-            Provider.of<LastPositionProvider>(context, listen: false);
-        savedAcountProvider.initUserDroit();
-/*         SavedAcountProvider savedAcountProvider =
             Provider.of<SavedAcountProvider>(context, listen: false);
-        savedAcountProvider.initUserDroit(); */
-        String userID = shared.getAccount()?.account.userID ?? '';
-        if (userID.isNotEmpty) {
-          await savedAcountProvider.fetchUserDroits();
+        if (isActive == 1) {
+          LastPositionProvider lastPositionProvider =
+              // ignore: use_build_context_synchronously
+              Provider.of<LastPositionProvider>(context, listen: false);
+          savedAcountProvider.initUserDroit();
+          String userID = shared.getAccount()?.account.userID ?? '';
+          if (userID.isNotEmpty) {
+            await savedAcountProvider.fetchUserDroits();
+          }
+          fetchInitData(
+            lastPositionProvider: lastPositionProvider,
+            context: context,
+          );
+
+          final ConnectedDeviceProvider connectedDeviceProvider =
+              // ignore: use_build_context_synchronously
+              Provider.of<ConnectedDeviceProvider>(context, listen: false);
+          connectedDeviceProvider.init();
+
+          // ignore: use_build_context_synchronously
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil('/navigation', (_) => false);
+        } else {
+        await Future.delayed(const Duration(seconds: 2)).then((value) {
+          Navigator.of(context).pushReplacementNamed('/login');
+        });
         }
-        fetchInitData(
-          lastPositionProvider: lastPositionProvider,
-          context: context,
-        );
-
-        final ConnectedDeviceProvider connectedDeviceProvider =
-            // ignore: use_build_context_synchronously
-            Provider.of<ConnectedDeviceProvider>(context, listen: false);
-        connectedDeviceProvider.init();
-
-        // ignore: use_build_context_synchronously
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil('/navigation', (_) => false);
       } else {
-        // ignore: use_build_context_synchronously
-        Navigator.of(context).pushReplacementNamed('/login');
+        await Future.delayed(const Duration(seconds: 2)).then((value) {
+          Navigator.of(context).pushReplacementNamed('/login');
+        });
+
+       
       }
-    } else {
-      Navigator.of(context).pushReplacementNamed('/login');
-    }
     });
   }
 }

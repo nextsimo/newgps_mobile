@@ -25,8 +25,7 @@ class GestionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    bool _isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+    bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     return ChangeNotifierProvider<GestionProvider>(
         create: (_) => GestionProvider(),
         builder: (context, snapshot) {
@@ -53,7 +52,7 @@ class GestionView extends StatelessWidget {
                         crossAxisCount: 2,
                         crossAxisSpacing: 10,
                         mainAxisSpacing: 10,
-                      childAspectRatio: _isPortrait ? 1.0 : 2.0,
+                      childAspectRatio: isPortrait ? 1.0 : 2.0,
                       ),
                       itemBuilder: (_, int index) {
                         return _BuildGestionCard(

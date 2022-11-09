@@ -6,17 +6,14 @@ import 'dart:typed_data';
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:newgps/src/ui/last_position/last_position_provider.dart';
 import '../../models/account.dart';
 import '../../models/device.dart';
 import '../../models/historic_model.dart';
 import '../../models/info_model.dart';
 import '../../models/user_droits.dart';
 import '../../services/newgps_service.dart';
-import '../../utils/device_size.dart';
 import '../../widgets/custom_info_windows.dart';
 import '../login/login_as/save_account_provider.dart';
-import '../../widgets/floatin_window.dart';
 import 'package:provider/provider.dart';
 
 import 'date_map_picker/time_range_widget.dart';
@@ -142,9 +139,9 @@ class HistoricProvider with ChangeNotifier {
     }
 
     // clear all markers
-    int _index = -1;
+    int index = -1;
     line.clear();
-    bool _init = true;
+    bool init = true;
     for (Device device in historicModel.devices!) {
       if (!play) {
         stopedIndex = historicModel.devices!.indexOf(device);
@@ -152,23 +149,23 @@ class HistoricProvider with ChangeNotifier {
       }
       selectedPlayData = device;
       if (!historicIsPlayed) break;
-      _index++;
+      index++;
 
-      Marker marker = markers.elementAt(_index);
+      Marker marker = markers.elementAt(index);
       playedMarkers.add(marker);
-      if (_init) {
+      if (init) {
         await mapController?.animateCamera(CameraUpdate.newCameraPosition(
             CameraPosition(
                 target: marker.position,
                 bearing: device.heading.toDouble(),
                 zoom: 14.5)));
-        _init = false;
+        init = false;
       }
       if (playedMarkers.length > 1) {
         line.add(Polyline(
           color: Colors.blue,
           polylineId: PolylineId(marker.position.toString()),
-          points: [markers.elementAt(_index - 1).position, marker.position],
+          points: [markers.elementAt(index - 1).position, marker.position],
         ));
       }
       await mapController
@@ -189,8 +186,8 @@ class HistoricProvider with ChangeNotifier {
     }
 
     // clear all markers
-    int _index = stopedIndex;
-    bool _init = true;
+    int index = stopedIndex;
+    bool init = true;
     for (Device device in historicModel.devices!
         .getRange(stopedIndex, historicModel.devices!.length)) {
       if (!play) {
@@ -199,22 +196,22 @@ class HistoricProvider with ChangeNotifier {
       }
       selectedPlayData = device;
       if (!historicIsPlayed) break;
-      _index++;
-      Marker marker = markers.elementAt(_index);
+      index++;
+      Marker marker = markers.elementAt(index);
       playedMarkers.add(marker);
-      if (_init) {
+      if (init) {
         await mapController?.animateCamera(CameraUpdate.newCameraPosition(
             CameraPosition(
                 target: marker.position,
                 bearing: device.heading.toDouble(),
                 zoom: 14.5)));
-        _init = false;
+        init = false;
       }
       if (playedMarkers.length > 1) {
         line.add(Polyline(
           color: Colors.blue,
           polylineId: PolylineId(marker.position.toString()),
-          points: [markers.elementAt(_index - 1).position, marker.position],
+          points: [markers.elementAt(index - 1).position, marker.position],
         ));
       }
       await mapController
@@ -305,8 +302,8 @@ class HistoricProvider with ChangeNotifier {
       body: {
         'account_id': account?.account.accountId,
         'device_id': deviceProvider.selectedDevice?.deviceId,
-        'date_from': dateFrom.millisecondsSinceEpoch,
-        'date_to': dateTo.millisecondsSinceEpoch,
+        'date_from': dateFrom.millisecondsSinceEpoch ~/ 1000,
+        'date_to': dateTo.millisecondsSinceEpoch ~/ 1000,
       },
     );
 
@@ -353,6 +350,7 @@ class HistoricProvider with ChangeNotifier {
       dateTo.second,
     );
 
+    // ignore: use_build_context_synchronously
     fetchHistorics(context, 1, true);
   }
 
@@ -366,33 +364,6 @@ class HistoricProvider with ChangeNotifier {
   }
 
   // get tow points from list of points to fit the map  to the screen
-  List<LatLng> _getTwoPoints(List<LatLng> points) {
-    if (points.length < 2) {
-      return points;
-    }
-    double minLat = points.first.latitude;
-    double maxLat = points.first.latitude;
-    double minLng = points.first.longitude;
-    double maxLng = points.first.longitude;
-    for (LatLng point in points) {
-      if (point.latitude < minLat) {
-        minLat = point.latitude;
-      }
-      if (point.latitude > maxLat) {
-        maxLat = point.latitude;
-      }
-      if (point.longitude < minLng) {
-        minLng = point.longitude;
-      }
-      if (point.longitude > maxLng) {
-        maxLng = point.longitude;
-      }
-    }
-    return [
-      LatLng(minLat, minLng),
-      LatLng(maxLat, maxLng),
-    ];
-  }
 
   // zo
 
@@ -454,7 +425,6 @@ class HistoricProvider with ChangeNotifier {
       markers = {};
       playedMarkers = {};
       historicModel.devices?.clear();
-      await fetchInfoData();
     }
     Account? account = shared.getAccount();
 
@@ -497,6 +467,7 @@ class HistoricProvider with ChangeNotifier {
         return;
       }
       _zoomToPoints(markers.map((e) => e.position).toList());
+      await fetchInfoData();
     }
 
     int index = -1;
@@ -530,23 +501,6 @@ class HistoricProvider with ChangeNotifier {
     deviceProvider.handleSelectDevice();
     notifyListeners();
     fetchHistorics(context);
-  }
-
-  Future<void> _onTapMarker(Device device) async {
-    await showModalBottomSheet(
-      isDismissible: true,
-      context: DeviceSize.c,
-      backgroundColor: Colors.transparent,
-      enableDrag: true,
-      isScrollControlled: false,
-      builder: (context) {
-        return FloatingGroupWindowInfo(
-          showCallDriver: false,
-          device: device,
-          showOnOffDevice: _droit.write,
-        );
-      },
-    );
   }
 
   Marker getSimpleMarker(Device device) {

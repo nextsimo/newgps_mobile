@@ -249,12 +249,12 @@ class GeozoneDialogProvider with ChangeNotifier {
     _index = index;
   }
 
-  void addShape(LatLng _pos, [int? index]) {
-    pos = _pos;
+  void addShape(LatLng pos, [int? index]) {
+    pos = pos;
     if (_selectionType == 0) {
       _addCircle();
     } else if (_selectionType == 1) {
-      _addPolygone(_pos, index);
+      _addPolygone(pos, index);
     } else if (_selectionType == 2) {
       _addCircleOnMarker();
     }
@@ -263,13 +263,13 @@ class GeozoneDialogProvider with ChangeNotifier {
 
   // add point to map
 
-  void _addPolygone(LatLng _pos, [int? index, bool init = true]) {
+  void _addPolygone(LatLng pos, [int? index, bool init = true]) {
     polygone.clear();
     circle.clear();
     if (pointLines.isEmpty) {
       markers.clear();
     }
-    if (init) addPoints(_pos, index);
+    if (init) addPoints(pos, index);
     polygone.clear();
     polygone.add(
       Polygon(
@@ -294,8 +294,8 @@ class GeozoneDialogProvider with ChangeNotifier {
         markerId: MarkerId(pos.toString()),
         position: pos,
         draggable: true,
-        onDragEnd: (_pos) {
-          pos = _pos;
+        onDragEnd: (pos) {
+          pos = pos;
           _clear();
           _addCircle(fromDarg: true);
           notifyListeners();
@@ -323,8 +323,8 @@ class GeozoneDialogProvider with ChangeNotifier {
         markerId: MarkerId(pos.toString()),
         position: pos,
         draggable: true,
-        onDrag: (_pos) {
-          pos = _pos;
+        onDrag: (pos) {
+          pos = pos;
           _clear();
           _addCircle(fromDarg: true);
           notifyListeners();

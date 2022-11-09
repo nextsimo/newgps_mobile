@@ -183,6 +183,7 @@ class GeozoneProvider with ChangeNotifier {
     );
 
     if (saved!) {
+      // ignore: use_build_context_synchronously
       await updateGeozone(
           double.parse(geozoneDialogProvider.controllerGeozoneMetre.text),
           geozoneDialogProvider.pos,
@@ -236,6 +237,7 @@ class GeozoneProvider with ChangeNotifier {
     );
 
     if (saved != null && saved) {
+      // ignore: use_build_context_synchronously
       await addGeozone(
           double.parse(geozoneDialogProvider.controllerGeozoneMetre.text),
           geozoneDialogProvider.pos,

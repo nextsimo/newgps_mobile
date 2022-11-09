@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import '../../models/account.dart';
 import '../../services/newgps_service.dart';
 import '../connected_device/connected_device_provider.dart';
@@ -14,7 +15,7 @@ class LoginProvider with ChangeNotifier {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
   final TextEditingController underCompteController = TextEditingController();
-  
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<FormState> updateFormKey = GlobalKey<FormState>();
 
@@ -90,7 +91,18 @@ class LoginProvider with ChangeNotifier {
           password: passwordController.text,
         );
         if (account != null) {
-          resumeRepportProvider.fresh();
+          await shared.saveAccount(account);
+          SavedAcountProvider savedAcountProvider =
+              // ignore: use_build_context_synchronously
+              Provider.of<SavedAcountProvider>(context, listen: false);
+          savedAcountProvider.savedAcount(
+            account.account.accountId,
+            passwordController.text,
+            account.account.userID ?? '',
+          );
+          // ignore: use_build_context_synchronously
+          Phoenix.rebirth(context);
+/*           resumeRepportProvider.fresh();
 
           final LastPositionProvider lastPositionProvider =
               // ignore: use_build_context_synchronously
@@ -104,14 +116,17 @@ class LoginProvider with ChangeNotifier {
           savedAcountProvider.savedAcount(
               account.account.accountId, passwordController.text);
           savedAcountProvider.initUserDroit();
+
           await shared.saveAccount(account);
+
           await fetchInitData(
               lastPositionProvider: lastPositionProvider, context: context);
+
           connectedDeviceProvider.init();
           connectedDeviceProvider.createNewConnectedDeviceHistoric(true);
           // ignore: use_build_context_synchronously
           Navigator.of(context)
-              .pushNamedAndRemoveUntil('/navigation', (_) => false);
+              .pushNamedAndRemoveUntil('/navigation', (_) => false); */
         } else {
           int? isActive = json.decode(await api.post(url: '/isactive', body: {
             'account_id': compteController.text,
@@ -137,7 +152,18 @@ class LoginProvider with ChangeNotifier {
       underAccountLogin: underCompteController.text,
     );
     if (account != null) {
-      final SavedAcountProvider savedAcountProvider =
+      await shared.saveAccount(account);
+      SavedAcountProvider savedAcountProvider =
+          // ignore: use_build_context_synchronously
+          Provider.of<SavedAcountProvider>(context, listen: false);
+      savedAcountProvider.savedAcount(
+        account.account.accountId,
+        passwordController.text,
+        account.account.userID,
+      );
+      // ignore: use_build_context_synchronously
+      Phoenix.rebirth(context);
+/*       final SavedAcountProvider savedAcountProvider =
           Provider.of<SavedAcountProvider>(context, listen: false);
       final LastPositionProvider lastPositionProvider =
           Provider.of<LastPositionProvider>(context, listen: false);
@@ -153,7 +179,7 @@ class LoginProvider with ChangeNotifier {
           context: context, lastPositionProvider: lastPositionProvider);
       connectedDeviceProvider.init();
       connectedDeviceProvider.createNewConnectedDeviceHistoric(true);
-      Navigator.of(context).pushNamed('/navigation');
+      Navigator.of(context).pushNamed('/navigation'); */
     } else {
       errorText = 'Mot de passe ou account est inccorect';
     }

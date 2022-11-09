@@ -2,41 +2,33 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import '../../../models/account.dart';
 import '../../../services/newgps_service.dart';
 import '../../../utils/functions.dart';
-import '../../historic/historic_provider.dart';
 import '../../last_position/last_position_provider.dart';
 import 'save_account_provider.dart';
 import '../login_provider.dart';
 import 'package:provider/provider.dart';
-
-import '../../connected_device/connected_device_provider.dart';
 
 class LoginAsView extends StatelessWidget {
   const LoginAsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<SavedAcountProvider>(
-        create: (_) => SavedAcountProvider(),
-        builder: (BuildContext proContext, __) {
-          return Consumer<SavedAcountProvider>(
-              builder: (context, provider, __) {
-            return SizedBox(
-              width: double.infinity,
-              child: Wrap(
-                runSpacing: 7,
-                spacing: 0,
-                alignment: WrapAlignment.spaceBetween,
-                children: provider.savedAcounts
-                    .map(
-                        (account) => _BuildLoginAsWidget(savedAccount: account))
-                    .toList(),
-              ),
-            );
-          });
-        });
+    return Consumer<SavedAcountProvider>(builder: (context, provider, __) {
+      return SizedBox(
+        width: double.infinity,
+        child: Wrap(
+          runSpacing: 7,
+          spacing: 0,
+          alignment: WrapAlignment.spaceBetween,
+          children: provider.savedAcounts
+              .map((account) => _BuildLoginAsWidget(savedAccount: account))
+              .toList(),
+        ),
+      );
+    });
   }
 }
 
@@ -56,42 +48,56 @@ class _BuildLoginAsWidgetState extends State<_BuildLoginAsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final SavedAcountProvider provider =
-        Provider.of<SavedAcountProvider>(context, listen: false);
     final LoginProvider loginProvider =
         Provider.of<LoginProvider>(context, listen: false);
+    bool isAdmin = (widget.savedAccount.underUser == null ||
+        widget.savedAccount.underUser?.isEmpty == true);
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.44,
       child: ElevatedButton(
         style: ButtonStyle(
             padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
-            backgroundColor:
-                MaterialStateProperty.all<Color>(Colors.blueAccent),
+            backgroundColor: MaterialStateProperty.all<Color>(
+                isAdmin ? Colors.blueAccent : Colors.blueGrey),
             shape: MaterialStateProperty.all<OutlinedBorder>(
                 RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8)))),
         onPressed: () async {
           setState(() => loading = true);
-
           try {
             // log('Bearer ${savedAccount.key}');
 
-            Account? account;
-            if (widget.savedAccount.underUser != null &&
-                widget.savedAccount.underUser!.isNotEmpty) {
+             Account? account;
+            bool res = widget.savedAccount.underUser != null &&
+                widget.savedAccount.underUser?.isNotEmpty == true;
+            if (res) {
+                  
               account = await api.underAccountLogin(
                 accountId: widget.savedAccount.user ?? "",
-                password: widget.savedAccount.key ?? widget.savedAccount.password,
+                password:
+                    widget.savedAccount.key ?? widget.savedAccount.password,
                 underAccountLogin: widget.savedAccount.underUser ?? "",
               );
             } else {
               account = await api.login(
                 accountId: widget.savedAccount.user ?? "",
-                password: widget.savedAccount.key ?? widget.savedAccount.password,
+                password:
+                    widget.savedAccount.key ?? widget.savedAccount.password,
               );
             }
             if (account != null) {
-              resumeRepportProvider.fresh();
+              await shared.saveAccount(account);
+              SavedAcountProvider savedAcountProvider =
+                  // ignore: use_build_context_synchronously
+                  Provider.of<SavedAcountProvider>(context, listen: false);
+              savedAcountProvider.savedAcount(
+                account.account.accountId,
+                account.account.password,
+                account.account.userID ?? "",
+              );
+              // ignore: use_build_context_synchronously
+              Phoenix.rebirth(context);
+/*               resumeRepportProvider.fresh();
               final LastPositionProvider lastPositionProvider =
                   // ignore: use_build_context_synchronously
                   Provider.of<LastPositionProvider>(context, listen: false);
@@ -111,13 +117,14 @@ class _BuildLoginAsWidgetState extends State<_BuildLoginAsWidget> {
               connectedDeviceProvider.createNewConnectedDeviceHistoric(true);
               // ignore: use_build_context_synchronously
               Navigator.of(context)
-                  .pushNamedAndRemoveUntil('/navigation', (_) => false);
+                  .pushNamedAndRemoveUntil('/navigation', (_) => false); */
             } else {
-              int? isActive =
-                  json.decode(await api.post(url: '/isactive', body: {
-                'account_id': widget.savedAccount.user,
-                'password' : widget.savedAccount.password
-              }));
+              int? isActive = json.decode(await api.post(
+                  url: '/isactive',
+                  body: {
+                    'account_id': widget.savedAccount.user,
+                    'password': widget.savedAccount.password
+                  }));
 
               if (isActive == -1) {
                 loginProvider.errorText =
@@ -166,22 +173,19 @@ class _BuildLoginAsWidgetState extends State<_BuildLoginAsWidget> {
               ),
             if (!loading)
               Icon(
-                (widget.savedAccount.underUser == null ||
-                        widget.savedAccount.underUser!.isEmpty)
-                    ? Icons.person
-                    : Icons.supervisor_account,
+                isAdmin ? Icons.person : Icons.supervisor_account,
                 size: 17,
               ),
             Text(
-              widget.savedAccount.underUser!.isNotEmpty
-                  ? widget.savedAccount.underUser!.toUpperCase()
-                  : widget.savedAccount.user!.toUpperCase(),
+              (widget.savedAccount.underUser?.isNotEmpty == true
+                      ? "${widget.savedAccount.underUser}"
+                      : "${widget.savedAccount.user}")
+                  .toUpperCase(),
             ),
             IconButton(
               iconSize: 16,
               icon: const Icon(Icons.close),
-              onPressed: () => provider.deleteAcount(widget.savedAccount.user,
-                  disableSetting: true),
+              onPressed: () {},
             ),
           ],
         ),

@@ -176,12 +176,13 @@ class SavedAcountProvider with ChangeNotifier {
   }
 
   Future<bool> accountExist(String? user, String? key) async {
-   final list = await shared.getAcountsList(acountsKey);
-   final res  = list.contains(user);
+    final list = await shared.getAcountsList(acountsKey);
+    final res = list.contains(user);
     return res;
   }
 
   void savedAcount(String? user, String? key, [String? underUser = '']) {
+    log("==> ${_savedAcounts.length}");
     if (underUser!.isNotEmpty) {
       deleteUserAccount(underUser, user);
     } else {
@@ -247,10 +248,18 @@ class SavedAcountProvider with ChangeNotifier {
     return null;
   }
 
-
   void deleteAcount(String? user, {bool disableSetting = false}) {
     log("---> ${_savedAcounts.length}");
-    savedAcounts.removeWhere((ac) => ac.user == user);
+
+    savedAcounts.removeWhere((ac) {
+      // check if the user is under another user
+      if (ac.underUser == null || ac.underUser!.isEmpty) {
+        return ac.user == user;
+      } else {
+        return ac.underUser == user;
+      }
+    });
+
     saveAcountsList(savedAcounts);
     if (disableSetting) disapleAllNotification(user);
     notifyListeners();

@@ -7,7 +7,8 @@ class NewgInput extends StatelessWidget {
   final Widget? prefix;
   final TextInputType? keyboardType;
 
-  const NewgInput({Key? key, this.placeholder, this.prefix, this.keyboardType}) : super(key: key);
+  const NewgInput({Key? key, this.placeholder, this.prefix, this.keyboardType})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class NewgInput extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         placeholder: placeholder,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(AppConsts.mainradius),
           border: Border.all(
             color: const Color(0xfffbe4dd),
             width: 1,
@@ -58,14 +59,14 @@ class InputPrefix {
     return Container(
       width: 59,
       height: 42,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(25),
-          topRight: Radius.circular(0),
-          bottomLeft: Radius.circular(25),
-          bottomRight: Radius.circular(0),
+          topLeft: Radius.circular(AppConsts.mainradius),
+          topRight: const Radius.circular(0),
+          bottomLeft: Radius.circular(AppConsts.mainradius),
+          bottomRight: const Radius.circular(0),
         ),
-        color: Color.fromARGB(83, 136, 190, 61),
+        color: const Color.fromARGB(83, 136, 190, 61),
       ),
       child: Center(child: child),
     );

@@ -5,7 +5,6 @@ import 'package:newgps/src/models/account.dart';
 import 'package:newgps/src/models/user_droits.dart';
 import 'package:newgps/src/models/user_model.dart';
 import 'package:newgps/src/services/newgps_service.dart';
-import 'package:newgps/src/widgets/buttons/main_button.dart';
 
 class UserProvider with ChangeNotifier {
   List<User> _users = [];
@@ -212,25 +211,25 @@ class UserProvider with ChangeNotifier {
   }
 
   Future<void> updateUserDroits(int index) async {
-    UserDroits _userDroits =
+    UserDroits newuserDroits =
         UserDroits.fromJson(userDroits.elementAt(index).toJson());
-    _userDroits.droits.removeAt(index);
+    newuserDroits.droits.removeAt(index);
     await api.post(url: '/user/droits/update', body: {
-      'droits': json.encode(_userDroits.toJson()),
+      'droits': json.encode(newuserDroits.toJson()),
     });
   }
 
   Future<void> createNewUserDroits(String userid) async {
     Account? account = shared.getAccount();
-    UserDroits _userDroits =
+    UserDroits newuserDroits =
         UserDroits.fromJson(userDroits.elementAt(0).toJson());
-    _userDroits.droits.removeAt(0);
+    newuserDroits.droits.removeAt(0);
     //debugPrint(json.encode(_userDroits.toJson()));
 
     await api.post(url: '/user/droits/create', body: {
       'user_id': userid,
       'account_id': account!.account.accountId,
-      'droits': json.encode(_userDroits.toJson()),
+      'droits': json.encode(newuserDroits.toJson()),
     });
   }
 

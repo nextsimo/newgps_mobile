@@ -95,10 +95,10 @@ class HistoricView extends StatelessWidget {
             child: LogoutButton(),
           ),
           Builder(builder: (context) {
-            bool _isPortrait =
+            bool isPortrait =
                 MediaQuery.of(context).orientation == Orientation.portrait;
             return Positioned(
-              right: _isPortrait ? AppConsts.outsidePadding : 11,
+              right: isPortrait ? AppConsts.outsidePadding : 11,
               top: 41,
               child: AppelCondicteurButton(
                 device: deviceProvider.selectedDevice,
@@ -121,11 +121,11 @@ class HistoricView extends StatelessWidget {
                     children: [
                       const SizedBox(height: 1),
                       Builder(builder: (context) {
-                        bool _isPortrait = MediaQuery.of(context).orientation ==
+                        bool isPortrait = MediaQuery.of(context).orientation ==
                             Orientation.portrait;
                         Size size = MediaQuery.of(context).size;
                         return DateHourWidget(
-                            width: _isPortrait
+                            width: isPortrait
                                 ? size.width * .6
                                 : size.width * 0.35);
                       }),

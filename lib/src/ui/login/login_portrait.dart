@@ -1,7 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:newgps/src/utils/utils.dart';
 import '../../utils/functions.dart';
+import '../../widgets/buttons/outlined_button.dart';
+import 'change_password_view.dart';
 import 'login_provider.dart';
 import '../../widgets/buttons/main_button.dart';
 import '../../widgets/inputs/main_input.dart';
@@ -58,11 +59,25 @@ class LoginPortrait extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 const SousUserCheck(),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 loginButton,
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
+                CustomOutlinedButton(
+                  width: double.infinity,
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) => Dialog(
+                        child: ChangePasswordView(
+                          context: context,
+                        ),
+                      ),
+                    );
+                  },
+                  label: 'Changer le mot de passe',
+                ),
+                const SizedBox(height: 30),
                 const LoginAsView(),
-                const SizedBox(height: 10),
                 Selector<LoginProvider, String>(
                   builder: (_, String error, __) {
                     return Align(

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../../../utils/styles.dart';
+
 
 
 class MyInputTextField extends StatelessWidget {
@@ -26,7 +28,7 @@ class MyInputTextField extends StatelessWidget {
           color: CupertinoColors.lightBackgroundGray,
           width: 2,
         ),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(AppConsts.mainradius),
       ),
     );
   }

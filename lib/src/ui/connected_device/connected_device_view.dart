@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../utils/styles.dart';
 import 'connected_device_model.dart';
 import 'connected_device_provider.dart';
 import '../../utils/functions.dart';
@@ -21,7 +22,7 @@ class ConnectedDeviceView extends StatelessWidget {
           child: Container(
             margin: const EdgeInsets.all(40),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(AppConsts.mainradius),
               color: Colors.white,
             ),
             child: Stack(

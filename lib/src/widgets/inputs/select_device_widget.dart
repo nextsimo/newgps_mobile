@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../services/newgps_service.dart';
 
 import '../../models/device.dart';
+import '../../utils/styles.dart';
 
 class SelectedDeviceWidget extends StatelessWidget {
   final Function(List<String>) onSelected;
@@ -24,7 +25,7 @@ class SelectedDeviceWidget extends StatelessWidget {
           color: Colors.green,
           width: 1,
         ),
-        borderRadius: BorderRadius.circular(6),
+        borderRadius: BorderRadius.circular(AppConsts.mainradius),
       ),
       child: DropdownSearch<String>.multiSelection(
         key: _multiKey,

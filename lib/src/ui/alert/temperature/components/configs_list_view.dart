@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../utils/styles.dart';
 import '../logic/config_temp_ble_model.dart';
 import 'package:provider/provider.dart';
 
@@ -54,7 +55,7 @@ class _BuildCard extends StatelessWidget {
         context.read<TemperatureBleProvider>();
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(AppConsts.mainradius),
         color: Colors.white,
         boxShadow: [
           BoxShadow(

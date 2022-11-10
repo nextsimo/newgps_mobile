@@ -36,7 +36,7 @@ class _PasswordInputState extends State<PasswordInput> {
         fillColor: Colors.grey[300],
         hintText: widget.hint,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(AppConsts.mainradius),
           borderSide: BorderSide.none,
         ),
         prefixIconConstraints: const BoxConstraints(),
@@ -54,7 +54,7 @@ class _PasswordInputState extends State<PasswordInput> {
           height: 50,
           decoration: BoxDecoration(
             color: AppConsts.mainColor,
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(AppConsts.mainradius),
           ),
           child: Center(
             child: Icon(widget.icon, color: Colors.white),

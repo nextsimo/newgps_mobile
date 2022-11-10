@@ -47,13 +47,13 @@ class _AutoSearchWithAllWidgetState extends State<AutoSearchWithAllWidget> {
 
     Size size = MediaQuery.of(context).size;
     Orientation orientation = MediaQuery.of(context).orientation;
-    bool _isPortrait = orientation == Orientation.portrait;
+    bool isPortrait = orientation == Orientation.portrait;
     return SafeArea(
       bottom: false,
       right: false,
       top: false,
       child: Container(
-        width: _isPortrait
+        width: isPortrait
             ? (widget.width ?? (size.width * .595))
             : size.width * 0.35,
         margin: const EdgeInsets.all(AppConsts.outsidePadding),
@@ -246,7 +246,7 @@ class OptionViewBuilderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     double bottom = MediaQuery.of(context).viewInsets.bottom;
     Size size = MediaQuery.of(context).size;
-    bool _isPortrait =
+    bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
     return Material(
       color: Colors.transparent,
@@ -262,7 +262,7 @@ class OptionViewBuilderWidget extends StatelessWidget {
             alignment: Alignment.topLeft,
             child: Container(
               margin: EdgeInsets.only(right: width != null ? 9 : 20),
-              width: _isPortrait
+              width: isPortrait
                   ? (width ?? (size.width * .595))
                   : size.width * 0.35,
               decoration: BoxDecoration(
@@ -274,7 +274,7 @@ class OptionViewBuilderWidget extends StatelessWidget {
                 color: Colors.transparent,
                 child: Container(
                   constraints: BoxConstraints(
-                    maxHeight: _isPortrait
+                    maxHeight: isPortrait
                         ? (size.height * 0.44)
                         : (bottom == 0.0 ? size.height * 0.5 : bottom * 0.37),
                   ),
@@ -357,7 +357,7 @@ class _BuildStatuWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(AppConsts.mainradius),
         color: Color.fromRGBO(device.colorR, device.colorG, device.colorB, 1),
       ),
       child: Text(

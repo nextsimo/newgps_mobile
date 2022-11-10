@@ -41,7 +41,7 @@ class _AddDriverForm extends StatelessWidget {
           duration: const Duration(milliseconds: 230),
           margin: const EdgeInsets.symmetric(horizontal: 16),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10), color: Colors.grey),
+              borderRadius: BorderRadius.circular(AppConsts.mainradius), color: Colors.grey),
           curve: Curves.ease,
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 10),

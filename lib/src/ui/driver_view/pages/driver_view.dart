@@ -37,7 +37,7 @@ class _BuildMyDrivers extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 16),
         padding: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(AppConsts.mainradius),
           color: Colors.white,
           boxShadow: [
             BoxShadow(
@@ -91,7 +91,7 @@ class _BuildMyDriversList extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 10),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(AppConsts.mainradius),
             border: Border.all(
               color: AppConsts.mainColor,
               width: 1.5,
@@ -103,7 +103,7 @@ class _BuildMyDriversList extends StatelessWidget {
                 width: 50.w,
                 height: 50.w,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(AppConsts.mainradius),
                     color: Colors.blue),
                 child: const Center(
                   child: Icon(
@@ -143,7 +143,7 @@ class _BuildMyDriversList extends StatelessWidget {
                   width: 50.w,
                   height: 50.w,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(AppConsts.mainradius),
                     color: Colors.white,
                   ),
                   child: const Center(
@@ -221,7 +221,7 @@ class _BuildDriverCard extends StatelessWidget {
     return Container(
       height: 100,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(AppConsts.mainradius),
         color: Colors.white,
         boxShadow: const [
           BoxShadow(

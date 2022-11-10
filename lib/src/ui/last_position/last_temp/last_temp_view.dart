@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../utils/styles.dart';
 import 'last_temp_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +26,7 @@ class LastTempView extends StatelessWidget {
                 return Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(AppConsts.mainradius),
                     color: Colors.white,
                   ),
                   child: Material(

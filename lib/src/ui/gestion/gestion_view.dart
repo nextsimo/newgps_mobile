@@ -86,7 +86,7 @@ class _BuildGestionCard extends StatelessWidget {
             color: isSelected
                 ? AppConsts.mainColor.withOpacity(0.15)
                 : Colors.white,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(AppConsts.mainradius),
             border: Border.all(color: AppConsts.mainColor, width: 1.8),
             boxShadow: isSelected
                 ? []

@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import '../../../models/account.dart';
 import '../../../services/newgps_service.dart';
-import '../../../utils/functions.dart';
-import '../../last_position/last_position_provider.dart';
+import '../../../utils/styles.dart';
 import 'save_account_provider.dart';
 import '../login_provider.dart';
 import 'package:provider/provider.dart';
@@ -48,6 +47,8 @@ class _BuildLoginAsWidgetState extends State<_BuildLoginAsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final SavedAcountProvider provider =
+        Provider.of<SavedAcountProvider>(context, listen: false);
     final LoginProvider loginProvider =
         Provider.of<LoginProvider>(context, listen: false);
     bool isAdmin = (widget.savedAccount.underUser == null ||
@@ -61,17 +62,16 @@ class _BuildLoginAsWidgetState extends State<_BuildLoginAsWidget> {
                 isAdmin ? Colors.blueAccent : Colors.blueGrey),
             shape: MaterialStateProperty.all<OutlinedBorder>(
                 RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)))),
+                    borderRadius: BorderRadius.circular(AppConsts.mainradius)))),
         onPressed: () async {
           setState(() => loading = true);
           try {
             // log('Bearer ${savedAccount.key}');
 
-             Account? account;
+            Account? account;
             bool res = widget.savedAccount.underUser != null &&
                 widget.savedAccount.underUser?.isNotEmpty == true;
             if (res) {
-                  
               account = await api.underAccountLogin(
                 accountId: widget.savedAccount.user ?? "",
                 password:
@@ -185,7 +185,10 @@ class _BuildLoginAsWidgetState extends State<_BuildLoginAsWidget> {
             IconButton(
               iconSize: 16,
               icon: const Icon(Icons.close),
-              onPressed: () {},
+              onPressed: () => provider.deleteAcount(
+                  (widget.savedAccount.underUser?.isNotEmpty == true
+                      ? "${widget.savedAccount.underUser}"
+                      : "${widget.savedAccount.user}")),
             ),
           ],
         ),

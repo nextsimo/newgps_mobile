@@ -4,7 +4,6 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/account.dart';
 import '../services/newgps_service.dart';
@@ -84,7 +83,5 @@ class Utils {
   // defini the initial route
   static String initialRoute = '/login';
   Future<void> defineInitialRoute() async {
-    final shared = await SharedPreferences.getInstance();
-    final accounts = shared.getStringList('accounts') ?? const [];
   }
 }

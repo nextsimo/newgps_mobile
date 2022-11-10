@@ -48,7 +48,7 @@ class _ClassicViewMapState extends State<ClassicViewMap>
                 decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(color: AppConsts.mainColor, width: 2.0),
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(AppConsts.mainradius),
                 ),
                 child: const Icon(
                   Icons.arrow_back_ios_new,

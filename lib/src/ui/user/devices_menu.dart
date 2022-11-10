@@ -3,6 +3,8 @@ import '../../models/device.dart';
 import '../../services/device_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../utils/styles.dart';
+
 class MenuDevices extends StatelessWidget {
   const MenuDevices({Key? key}) : super(key: key);
 
@@ -18,7 +20,7 @@ class MenuDevices extends StatelessWidget {
       height: 250,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(AppConsts.mainradius),
       ),
       child: ListView.separated(
         itemBuilder: (_, int index) {

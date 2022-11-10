@@ -12,6 +12,7 @@ class CustomOutlinedButton extends StatefulWidget {
       : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _CustomOutlinedButtonState createState() => _CustomOutlinedButtonState();
 }
 
@@ -24,6 +25,12 @@ class _CustomOutlinedButtonState extends State<CustomOutlinedButton> {
       width: widget.width,
       height: 48,
       child: OutlinedButton(
+        style: ButtonStyle(
+          padding: MaterialStateProperty.all(EdgeInsets.zero),
+          shape: MaterialStateProperty.all<OutlinedBorder>(
+              RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(AppConsts.mainradius))),
+        ),
         onPressed: () async {
           try {
             setState(() => _loding = true);

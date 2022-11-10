@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/device.dart';
+import '../utils/styles.dart';
 
 class StatusWidget extends StatelessWidget {
   const StatusWidget({
@@ -17,7 +18,7 @@ class StatusWidget extends StatelessWidget {
       padding: EdgeInsets.symmetric(
           vertical: orientation == Orientation.portrait ? 8 : 3),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(AppConsts.mainradius),
         color: Color.fromRGBO(device!.colorR, device!.colorG, device!.colorB, 1),
       ),
       child: Center(

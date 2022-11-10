@@ -15,7 +15,7 @@ class ConnectedDeviceButton extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(color: AppConsts.mainColor, width: 1.4),
-        borderRadius: BorderRadius.circular(3),
+        borderRadius: BorderRadius.circular(AppConsts.mainradius),
       ),
       child: Row(
         children:  [

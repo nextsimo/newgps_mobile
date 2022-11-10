@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:newgps/src/ui/login/login_provider.dart';
 import 'package:newgps/src/ui/splash/splash_view.dart';
 import 'src/services/device_provider.dart';
 import 'src/services/newgps_service.dart';
@@ -32,6 +33,7 @@ class NewGpsApp extends StatelessWidget {
             create: (_) => SavedAcountProvider()),
         ChangeNotifierProvider<ConnectedDeviceProvider>(
             create: (_) => ConnectedDeviceProvider()),
+        ChangeNotifierProvider<LoginProvider>(create: (_) => LoginProvider()),
       ],
       child: ScreenUtilInit(
           designSize: const Size(360, 690),
@@ -64,8 +66,10 @@ class NewGpsApp extends StatelessWidget {
                 primaryColor: AppConsts.mainColor,
                 elevatedButtonTheme: ElevatedButtonThemeData(
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateColor.resolveWith(
-                          (states) => AppConsts.mainColor)),
+                    backgroundColor: MaterialStateColor.resolveWith(
+                      (states) => AppConsts.mainColor,
+                    ),
+                  ),
                 ),
               ),
             );

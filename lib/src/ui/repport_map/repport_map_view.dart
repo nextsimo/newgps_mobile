@@ -42,13 +42,13 @@ class RepportMapView extends StatelessWidget {
                     height: 600,
                     margin: const EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(AppConsts.mainradius),
                       color: Colors.white,
                     ),
                     child: Stack(
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(AppConsts.mainradius),
                           child: GoogleMap(
                             mapType: mapType,
                             initialCameraPosition: CameraPosition(
@@ -72,7 +72,7 @@ class RepportMapView extends StatelessWidget {
                                   padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
+                                    borderRadius: BorderRadius.circular(AppConsts.mainradius),
                                     border: Border.all(
                                       color: AppConsts.mainColor,
                                       width: AppConsts.borderWidth,
@@ -123,7 +123,7 @@ class RepportMapView extends StatelessWidget {
                                       width: AppConsts.borderWidth,
                                     ),
                                     color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
+                                    borderRadius: BorderRadius.circular(AppConsts.mainradius),
                                     boxShadow: [
                                       BoxShadow(
                                         color: Colors.black.withOpacity(0.1),
@@ -146,7 +146,7 @@ class RepportMapView extends StatelessWidget {
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                 color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(AppConsts.mainradius),
                                 border: Border.all(
                                   color: AppConsts.mainColor,
                                   width: AppConsts.borderWidth,

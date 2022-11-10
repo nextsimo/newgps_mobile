@@ -248,7 +248,7 @@ class _BuildStatuWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(AppConsts.mainradius),
         color: Color.fromRGBO(device.colorR, device.colorG, device.colorB, 1),
       ),
       child: Text(

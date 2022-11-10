@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../utils/styles.dart';
 import 'time_input.dart';
 import '../historic_provider.dart';
 import '../../../widgets/buttons/main_button.dart';
@@ -16,7 +17,7 @@ class TimeRangeWigdet extends StatelessWidget {
       width: 310,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(13),
+        borderRadius: BorderRadius.circular(AppConsts.mainradius),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,

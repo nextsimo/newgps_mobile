@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:newgps/src/models/device.dart';
 import 'package:provider/provider.dart';
 
+import '../../../utils/styles.dart';
 import 'classic_device_temp.dart';
 
 class ClassicDeviceTemp extends StatelessWidget {
@@ -59,7 +60,7 @@ class _BuildStreamerWigdet extends StatelessWidget {
               color: _buildStatutColor(tempertaure ?? 0),
               width: 1.8,
             ),
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(AppConsts.mainradius),
           ),
           child: Row(
             children: [

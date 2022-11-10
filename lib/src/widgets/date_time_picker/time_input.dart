@@ -21,7 +21,7 @@ class TimeInput extends StatelessWidget {
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(AppConsts.mainradius),
             border: Border.all(color: AppConsts.mainColor, width: 1.6)),
         child: Row(
           children: [

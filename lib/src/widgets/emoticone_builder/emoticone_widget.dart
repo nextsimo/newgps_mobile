@@ -32,7 +32,7 @@ class EmoticonWidget extends StatelessWidget {
                     width: 180,
                     height: 27,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
+                        borderRadius: BorderRadius.circular(AppConsts.mainradius),
                         color: Colors.white,
                         border: Border.all(color: AppConsts.mainColor)),
                     child: Row(

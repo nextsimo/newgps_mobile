@@ -46,7 +46,7 @@ class MainInput extends StatelessWidget {
           hintText: hint,
           labelText: labelText,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(AppConsts.mainradius),
             borderSide: BorderSide.none,
           ),
           prefixIconConstraints: const BoxConstraints(
@@ -59,7 +59,7 @@ class MainInput extends StatelessWidget {
                   height: 50,
                   decoration: BoxDecoration(
                     color: AppConsts.mainColor,
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(AppConsts.mainradius),
                   ),
                   child: Center(
                     child: Icon(

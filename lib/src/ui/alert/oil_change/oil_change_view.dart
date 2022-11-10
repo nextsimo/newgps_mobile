@@ -160,7 +160,7 @@ class _BuildDeviceSettingLandscape extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       margin: const EdgeInsets.all(6.0),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(AppConsts.mainradius),
           border: Border.all(
             color: AppConsts.mainColor,
           )),
@@ -226,7 +226,7 @@ class _BuildDeviceSettingPortrait extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       margin: const EdgeInsets.all(6.0),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(AppConsts.mainradius),
           border: Border.all(
             color: AppConsts.mainColor,
           )),

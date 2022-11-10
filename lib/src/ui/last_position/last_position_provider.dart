@@ -147,15 +147,6 @@ class LastPositionProvider with ChangeNotifier {
     _zoomToPoints(List<LatLng>.from(
         markersProvider.devices.map((e) => LatLng(e.latitude, e.longitude))));
     return;
-    mapController!.animateCamera(
-      CameraUpdate.newCameraPosition(
-        const CameraPosition(
-          bearing: 0,
-          target: LatLng(33.589886, -7.603869),
-          zoom: 6.5,
-        ),
-      ),
-    );
   }
 
   void notifyTheMap() {

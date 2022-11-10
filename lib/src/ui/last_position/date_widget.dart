@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../utils/functions.dart';
+import '../../utils/styles.dart';
 import 'last_position_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +19,7 @@ class DateWidget extends StatelessWidget {
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               color: Colors.black,
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(AppConsts.mainradius),
             ),
             child: Text(
               formatDeviceDate(provider.lastDateFetchDevices),

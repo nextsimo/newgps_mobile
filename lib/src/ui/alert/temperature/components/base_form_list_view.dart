@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../utils/styles.dart';
 import 'config_form_view.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +20,7 @@ class BaseFormListView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
           
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(AppConsts.mainradius),
           border: Border.all(
             color: Colors.black,
             width: 1,

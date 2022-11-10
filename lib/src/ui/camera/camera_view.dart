@@ -92,7 +92,7 @@ class _BuildCameraCard extends StatelessWidget {
     return Container(
       height: height,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(AppConsts.mainradius),
         border: Border.all(color: AppConsts.mainColor, width: 2.2),
         image: const DecorationImage(
           fit: BoxFit.cover,

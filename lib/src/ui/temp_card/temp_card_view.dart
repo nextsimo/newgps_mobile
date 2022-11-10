@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:newgps/src/models/device.dart';
 import 'package:newgps/src/ui/navigation/top_app_bar.dart';
-import 'package:newgps/src/utils/styles.dart';
 import 'package:provider/provider.dart';
 
+import '../../utils/styles.dart';
 import 'temp_device_temp/temp_device.dart';
 import 'temp_card_provider.dart';
 import 'temp_graphic/download_today_repport.dart';
@@ -122,7 +122,7 @@ class _BuildDeviceCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       margin: const EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(AppConsts.mainradius),
         boxShadow: boxShadow,
         color: Colors.white,
       ),
@@ -170,7 +170,7 @@ class _BuildState extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(AppConsts.mainradius),
             color: _buildStatutColor(device.statut),
           ),
           child: Text(

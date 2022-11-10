@@ -5,6 +5,8 @@ import 'package:newgps/src/models/device.dart';
 import 'package:newgps/src/utils/functions.dart';
 import 'package:signal_strength_indicator/signal_strength_indicator.dart';
 
+import '../utils/styles.dart';
+
 class ClassicInfoWindows extends StatelessWidget {
   final Device device;
   const ClassicInfoWindows({Key? key, required this.device}) : super(key: key);
@@ -13,7 +15,7 @@ class ClassicInfoWindows extends StatelessWidget {
   Widget build(BuildContext context) {
     var boxDecoration = BoxDecoration(
       color: Colors.white,
-      borderRadius: BorderRadius.circular(5),
+      borderRadius: BorderRadius.circular(AppConsts.mainradius),
       boxShadow: const [
         BoxShadow(
           color: Colors.black26,

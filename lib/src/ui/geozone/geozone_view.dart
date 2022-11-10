@@ -162,7 +162,7 @@ class GeozoneCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(4.0),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(AppConsts.mainradius),
           border: Border.all(width: 1.5, color: AppConsts.mainColor),
           image: DecorationImage(
             image: NetworkImage(geozone.mapImage),
@@ -176,7 +176,7 @@ class GeozoneCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(7),
+                borderRadius: BorderRadius.circular(AppConsts.mainradius),
                 color: Colors.black.withOpacity(0.4),
               ),
               child: Text(

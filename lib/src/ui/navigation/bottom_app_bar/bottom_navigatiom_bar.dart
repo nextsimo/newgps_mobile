@@ -126,7 +126,7 @@ class _BuildTabBarItem extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(AppConsts.mainradius),
         color: isSelected
             ? AppConsts.mainColor.withOpacity(0.2)
             : Colors.transparent,

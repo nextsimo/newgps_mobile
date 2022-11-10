@@ -15,7 +15,7 @@ class GroupedButton extends StatelessWidget {
         Provider.of<LastPositionProvider>(context, listen: false);
     DeviceProvider deviceProvider =
         Provider.of<DeviceProvider>(context, listen: false);
-    bool _isPortrait =
+    bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
     bool fetchGroupes = context.select<LastPositionProvider, bool>(
         (p) => p.markersProvider.fetchGroupesDevices);
@@ -37,7 +37,7 @@ class GroupedButton extends StatelessWidget {
         builder: (_, provider, __) {
           return MainButton(
             borderColor: AppConsts.mainColor,
-            height: _isPortrait ? 30 : 25,
+            height: isPortrait ? 30 : 25,
             width: 112,
             textColor: provider.markersProvider.showCluster
                 ? AppConsts.mainColor
@@ -58,7 +58,7 @@ class GroupedButton extends StatelessWidget {
         builder: (_, bool clicked, __) {
           return MainButton(
             borderColor: AppConsts.mainColor,
-            height: _isPortrait ? 30 : 25,
+            height: isPortrait ? 30 : 25,
             width: 112,
             textColor: clicked ? AppConsts.mainColor : Colors.white,
             backgroundColor: clicked ? Colors.white : AppConsts.mainColor,

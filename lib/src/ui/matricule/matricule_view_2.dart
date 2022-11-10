@@ -50,7 +50,7 @@ class MatriculeDataView extends StatelessWidget {
         Provider.of<MatriculeProvider>(context);
     List<MatriculeModel> matricules = matriculeProvider.matricules;
     MediaQueryData mediaQuery = MediaQuery.of(context);
-    bool _isPortrait = mediaQuery.orientation == Orientation.portrait;
+    bool isPortrait = mediaQuery.orientation == Orientation.portrait;
     return ChangeNotifierProvider<MatriculeProvider>(
         create: (_) => MatriculeProvider(),
         builder: (context, snapshot) {
@@ -74,14 +74,14 @@ class MatriculeDataView extends StatelessWidget {
                               _BuildHead(
                                   mediaQuery: mediaQuery,
                                   matriculeProvider: matriculeProvider,
-                                  isPortrait: _isPortrait),
+                                  isPortrait: isPortrait),
                               Expanded(
                                 child: SingleChildScrollView(
                                   controller:
                                       matriculeProvider.scrollController,
                                   padding: const EdgeInsets.only(bottom: 120),
                                   child: Container(
-                                    width: _isPortrait
+                                    width: isPortrait
                                         ? mediaQuery.size.height
                                         : mediaQuery.size.width * 0.94,
                                     padding: const EdgeInsets.symmetric(

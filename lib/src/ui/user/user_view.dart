@@ -143,17 +143,15 @@ class _BuildHeader extends StatelessWidget {
 
 class _BuildTextCell extends StatelessWidget {
   final String content;
-  final Color color;
-  final int flex;
 
   const _BuildTextCell(this.content,
-      {Key? key, this.color = Colors.black, this.flex = 1})
+      {Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: flex,
+      flex: 1,
       child: Center(
         child: Text(
           content,

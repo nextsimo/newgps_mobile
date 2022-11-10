@@ -4,7 +4,6 @@ import 'package:newgps/src/services/newgps_service.dart';
 import '../../utils/styles.dart';
 import 'main_button.dart';
 
-import 'audio_widget.dart';
 
 class LogoutButton extends StatelessWidget {
   const LogoutButton({Key? key}) : super(key: key);

@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import '../../models/account.dart';
 import '../../services/newgps_service.dart';
-import '../connected_device/connected_device_provider.dart';
-import '../../utils/functions.dart';
-import '../last_position/last_position_provider.dart';
 import 'login_as/save_account_provider.dart';
 import 'package:provider/provider.dart';
 

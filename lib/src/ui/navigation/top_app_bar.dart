@@ -118,7 +118,7 @@ class _BuildAccountName extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border.all(color: AppConsts.mainColor, width: 1.4),
-                borderRadius: BorderRadius.circular(3),
+                borderRadius: BorderRadius.circular(AppConsts.mainradius),
               ),
               child: Text(
                 name.toUpperCase(),
@@ -154,43 +154,7 @@ class _BuildCallWidget extends StatelessWidget {
           height: Platform.isIOS ? 35 : 26,
           icon: Icons.call,
           onPressed: () {
-            showDialog(
-              context: context,
-              builder: (_) {
-                return Dialog(
-                  child: Container(
-                    color: Colors.white,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const SizedBox(height: 12),
-                        MainButton(
-                          width: 260,
-                          onPressed: () => call('0662782694'),
-                          icon: Icons.phone_forwarded_rounded,
-                          label: '0662782694',
-                        ),
-                        const SizedBox(height: 12),
-                        MainButton(
-                          width: 260,
-                          onPressed: () => call('0522304810'),
-                          icon: Icons.phone_forwarded_rounded,
-                          label: '0522304810',
-                        ),
-                        const SizedBox(height: 12),
-                        MainButton(
-                          width: 260,
-                          onPressed: () => call('0661599392'),
-                          icon: Icons.phone_forwarded_rounded,
-                          label: '0661599392',
-                        ),
-                        const SizedBox(height: 12),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            );
+            showCallService(context);
           },
           label: 'Service aprés ventes',
         ),
@@ -217,43 +181,7 @@ class _BuildCall extends StatelessWidget {
             height: 30,
             icon: Icons.call,
             onPressed: () {
-              showDialog(
-                context: context,
-                builder: (_) {
-                  return Dialog(
-                    child: Container(
-                      color: Colors.white,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const SizedBox(height: 12),
-                          MainButton(
-                            width: 260,
-                            onPressed: () {},
-                            icon: Icons.phone_forwarded_rounded,
-                            label: '0662782694',
-                          ),
-                          const SizedBox(height: 12),
-                          MainButton(
-                            width: 260,
-                            onPressed: () {},
-                            icon: Icons.phone_forwarded_rounded,
-                            label: '‎0522304810',
-                          ),
-                          const SizedBox(height: 12),
-                          MainButton(
-                            width: 260,
-                            onPressed: () {},
-                            icon: Icons.phone_forwarded_rounded,
-                            label: '0661599392',
-                          ),
-                          const SizedBox(height: 12),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              );
+              showCallService(context);
             },
             label: 'Service aprés ventes',
           ),

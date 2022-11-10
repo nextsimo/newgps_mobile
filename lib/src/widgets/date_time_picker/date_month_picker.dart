@@ -30,6 +30,14 @@ class DateMonthPicker extends StatelessWidget {
         width: 140,
         height: 24,
         padding: const EdgeInsets.symmetric(horizontal: 5),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(AppConsts.mainradius),
+          border: Border.all(
+            color: AppConsts.mainColor,
+            width: 1.3,
+          ),
+        ),
         child: Center(
           child: Text(
             '${provider.selectedDateMonth.month}/${provider.selectedDateMonth.year}',
@@ -37,14 +45,6 @@ class DateMonthPicker extends StatelessWidget {
               fontSize: 10,
               fontWeight: FontWeight.w600,
             ),
-          ),
-        ),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(5),
-          border: Border.all(
-            color: AppConsts.mainColor,
-            width: 1.3,
           ),
         ),
       ),

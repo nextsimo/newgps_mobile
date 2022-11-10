@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newgps/src/utils/styles.dart';
 import 'package:provider/provider.dart';
 
 import '../../widgets/inputs/main_input.dart';
@@ -15,6 +16,9 @@ class SousUserCheck extends StatelessWidget {
     return Column(
       children: [
         CheckboxListTile(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppConsts.mainradius),
+          ),
           title: const Text('Sous utilisateur'),
           value: val,
           onChanged: provider.setUnderCompte,

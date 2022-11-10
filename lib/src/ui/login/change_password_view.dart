@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../utils/device_size.dart';
 import '../../utils/functions.dart';
 import '../../utils/styles.dart';
@@ -16,7 +17,6 @@ class ChangePasswordView extends StatelessWidget {
   Widget build(BuildContext context) {
     LoginProvider model = Provider.of<LoginProvider>(context, listen: false);
     return Container(
-      width: DeviceSize.width * 0.3,
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: Colors.white,

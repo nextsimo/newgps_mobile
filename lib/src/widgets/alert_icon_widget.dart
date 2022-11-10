@@ -19,7 +19,7 @@ class AlertTabBarItem extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(AppConsts.mainradius),
             color: isSelected
                 ? AppConsts.mainColor.withOpacity(0.2)
                 : Colors.transparent,

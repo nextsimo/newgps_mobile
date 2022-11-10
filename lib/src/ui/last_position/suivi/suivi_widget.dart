@@ -52,7 +52,7 @@ class _SuiviWidgetLandscape extends StatelessWidget {
                   (states) => isEmpty ? AppConsts.blue : Colors.white),
               shape: MaterialStateProperty.all<OutlinedBorder>(
                   RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20))),
+                      borderRadius: BorderRadius.circular(AppConsts.mainradius))),
             ),
             onPressed: () {
             if (deviceProvider.selectedDevice != null && isEmpty) {
@@ -122,7 +122,7 @@ class _SuiviWidgetPortrait extends StatelessWidget {
                 (states) => isEmpty ? AppConsts.blue : Colors.white),
             shape: MaterialStateProperty.all<OutlinedBorder>(
                 RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20))),
+                    borderRadius: BorderRadius.circular(AppConsts.mainradius))),
           ),
           onPressed: () {
             if (deviceProvider.selectedDevice != null && isEmpty) {

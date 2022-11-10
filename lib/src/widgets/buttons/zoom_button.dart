@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../../utils/styles.dart';
+
 class MapZoomWidget extends StatelessWidget {
   final GoogleMapController controller;
 
@@ -20,7 +22,7 @@ class MapZoomWidget extends StatelessWidget {
           height: 85,
           margin: const EdgeInsets.only(top: 6),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(AppConsts.mainradius),
             color: Colors.grey[50],
             border: Border.all(
               width: 1.0,
@@ -65,7 +67,7 @@ class MapZoomWidget extends StatelessWidget {
       height: 85,
       margin: const EdgeInsets.only(top: 3.5),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(AppConsts.mainradius),
           color: Colors.grey[50],
           border: Border.all(
             width: 1.2,

@@ -66,7 +66,7 @@ class DateMapPicker2 extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 5),
         decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(AppConsts.mainradius),
             border: Border.all(
               color: AppConsts.mainColor,
               width: 1.3,

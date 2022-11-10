@@ -52,7 +52,7 @@ class _LastPositionViewState extends State<LastPositionView>
     final DeviceProvider deviceProvider =
         Provider.of<DeviceProvider>(context, listen: false);
 
-    bool _isPortrait =
+    bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
 
     //lastPositionProvider.fetchInitDevice(context, init: true);
@@ -98,7 +98,7 @@ class _LastPositionViewState extends State<LastPositionView>
           ),
           Positioned(
             top: 45,
-            right: _isPortrait ? AppConsts.outsidePadding : 11.5,
+            right: isPortrait ? AppConsts.outsidePadding : 11.5,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -108,7 +108,7 @@ class _LastPositionViewState extends State<LastPositionView>
                   builder: (_, bool clicked, __) {
                     return MainButton(
                       borderColor: AppConsts.mainColor,
-                      height: _isPortrait ? 30 : 25,
+                      height: isPortrait ? 30 : 25,
                       width: 112,
                       textColor: clicked ? AppConsts.mainColor : Colors.white,
                       backgroundColor:
@@ -126,7 +126,7 @@ class _LastPositionViewState extends State<LastPositionView>
                   builder: (_, bool clicked, __) {
                     return MainButton(
                       borderColor: AppConsts.mainColor,
-                      height: _isPortrait ? 30 : 25,
+                      height: isPortrait ? 30 : 25,
                       width: 112,
                       textColor: clicked ? AppConsts.mainColor : Colors.white,
                       backgroundColor:

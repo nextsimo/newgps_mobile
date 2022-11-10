@@ -162,8 +162,8 @@ class _ShowListDroisState extends State<_ShowListDrois> {
           Droit userDrois = widget.userDroits.droits.elementAt(index);
           return CheckedDroits(
             color: userDrois.index == 10 ? Colors.red : null,
-            onTapRead: (int _index) {
-              if (_index == 10) {
+            onTapRead: (int index) {
+              if (index == 10) {
                 widget.userDroits.droits.first.read =
                     !widget.userDroits.droits.first.read;
                 for (var d in widget.userDroits.droits) {
@@ -193,8 +193,8 @@ class _ShowListDroisState extends State<_ShowListDrois> {
             element: str,
             userDroits: widget.userDroits,
             droit: userDrois,
-            onTapWrite: (int _index) {
-              if (_index == 10) {
+            onTapWrite: (int index) {
+              if (index == 10) {
                 widget.userDroits.droits.first.write =
                     !widget.userDroits.droits.first.write;
                 for (var d in widget.userDroits.droits) {

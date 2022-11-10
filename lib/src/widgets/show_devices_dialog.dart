@@ -32,7 +32,7 @@ class ShowDeviceDialogWidget extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(color: AppConsts.mainColor),
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(AppConsts.mainradius),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

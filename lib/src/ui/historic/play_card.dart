@@ -14,18 +14,24 @@ class PlayCard extends StatelessWidget {
   Widget build(BuildContext context) {
     HistoricProvider provider = Provider.of<HistoricProvider>(context);
     Device? device = provider.selectedPlayData;
-    bool _isPortrait =
+    bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
     DeviceProvider deviceProvider =
         Provider.of<DeviceProvider>(context, listen: false);
     if (device == null) return const SizedBox();
     return Align(
-      alignment:_isPortrait ? Alignment.bottomCenter :  Alignment.bottomLeft,
+      alignment:isPortrait ? Alignment.bottomCenter :  Alignment.bottomLeft,
       child: SafeArea(
         child: Container(
           width: 340,
           margin: const EdgeInsets.all(AppConsts.outsidePadding),
           padding: const EdgeInsets.all(AppConsts.outsidePadding),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(
+                width: 1.8,
+                color: AppConsts.mainColor,
+              )),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,12 +90,6 @@ class PlayCard extends StatelessWidget {
               ),
             ],
           ),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(
-                width: 1.8,
-                color: AppConsts.mainColor,
-              )),
         ),
       ),
     );

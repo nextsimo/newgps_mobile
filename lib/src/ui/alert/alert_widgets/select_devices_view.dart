@@ -42,7 +42,7 @@ class SelectDeviceUi extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(horizontal: 5),
                   decoration: BoxDecoration(
                       border: Border.all(color: AppConsts.mainColor),
-                      borderRadius: BorderRadius.circular(6)),
+                      borderRadius: BorderRadius.circular(AppConsts.mainradius)),
                   child: Column(
                     children: [
                       // ignore: prefer_const_constructors

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
+import 'package:newgps/src/utils/styles.dart';
 import '../../../models/notif_hsitoric_model.dart';
 import '../../../utils/functions.dart';
 import 'notif_historic_provider.dart';
@@ -141,7 +142,7 @@ class GroupSeparatorBuilderWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
           constraints: const BoxConstraints(maxWidth: 100),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(AppConsts.mainradius),
               color: Colors.white,
               boxShadow: const [
                 BoxShadow(
@@ -372,7 +373,7 @@ class _HistoricCard extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.orange,
                 border: Border.all(color: Colors.orange),
-                borderRadius: BorderRadius.circular(5),
+                borderRadius: BorderRadius.circular(AppConsts.mainradius),
               ),
               child: Stack(
                 alignment: Alignment.center,

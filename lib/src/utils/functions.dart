@@ -6,6 +6,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:intl/intl.dart';
+import 'package:newgps/src/utils/styles.dart';
 import 'device_size.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -27,12 +28,56 @@ const String hoodLocalDataKey = 'hood';
 const String oilChangelocalDataKey = 'oil_change';
 const String towingLocalDataKey = 'towing';
 
-
-
+// show call service
+void showCallService(BuildContext context) {
+  showDialog(
+    
+    context: context,
+    builder: (_) {
+      return Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppConsts.mainradius),
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(AppConsts.mainradius),
+            color: Colors.white,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 12),
+              MainButton(
+                width: 260,
+                onPressed: () => call('0662782694'),
+                icon: Icons.phone_forwarded_rounded,
+                label: '0662782694',
+              ),
+              const SizedBox(height: 12),
+              MainButton(
+                width: 260,
+                onPressed: () => call('0522304810'),
+                icon: Icons.phone_forwarded_rounded,
+                label: '0522304810',
+              ),
+              const SizedBox(height: 12),
+              MainButton(
+                width: 260,
+                onPressed: () => call('0661599392'),
+                icon: Icons.phone_forwarded_rounded,
+                label: '0661599392',
+              ),
+              const SizedBox(height: 12),
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
 
 // function to show delete dialog global and send function to delete item
-void showDeleteDialog(String title, String message,
-    Function deleteFunction) {
+void showDeleteDialog(String title, String message, Function deleteFunction) {
   showDialog(
       context: DeviceSize.c,
       builder: (ctx) => AlertDialog(
@@ -103,7 +148,8 @@ void showCallConducteurDialog(BuildContext context, Device? device) {
       });
 }
 
-String formatSimpleDate(DateTime dateTime, [bool time = false, String separator = '/']) {
+String formatSimpleDate(DateTime dateTime,
+    [bool time = false, String separator = '/']) {
   late DateFormat validFormatter;
   if (time) {
     validFormatter = DateFormat('dd/MM/yyyy HH:mm');
@@ -157,8 +203,8 @@ class FormValidatorService {
   }
 
   static isUrl(String url) {
-    bool _validURL = url.split('.').length == 2 || url.split('.').length == 3;
-    if (!_validURL) return "Entrez une URL valide";
+    bool validURL = url.split('.').length == 2 || url.split('.').length == 3;
+    if (!validURL) return "Entrez une URL valide";
     return null;
   }
 

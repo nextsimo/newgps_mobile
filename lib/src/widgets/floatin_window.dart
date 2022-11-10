@@ -26,6 +26,7 @@ class FloatingGroupWindowInfo extends StatefulWidget {
       : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _FloatingGroupWindowInfoState createState() =>
       _FloatingGroupWindowInfoState();
 }
@@ -110,9 +111,9 @@ class _FloatingGroupInfoWindowInfoPortrait extends StatelessWidget {
                                       color: AppConsts.blue,
                                       fontWeight: FontWeight.bold)),
                             const SizedBox(width: 10),
-                             IconChangeView(
+                            IconChangeView(
                               selectedDevice: device,
-                             ),
+                            ),
                           ],
                         ),
                         const SizedBox(height: 20),

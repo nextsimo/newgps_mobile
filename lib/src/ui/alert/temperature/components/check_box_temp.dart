@@ -56,7 +56,7 @@ class _MyCheckBox extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             // add raedius to the container
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(AppConsts.mainradius),
             color: Colors.white,
             border: Border.all(
               color: selected ? AppConsts.mainColor : Colors.grey,

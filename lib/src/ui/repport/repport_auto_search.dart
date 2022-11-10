@@ -164,7 +164,7 @@ class OptionViewBuilderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    bool _isPortrait =
+    bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
     double bottom = MediaQuery.of(context).viewInsets.bottom;
     return GestureDetector(
@@ -179,7 +179,7 @@ class OptionViewBuilderWidget extends StatelessWidget {
           child: Container(
             width: 180,
             constraints: BoxConstraints(
-              maxHeight: _isPortrait
+              maxHeight: isPortrait
                   ? (size.height * 0.44)
                   : (bottom == 0.0 ? size.height * 0.5 : bottom * 0.34),
             ),

@@ -47,7 +47,7 @@ class LastTempIcon extends StatelessWidget {
                 padding: const EdgeInsets.all(1),
                 margin: const EdgeInsets.all(1),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(AppConsts.mainradius),
                   color: AppConsts.blue,
                 ),
                 child: Center(

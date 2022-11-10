@@ -53,7 +53,7 @@ class SpeedAlertView extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(AppConsts.mainradius),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),

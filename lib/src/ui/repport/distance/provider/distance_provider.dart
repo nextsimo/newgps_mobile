@@ -154,7 +154,7 @@ class DistanceRepportProvider with ChangeNotifier {
         i.isBefore(provider.dateTo);
         i = i.add(const Duration(days: 1))) {
       Account? account = shared.getAccount();
-      debugPrint("------> " + i.toString());
+      debugPrint("------> $i");
       String res = await api.post(
         url: '/repport/distance/device',
         body: {

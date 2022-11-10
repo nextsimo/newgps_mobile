@@ -26,7 +26,7 @@ class MyMainButton extends StatelessWidget {
           width: width,
           height: 43,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(100),
+            borderRadius: BorderRadius.circular(AppConsts.mainradius),
             border: Border.all(color: borderColor, width: 1.3),
             color: backgroundColor,
           ),

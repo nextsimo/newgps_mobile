@@ -37,7 +37,7 @@ class InfoModel {
         stopedTime: json["stoped_time"],
         carbConsomation: json["carb_consomation"].toDouble(),
         drivingTime: json["driving_time"],
-        lastUpdate: DateTime.fromMillisecondsSinceEpoch(json["date"] * 1000),
+        lastUpdate: DateTime.fromMillisecondsSinceEpoch(json["date"] == null ? DateTime.now().millisecondsSinceEpoch : json["date"] * 1000),
       );
 
   Map<String, dynamic> toJson() => {

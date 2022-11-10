@@ -8,7 +8,6 @@ import '../../../utils/functions.dart';
 import '../../../utils/locator.dart';
 import '../../../utils/styles.dart';
 import 'resume_repport_provider.dart';
-import '../../../widgets/buttons/main_button.dart';
 import 'package:provider/provider.dart';
 import '../clickable_text_cell.dart';
 import '../custom_devider.dart';

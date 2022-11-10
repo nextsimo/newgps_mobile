@@ -132,7 +132,7 @@ class _BuildDeviceCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         margin: const EdgeInsets.symmetric(horizontal: 15),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(AppConsts.mainradius),
           boxShadow: boxShadow,
           color: Colors.white,
         ),
@@ -202,7 +202,7 @@ class _BuildDeviceCard extends StatelessWidget {
                       height: 22,
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(AppConsts.mainradius),
                         color: AppConsts.mainColor.withOpacity(0.1),
                       ),
                       child: Center(
@@ -260,7 +260,7 @@ class _BuildState extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(AppConsts.mainradius),
             color: _buildStatutColor(device.statut),
           ),
           child: Text(

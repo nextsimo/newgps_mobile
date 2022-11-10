@@ -10,11 +10,8 @@ import '../../models/account.dart';
 import '../../models/device.dart';
 import '../../models/historic_model.dart';
 import '../../models/info_model.dart';
-import '../../models/user_droits.dart';
 import '../../services/newgps_service.dart';
 import '../../widgets/custom_info_windows.dart';
-import '../login/login_as/save_account_provider.dart';
-import 'package:provider/provider.dart';
 
 import 'date_map_picker/time_range_widget.dart';
 
@@ -39,7 +36,6 @@ class HistoricProvider with ChangeNotifier {
   bool _loading = false;
 
   bool get loading => _loading;
-  late Droit _droit;
 
   set loading(bool loading) {
     _loading = loading;
@@ -265,9 +261,6 @@ class HistoricProvider with ChangeNotifier {
   }
 
   void init(BuildContext context) {
-    SavedAcountProvider pro =
-        Provider.of<SavedAcountProvider>(context, listen: false);
-    _droit = pro.userDroits.droits[2];
     fetchHistorics(context, 1, true);
   }
 

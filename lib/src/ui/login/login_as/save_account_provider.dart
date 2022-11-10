@@ -11,7 +11,6 @@ import '../../../services/newgps_service.dart';
 
 import '../../../utils/functions.dart';
 import '../../alert/alert_navigation.dart';
-import '../../camera/camera_view.dart';
 import '../../geozone/geozone_view.dart';
 import '../../gestion/gestion_view.dart';
 import '../../historic/historic_view.dart';
@@ -121,9 +120,9 @@ class SavedAcountProvider with ChangeNotifier {
       return _accountWidget;
     }
 
-    List<Widget> _userPages = [];
+    List<Widget> userPages = [];
 
-    _userPages = [
+    userPages = [
       if (userDroits.droits[1].read) const LastPositionView(),
       if (userDroits.droits[2].read) const HistoricView(),
       if (userDroits.droits[3].read) const RepportView(),
@@ -135,8 +134,8 @@ class SavedAcountProvider with ChangeNotifier {
       if (userDroits.droits[10].read) const DriverView(),
     ];
 
-    if (_userPages.isEmpty) return [const UserEmptyPage()];
-    return _userPages;
+    if (userPages.isEmpty) return [const UserEmptyPage()];
+    return userPages;
   }
 
   Future<void> fetchUserDroits() async {
@@ -233,7 +232,7 @@ class SavedAcountProvider with ChangeNotifier {
   Future<SavedAccount?> getAccount(String? accontID) async {
     List<String> strings = await shared.getAcountsList(acountsKey);
     if (strings.isNotEmpty) {
-      List<SavedAccount> _acconts =
+      List<SavedAccount> acconts =
           savedAcounts = List<SavedAccount>.from(strings
               .map<SavedAccount>(
                 (e) => SavedAccount(
@@ -243,7 +242,7 @@ class SavedAcountProvider with ChangeNotifier {
                 ),
               )
               .toList());
-      return _acconts.firstWhere((ac) => ac.user == accontID);
+      return acconts.firstWhere((ac) => ac.user == accontID);
     }
     return null;
   }

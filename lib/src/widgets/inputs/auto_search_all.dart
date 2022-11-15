@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../models/device.dart';
 import '../../services/newgps_service.dart';
 import '../../utils/styles.dart';
@@ -208,7 +209,7 @@ class OptionViewBuilderWidget extends StatelessWidget {
       },
       child: Container(
         height: orientation == Orientation.portrait ? 35 : 30,
-        padding: const EdgeInsets.only(left: 6),
+        padding: const  EdgeInsets.only(left: 6),
         decoration: const BoxDecoration(
           border: Border(
             bottom: BorderSide(
@@ -281,7 +282,6 @@ class OptionViewBuilderWidget extends StatelessWidget {
                   child: ListView(
                     physics: const ClampingScrollPhysics(),
                     shrinkWrap: true,
-                    padding: EdgeInsets.zero,
                     children: devices.map<Widget>((device) {
                       return OptionItem(
                         onSelectDevice2: onSelectDevice2,

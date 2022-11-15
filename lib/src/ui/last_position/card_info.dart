@@ -77,7 +77,7 @@ class _InfoCardPortrait extends StatelessWidget {
       padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(AppConsts.mainradius),
+        borderRadius: BorderRadius.circular(AppConsts.miniradius),
         border: Border.all(color: AppConsts.mainColor, width: 1.6),
       ),
       child: Row(
@@ -178,7 +178,7 @@ class _InfoCardLandscape extends StatelessWidget {
       padding: const EdgeInsets.all(2),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(AppConsts.mainradius),
+        borderRadius: BorderRadius.circular(AppConsts.miniradius),
         border: Border.all(color: AppConsts.mainColor, width: 1.6),
       ),
       child: Row(

@@ -17,7 +17,7 @@ class _AutoSearchTypeState extends State<AutoSearchType> {
   @override
   Widget build(BuildContext context) {
     var outlineInputBorder = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(AppConsts.mainradius),
+      borderRadius: BorderRadius.circular(AppConsts.miniradius),
       borderSide: const BorderSide(
         color: AppConsts.mainColor,
         width: AppConsts.borderWidth,
@@ -152,7 +152,7 @@ class OptionViewBuilderWidget extends StatelessWidget {
                 color: Colors.white,
                 border: Border.all(
                     color: AppConsts.mainColor, width: AppConsts.borderWidth),
-                borderRadius: BorderRadius.circular(AppConsts.mainradius)),
+                borderRadius: BorderRadius.circular(AppConsts.miniradius)),
             child: ListView(
                 shrinkWrap: true,
                 padding: EdgeInsets.zero,
@@ -202,7 +202,7 @@ class OptionItem extends StatelessWidget {
         }
       },
       child: Container(
-        color: Colors.white,
+        color: Colors.transparent,
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 6),
         child: Text(
           repportTypeModel.title,

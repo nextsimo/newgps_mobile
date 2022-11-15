@@ -34,6 +34,11 @@ class CustomAppBar extends PreferredSize {
         alignment: Alignment.center,
         children: [
           AppBar(
+            shape:  RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(AppConsts.mainradius),
+              ),
+            ),
             centerTitle: true,
             actions: actions,
             backgroundColor: Colors.white,

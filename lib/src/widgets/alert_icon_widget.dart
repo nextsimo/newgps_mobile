@@ -19,11 +19,20 @@ class AlertTabBarItem extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(AppConsts.mainradius),
-            color: isSelected
-                ? AppConsts.mainColor.withOpacity(0.2)
-                : Colors.transparent,
-            border: Border.all(color: AppConsts.mainColor, width: 2.0),
+            borderRadius: BorderRadius.circular(AppConsts.miniradius),
+            color: Colors.white,
+            border: Border.all(
+                color: isSelected ? AppConsts.mainColor : Colors.transparent,
+                width: 2.0),
+            boxShadow: [
+              if (!isSelected)
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 1,
+                  blurRadius: 1,
+                  offset: const Offset(0, 1), // changes position of shadow
+                ),
+            ],
           ),
           child: Tab(
             height: 70,

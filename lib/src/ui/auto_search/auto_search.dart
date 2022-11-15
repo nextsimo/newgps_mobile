@@ -52,7 +52,7 @@ class _AutoSearchDeviceState extends State<AutoSearchDevice> {
                 'Chargement des véhicules..') {
               deviceProvider.autoSearchController.text =
                   deviceProvider.devices.first.description;
-                  historicProvider.fetchHistorics(context);
+              historicProvider.fetchHistorics(context);
             }
             return fieldViewBuilderWidget(deviceProvider, outlineInputBorder,
                 _focusNode, onFieldSubmitted, historicProvider);
@@ -125,13 +125,13 @@ class OptionViewBuilderWidget extends StatelessWidget {
   const OptionViewBuilderWidget({
     Key? key,
     required this.onSelectDevice,
-    required this.focusNode,required this.devices,
+    required this.focusNode,
+    required this.devices,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    DeviceProvider deviceProvider =
-        Provider.of<DeviceProvider>(context);
+    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
     Size size = MediaQuery.of(context).size;
     bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
@@ -168,7 +168,7 @@ class OptionViewBuilderWidget extends StatelessWidget {
                 child: ListView(
                     physics: const ClampingScrollPhysics(),
                     shrinkWrap: true,
-                    padding: EdgeInsets.zero,
+                    padding: const EdgeInsets.only(bottom: 10),
                     children: devices.map<Widget>((device) {
                       return OptionItem(
                         focusNode: focusNode,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'last_temp/last_temp_icon.dart';
 import 'package:provider/provider.dart';
@@ -58,6 +59,7 @@ class _LastPositionViewState extends State<LastPositionView>
     //lastPositionProvider.fetchInitDevice(context, init: true);
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      extendBodyBehindAppBar: true,
       appBar: CustomAppBar(
         onTap: lastPositionProvider.handleSelectDevice,
         actions: [
@@ -80,7 +82,7 @@ class _LastPositionViewState extends State<LastPositionView>
           const DateWidget(),
           Positioned(
             left: 5,
-            top: 40,
+            top: 110.h,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,11 +99,13 @@ class _LastPositionViewState extends State<LastPositionView>
             ),
           ),
           Positioned(
-            top: 45,
+            top: 76.h,
             right: isPortrait ? AppConsts.outsidePadding : 11.5,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                const LogoutButton(),
+                 SizedBox(height: 5.h),
                 const GroupedButton(),
                 const SizedBox(height: 5),
                 Selector<LastPositionProvider, bool>(

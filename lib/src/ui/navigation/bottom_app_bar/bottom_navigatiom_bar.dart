@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:newgps/src/ui/last_position/last_position_provider.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +29,7 @@ class _CustomBottomNavigatioBarState extends State<CustomBottomNavigatioBar> {
     BottomAppBarItem(icon: 'matricule', label: 'Matricule', index: 6),
     BottomAppBarItem(icon: 'temp', label: 'Température', index: 7),
     BottomAppBarItem(icon: 'driver', label: 'Conduite', index: 9),
-    BottomAppBarItem(icon: 'classic', label: 'Classic', index: 10),
+    BottomAppBarItem(icon: 'cam', label: 'Caméra', index: 10),
   ];
 
   int _selectedIndex = 0;
@@ -66,16 +67,25 @@ class _CustomBottomNavigatioBarState extends State<CustomBottomNavigatioBar> {
       Size size = MediaQuery.of(context).size;
       final lastPositionProvider = context.read<LastPositionProvider>();
       return Container(
-        color: Colors.white,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius:
+              BorderRadius.vertical(top: Radius.circular(AppConsts.mainradius)),
+        ),
         child: SafeArea(
           left: false,
           right: false,
           child: Container(
             width: size.width,
-            color: Colors.white,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(AppConsts.mainradius),
+              ),
+            ),
             child: GridView(
               shrinkWrap: true,
-              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+              padding:  EdgeInsets.fromLTRB(10, 10.h, 10, 5),
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: isPortrait ? 5 : 10,
@@ -126,11 +136,20 @@ class _BuildTabBarItem extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(AppConsts.mainradius),
-        color: isSelected
-            ? AppConsts.mainColor.withOpacity(0.2)
-            : Colors.transparent,
-        border: Border.all(color: AppConsts.mainColor, width: 2.0),
+        borderRadius: BorderRadius.circular(AppConsts.miniradius),
+        color: Colors.white,
+        border: Border.all(
+            color: isSelected ? AppConsts.mainColor : Colors.transparent,
+            width: 2.0),
+        boxShadow: [
+          if (!isSelected)
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 1,
+              blurRadius: 1,
+              offset: const Offset(0, 1), // changes position of shadow
+            ),
+        ],
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

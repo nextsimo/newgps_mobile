@@ -97,8 +97,8 @@ class BuildTextField extends StatelessWidget {
 
     Orientation orientation = MediaQuery.of(context).orientation;
 
-
-  debugPrint('---------->   ------->${lastPositionProvider.autoSearchController.text}');
+    debugPrint(
+        '---------->   ------->${lastPositionProvider.autoSearchController.text}');
     if (devices.isEmpty) {
       lastPositionProvider.autoSearchController.text =
           'Chargement des véhicules..';
@@ -239,7 +239,9 @@ class OptionViewBuilderWidget extends StatelessWidget {
                 child: ListView(
                   physics: const ClampingScrollPhysics(),
                   shrinkWrap: true,
-                  padding: EdgeInsets.zero,
+                  padding: const EdgeInsets.only(
+                    bottom: 10,
+                  ),
                   children: devices.map<Widget>((device) {
                     return OptionItem(
                       focusNode: focusNode,

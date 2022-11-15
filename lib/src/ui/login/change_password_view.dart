@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../utils/device_size.dart';
 import '../../utils/functions.dart';
 import '../../utils/styles.dart';
 import 'login_provider.dart';

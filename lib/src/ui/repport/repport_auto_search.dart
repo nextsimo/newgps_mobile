@@ -17,7 +17,7 @@ class _AutoSearchFieldState extends State<AutoSearchField> {
   @override
   Widget build(BuildContext context) {
     var outlineInputBorder = OutlineInputBorder(
-        borderRadius: BorderRadius.circular(AppConsts.mainradius),
+        borderRadius: BorderRadius.circular(AppConsts.miniradius),
         borderSide: const BorderSide(
             color: AppConsts.mainColor, width: AppConsts.borderWidth));
     final RepportProvider repportProvider =
@@ -26,12 +26,12 @@ class _AutoSearchFieldState extends State<AutoSearchField> {
     return GestureDetector(
       onTap: () => repportProvider.handleSelectDevice(),
       child: Container(
-        color: Colors.transparent,
         alignment: Alignment.topLeft,
+
         child: SizedBox(
           width: 180,
           child: Autocomplete<Device>(
-            initialValue: const TextEditingValue(text: 'Toutes les vehicules'),
+            initialValue: const TextEditingValue(text: 'Tous les vehicules'),
             fieldViewBuilder: (BuildContext context, TextEditingController _,
                 FocusNode focusNode, Function onFieldSubmitted) {
               repportProvider.autoSearchTextController = _;
@@ -174,6 +174,9 @@ class OptionViewBuilderWidget extends StatelessWidget {
       },
       child: Material(
         color: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppConsts.miniradius),
+        ),
         child: Align(
           alignment: Alignment.topLeft,
           child: Container(
@@ -185,13 +188,16 @@ class OptionViewBuilderWidget extends StatelessWidget {
             ),
             margin: const EdgeInsets.only(top: 8),
             decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(
-                    color: AppConsts.mainColor, width: AppConsts.borderWidth),
-                borderRadius: BorderRadius.circular(AppConsts.mainradius)),
+              color: Colors.white,
+              border: Border.all(
+                  color: AppConsts.mainColor, width: AppConsts.borderWidth),
+              borderRadius: BorderRadius.circular(
+                AppConsts.miniradius,
+              ),
+            ),
             child: ListView(
                 shrinkWrap: true,
-                padding: EdgeInsets.zero,
+                padding: const EdgeInsets.only(bottom: 10),
                 children: devices.map<Widget>((device) {
                   return OptionItem(
                     focusNode: focusNode,
@@ -284,7 +290,7 @@ class OptionItem extends StatelessWidget {
         focusNode.unfocus();
       },
       child: Container(
-        color: Colors.white,
+        color: Colors.transparent,
         padding: const EdgeInsets.all(10),
         child: Text(
           device.description,

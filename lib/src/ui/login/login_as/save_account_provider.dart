@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:newgps/src/ui/camera/camera_view.dart';
 import 'package:newgps/src/ui/classic/classic_view.dart';
 import '../../../models/account.dart';
 import '../../../models/user_droits.dart';
@@ -111,7 +112,7 @@ class SavedAcountProvider with ChangeNotifier {
     const TempCardView(),
     const GestionView(),
     const DriverView(),
-    const ClassicView(),
+    const CameraView(),
   ];
 
   List<Widget> buildPages() {

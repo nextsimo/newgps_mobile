@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -55,7 +57,8 @@ class _LastPositionViewState extends State<LastPositionView>
 
     bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
-
+    // get top padding
+    double topPadding = MediaQuery.of(context).padding.top;
     //lastPositionProvider.fetchInitDevice(context, init: true);
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -75,14 +78,10 @@ class _LastPositionViewState extends State<LastPositionView>
         children: [
           const LastpositionMap(),
           const CardInfoView(),
-          const Padding(
-            padding: EdgeInsets.only(top: 2.5),
-            child: LogoutButton(),
-          ),
           const DateWidget(),
           Positioned(
             left: 5,
-            top: 110.h,
+            top: 103.r.h,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,13 +98,13 @@ class _LastPositionViewState extends State<LastPositionView>
             ),
           ),
           Positioned(
-            top: 76.h,
+            top: 74.r.h,
             right: isPortrait ? AppConsts.outsidePadding : 11.5,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 const LogoutButton(),
-                 SizedBox(height: 5.h),
+                SizedBox(height: 5.h),
                 const GroupedButton(),
                 const SizedBox(height: 5),
                 Selector<LastPositionProvider, bool>(
@@ -148,7 +147,10 @@ class _LastPositionViewState extends State<LastPositionView>
               ],
             ),
           ),
-          const AutoSearchDeviceWithAll(),
+          Positioned(
+            top: 72.r.h,
+            child: const AutoSearchDeviceWithAll(),
+          ),
         ],
       ),
     );

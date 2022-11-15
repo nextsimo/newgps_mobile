@@ -30,51 +30,49 @@ class _AutoSearchDeviceWithAllState extends State<AutoSearchDeviceWithAll> {
     Size size = MediaQuery.of(context).size;
     Orientation orientation = MediaQuery.of(context).orientation;
     bool isPortrait = orientation == Orientation.portrait;
-    return SafeArea(
-      child: Container(
-        width: isPortrait ? size.width * .595 : size.width * 0.35,
-        margin: const EdgeInsets.all(AppConsts.outsidePadding),
-        child: Autocomplete<Device>(
-          fieldViewBuilder: (BuildContext context, TextEditingController _,
-              FocusNode focusNode, Function onFieldSubmitted) {
-            if (_init) {
-              lastPositionProvider.autoSearchController = _;
-              _focusNode = focusNode;
-              lastPositionProvider.handleSelectDevice(notify: false);
-              _init = false;
-            } else {
-              lastPositionProvider.autoSearchController = _;
-              _focusNode = focusNode;
-            }
+    return Container(
+      width: isPortrait ? size.width * .595 : size.width * 0.35,
+      margin: const EdgeInsets.all(AppConsts.outsidePadding),
+      child: Autocomplete<Device>(
+        fieldViewBuilder: (BuildContext context, TextEditingController _,
+            FocusNode focusNode, Function onFieldSubmitted) {
+          if (_init) {
+            lastPositionProvider.autoSearchController = _;
+            _focusNode = focusNode;
+            lastPositionProvider.handleSelectDevice(notify: false);
+            _init = false;
+          } else {
+            lastPositionProvider.autoSearchController = _;
+            _focusNode = focusNode;
+          }
 
-            return BuildTextField(
-              focusNode: _focusNode,
-              lastPositionProvider: lastPositionProvider,
-              outlineInputBorder: outlineInputBorder,
-            );
-          },
-          displayStringForOption: (d) => d.description,
-          optionsBuilder: (TextEditingValue textEditingValue) {
-            if (textEditingValue.text.isEmpty) {
-              return lastPositionProvider.devices;
-            }
-            return lastPositionProvider.devices.where(
-              (device) {
-                return device.description
-                    .toLowerCase()
-                    .contains(textEditingValue.text.toLowerCase());
-              },
-            );
-          },
-          optionsViewBuilder: (BuildContext context,
-              void Function(Device device) deviceFunc, devices) {
-            return OptionViewBuilderWidget(
-              focusNode: _focusNode,
-              onSelectDevice: deviceFunc,
-              devices: devices.toList(),
-            );
-          },
-        ),
+          return BuildTextField(
+            focusNode: _focusNode,
+            lastPositionProvider: lastPositionProvider,
+            outlineInputBorder: outlineInputBorder,
+          );
+        },
+        displayStringForOption: (d) => d.description,
+        optionsBuilder: (TextEditingValue textEditingValue) {
+          if (textEditingValue.text.isEmpty) {
+            return lastPositionProvider.devices;
+          }
+          return lastPositionProvider.devices.where(
+            (device) {
+              return device.description
+                  .toLowerCase()
+                  .contains(textEditingValue.text.toLowerCase());
+            },
+          );
+        },
+        optionsViewBuilder: (BuildContext context,
+            void Function(Device device) deviceFunc, devices) {
+          return OptionViewBuilderWidget(
+            focusNode: _focusNode,
+            onSelectDevice: deviceFunc,
+            devices: devices.toList(),
+          );
+        },
       ),
     );
   }

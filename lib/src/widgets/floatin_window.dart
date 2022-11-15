@@ -84,8 +84,8 @@ class _FloatingGroupInfoWindowInfoPortrait extends StatelessWidget {
             child: Stack(
               children: [
                 Positioned(
-                  top: 0,
-                  right: 0,
+                  top: 40,
+                  right: 4,
                   child: IconButton(
                       padding: EdgeInsets.zero,
                       icon: const Icon(Icons.close),
@@ -384,7 +384,7 @@ class _FloatingGroupInfoWindowInfoLandscape extends StatelessWidget {
               child: Stack(
                 children: [
                   Positioned(
-                      top: 0,
+                      top: 10,
                       right: 0,
                       child: IconButton(
                           padding: const EdgeInsets.all(5),

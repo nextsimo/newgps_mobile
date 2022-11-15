@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:newgps/src/ui/last_position/last_position_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../services/newgps_service.dart';
-import '../../../utils/functions.dart';
 import '../../../utils/styles.dart';
 import '../../../widgets/alert_icon_widget.dart';
 
@@ -101,7 +100,7 @@ class _CustomBottomNavigatioBarState extends State<CustomBottomNavigatioBar> {
                       lastPositionProvider.handleZoomCamera();
                     }
                     widget.pageController.jumpToPage(item.index);
-                    await playAudio(_items.elementAt(item.index).label);
+                    //await playAudio(_items.elementAt(item.index).label);
                     navigationViewProvider.currentRoute =
                         _items.elementAt(item.index).label;
                   },

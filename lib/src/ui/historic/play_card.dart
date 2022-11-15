@@ -27,6 +27,7 @@ class PlayCard extends StatelessWidget {
           margin: const EdgeInsets.all(AppConsts.outsidePadding),
           padding: const EdgeInsets.all(AppConsts.outsidePadding),
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(AppConsts.mainradius),
               color: Colors.white,
               border: Border.all(
                 width: 1.8,

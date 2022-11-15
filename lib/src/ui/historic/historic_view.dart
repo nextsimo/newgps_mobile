@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:provider/provider.dart';
@@ -32,6 +33,7 @@ class HistoricView extends StatelessWidget {
     provider.initTimeRange();
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      extendBodyBehindAppBar: true,
       appBar: CustomAppBar(
         onTap: deviceProvider.handleSelectDevice,
         actions: [
@@ -81,7 +83,9 @@ class HistoricView extends StatelessWidget {
                 if (!isPlayed) return const SizedBox();
                 return const PlayCard();
               }),
-          Selector<HistoricProvider, bool>(
+          Positioned(
+            top: 72.r.h,
+            child: Selector<HistoricProvider, bool>(
               selector: (_, p) => p.historicIsPlayed,
               builder: (_, bool isPlayed, ___) {
                 if (isPlayed) return const SizedBox();
@@ -89,17 +93,20 @@ class HistoricView extends StatelessWidget {
                   onSelectDeviceFromOtherView: (Device device) async =>
                       provider.fetchHistorics(context, 1, true),
                 );
-              }),
-          const Padding(
-            padding: EdgeInsets.only(top: 4),
-            child: LogoutButton(),
+              },
+            ),
+          ),
+          Positioned(
+            top: 75.r.h,
+            right: 0,
+            child: const LogoutButton(),
           ),
           Builder(builder: (context) {
             bool isPortrait =
                 MediaQuery.of(context).orientation == Orientation.portrait;
             return Positioned(
               right: isPortrait ? AppConsts.outsidePadding : 11,
-              top: 41,
+              top: 105.r.h,
               child: AppelCondicteurButton(
                 device: deviceProvider.selectedDevice,
                 callNewData: () async {
@@ -114,7 +121,7 @@ class HistoricView extends StatelessWidget {
                 if (isPlayed) return const SizedBox();
                 return Positioned(
                   left: 4,
-                  top: 39,
+                  top: 103.r.h,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -129,20 +136,13 @@ class HistoricView extends StatelessWidget {
                                 ? size.width * .6
                                 : size.width * 0.35);
                       }),
-/*                       Selector<HistoricProvider, GoogleMapController?>(
-                        builder: (_, c, __) {
-                          if (c == null) return const SizedBox();
-                          return MapZoomWidget(controller: c);
-                        },
-                        selector: (_, p) => p.mapController,
-                      ), */
                     ],
                   ),
                 );
               }),
           Positioned(
             left: 4,
-            top: 75,
+            top: 130.r.h,
             child: Selector<HistoricProvider, GoogleMapController?>(
               builder: (_, c, __) {
                 if (c == null) return const SizedBox();

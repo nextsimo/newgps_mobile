@@ -54,6 +54,7 @@ class _HistoricMapViewState extends State<HistoricMapView>
               myLocationEnabled: true,
               myLocationButtonEnabled: false,
               markers: provider.getMarker(),
+              circles: provider.circles,
               mapType: deviceProvider.mapType,
               onCameraMove: provider.onCameraMove,
               onTap: provider.onTapMap,

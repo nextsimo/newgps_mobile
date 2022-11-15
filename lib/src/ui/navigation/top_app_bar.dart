@@ -34,6 +34,7 @@ class CustomAppBar extends PreferredSize {
         alignment: Alignment.center,
         children: [
           AppBar(
+            toolbarHeight: 60,
             shape:  RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(
                 bottom: Radius.circular(AppConsts.mainradius),

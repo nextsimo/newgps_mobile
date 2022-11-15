@@ -30,54 +30,52 @@ class _AutoSearchDeviceState extends State<AutoSearchDevice> {
     Size size = MediaQuery.of(context).size;
     bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
-    return SafeArea(
-      child: Container(
-        width: isPortrait ? size.width * .6 : size.width * 0.35,
-        margin: const EdgeInsets.all(AppConsts.outsidePadding),
-        child: Autocomplete<Device>(
-          fieldViewBuilder: (BuildContext context, TextEditingController _,
-              FocusNode focusNode, Function onFieldSubmitted) {
-            if (_init) {
-              deviceProvider.autoSearchController = _;
-              deviceProvider.handleSelectDevice();
-              _focusNode = focusNode;
-              _init = false;
-            } else {
-              deviceProvider.autoSearchController = _;
-            }
-            if (deviceProvider.devices.isEmpty) {
-              deviceProvider.autoSearchController.text =
-                  'Chargement des véhicules..';
-            } else if (deviceProvider.autoSearchController.text ==
-                'Chargement des véhicules..') {
-              deviceProvider.autoSearchController.text =
-                  deviceProvider.devices.first.description;
-              historicProvider.fetchHistorics(context);
-            }
-            return fieldViewBuilderWidget(deviceProvider, outlineInputBorder,
-                _focusNode, onFieldSubmitted, historicProvider);
-          },
-          displayStringForOption: (d) => d.description,
-          optionsBuilder: (TextEditingValue textEditingValue) {
-            if (textEditingValue.text.isEmpty) return deviceProvider.devices;
-            return deviceProvider.devices.where(
-              (device) {
-                return device.description
-                    .toLowerCase()
-                    .contains(textEditingValue.text.toLowerCase());
-              },
-            );
-          },
-          onSelected: widget.onSelectDeviceFromOtherView,
-          optionsViewBuilder: (BuildContext context,
-              void Function(Device device) deviceFunc, devices) {
-            return OptionViewBuilderWidget(
-              focusNode: _focusNode,
-              onSelectDevice: deviceFunc,
-              devices: devices.toList(),
-            );
-          },
-        ),
+    return Container(
+      width: isPortrait ? size.width * .6 : size.width * 0.35,
+      margin: const EdgeInsets.all(AppConsts.outsidePadding),
+      child: Autocomplete<Device>(
+        fieldViewBuilder: (BuildContext context, TextEditingController _,
+            FocusNode focusNode, Function onFieldSubmitted) {
+          if (_init) {
+            deviceProvider.autoSearchController = _;
+            deviceProvider.handleSelectDevice();
+            _focusNode = focusNode;
+            _init = false;
+          } else {
+            deviceProvider.autoSearchController = _;
+          }
+          if (deviceProvider.devices.isEmpty) {
+            deviceProvider.autoSearchController.text =
+                'Chargement des véhicules..';
+          } else if (deviceProvider.autoSearchController.text ==
+              'Chargement des véhicules..') {
+            deviceProvider.autoSearchController.text =
+                deviceProvider.devices.first.description;
+            historicProvider.fetchHistorics(context);
+          }
+          return fieldViewBuilderWidget(deviceProvider, outlineInputBorder,
+              _focusNode, onFieldSubmitted, historicProvider);
+        },
+        displayStringForOption: (d) => d.description,
+        optionsBuilder: (TextEditingValue textEditingValue) {
+          if (textEditingValue.text.isEmpty) return deviceProvider.devices;
+          return deviceProvider.devices.where(
+            (device) {
+              return device.description
+                  .toLowerCase()
+                  .contains(textEditingValue.text.toLowerCase());
+            },
+          );
+        },
+        onSelected: widget.onSelectDeviceFromOtherView,
+        optionsViewBuilder: (BuildContext context,
+            void Function(Device device) deviceFunc, devices) {
+          return OptionViewBuilderWidget(
+            focusNode: _focusNode,
+            onSelectDevice: deviceFunc,
+            devices: devices.toList(),
+          );
+        },
       ),
     );
   }

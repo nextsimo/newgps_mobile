@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../models/device.dart';
 import '../../services/newgps_service.dart';
 import '../../utils/styles.dart';

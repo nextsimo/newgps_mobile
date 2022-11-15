@@ -11,8 +11,10 @@ import '../../models/device.dart';
 import '../../models/historic_model.dart';
 import '../../models/info_model.dart';
 import '../../services/newgps_service.dart';
+import '../../utils/device_size.dart';
 import '../../widgets/custom_info_windows.dart';
 
+import '../../widgets/floatin_window.dart';
 import 'date_map_picker/time_range_widget.dart';
 
 class HistoricProvider with ChangeNotifier {
@@ -389,18 +391,48 @@ class HistoricProvider with ChangeNotifier {
         northeast: LatLng(x1!, y1!), southwest: LatLng(x0!, y0!));
   }
 
+  Set<Circle> circles = {};
+
   // set start and end markers
   Future<void> _setStartEndMarkers() async {
     if (markers.length > 1) {
-      final endBitmapDescriptor = await BitmapDescriptor.fromAssetImage(
-          const ImageConfiguration(), 'assets/markers/end.png');
+      circles.add(
+        Circle(
+          circleId: const CircleId('Fin'),
+          center: LatLng(
+            markers.last.position.latitude,
+            markers.last.position.longitude,
+          ),
+          radius: 20,
+          fillColor: const Color.fromARGB(66, 244, 67, 54),
+          strokeColor: Colors.red,
+          strokeWidth: 2,
+        ),
+      );
       markers.add(
         Marker(
-          markerId: const MarkerId('end'),
-          position: markers.last.position,
-          icon: endBitmapDescriptor,
-          zIndex: -1,
-        ),
+            markerId: const MarkerId('Fin'),
+            anchor: const Offset(-0.8, -0.8),
+            position: LatLng(
+              markers.last.position.latitude,
+              markers.last.position.longitude,
+            ),
+            icon:
+                BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+            zIndex: 2,
+            infoWindow: const InfoWindow(title: 'Fin'),
+            onTap: () {
+              // zoom to point
+              mapController!.animateCamera(
+                CameraUpdate.newLatLngZoom(
+                  LatLng(
+                    markers.last.position.latitude,
+                    markers.last.position.longitude,
+                  ),
+                  18,
+                ),
+              );
+            }),
       );
     }
   }
@@ -416,6 +448,8 @@ class HistoricProvider with ChangeNotifier {
     if (init) {
       _loading = true;
       markers = {};
+      circles = {};
+
       playedMarkers = {};
       historicModel.devices?.clear();
     }
@@ -441,15 +475,34 @@ class HistoricProvider with ChangeNotifier {
       for (Device device in newHistoricModel.devices!) {
         // check if the first index
         if (historicModel.devices?.indexOf(device) == 0) {
-          final startBitmapDescriptor = await BitmapDescriptor.fromAssetImage(
-              const ImageConfiguration(), 'assets/markers/start.png');
+          circles.add(
+            Circle(
+              circleId: const CircleId('Départ'),
+              center: LatLng(device.latitude, device.longitude),
+              radius: 20,
+              fillColor: const Color.fromARGB(86, 76, 175, 79),
+              strokeColor: Colors.green,
+              strokeWidth: 2,
+            ),
+          );
           markers.add(
             Marker(
-              markerId: const MarkerId('start'),
-              position: LatLng(device.latitude, device.longitude),
-              icon: startBitmapDescriptor,
-              zIndex: -1,
-            ),
+                markerId: const MarkerId('Départ'),
+            anchor: const Offset(-0.5, -0.5),
+                position: LatLng(device.latitude, device.longitude),
+                icon: BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueGreen),
+                zIndex: 2,
+                infoWindow: const InfoWindow(title: 'Départ'),
+                onTap: () {
+                  // zoom to point
+                  mapController!.animateCamera(
+                    CameraUpdate.newLatLngZoom(
+                      LatLng(device.latitude, device.longitude),
+                      18,
+                    ),
+                  );
+                }),
           );
         }
         markers.add(getSimpleMarker(device));
@@ -496,6 +549,24 @@ class HistoricProvider with ChangeNotifier {
     fetchHistorics(context);
   }
 
+
+  Future<void> _onTapMarker(Device device) async {
+    await showModalBottomSheet(
+      isDismissible: true,
+      context: DeviceSize.c,
+      backgroundColor: Colors.transparent,
+      enableDrag: true,
+      isScrollControlled: false,
+      builder: (context) {
+        return FloatingGroupWindowInfo(
+          showCallDriver: false,
+          device: device,
+          showOnOffDevice: false,
+        );
+      },
+    );
+  }
+  
   Marker getSimpleMarker(Device device) {
     LatLng position = LatLng(device.latitude, device.longitude);
     BitmapDescriptor bitmapDescriptor;
@@ -517,10 +588,7 @@ class HistoricProvider with ChangeNotifier {
       description: deviceProvider.selectedDevice?.description ?? '',
     );
     return Marker(
-      onTap: () => customInfoWindowController.addInfoWindow!(
-        ClassicInfoWindows(device: myDevice),
-        position,
-      ),
+      onTap: () => _onTapMarker(myDevice),
       markerId: MarkerId('${device.latitude},${device.longitude}'),
       position: position,
       icon: bitmapDescriptor,

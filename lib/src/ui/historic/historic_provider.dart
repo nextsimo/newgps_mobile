@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:typed_data';
-
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -12,8 +11,6 @@ import '../../models/historic_model.dart';
 import '../../models/info_model.dart';
 import '../../services/newgps_service.dart';
 import '../../utils/device_size.dart';
-import '../../widgets/custom_info_windows.dart';
-
 import '../../widgets/floatin_window.dart';
 import 'date_map_picker/time_range_widget.dart';
 
@@ -409,31 +406,7 @@ class HistoricProvider with ChangeNotifier {
           strokeWidth: 2,
         ),
       );
-      markers.add(
-        Marker(
-            markerId: const MarkerId('Fin'),
-            anchor: const Offset(-0.8, -0.8),
-            position: LatLng(
-              markers.last.position.latitude,
-              markers.last.position.longitude,
-            ),
-            icon:
-                BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-            zIndex: 2,
-            infoWindow: const InfoWindow(title: 'Fin'),
-            onTap: () {
-              // zoom to point
-              mapController!.animateCamera(
-                CameraUpdate.newLatLngZoom(
-                  LatLng(
-                    markers.last.position.latitude,
-                    markers.last.position.longitude,
-                  ),
-                  18,
-                ),
-              );
-            }),
-      );
+
     }
   }
 
@@ -487,22 +460,22 @@ class HistoricProvider with ChangeNotifier {
           );
           markers.add(
             Marker(
-                markerId: const MarkerId('Départ'),
-            anchor: const Offset(-0.5, -0.5),
-                position: LatLng(device.latitude, device.longitude),
-                icon: BitmapDescriptor.defaultMarkerWithHue(
-                    BitmapDescriptor.hueGreen),
-                zIndex: 2,
-                infoWindow: const InfoWindow(title: 'Départ'),
-                onTap: () {
-                  // zoom to point
-                  mapController!.animateCamera(
-                    CameraUpdate.newLatLngZoom(
-                      LatLng(device.latitude, device.longitude),
-                      18,
-                    ),
-                  );
-                }),
+              markerId: const MarkerId('Départ'),
+              zIndex: 2,
+              position: LatLng(device.latitude, device.longitude),
+              icon: BitmapDescriptor.defaultMarkerWithHue(
+                  BitmapDescriptor.hueGreen),
+              infoWindow: const InfoWindow(title: 'Départ'),
+              onTap: () {
+                // zoom to point
+                mapController!.animateCamera(
+                  CameraUpdate.newLatLngZoom(
+                    LatLng(device.latitude, device.longitude),
+                    18,
+                  ),
+                );
+              },
+            ),
           );
         }
         markers.add(getSimpleMarker(device));
@@ -549,7 +522,6 @@ class HistoricProvider with ChangeNotifier {
     fetchHistorics(context);
   }
 
-
   Future<void> _onTapMarker(Device device) async {
     await showModalBottomSheet(
       isDismissible: true,
@@ -566,7 +538,7 @@ class HistoricProvider with ChangeNotifier {
       },
     );
   }
-  
+
   Marker getSimpleMarker(Device device) {
     LatLng position = LatLng(device.latitude, device.longitude);
     BitmapDescriptor bitmapDescriptor;

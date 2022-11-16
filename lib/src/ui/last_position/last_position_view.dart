@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -58,7 +56,6 @@ class _LastPositionViewState extends State<LastPositionView>
     bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
     // get top padding
-    double topPadding = MediaQuery.of(context).padding.top;
     //lastPositionProvider.fetchInitDevice(context, init: true);
     return Scaffold(
       resizeToAvoidBottomInset: false,

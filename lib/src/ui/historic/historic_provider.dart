@@ -5,6 +5,8 @@ import 'dart:typed_data';
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:newgps/src/ui/repport/trips/trips_model.dart';
+import 'package:newgps/src/utils/functions.dart';
 import '../../models/account.dart';
 import '../../models/device.dart';
 import '../../models/historic_model.dart';
@@ -27,6 +29,59 @@ class HistoricProvider with ChangeNotifier {
 
   late DateTime selectedDateFrom;
   late DateTime selectedDateTo;
+
+  Set<Marker> _parkingMarkers = {};
+
+  bool useParkingMarker = false;
+
+  void handleuseParkingMarkers(bool v) {
+    useParkingMarker = v;
+  }
+
+  List<TripsRepportModel> trips = [];
+
+  Future<void> fetchParkingMarkers() async {
+    Account? account = shared.getAccount();
+    debugPrint({
+      'account_id': account?.account.accountId,
+      'device_id': deviceProvider.selectedDevice?.deviceId,
+      'date_from': dateFrom.millisecondsSinceEpoch / 1000,
+      'date_to': dateTo.millisecondsSinceEpoch / 1000,
+      'download': false
+    }.toString());
+    String str = await api.post(
+      url: '/repport/trips/speed',
+      body: {
+        'account_id': account?.account.accountId,
+        'device_id': deviceProvider.selectedDevice?.deviceId,
+        'date_from': dateFrom.millisecondsSinceEpoch / 1000,
+        'date_to': dateTo.millisecondsSinceEpoch / 1000,
+        'download': false
+      },
+    );
+
+    if (str.isNotEmpty) {
+      trips = tripsRepportModelFromJson(str);
+    }
+  }
+
+  void setParkingMarkers() {
+    _parkingMarkers.clear();
+    for (var trip in trips) {
+      _parkingMarkers.add(
+        Marker(
+            markerId: MarkerId("${trip.latitude}${trip.longitude}"),
+            icon: BitmapDescriptor.defaultMarkerWithHue(
+                BitmapDescriptor.hueAzure),
+            position: LatLng(trip.latitude, trip.longitude),
+            infoWindow: InfoWindow(
+              snippet: "${trip.endAddress}}",
+              title: "${trip.stopedTime} à ${formatToSimpleTime(trip.endDate)}",
+            )),
+      );
+    }
+    notifyListeners();
+  }
 
   TextEditingController autoSearchController = TextEditingController();
 
@@ -56,6 +111,7 @@ class HistoricProvider with ChangeNotifier {
   }
 
   Set<Marker> getMarker() {
+    if (useParkingMarker) return _parkingMarkers;
     if (historicIsPlayed) return playedMarkers;
     return markers;
   }
@@ -406,12 +462,21 @@ class HistoricProvider with ChangeNotifier {
           strokeWidth: 2,
         ),
       );
-
     }
   }
 
   Future<void> fetchHistorics(BuildContext context,
       [int page = 1, bool init = false]) async {
+    if (useParkingMarker) {
+      loading = true;
+      _parkingMarkers.clear();
+      notifyListeners();
+      await fetchParkingMarkers();
+      loading = false;
+      setParkingMarkers();
+      return;
+    }
+
     histoLine = {};
     histoLine.clear();
     playedMarkers = {};

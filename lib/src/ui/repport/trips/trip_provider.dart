@@ -95,6 +95,13 @@ class TripsProvider with ChangeNotifier {
 
   Future<void> fetchTrips(String deviceId) async {
     Account? account = shared.getAccount();
+    debugPrint({
+      'account_id': account?.account.accountId,
+      'device_id': deviceId,
+      'date_from': repportProvider.dateFrom.millisecondsSinceEpoch / 1000,
+      'date_to': repportProvider.dateTo.millisecondsSinceEpoch / 1000,
+      'download': false
+    }.toString());
     String str = await api.post(
       url: '/repport/trips',
       body: {

@@ -249,8 +249,8 @@ class GeozoneDialogProvider with ChangeNotifier {
     _index = index;
   }
 
-  void addShape(LatLng pos, [int? index]) {
-    pos = pos;
+  void addShape(LatLng ps, [int? index]) {
+    pos = ps;
     if (_selectionType == 0) {
       _addCircle();
     } else if (_selectionType == 1) {

@@ -2,13 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:newgps/src/models/device.dart';
+import 'package:newgps/src/ui/classic/classic_more_info.dart';
 import 'package:newgps/src/ui/classic/classic_view_map.dart';
 import 'package:newgps/src/ui/navigation/top_app_bar.dart';
 import 'package:newgps/src/utils/functions.dart';
 import 'package:newgps/src/utils/styles.dart';
 import 'package:provider/provider.dart';
-
-import 'classic_device_temp/classic_device.dart';
 import 'classic_provider.dart';
 
 class ClassicView extends StatelessWidget {
@@ -127,7 +126,9 @@ class _BuildDeviceCard extends StatelessWidget {
       ),
     ];
     return GestureDetector(
-      onTap: () => provider.gotoMapView(device, providerContext),
+      onTap: (){
+        Navigator.of(context).push(MaterialPageRoute(builder: (_) => const ClassicMoreInfo()));
+      },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         margin: const EdgeInsets.symmetric(horizontal: 15),
@@ -141,7 +142,7 @@ class _BuildDeviceCard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _BuildState(device: device),
+                _BuildState(device: device, providerContext: providerContext),
                 const SizedBox(width: 15),
                 Expanded(
                   child: Column(
@@ -177,9 +178,9 @@ class _BuildDeviceCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                ClassicDeviceTemp(
+/*               ClassicDeviceTemp(
                   device: device,
-                ),
+                ), */
               ],
             ),
             const Divider(),
@@ -252,9 +253,12 @@ class _BuildDeviceCard extends StatelessWidget {
 // build statu color depend on status string
 class _BuildState extends StatelessWidget {
   final Device device;
-  const _BuildState({Key? key, required this.device}) : super(key: key);
+  final BuildContext providerContext;
+  const _BuildState({Key? key, required this.device, required this.providerContext}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+        final provider = context.read<ClassicProvider>();
+
     return Column(
       children: [
         Container(
@@ -274,9 +278,36 @@ class _BuildState extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         // build image from base64 string
-        Image.memory(
-          base64Decode(device.markerPng),
-          height: 30,
+        GestureDetector(
+          onTap: () => provider.gotoMapView(device, providerContext),
+          child: Container(
+            width: 50,
+            height: 50,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 10,
+                  ),
+                ]),
+            child: Stack(
+              children: [
+                Center(
+                  child: Image.memory(
+                    base64Decode(device.markerPng),
+                    height: 30,
+                  ),
+                ),
+                const Icon(
+                  Icons.map,
+                  color: Colors.blue,
+                  size: 20,
+                )
+              ],
+            ),
+          ),
         ),
       ],
     );

@@ -166,9 +166,9 @@ class MyCustomInfoWindows extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomInfoWindow(
       controller: controller,
-      height: 100,
-      width: 200,
-      offset: 30,
+      height: 160,
+      width: 250,
+      offset: 45,
     );
   }
 }

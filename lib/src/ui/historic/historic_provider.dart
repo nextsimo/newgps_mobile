@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:label_marker/label_marker.dart';
 import 'package:newgps/src/ui/repport/trips/trips_model.dart';
 import 'package:newgps/src/utils/functions.dart';
 import '../../models/account.dart';
@@ -30,7 +31,7 @@ class HistoricProvider with ChangeNotifier {
   late DateTime selectedDateFrom;
   late DateTime selectedDateTo;
 
-  Set<Marker> _parkingMarkers = {};
+  final Set<Marker> _parkingMarkers = {};
 
   bool useParkingMarker = false;
 
@@ -70,18 +71,64 @@ class HistoricProvider with ChangeNotifier {
     for (var trip in trips) {
       _parkingMarkers.add(
         Marker(
-            markerId: MarkerId("${trip.latitude}${trip.longitude}"),
-            icon: BitmapDescriptor.defaultMarkerWithHue(
-                BitmapDescriptor.hueAzure),
-            position: LatLng(trip.latitude, trip.longitude),
-            infoWindow: InfoWindow(
-              snippet: "${trip.endAddress}}",
-              title: "${trip.stopedTime} à ${formatToSimpleTime(trip.endDate)}",
-            )),
+          markerId: MarkerId("${trip.latitude}${trip.longitude}"),
+          icon:
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
+          position: LatLng(trip.latitude, trip.longitude),
+          onTap: () {
+            customInfoWindowController.addInfoWindow!(
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.white,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildRowInfo('Début', formatDeviceDate(trip.startDate)),
+                    const SizedBox(height: 10),
+                    _buildRowInfo('Fin', formatDeviceDate(trip.endDate)),
+                    const SizedBox(height: 10),
+                    _buildRowInfo("Durée", trip.stopedTime),
+                    const SizedBox(height: 10),
+                    _buildRowInfo("Adresse", trip.endAddress),
+                  ],
+                ),
+              ),
+              LatLng(trip.latitude, trip.longitude),
+            );
+          },
+        ),
       );
     }
     notifyListeners();
   }
+
+  Row _buildRowInfo(String label, String content) {
+    return Row(
+      children: [
+        Text(label),
+        const Text(
+          ":",
+        ),
+        Expanded(
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              content,
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // show bottom sheet
 
   TextEditingController autoSearchController = TextEditingController();
 

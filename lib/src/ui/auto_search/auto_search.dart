@@ -8,7 +8,10 @@ import 'package:provider/provider.dart';
 
 class AutoSearchDevice extends StatefulWidget {
   final Future<void> Function(Device device)? onSelectDeviceFromOtherView;
-  const AutoSearchDevice({Key? key, this.onSelectDeviceFromOtherView})
+  final bool fetchData;
+
+  const AutoSearchDevice(
+      {Key? key, this.onSelectDeviceFromOtherView, this.fetchData = true})
       : super(key: key);
   @override
   State<AutoSearchDevice> createState() => _AutoSearchDeviceState();
@@ -51,7 +54,7 @@ class _AutoSearchDeviceState extends State<AutoSearchDevice> {
               'Chargement des véhicules..') {
             deviceProvider.autoSearchController.text =
                 deviceProvider.devices.first.description;
-            historicProvider.fetchHistorics(context);
+            if (widget.fetchData) historicProvider.fetchHistorics(context);
           }
           return fieldViewBuilderWidget(deviceProvider, outlineInputBorder,
               _focusNode, onFieldSubmitted, historicProvider);

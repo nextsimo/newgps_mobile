@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:newgps/src/models/device.dart';
 import 'package:newgps/src/ui/classic/classic_more_info.dart';
@@ -117,7 +116,6 @@ class _BuildDeviceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.read<ClassicProvider>();
     const boxShadow = [
       BoxShadow(
         color: Color(0x19000000),

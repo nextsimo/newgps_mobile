@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:newgps/src/ui/historic/parking/parking_provider.dart';
-
 import 'package:provider/provider.dart';
-
 import '../../models/device.dart';
 import '../../services/device_provider.dart';
 import '../../utils/styles.dart';
@@ -22,8 +20,8 @@ import 'histroric_map_view.dart';
 import 'parking/parking_button.dart';
 import 'play_card.dart';
 
-class HistoricView extends StatelessWidget {
-  const HistoricView({Key? key}) : super(key: key);
+class HistoricViews extends StatelessWidget {
+  const HistoricViews({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -139,9 +137,13 @@ class HistoricView extends StatelessWidget {
                                       Orientation.portrait;
                               Size size = MediaQuery.of(context).size;
                               return DateHourWidget(
-                                  width: isPortrait
-                                      ? size.width * .6
-                                      : size.width * 0.35);
+                                dateTo: provider.dateTo,
+                                dateFrom: provider.dateFrom,
+                                width: isPortrait
+                                    ? size.width * .6
+                                    : size.width * 0.35,
+
+                              );
                             }),
                           ],
                         ),

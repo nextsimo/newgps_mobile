@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../ui/historic/date_map_picker/time_range_widget.dart';
 import '../utils/functions.dart';
 import '../utils/styles.dart';
 import '../ui/historic/historic_provider.dart';
@@ -6,8 +7,19 @@ import 'package:provider/provider.dart';
 
 class DateHourWidget extends StatelessWidget {
   final double width;
+  final DateTime dateFrom;
+  final DateTime dateTo;
   final void Function()? ontap;
-  const DateHourWidget({Key? key, this.width = 400.0, this.ontap})
+  final void Function(DateTime?)? onSelectDate;
+  final bool fetchData;
+  const DateHourWidget(
+      {Key? key,
+      this.width = 400.0,
+      this.ontap,
+      required this.dateFrom,
+      this.fetchData = true,
+      this.onSelectDate,
+      required this.dateTo})
       : super(key: key);
 
   @override
@@ -33,12 +45,24 @@ class DateHourWidget extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: InkWell(
-                  onTap: () {
-                    historicProvider.updateDate(context);
+                  onTap: () async {
+                    var now = DateTime.now();
+
+                    DateTime? datetime = await showDatePicker(
+                      context: context,
+                      initialDate: dateFrom,
+                      firstDate: DateTime(now.year - 30),
+                      lastDate: now,
+                    );
+                    onSelectDate?.call(datetime);
+                    if (fetchData) {
+                      // ignore: use_build_context_synchronously
+                      historicProvider.updateDate(context, datetime);
+                    }
                   },
                   child: Center(
                     child: Text(
-                      formatDeviceDate(historicProvider.dateFrom, false),
+                      formatDeviceDate(dateFrom, false),
                       style: const TextStyle(
                           fontSize: 10, fontWeight: FontWeight.w500),
                     ),
@@ -53,13 +77,27 @@ class DateHourWidget extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: InkWell(
-                  onTap: () => historicProvider.updateTimeRange(context),
+                  onTap: () {
+                    if (fetchData) {
+                      historicProvider.updateTimeRange(context);
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (_) =>  Dialog(
+                          child: TimeRangeWigdet(
+                            dateFrom: dateFrom,
+                            dateTo: dateTo,
+                          ),
+                        ),
+                      );
+                    }
+                  },
                   child: Row(
                     children: [
                       Expanded(
                         child: Center(
                           child: Text(
-                            formatToSimpleTime(historicProvider.dateFrom), 
+                            formatToSimpleTime(dateFrom),
                             style: const TextStyle(
                                 fontSize: 10, fontWeight: FontWeight.w500),
                           ),
@@ -73,7 +111,7 @@ class DateHourWidget extends StatelessWidget {
                       Expanded(
                         child: Center(
                           child: Text(
-                            formatToSimpleTime(historicProvider.dateTo),
+                            formatToSimpleTime(dateTo),
                             style: const TextStyle(
                                 fontSize: 10, fontWeight: FontWeight.w500),
                           ),

@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:newgps/src/ui/historic_n/historic_n_view.dart';
 import '../../../models/account.dart';
 import '../../../models/user_droits.dart';
 import '../../../services/newgps_service.dart';
@@ -13,7 +14,6 @@ import '../../alert/alert_navigation.dart';
 import '../../classic/classic_view.dart';
 import '../../geozone/geozone_view.dart';
 import '../../gestion/gestion_view.dart';
-import '../../historic/historic_view.dart';
 import '../../last_position/last_position_view.dart';
 import '../../matricule/matricule_view_2.dart';
 import '../../repport/repport_view.dart';
@@ -102,7 +102,7 @@ class SavedAcountProvider with ChangeNotifier {
 
   final List<Widget> _accountWidget = [
     const LastPositionView(),
-    const HistoricView(),
+    const HistoricNView(),
     const RepportView(),
     const AlertNavigation(),
     const GeozoneView(),
@@ -125,7 +125,7 @@ class SavedAcountProvider with ChangeNotifier {
 
     userPages = [
       if (userDroits.droits[1].read) const LastPositionView(),
-      if (userDroits.droits[2].read) const HistoricView(),
+      if (userDroits.droits[2].read) const HistoricNView(),
       if (userDroits.droits[3].read) const RepportView(),
       if (userDroits.droits[4].read) const AlertNavigation(),
       if (userDroits.droits[5].read) const GeozoneView(),

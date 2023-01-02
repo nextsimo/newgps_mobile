@@ -92,8 +92,11 @@ class DateMapPicker2 extends StatelessWidget {
                     // provider.dateTimeSavedButtonClicked = false;
                     await showDialog(
                       context: context,
-                      builder: (_) => const Dialog(
-                        child: TimeRangeWigdet(),
+                      builder: (_) =>  Dialog(
+                        child: TimeRangeWigdet(
+                          dateFrom: provider.dateFrom,
+                          dateTo: provider.dateTo,
+                        ),
                       ),
                     );
                   },

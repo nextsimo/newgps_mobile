@@ -6,7 +6,15 @@ import '../../../widgets/buttons/main_button.dart';
 import 'package:provider/provider.dart';
 
 class TimeRangeWigdet extends StatelessWidget {
-  const TimeRangeWigdet({Key? key}) : super(key: key);
+  final DateTime dateFrom;
+  final DateTime dateTo;
+  final bool fetch;
+  const TimeRangeWigdet(
+      {Key? key,
+      required this.dateFrom,
+      required this.dateTo,
+      this.fetch = true})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,16 +37,18 @@ class TimeRangeWigdet extends StatelessWidget {
           const SizedBox(height: 8),
           Row(
             children: [
-              TimeInput(dateTime: provider.dateFrom, isDateFrom: true),
+              TimeInput(dateTime: dateFrom, isDateFrom: true),
               const SizedBox(width: 6),
-              TimeInput(dateTime: provider.dateTo, isDateFrom: false),
+              TimeInput(dateTime: dateTo, isDateFrom: false),
             ],
           ),
           const SizedBox(height: 2),
           MainButton(
             onPressed: () {
-              provider.onTimeRangeSaveClicked();
-              provider.fetchHistorics(context,1, true);
+              if (fetch) {
+                provider.onTimeRangeSaveClicked();
+                provider.fetchHistorics(context, 1, true);
+              }
               Navigator.of(context).pop();
               //provider.dateTimeSavedButtonClicked = true;
               //Navigator.of(context).pop();
@@ -48,8 +58,10 @@ class TimeRangeWigdet extends StatelessWidget {
           const SizedBox(height: 4),
           MainButton(
             onPressed: () {
-              provider.onTimeRangeRestaureClicked();
-              provider.fetchHistorics(context, 1, true);
+              if (fetch) {
+                provider.onTimeRangeRestaureClicked();
+                provider.fetchHistorics(context, 1, true);
+              }
               Navigator.of(context).pop();
 /*               provider.notifyDateTime();
               provider.dateTimeSavedButtonClicked = true;

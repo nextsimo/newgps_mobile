@@ -5,7 +5,6 @@ import 'dart:typed_data';
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:label_marker/label_marker.dart';
 import 'package:newgps/src/ui/repport/trips/trips_model.dart';
 import 'package:newgps/src/utils/functions.dart';
 import '../../models/account.dart';
@@ -28,8 +27,8 @@ class HistoricProvider with ChangeNotifier {
 
   GoogleMapController? mapController;
 
-  late DateTime selectedDateFrom;
-  late DateTime selectedDateTo;
+  DateTime selectedDateFrom = DateTime.now();
+  DateTime selectedDateTo = DateTime.now();
 
   final Set<Marker> _parkingMarkers = {};
 
@@ -416,15 +415,7 @@ class HistoricProvider with ChangeNotifier {
     });
   }
 
-  Future<void> updateDate(BuildContext context) async {
-    var now = DateTime.now();
-    DateTime? datetime = await showDatePicker(
-      context: context,
-      initialDate: dateFrom,
-      firstDate: DateTime(now.year - 30),
-      lastDate: now,
-    );
-
+  Future<void> updateDate(BuildContext context, DateTime? datetime) async {
     if (datetime == null) return;
 
     dateFrom = DateTime(
@@ -452,8 +443,11 @@ class HistoricProvider with ChangeNotifier {
   void updateTimeRange(BuildContext context) async {
     showDialog(
       context: context,
-      builder: (_) => const Dialog(
-        child: TimeRangeWigdet(),
+      builder: (_) => Dialog(
+        child: TimeRangeWigdet(
+          dateFrom: dateFrom,
+          dateTo: dateTo,
+        ),
       ),
     );
   }

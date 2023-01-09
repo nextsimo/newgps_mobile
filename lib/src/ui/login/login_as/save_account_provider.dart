@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:newgps/src/ui/historic/historic_view.dart';
 import 'package:newgps/src/ui/historic_n/historic_n_view.dart';
 import '../../../models/account.dart';
 import '../../../models/user_droits.dart';
@@ -102,7 +103,7 @@ class SavedAcountProvider with ChangeNotifier {
 
   final List<Widget> _accountWidget = [
     const LastPositionView(),
-    const HistoricNView(),
+    const HistoricViews(),
     const RepportView(),
     const AlertNavigation(),
     const GeozoneView(),
@@ -125,7 +126,7 @@ class SavedAcountProvider with ChangeNotifier {
 
     userPages = [
       if (userDroits.droits[1].read) const LastPositionView(),
-      if (userDroits.droits[2].read) const HistoricNView(),
+      if (userDroits.droits[2].read) const HistoricViews(),
       if (userDroits.droits[3].read) const RepportView(),
       if (userDroits.droits[4].read) const AlertNavigation(),
       if (userDroits.droits[5].read) const GeozoneView(),

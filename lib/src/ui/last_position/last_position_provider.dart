@@ -126,14 +126,14 @@ class LastPositionProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchInfoData() async {
+  Future<void> fetchInfoData(String deviceID) async {
     Account? account = shared.getAccount();
 
     String res = await api.post(
       url: '/info',
       body: {
         'account_id': account?.account.accountId,
-        'device_id': deviceProvider.selectedDevice!.deviceId,
+        'device_id': deviceID,
         'driving_time': true,
       },
     );
@@ -352,11 +352,15 @@ class LastPositionProvider with ChangeNotifier {
 
   bool _loadingDevice = false;
 
-  void setDeviceOffline() {
-    Device? device = deviceProvider.selectedDevice;
-    if (device == null) return;
+  Future<void> setDeviceOffline(String id) async {
+    Device? device = deviceProvider.devices.firstWhere((d) => d.deviceId == id);
     deviceProvider.selectedDevice = device;
     markersProvider.onMarker.clear();
+        markersProvider.simpleMarkers.clear();
+
+    notifyListeners();
+    await Future.delayed(const Duration(milliseconds: 250));
+    notifyListeners();
     markersProvider.onMarker.add(markersProvider.getSimpleMarker(device));
     moveCamera(
         LatLng(deviceProvider.selectedDevice!.latitude,
@@ -370,12 +374,15 @@ class LastPositionProvider with ChangeNotifier {
     _loadingDevice = true;
 
     if (isSelected) {
-      setDeviceOffline();
+      setDeviceOffline(deviceId);
     }
 
     Account? account = shared.getAccount();
+    await Future.delayed(const Duration(milliseconds: 250));
 
     markersProvider.simpleMarkers = {};
+    notifyListeners();
+    await Future.delayed(const Duration(milliseconds: 250));
     notifyListeners();
 
     String res = await api.post(
@@ -392,7 +399,7 @@ class LastPositionProvider with ChangeNotifier {
       log(res);
       Device device = Device.fromMap(json.decode(res));
       deviceProvider.selectedDevice = device;
-      await fetchInfoData();
+      await fetchInfoData(deviceId);
       markersProvider.onMarker.clear();
       markersProvider.onMarker.add(markersProvider.getSimpleMarker(device));
       notifyListeners();

@@ -35,7 +35,7 @@ class RepportResumeModel {
     required this.colorR,
     required this.colorG,
     required this.colorB,
-    required this.statut
+    required this.statut,
   });
 
   String description;

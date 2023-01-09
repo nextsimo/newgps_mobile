@@ -48,6 +48,7 @@ class ConnectedDeviceProvider with ChangeNotifier {
   bool _loading1 = false;
 
   Future<void> _fetchCountedConnectedDevices() async {
+    return;
     if (_loading1) return;
     _loading1 = true;
     Account? account = shared.getAccount();
@@ -72,6 +73,9 @@ class ConnectedDeviceProvider with ChangeNotifier {
   }
 
   Future<void> _setConnectedToTrue() async {
+    
+    if (true) return;
+    // TODO
     Account? account = shared.getAccount();
     Map<String, String?> deviceInfo = await _getDeviceInfo();
     await api.post(url: '/connected/set', body: {
@@ -86,6 +90,7 @@ class ConnectedDeviceProvider with ChangeNotifier {
   bool _loading2 = false;
 
   Future<void> _fetchConnectedDevices() async {
+    return;
     if (_loading2) return;
     _loading2 = true;
     Account? account = shared.getAccount();
@@ -99,11 +104,12 @@ class ConnectedDeviceProvider with ChangeNotifier {
     conctedDevices = connectedDeviceModelFromJson(res);
     _loading2 = false;
   }
-  // end fetched device
+  // end fetched devicepz
 
   // create new device and set connected to true
 
   Future<void> _createNewConnectedDevice() async {
+    return;
     Account? account = shared.getAccount();
     Map<String, String?> deviceInfo = await _getDeviceInfo();
     await api.post(url: '/connected/devices/create', body: {
@@ -118,6 +124,7 @@ class ConnectedDeviceProvider with ChangeNotifier {
   }
 
   Future<void> createNewConnectedDeviceHistoric(bool state) async {
+    return;
     Account? account = shared.getAccount();
     Map<String, String?> deviceInfo = await _getDeviceInfo();
     await api.post(url: '/connected/devices/create2', body: {
@@ -155,6 +162,7 @@ class ConnectedDeviceProvider with ChangeNotifier {
 
   // update device status
   Future<void> updateConnectedDevice(bool newState) async {
+    return;
     Account? account = shared.getAccount();
     Map<String, String?> deviceInfo = await _getDeviceInfo();
     await api.post(url: '/connected/devices/update', body: {

@@ -107,10 +107,10 @@ class _BuildAccountName extends StatelessWidget {
     }
     return InkWell(
       onTap: () {
-        showDialog(
+/*         showDialog(
           context: context,
           builder: (_) => const ConnectedDeviceView(),
-        );
+        ); */
       },
       child: Padding(
         padding: EdgeInsets.only(

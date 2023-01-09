@@ -528,6 +528,8 @@ class HistoricProvider with ChangeNotifier {
       _loading = true;
       markers = {};
       circles = {};
+      await Future.delayed(const Duration(milliseconds: 250));
+      notifyListeners();
 
       playedMarkers = {};
       historicModel.devices?.clear();

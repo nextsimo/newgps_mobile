@@ -222,6 +222,7 @@ class ResumeRepportProvider with ChangeNotifier {
     _loadingResumeRepport = false;
   }
 
+
 /*   bool iscalculitingDrivingTime = false;
   Future<void> calculDrivingTime(String? accountID) async {
     if (iscalculitingDrivingTime) return;
@@ -239,3 +240,4 @@ class ResumeRepportProvider with ChangeNotifier {
     iscalculitingDrivingTime = false;
   } */
 }
+

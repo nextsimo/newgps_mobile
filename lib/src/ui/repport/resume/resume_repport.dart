@@ -136,15 +136,6 @@ class BuildHead extends StatelessWidget {
             isSlected: repportProvider.selectedIndex == 12,
             isUp: repportProvider.orderByDateActualisation,
           ),
-/*           const BuildDivider(height: 20),
-          const SizedBox(
-            width: 80,
-            child: Center(
-                child: Text(
-              'Redémarrer boitier',
-              style: TextStyle(fontSize: 8, fontWeight: FontWeight.w500),
-            )),
-          ), */
           const BuildDivider(height: 20),
         ],
       ),

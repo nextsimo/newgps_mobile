@@ -52,7 +52,7 @@ class _FloatingGroupWindowInfoState extends State<FloatingGroupWindowInfo> {
   }
 }
 
-class _FloatingGroupInfoWindowInfoPortrait extends StatelessWidget {
+class _FloatingGroupInfoWindowInfoPortrait extends StatefulWidget {
   final Device device;
   final bool showOnOffDevice;
   final bool showCallDriver;
@@ -62,6 +62,31 @@ class _FloatingGroupInfoWindowInfoPortrait extends StatelessWidget {
     required this.showOnOffDevice,
     required this.showCallDriver,
   }) : super(key: key);
+
+  @override
+  State<_FloatingGroupInfoWindowInfoPortrait> createState() =>
+      _FloatingGroupInfoWindowInfoPortraitState();
+}
+
+class _FloatingGroupInfoWindowInfoPortraitState
+    extends State<_FloatingGroupInfoWindowInfoPortrait> {
+  String address = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _setTheAddress();
+  }
+
+  Future<void> _setTheAddress() async {
+    Future.microtask(() async {
+      debugPrint("${widget.device.latitude}/${widget.device.longitude}");
+      address = await api.get(
+          url:
+              '/device/address/${widget.device.latitude}/${widget.device.longitude}');
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,14 +130,14 @@ class _FloatingGroupInfoWindowInfoPortrait extends StatelessWidget {
                         // Matricule
                         Row(
                           children: [
-                            if (device.description.isNotEmpty)
-                              Text(device.description,
+                            if (widget.device.description.isNotEmpty)
+                              Text(widget.device.description,
                                   style: const TextStyle(
                                       color: AppConsts.blue,
                                       fontWeight: FontWeight.bold)),
                             const SizedBox(width: 10),
                             IconChangeView(
-                              selectedDevice: device,
+                              selectedDevice: widget.device,
                             ),
                           ],
                         ),
@@ -130,7 +155,7 @@ class _FloatingGroupInfoWindowInfoPortrait extends StatelessWidget {
                                     ),
                                     children: [
                                   TextSpan(
-                                      text: device.statut,
+                                      text: widget.device.statut,
                                       style: const TextStyle(
                                           color: Colors.black54))
                                 ])),
@@ -151,7 +176,8 @@ class _FloatingGroupInfoWindowInfoPortrait extends StatelessWidget {
                                       ),
                                       children: [
                                     TextSpan(
-                                        text: formatDeviceDate(device.dateTime),
+                                        text: formatDeviceDate(
+                                            widget.device.dateTime),
                                         style: const TextStyle(
                                           color: Colors.black54,
                                         ))
@@ -172,7 +198,7 @@ class _FloatingGroupInfoWindowInfoPortrait extends StatelessWidget {
                                     color: Colors.black.withOpacity(0.7)),
                                 children: [
                                   TextSpan(
-                                      text: "${device.speedKph} Km/H",
+                                      text: "${widget.device.speedKph} Km/H",
                                       style: const TextStyle())
                                 ],
                               ),
@@ -193,7 +219,7 @@ class _FloatingGroupInfoWindowInfoPortrait extends StatelessWidget {
                                           color: Colors.black.withOpacity(0.7)),
                                       children: [
                                     TextSpan(
-                                        text: device.address,
+                                        text: address,
                                         style: const TextStyle(
                                             color: Colors.black54))
                                   ])),
@@ -212,22 +238,22 @@ class _FloatingGroupInfoWindowInfoPortrait extends StatelessWidget {
                                         color: Colors.black.withOpacity(0.7)),
                                     children: [
                                   TextSpan(
-                                      text: "${device.odometerKm} Km",
+                                      text: "${widget.device.odometerKm} Km",
                                       style: const TextStyle(
                                           color: Colors.black54))
                                 ])),
                           ],
                         ),
                         const SizedBox(height: 7),
-                        if (showCallDriver)
+                        if (widget.showCallDriver)
                           MainButton(
                             height: 35,
                             icon: Icons.call,
                             onPressed: () {
                               locator<DriverPhoneProvider>().checkPhoneDriver(
                                   context: context,
-                                  device: device,
-                                  sDevice: device,
+                                  device: widget.device,
+                                  sDevice: widget.device,
                                   callNewData: () async {
                                     await deviceProvider.fetchDevices();
                                   });
@@ -239,7 +265,7 @@ class _FloatingGroupInfoWindowInfoPortrait extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    if (showOnOffDevice)
+                    if (widget.showOnOffDevice)
                       Row(
                         children: [
                           Expanded(
@@ -273,7 +299,7 @@ class _FloatingGroupInfoWindowInfoPortrait extends StatelessWidget {
                           child: MainButton(
                             height: 35,
                             onPressed: () async {
-                              openMapsSheet(context, device);
+                              openMapsSheet(context, widget.device);
                               return;
                             },
                             label: 'Iténiraire',
@@ -287,7 +313,7 @@ class _FloatingGroupInfoWindowInfoPortrait extends StatelessWidget {
                           height: 35,
                           onPressed: () async {
                             Share.share(
-                                'http://maps.google.com/?q=${device.latitude},${device.longitude}');
+                                'http://maps.google.com/?q=${widget.device.latitude},${widget.device.longitude}');
                           },
                           label: 'Partger localisation',
                           backgroundColor: Colors.blueAccent,
@@ -333,8 +359,8 @@ class _FloatingGroupInfoWindowInfoPortrait extends StatelessWidget {
                 ),
                 const SizedBox(width: 10),
                 MainButton(
-                  onPressed: () async =>
-                      await provider.startStopDevice(command, context, device),
+                  onPressed: () async => await provider.startStopDevice(
+                      command, context, widget.device),
                   width: 90,
                   label: 'Oui',
                 ),

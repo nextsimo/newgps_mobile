@@ -33,14 +33,14 @@ class BuildHead extends StatelessWidget {
       child: Row(
         children: [
           const BuildDivider(height: 20),
-          BuildClickableTextCell(
+/*           BuildClickableTextCell(
             'N',
             flex: 1,
             ontap: repportProvider.updateOrderByNumber,
             isSlected: repportProvider.selectedIndex == 0,
             isUp: repportProvider.orderByNumber,
           ),
-          const BuildDivider(height: 20),
+          const BuildDivider(height: 20), */
           BuildClickableTextCell(
             'Matricule',
             flex: 4,
@@ -115,20 +115,20 @@ class BuildHead extends StatelessWidget {
           const BuildDivider(height: 20),
           BuildClickableTextCell(
             'Adresse',
-            flex: 5,
+            flex: 8,
             ontap: repportProvider.updateByAdresse,
             isSlected: repportProvider.selectedIndex == 10,
             isUp: repportProvider.orderByAdresse,
           ),
           const BuildDivider(height: 20),
-          BuildClickableTextCell(
+/*           BuildClickableTextCell(
             'Ville',
             flex: 2,
             ontap: repportProvider.updateByCity,
             isSlected: repportProvider.selectedIndex == 11,
             isUp: repportProvider.orderByCity,
           ),
-          const BuildDivider(height: 20),
+          const BuildDivider(height: 20), */
           BuildClickableTextCell(
             'Date actualisation',
             flex: 4,
@@ -228,8 +228,8 @@ class RepportRow extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const BuildDivider(height: 10),
-          BuildTextCell('${repport.index}', flex: 1),
+/*           const BuildDivider(height: 10),
+          BuildTextCell('${repport.index}', flex: 1), */
           const BuildDivider(height: 10),
           Expanded(
             flex: 4,
@@ -282,9 +282,9 @@ class RepportRow extends StatelessWidget {
           const BuildDivider(height: 10),
           BuildTextCell(repport.drivingTime, flex: 2),
           const BuildDivider(height: 10),
-          BuildTextCell(repport.adresse, flex: 5),
-          const BuildDivider(height: 10),
-          BuildTextCell(repport.city, flex: 2),
+          BuildTextCell(repport.adresse, flex: 8),
+/*           const BuildDivider(height: 10),
+          BuildTextCell(repport.city, flex: 2), */
           const BuildDivider(height: 10),
           BuildTextCell(formatDeviceDate(repport.lastValideDate), flex: 4),
 /*           const BuildDivider(height: 10),

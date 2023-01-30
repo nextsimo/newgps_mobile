@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:newgps/src/ui/historic/historic_view.dart';
-import 'package:newgps/src/ui/historic_n/historic_n_view.dart';
 import '../../../models/account.dart';
 import '../../../models/user_droits.dart';
 import '../../../services/newgps_service.dart';

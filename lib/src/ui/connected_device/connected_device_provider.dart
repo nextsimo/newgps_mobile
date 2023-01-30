@@ -49,6 +49,7 @@ class ConnectedDeviceProvider with ChangeNotifier {
 
   Future<void> _fetchCountedConnectedDevices() async {
     return;
+    // ignore: dead_code,
     if (_loading1) return;
     _loading1 = true;
     Account? account = shared.getAccount();
@@ -73,7 +74,6 @@ class ConnectedDeviceProvider with ChangeNotifier {
   }
 
   Future<void> _setConnectedToTrue() async {
-    
     if (true) return;
     // TODO
     Account? account = shared.getAccount();
@@ -91,6 +91,7 @@ class ConnectedDeviceProvider with ChangeNotifier {
 
   Future<void> _fetchConnectedDevices() async {
     return;
+      // ignore: dead_code
     if (_loading2) return;
     _loading2 = true;
     Account? account = shared.getAccount();
@@ -110,6 +111,7 @@ class ConnectedDeviceProvider with ChangeNotifier {
 
   Future<void> _createNewConnectedDevice() async {
     return;
+      // ignore: dead_code
     Account? account = shared.getAccount();
     Map<String, String?> deviceInfo = await _getDeviceInfo();
     await api.post(url: '/connected/devices/create', body: {
@@ -125,6 +127,7 @@ class ConnectedDeviceProvider with ChangeNotifier {
 
   Future<void> createNewConnectedDeviceHistoric(bool state) async {
     return;
+      // ignore: dead_code
     Account? account = shared.getAccount();
     Map<String, String?> deviceInfo = await _getDeviceInfo();
     await api.post(url: '/connected/devices/create2', body: {
@@ -163,6 +166,7 @@ class ConnectedDeviceProvider with ChangeNotifier {
   // update device status
   Future<void> updateConnectedDevice(bool newState) async {
     return;
+    // ignore: dead_code
     Account? account = shared.getAccount();
     Map<String, String?> deviceInfo = await _getDeviceInfo();
     await api.post(url: '/connected/devices/update', body: {
@@ -175,5 +179,4 @@ class ConnectedDeviceProvider with ChangeNotifier {
     });
   }
   // end update device status
-
 }

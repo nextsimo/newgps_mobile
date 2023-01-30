@@ -183,8 +183,8 @@ class GeozoneCard extends StatelessWidget {
                 geozone.description,
                 style: Theme.of(context)
                     .textTheme
-                    .subtitle2!
-                    .copyWith(color: Colors.white, fontSize: 10),
+                    .titleSmall
+                    ?.copyWith(color: Colors.white, fontSize: 10),
               ),
             ),
             if (droit.write)

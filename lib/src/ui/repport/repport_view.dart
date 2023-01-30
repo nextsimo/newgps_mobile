@@ -15,6 +15,7 @@ import '../historic/historic_provider.dart';
 import '../last_position/last_position_provider.dart';
 import '../navigation/top_app_bar.dart';
 import 'auto_search_repport_type.dart';
+import 'command_repport/command_repport_view.dart';
 import 'connexion/connxion_view.dart';
 import 'details/repport_detials.dart';
 import 'distance/view/distance_view.dart';
@@ -110,6 +111,8 @@ class _BuildBody extends StatelessWidget {
                         return const ConnexionRepportView();
                       case 6:
                         return const TemperatureRepportBleView();
+                      case 7:
+                        return const CommandRepportView();
                       default:
                         return const Material();
                     }

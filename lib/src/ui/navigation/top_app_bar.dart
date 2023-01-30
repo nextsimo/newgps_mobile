@@ -5,7 +5,6 @@ import '../../models/account.dart';
 import '../../services/newgps_service.dart';
 import '../../utils/utils.dart';
 import '../connected_device/connected_device_button.dart';
-import '../connected_device/connected_device_view.dart';
 import '../../utils/functions.dart';
 import '../../utils/styles.dart';
 import '../../widgets/buttons/main_button.dart';

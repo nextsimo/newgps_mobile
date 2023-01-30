@@ -9,6 +9,7 @@ import 'buttons_group_view.dart';
 import 'my_marker_layer.dart';
 import 'select_group.dart';
 
+// ignore: camel_case_types
 class HistoricNView_X extends StatelessWidget {
   const HistoricNView_X({Key? key}) : super(key: key);
 

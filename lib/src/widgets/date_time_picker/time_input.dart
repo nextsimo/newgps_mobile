@@ -95,7 +95,7 @@ class _BuildInputState extends State<_BuildInput> {
         controller: widget.controller,
         keyboardType: TextInputType.number,
         textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.headline5,
+        style: Theme.of(context).textTheme.headlineMedium,
         inputFormatters: [LengthLimitingTextInputFormatter(2)],
         autofocus: true,
         decoration: _buidDecoration(),

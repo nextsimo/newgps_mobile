@@ -65,7 +65,7 @@ class _DriverAddDialogState extends State<DriverAddDialog> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text('Veuillez insérer le numéro du conducteur',
-                        style: Theme.of(context).textTheme.subtitle1),
+                        style: Theme.of(context).textTheme.titleMedium),
                     const SizedBox(height: 5),
                     MainInput(
                       validator: FormValidatorService.isMoroccanPhoneNumber,

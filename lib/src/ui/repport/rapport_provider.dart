@@ -48,6 +48,10 @@ class RepportProvider with ChangeNotifier {
       index: 6,
       title: 'Rapport température',
     ),
+    RepportTypeModel(
+      index: 7,
+      title: 'Rapport Commande',
+    ),
   ];
 
   // show graphe method
@@ -316,8 +320,7 @@ class RepportProvider with ChangeNotifier {
 
     await _downloadFile(
         base64Str: res.trim().toString(),
-        fileName:
-            "connexion_rapport_${formatSimpleDate(dateFrom, false, '-')}",
+        fileName: "connexion_rapport_${formatSimpleDate(dateFrom, false, '-')}",
         extension: format);
   }
 
@@ -337,8 +340,7 @@ class RepportProvider with ChangeNotifier {
 
     await _downloadFile(
       base64Str: res.trim().toString(),
-      fileName:
-          "voyage_rapport_${formatSimpleDate(dateFrom, false, '-')}",
+      fileName: "voyage_rapport_${formatSimpleDate(dateFrom, false, '-')}",
       extension: format,
     );
   }
@@ -365,8 +367,7 @@ class RepportProvider with ChangeNotifier {
     );
     await _downloadFile(
         base64Str: res,
-        fileName:
-            "carburant_rapport_${formatSimpleDate(dateFrom, false, '-')}",
+        fileName: "carburant_rapport_${formatSimpleDate(dateFrom, false, '-')}",
         extension: format);
   }
 

@@ -304,3 +304,7 @@ class RepportRow extends StatelessWidget {
     );
   }
 }
+
+
+
+// write me function that connect to the sqliite database and return the data

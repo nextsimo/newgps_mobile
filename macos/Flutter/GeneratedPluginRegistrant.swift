@@ -5,7 +5,7 @@
 import FlutterMacOS
 import Foundation
 
-import battery_plus_macos
+import battery_plus
 import device_info_plus_macos
 import firebase_analytics
 import firebase_core
@@ -15,9 +15,9 @@ import flutter_app_badger
 import flutter_tts
 import geolocator_apple
 import package_info_plus_macos
-import path_provider_macos
+import path_provider_foundation
 import share_plus_macos
-import shared_preferences_macos
+import shared_preferences_foundation
 import url_launcher_macos
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {

@@ -49,6 +49,7 @@ class LoginProvider with ChangeNotifier {
       var data = json.decode(res);
 
       if (data['code'] == 200) {
+        // ignore: use_build_context_synchronously
         showDialog(
           context: context,
           builder: (_) => const AlertDialog(
@@ -62,6 +63,7 @@ class LoginProvider with ChangeNotifier {
         return;
       }
 
+      // ignore: use_build_context_synchronously
       showDialog(
         context: context,
         builder: (_) => AlertDialog(

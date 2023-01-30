@@ -77,6 +77,7 @@ class SplashViewModel with ChangeNotifier {
         if (userID.isNotEmpty) {
           await savedAcountProvider.fetchUserDroits();
         }
+        // ignore: use_build_context_synchronously
         fetchInitData(
           lastPositionProvider: lastPositionProvider,
           context: context,

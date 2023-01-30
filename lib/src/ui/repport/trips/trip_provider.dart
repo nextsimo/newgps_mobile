@@ -109,7 +109,7 @@ class TripsProvider with ChangeNotifier {
         'device_id': deviceId,
         'date_from': repportProvider.dateFrom.millisecondsSinceEpoch / 1000,
         'date_to': repportProvider.dateTo.millisecondsSinceEpoch / 1000,
-        'download': false
+        'download': false 
       },
     );
 

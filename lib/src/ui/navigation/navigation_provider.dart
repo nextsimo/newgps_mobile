@@ -31,6 +31,7 @@ class NavigationProvider {
           description: ''),
       token: accounts.password,
     ));
+    // ignore: use_build_context_synchronously
     fetchInitData(
         lastPositionProvider: lastPositionProvider, context: DeviceSize.c);
     pageController.jumpToPage(3);

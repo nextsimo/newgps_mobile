@@ -31,8 +31,8 @@ class TimeRangeWigdet extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-            Text('De', style: Theme.of(context).textTheme.button),
-            Text('à', style: Theme.of(context).textTheme.button),
+            Text('De', style: Theme.of(context).textTheme.labelLarge),
+            Text('à', style: Theme.of(context).textTheme.labelLarge),
           ]),
           const SizedBox(height: 8),
           Row(

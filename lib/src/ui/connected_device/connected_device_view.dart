@@ -68,7 +68,7 @@ class _BuildConnectedWidget extends StatelessWidget {
               const SizedBox(width: 4),
               Text(
                 '${mode.deviceBrand} ${mode.platform} ${mode.os}',
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
             ],
           ),
@@ -110,10 +110,10 @@ class _BuildConnectedWidget extends StatelessWidget {
           Row(
             children: [
               Text('Dèrniere connexion:',
-                  style: Theme.of(context).textTheme.caption),
+                  style: Theme.of(context).textTheme.bodySmall),
               const SizedBox(width: 4),
               Text(formatSimpleDate(mode.lastConnectedDate, true),
-                  style: Theme.of(context).textTheme.caption),
+                  style: Theme.of(context).textTheme.bodySmall),
             ],
           ),
         ],

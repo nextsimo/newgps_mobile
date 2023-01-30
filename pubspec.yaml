@@ -14,11 +14,11 @@ dependencies:
   dropdown_search: ^5.0.2
   empty_widget: ^0.0.5
   faker: ^2.0.0
-  firebase_analytics: ^9.3.6
-  firebase_core: ^1.22.0
-  firebase_messaging: ^13.0.2
-  firebase_remote_config: ^2.0.18
-  fl_chart: ^0.55.0
+  firebase_analytics: ^10.1.0
+  firebase_core: ^2.4.1
+  firebase_messaging: ^14.2.1
+  firebase_remote_config: ^3.0.9
+  fl_chart: ^0.60.0
   flutter:
     sdk: flutter
   flutter_app_badger: ^1.3.0
@@ -35,12 +35,12 @@ dependencies:
   font_awesome_flutter: ^10.2.1
   geolocator: ^9.0.2
   get_it: ^7.2.0
-  google_fonts: ^3.0.1
+  google_fonts: ^4.0.0
   google_maps_cluster_manager: ^3.0.0+1
-  google_maps_flutter: ^2.2.2
+  google_maps_flutter: ^2.2.3
   grouped_list: ^5.1.2
   http: ^0.13.4
-  image: ^3.1.1
+  image: ^4.0.12
   intl: ^0.17.0
   label_marker: ^1.0.1
   latlong2: ^0.8.1
@@ -71,6 +71,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  ## use material 3
   assets:
     - assets/
     - assets/icons/

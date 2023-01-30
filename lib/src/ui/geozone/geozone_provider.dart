@@ -116,6 +116,7 @@ class GeozoneProvider with ChangeNotifier {
 
     if (res.isEmpty) {
       // show dialog that the geozone is already exists in frensh
+      // ignore: use_build_context_synchronously
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -160,6 +161,7 @@ class GeozoneProvider with ChangeNotifier {
     });
 
     if (res.isEmpty) {
+      // ignore: use_build_context_synchronously
       showDialog(
         context: context,
         builder: (_) =>

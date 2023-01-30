@@ -15,13 +15,19 @@ class ParkingProvider with ChangeNotifier {
   Future<void> _notifyTheHistoricProviderToUseParkingMarkers(
       HistoricProvider historicProvider) async {
     historicProvider.handleuseParkingMarkers(buttonClicked);
-
     if (buttonClicked) {
-      await historicProvider.fetchParkingMarkers();
       historicProvider.setParkingMarkers();
     } else {
       historicProvider.handleuseParkingMarkers(buttonClicked);
       historicProvider.notifyListeners();
     }
+  }
+
+  // unselect the parking button and clear the map from parking markers
+  void unselectParkingButton(HistoricProvider historicProvider) {
+    buttonClicked = false;
+    historicProvider.handleuseParkingMarkers(buttonClicked);
+    historicProvider.notifyListeners();
+    notifyListeners();
   }
 }

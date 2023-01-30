@@ -28,7 +28,7 @@ class ChangePasswordView extends StatelessWidget {
           children: [
             Text(
               'Change votre mot de passe',
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 22),
             MainInput(

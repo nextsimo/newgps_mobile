@@ -17,6 +17,7 @@ import 'src/ui/repport/temperature_ble/temperature_repport_provider.dart';
 
 class NewGpsApp extends StatelessWidget {
   const NewGpsApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -63,6 +64,7 @@ class NewGpsApp extends StatelessWidget {
                   child: child!),
               title: 'NEW GPS',
               theme: ThemeData(
+                useMaterial3: true,
                 primaryColor: AppConsts.mainColor,
                 elevatedButtonTheme: ElevatedButtonThemeData(
                   style: ButtonStyle(

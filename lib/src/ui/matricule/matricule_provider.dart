@@ -70,6 +70,7 @@ class MatriculeProvider with ChangeNotifier {
     );
 
     if (res.isNotEmpty) {
+      // ignore: use_build_context_synchronously
       showDialog(
         context: context,
         builder: (_) => Dialog(
@@ -95,6 +96,7 @@ class MatriculeProvider with ChangeNotifier {
         ),
       );
     } else {
+      // ignore: use_build_context_synchronously
       showDialog(
         context: context,
         builder: (_) => Dialog(

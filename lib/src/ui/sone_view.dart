@@ -21,7 +21,7 @@ class SoonPage extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 "En cours...",
-                style: Theme.of(context).textTheme.headline3,
+                style: Theme.of(context).textTheme.displaySmall,
                 textAlign: TextAlign.center,
               ),
             ),

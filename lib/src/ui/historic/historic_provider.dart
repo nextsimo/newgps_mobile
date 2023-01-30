@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:typed_data';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -40,7 +41,7 @@ class HistoricProvider with ChangeNotifier {
 
   List<TripsRepportModel> trips = [];
 
-  Future<void> fetchParkingMarkers() async {
+  Future<void> _fetchParkingMarkers() async {
     Account? account = shared.getAccount();
     debugPrint({
       'account_id': account?.account.accountId,
@@ -91,7 +92,22 @@ class HistoricProvider with ChangeNotifier {
                     const SizedBox(height: 10),
                     _buildRowInfo("Durée", trip.stopedTime),
                     const SizedBox(height: 10),
-                    _buildRowInfo("Adresse", trip.endAddress),
+                    Expanded(
+                      child: Row(
+                        children: [
+                          const Text("Address"),
+                          const Text(
+                            ": ",
+                          ),
+                          Expanded(
+                            child: AutoSizeText(
+                              trip.startAddress.split(",")[0].split(",")[0],
+                              minFontSize: 1,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -463,7 +479,7 @@ class HistoricProvider with ChangeNotifier {
 
       // zoom and center to bounds
       await mapController!.animateCamera(
-        CameraUpdate.newLatLngBounds(bounds, 100),
+        CameraUpdate.newLatLngBounds(bounds, 80),
       );
     }
   }
@@ -488,35 +504,18 @@ class HistoricProvider with ChangeNotifier {
   Set<Circle> circles = {};
 
   // set start and end markers
-  Future<void> _setStartEndMarkers() async {
-    if (markers.length > 1) {
-      circles.add(
-        Circle(
-          circleId: const CircleId('Fin'),
-          center: LatLng(
-            markers.last.position.latitude,
-            markers.last.position.longitude,
-          ),
-          radius: 20,
-          fillColor: const Color.fromARGB(66, 244, 67, 54),
-          strokeColor: Colors.red,
-          strokeWidth: 2,
-        ),
-      );
-    }
-  }
 
   Future<void> fetchHistorics(BuildContext context,
       [int page = 1, bool init = false]) async {
-    if (useParkingMarker) {
+/*     if (useParkingMarker) {
       loading = true;
       _parkingMarkers.clear();
       notifyListeners();
-      await fetchParkingMarkers();
+      await _fetchParkingMarkers();
       loading = false;
       setParkingMarkers();
       return;
-    }
+    } */
 
     histoLine = {};
     histoLine.clear();
@@ -528,9 +527,12 @@ class HistoricProvider with ChangeNotifier {
       _loading = true;
       markers = {};
       circles = {};
+      _parkingMarkers.clear();
       await Future.delayed(const Duration(milliseconds: 250));
       notifyListeners();
-
+      _fetchParkingMarkers().then((value) {
+        setParkingMarkers();
+      });
       playedMarkers = {};
       historicModel.devices?.clear();
     }
@@ -553,7 +555,7 @@ class HistoricProvider with ChangeNotifier {
       historicModel.lastPage = newHistoricModel.lastPage;
       historicModel.total = newHistoricModel.total;
       historicModel.devices?.addAll(newHistoricModel.devices!);
-      for (Device device in newHistoricModel.devices!) {
+/*       for (Device device in newHistoricModel.devices!) {
         // check if the first index
         if (historicModel.devices?.indexOf(device) == 0) {
           circles.add(
@@ -566,7 +568,7 @@ class HistoricProvider with ChangeNotifier {
               strokeWidth: 2,
             ),
           );
-          markers.add(
+/*           markers.add(
             Marker(
               markerId: const MarkerId('Départ'),
               zIndex: 2,
@@ -584,39 +586,131 @@ class HistoricProvider with ChangeNotifier {
                 );
               },
             ),
-          );
+          ); */
         }
-        markers.add(getSimpleMarker(device));
-      }
+        //markers.add(getSimpleMarker(device));
+      } */
       if (historicModel.currentPage < historicModel.lastPage) {
         // ignore: use_build_context_synchronously
         fetchHistorics(context, ++page);
         return;
       }
-      _zoomToPoints(markers.map((e) => e.position).toList());
+
+      //_zoomToPoints(markers.map((e) => e.position).toList());
       await fetchInfoData();
     }
 
-    int index = -1;
-    histoLine.clear();
-    for (var m in markers) {
-      index++;
-      if (index == markers.length - 2) break;
-      histoLine.addAll(Set<Polyline>.from({
-        Polyline(
-          width: 3,
-          color: Colors.red.withOpacity(0.4),
-          polylineId: PolylineId(m.position.toString()),
-          points: [
-            m.position,
-            markers.elementAt(index + 1).position,
-          ],
-        )
-      }));
-    }
-    await _setStartEndMarkers();
+    _setHistoricLine();
 
     loading = false;
+  }
+
+  final String isDriving = "En Route";
+  final String isParking = "Parking";
+  final String isSlow = "Ralenti";
+
+  // get color depending on the status
+  Color _getColor(String status) {
+    if (status == isDriving) {
+      return Colors.green;
+    } else if (status == isParking) {
+      return Colors.red;
+    } else if (status == isSlow) {
+      return Colors.orange;
+    } else {
+      return Colors.black;
+    }
+  }
+
+  // set line of the historic
+  Future<void> _setHistoricLine() async {
+    if (historicModel.devices == null || historicModel.devices!.isEmpty) return;
+    List<HistoLineInfo> histoLineInfo = [];
+    String? status = "Unknown";
+    int index = -1;
+    for (Device device in historicModel.devices!) {
+      index++;
+
+      if (device.statut == isParking) {
+        markers.add(getSimpleMarker(device));
+      }
+
+      if (device.statut == status) {
+        histoLineInfo.last.points.add(
+          LatLng(
+            device.latitude,
+            device.longitude,
+          ),
+        );
+      } else {
+        if (index != 0) {
+          histoLineInfo.add(
+            HistoLineInfo(
+              color: histoLineInfo.last.color,
+              status: histoLineInfo.last.status,
+              points: [
+                LatLng(
+                  histoLineInfo.last.points.last.latitude,
+                  histoLineInfo.last.points.last.longitude,
+                ),
+                LatLng(
+                  device.latitude,
+                  device.longitude,
+                )
+              ],
+            ),
+          );
+        }
+        // add new line
+        histoLineInfo.add(HistoLineInfo(
+          status: device.statut,
+          color: _getColor(device.statut),
+          points: [LatLng(device.latitude, device.longitude)],
+        ));
+      }
+      status = device.statut;
+    }
+
+    for (HistoLineInfo info in histoLineInfo) {
+      final polylineId = PolylineId(info.points.first.toString());
+
+      histoLine.add(
+        Polyline(
+          onTap: () => _onTapLine(polylineId, info),
+          polylineId: polylineId,
+          color: info.color,
+          points: info.points,
+          width: 4,
+          endCap: Cap.roundCap,
+          startCap: Cap.roundCap,
+          visible: info.status != isParking,
+          geodesic: true,
+          consumeTapEvents: info.status != isParking,
+        ),
+      );
+    }
+    _zoomToPoints(histoLineInfo.map((e) => e.points.first).toList());
+    notifyListeners();
+  }
+
+  // on tap line hide all markers and show only the selected one
+  Future<void> _onTapLine(PolylineId polylineId, HistoLineInfo info) async {
+    markers.clear();
+    List<LatLng> points = histoLine.firstWhere((element) {
+      return element.polylineId == polylineId;
+    }).points;
+    await Future.delayed(const Duration(milliseconds: 100));
+    notifyListeners();
+    historicModel.devices?.forEach((d) {
+      if (d.statut == isParking) {
+        markers.add(getSimpleMarker(d));
+      } else if (d.statut == info.status &&
+          points.contains(LatLng(d.latitude, d.longitude))) {
+        markers.add(getSimpleMarker(d));
+      }
+    });
+    await Future.delayed(const Duration(milliseconds: 100));
+    notifyListeners();
   }
 
   void onTapEnter(BuildContext context, String val) {
@@ -674,4 +768,13 @@ class HistoricProvider with ChangeNotifier {
       icon: bitmapDescriptor,
     );
   }
+}
+
+class HistoLineInfo {
+  final Color color;
+  final List<LatLng> points;
+  final String status;
+
+  HistoLineInfo(
+      {required this.color, required this.points, required this.status});
 }

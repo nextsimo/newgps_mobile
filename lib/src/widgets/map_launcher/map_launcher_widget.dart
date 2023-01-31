@@ -12,6 +12,7 @@ void openMapsSheet(BuildContext context, Device device,
     final destination = Coords(device.latitude, device.longitude);
     final availableMaps = await MapLauncher.installedMaps;
 
+    // ignore: use_build_context_synchronously
     showModalBottomSheet(
       context: context,
       barrierColor: Colors.black.withOpacity(0.5),

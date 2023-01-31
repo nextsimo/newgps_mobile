@@ -77,7 +77,7 @@ class _BuildConnectedWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Périphérique ID:',
-                  style: Theme.of(context).textTheme.caption),
+                  style: Theme.of(context).textTheme.bodySmall),
               const SizedBox(height: 5),
               Text(
                 mode.deviceUid,

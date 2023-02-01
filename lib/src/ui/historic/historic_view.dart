@@ -149,7 +149,7 @@ class HistoricViews extends StatelessWidget {
                         ),
                       );
                     }),
-                Positioned(
+/*                 Positioned(
                   left: 4,
                   top: 130.r.h,
                   child: Selector<HistoricProvider, GoogleMapController?>(
@@ -159,7 +159,7 @@ class HistoricViews extends StatelessWidget {
                     },
                     selector: (_, p) => p.mapController,
                   ),
-                ),
+                ), */
                 Selector<HistoricProvider, bool>(
                     selector: (_, p) => p.historicIsPlayed,
                     builder: (_, bool isPlayed, ___) {

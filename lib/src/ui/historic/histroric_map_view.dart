@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_animarker/widgets/animarker.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../services/device_provider.dart';
 import '../../widgets/custom_info_windows.dart';
@@ -28,7 +29,9 @@ class _HistoricMapViewState extends State<HistoricMapView>
     super.didChangeAppLifecycleState(state);
     if (!mounted) return;
     if (state == AppLifecycleState.resumed) {
-      historicProvider.mapController?.setMapStyle("[]");
+      historicProvider.mapControllerCompleter.future.then((value) {
+        value.setMapStyle("[]");
+      });
     }
   }
 
@@ -48,29 +51,34 @@ class _HistoricMapViewState extends State<HistoricMapView>
             Provider.of<DeviceProvider>(context, listen: false);
         return Stack(
           children: [
-            GoogleMap(
-              polylines: provider.getLines(),
-              zoomControlsEnabled: false,
-              myLocationEnabled: true,
-              myLocationButtonEnabled: false,
-              markers: provider.getMarker(),
-              circles: provider.circles,
-              mapType: deviceProvider.mapType,
-              onCameraMove: provider.onCameraMove,
-              onTap: provider.onTapMap,
-              onMapCreated: (controller) async {
-                provider.mapController = controller;
-                provider.customInfoWindowController.googleMapController =
-                    controller;
-                controller.moveCamera(
-                    CameraUpdate.newCameraPosition(const CameraPosition(
-                  bearing: 0,
-                  target: LatLng(33.589886, -7.603869),
-                  zoom: 6.5,
-                )));
-              },
-              initialCameraPosition: const CameraPosition(
-                  target: LatLng(31.7917, -7.0926), zoom: 6),
+            Animarker(
+              mapId: provider.mapControllerCompleter.future
+                  .then((value) => value.mapId),
+              markers: provider.animateMarker.values.toSet(),
+              child: GoogleMap(
+                markers: provider.getMarker(),
+                polylines: provider.getLines(),
+                zoomControlsEnabled: false,
+                myLocationEnabled: true,
+                myLocationButtonEnabled: false,
+                circles: provider.circles,
+                mapType: deviceProvider.mapType,
+                onCameraMove: provider.onCameraMove,
+                onTap: provider.onTapMap,
+                onMapCreated: (controller) async {
+                  provider.mapControllerCompleter.complete(controller);
+                  provider.customInfoWindowController.googleMapController =
+                      controller;
+                  controller.moveCamera(
+                      CameraUpdate.newCameraPosition(const CameraPosition(
+                    bearing: 0,
+                    target: LatLng(33.589886, -7.603869),
+                    zoom: 6.5,
+                  )));
+                },
+                initialCameraPosition: const CameraPosition(
+                    target: LatLng(31.7917, -7.0926), zoom: 6),
+              ),
             ),
             MyCustomInfoWindows(
               controller: provider.customInfoWindowController,

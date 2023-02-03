@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:newgps/src/ui/historic/parking/parking_provider.dart';
 import 'package:provider/provider.dart';
 import '../../models/device.dart';
@@ -9,7 +8,6 @@ import '../../utils/styles.dart';
 import '../../widgets/buttons/appele_condcuteur_button.dart';
 import '../../widgets/buttons/log_out_button.dart';
 import '../../widgets/buttons/retate_icon_map.dart';
-import '../../widgets/buttons/zoom_button.dart';
 import '../../widgets/date_hour_widget.dart';
 import '../../widgets/map_type_widget.dart';
 import '../auto_search/auto_search.dart';

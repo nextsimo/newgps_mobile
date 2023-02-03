@@ -38,7 +38,6 @@ class DeviceProvider with ChangeNotifier {
 
   set infoModel(InfoModel? infoModel) {
     _infoModel = infoModel;
-    notifyListeners();
   }
 
   late MapType _mapType = MapType.normal;

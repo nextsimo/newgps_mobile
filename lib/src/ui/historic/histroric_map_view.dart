@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_animarker/widgets/animarker.dart';
@@ -29,9 +31,7 @@ class _HistoricMapViewState extends State<HistoricMapView>
     super.didChangeAppLifecycleState(state);
     if (!mounted) return;
     if (state == AppLifecycleState.resumed) {
-      historicProvider.mapControllerCompleter.future.then((value) {
-        value.setMapStyle("[]");
-      });
+      historicProvider.googleMapController?.setMapStyle("[]");
     }
   }
 
@@ -49,11 +49,16 @@ class _HistoricMapViewState extends State<HistoricMapView>
           builder: (_, HistoricProvider provider, __) {
         final DeviceProvider deviceProvider =
             Provider.of<DeviceProvider>(context, listen: false);
+        log("Build historic map");
         return Stack(
           children: [
             Animarker(
-              mapId: provider.mapControllerCompleter.future
-                  .then((value) => value.mapId),
+              isActiveTrip: true,
+              rippleColor: historicProvider.getRippleColor(),
+              shouldAnimateCamera: false,
+              useRotation: false,
+              mapId:
+                  Future<int>.value(provider.googleMapController?.mapId ?? 0),
               markers: provider.animateMarker.values.toSet(),
               child: GoogleMap(
                 markers: provider.getMarker(),
@@ -66,15 +71,9 @@ class _HistoricMapViewState extends State<HistoricMapView>
                 onCameraMove: provider.onCameraMove,
                 onTap: provider.onTapMap,
                 onMapCreated: (controller) async {
-                  provider.mapControllerCompleter.complete(controller);
+                  provider.googleMapController = controller;
                   provider.customInfoWindowController.googleMapController =
                       controller;
-                  controller.moveCamera(
-                      CameraUpdate.newCameraPosition(const CameraPosition(
-                    bearing: 0,
-                    target: LatLng(33.589886, -7.603869),
-                    zoom: 6.5,
-                  )));
                 },
                 initialCameraPosition: const CameraPosition(
                     target: LatLng(31.7917, -7.0926), zoom: 6),

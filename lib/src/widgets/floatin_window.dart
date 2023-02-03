@@ -135,10 +135,10 @@ class _FloatingGroupInfoWindowInfoPortraitState
                                   style: const TextStyle(
                                       color: AppConsts.blue,
                                       fontWeight: FontWeight.bold)),
-                            const SizedBox(width: 10),
-                            IconChangeView(
+                            //const SizedBox(width: 10),
+/*                             IconChangeView(
                               selectedDevice: widget.device,
-                            ),
+                            ), */
                           ],
                         ),
                         const SizedBox(height: 20),

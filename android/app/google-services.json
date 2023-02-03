@@ -31,11 +31,10 @@
               "client_type": 3
             },
             {
-              "client_id": "202302805202-mpufdbfofttphlecrkqrvfpbq0t62a5t.apps.googleusercontent.com",
+              "client_id": "202302805202-0g9mqs4ll03hr6b310ah8h9e386mo44k.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "ma.newgps.mobileApp",
-                "app_store_id": "1558685492"
+                "bundle_id": "com.example.newgpsWebapp"
               }
             }
           ]

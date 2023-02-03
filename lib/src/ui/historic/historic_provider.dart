@@ -6,11 +6,9 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animarker/core/ripple_marker.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:newgps/src/ui/repport/trips/trips_model.dart';
 import 'package:newgps/src/utils/functions.dart';
-import 'package:uuid/uuid.dart';
 import '../../models/account.dart';
 import '../../models/device.dart';
 import '../../models/historic_model.dart';
@@ -24,12 +22,14 @@ import 'package:motion_toast/motion_toast.dart';
 class HistoricProvider with ChangeNotifier {
   late Set<Marker> markers = {};
 
+  Device? lastDevice;
+
   final CustomInfoWindowController customInfoWindowController =
       CustomInfoWindowController();
 
   late DateTime dateFrom;
   late DateTime dateTo;
-  Completer<GoogleMapController> mapControllerCompleter = Completer();
+  GoogleMapController? googleMapController;
 
   DateTime selectedDateFrom = DateTime.now();
   DateTime selectedDateTo = DateTime.now();
@@ -43,6 +43,15 @@ class HistoricProvider with ChangeNotifier {
   }
 
   List<TripsRepportModel> trips = [];
+
+  // get ripple color from device
+  Color getRippleColor() {
+    if (lastDevice != null) {
+      final Device device = lastDevice!;
+      return Color.fromRGBO(device.colorR, device.colorG, device.colorB, 1);
+    }
+    return Colors.blue;
+  }
 
   Future<void> _fetchParkingMarkers() async {
     Account? account = shared.getAccount();
@@ -120,7 +129,6 @@ class HistoricProvider with ChangeNotifier {
         ),
       );
     }
-    notifyListeners();
   }
 
   Row _buildRowInfo(String label, String content) {
@@ -158,7 +166,6 @@ class HistoricProvider with ChangeNotifier {
 
   set loading(bool loading) {
     _loading = loading;
-    notifyListeners();
   }
 
   clearMarker() {
@@ -269,12 +276,12 @@ class HistoricProvider with ChangeNotifier {
       Marker marker = markers.elementAt(index);
       playedMarkers.add(marker);
       if (init) {
-        mapControllerCompleter.future.then((value) {
-          value.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-              target: marker.position,
-              bearing: device.heading.toDouble(),
-              zoom: 14.5)));
-        });
+        googleMapController?.animateCamera(CameraUpdate.newCameraPosition(
+            CameraPosition(
+                target: marker.position,
+                bearing: device.heading.toDouble(),
+                zoom: 14.5)));
+
 /*         await mapController?.animateCamera(CameraUpdate.newCameraPosition(
             CameraPosition(
                 target: marker.position,
@@ -289,9 +296,9 @@ class HistoricProvider with ChangeNotifier {
           points: [markers.elementAt(index - 1).position, marker.position],
         ));
       }
-      mapControllerCompleter.future.then((value) {
-        value.animateCamera(CameraUpdate.newLatLng(marker.position));
-      });
+      googleMapController
+          ?.animateCamera(CameraUpdate.newLatLng(marker.position));
+
       notifyListeners();
       await Future.delayed(speedDuration);
     }
@@ -322,12 +329,11 @@ class HistoricProvider with ChangeNotifier {
       Marker marker = markers.elementAt(index);
       playedMarkers.add(marker);
       if (init) {
-        mapControllerCompleter.future.then((value) {
-          value.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-              target: marker.position,
-              bearing: device.heading.toDouble(),
-              zoom: 14.5)));
-        });
+        googleMapController?.animateCamera(CameraUpdate.newCameraPosition(
+            CameraPosition(
+                target: marker.position,
+                bearing: device.heading.toDouble(),
+                zoom: 14.5)));
 /*         await mapController?.animateCamera(CameraUpdate.newCameraPosition(
             CameraPosition(
                 target: marker.position,
@@ -342,9 +348,8 @@ class HistoricProvider with ChangeNotifier {
           points: [markers.elementAt(index - 1).position, marker.position],
         ));
       }
-      mapControllerCompleter.future.then((value) {
-        value.animateCamera(CameraUpdate.newLatLng(marker.position));
-      });
+      googleMapController
+          ?.animateCamera(CameraUpdate.newLatLng(marker.position));
       notifyListeners();
       await Future.delayed(speedDuration);
     }
@@ -353,12 +358,11 @@ class HistoricProvider with ChangeNotifier {
   }
 
   void moveCamera(LatLng pos, {double zoom = 6}) {
-    mapControllerCompleter.future.then((value) {
-      value.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-        target: pos,
-        zoom: zoom,
-      )));
-    });
+    googleMapController
+        ?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+      target: pos,
+      zoom: zoom,
+    )));
   }
 
   void initTimeRange() {
@@ -401,12 +405,11 @@ class HistoricProvider with ChangeNotifier {
   }
 
   void normaleView() {
-    mapControllerCompleter.future.then((value) {
-      value.animateCamera(CameraUpdate.newCameraPosition(const CameraPosition(
-        target: LatLng(33.589886, -7.603869),
-        zoom: 6.5,
-      )));
-    });
+    googleMapController
+        ?.animateCamera(CameraUpdate.newCameraPosition(const CameraPosition(
+      target: LatLng(33.589886, -7.603869),
+      zoom: 6.5,
+    )));
   }
 
   void _initDate() {
@@ -492,10 +495,8 @@ class HistoricProvider with ChangeNotifier {
   Future<void> _zoomToPoints(List<LatLng> points) async {
     if (points.isNotEmpty) {
       final bounds = boundsFromLatLngList(points);
-
-      mapControllerCompleter.future.then((value) {
-        value.animateCamera(CameraUpdate.newLatLngBounds(bounds, 80));
-      });
+      googleMapController
+          ?.animateCamera(CameraUpdate.newLatLngBounds(bounds, 80));
     }
   }
 
@@ -522,34 +523,20 @@ class HistoricProvider with ChangeNotifier {
 
   Future<void> fetchHistorics(BuildContext context,
       [int page = 1, bool init = false]) async {
-/*     if (useParkingMarker) {
-      loading = true;
-      _parkingMarkers.clear();
-      notifyListeners();
-      await _fetchParkingMarkers();
-      loading = false;
-      setParkingMarkers();
-      return;
-    } */
-
     histoLine = {};
     histoLine.clear();
     playedMarkers = {};
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      loading = true;
-    });
     if (init) {
       _loading = true;
       markers = {};
       circles = {};
       _parkingMarkers.clear();
-      await Future.delayed(const Duration(milliseconds: 250));
-      notifyListeners();
       _fetchParkingMarkers().then((value) {
         setParkingMarkers();
       });
       playedMarkers = {};
       historicModel.devices?.clear();
+      Future.microtask(() => notifyListeners());
     }
     Account? account = shared.getAccount();
 
@@ -570,41 +557,6 @@ class HistoricProvider with ChangeNotifier {
       historicModel.lastPage = newHistoricModel.lastPage;
       historicModel.total = newHistoricModel.total;
       historicModel.devices?.addAll(newHistoricModel.devices!);
-/*       for (Device device in newHistoricModel.devices!) {
-        // check if the first index
-        if (historicModel.devices?.indexOf(device) == 0) {
-          circles.add(
-            Circle(
-              circleId: const CircleId('Départ'),
-              center: LatLng(device.latitude, device.longitude),
-              radius: 20,
-              fillColor: const Color.fromARGB(86, 76, 175, 79),
-              strokeColor: Colors.green,
-              strokeWidth: 2,
-            ),
-          );
-/*           markers.add(
-            Marker(
-              markerId: const MarkerId('Départ'),
-              zIndex: 2,
-              position: LatLng(device.latitude, device.longitude),
-              icon: BitmapDescriptor.defaultMarkerWithHue(
-                  BitmapDescriptor.hueGreen),
-              infoWindow: const InfoWindow(title: 'Départ'),
-              onTap: () {
-                // zoom to point
-                mapController!.animateCamera(
-                  CameraUpdate.newLatLngZoom(
-                    LatLng(device.latitude, device.longitude),
-                    18,
-                  ),
-                );
-              },
-            ),
-          ); */
-        }
-        //markers.add(getSimpleMarker(device));
-      } */
       if (historicModel.currentPage < historicModel.lastPage) {
         // ignore: use_build_context_synchronously
         fetchHistorics(context, ++page);
@@ -614,17 +566,18 @@ class HistoricProvider with ChangeNotifier {
       //_zoomToPoints(markers.map((e) => e.position).toList());
       await fetchInfoData();
     }
-    _voidSetStartAndMarker();
-    _setHistoricLine();
+    await _voidSetStartAndMarker();
+    await _setHistoricLine();
 
-    loading = false;
+    _loading = false;
+
+    await _zoomToPoints(List<LatLng>.from(
+        historicModel.devices!.map((e) => LatLng(e.latitude, e.longitude))));
+    notifyListeners();
   }
 
   Future<void> _voidSetStartAndMarker() async {
     if (historicModel.devices?.isNotEmpty == true) {
-      animateMarker.clear();
-      await Future.delayed(const Duration(milliseconds: 250));
-      notifyListeners();
       final lastDevice = historicModel.devices?.last;
       if (lastDevice == null) {
         return;
@@ -635,13 +588,15 @@ class HistoricProvider with ChangeNotifier {
         markerId: markerId,
         position: LatLng(lastDevice.latitude, lastDevice.longitude),
         ripple: true,
-        visible: true,
+        visible: false,
         consumeTapEvents: false,
-        infoWindow: const InfoWindow(title: 'Arrivée'),
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
       );
 
       animateMarker[markerId] = marker;
+
+      final simpleMarker = getSimpleMarker(lastDevice);
+      markers.add(simpleMarker);
+
       if (historicModel.devices!.length > 5) {
         final firstDevice = historicModel.devices!.first;
         const markerId = MarkerId('simple_first_marker');
@@ -685,6 +640,7 @@ class HistoricProvider with ChangeNotifier {
     List<HistoLineInfo> histoLineInfo = [];
     String? status = "Unknown";
     int index = -1;
+    lastDevice = historicModel.devices?.last;
     for (Device device in historicModel.devices!) {
       index++;
 
@@ -730,7 +686,6 @@ class HistoricProvider with ChangeNotifier {
 
     for (HistoLineInfo info in histoLineInfo) {
       final polylineId = PolylineId(info.points.first.toString());
-
       histoLine.add(
         Polyline(
           onTap: () => _onTapLine(polylineId, info),
@@ -747,18 +702,6 @@ class HistoricProvider with ChangeNotifier {
       );
     }
     _zoomToPoints(histoLineInfo.map((e) => e.points.first).toList());
-    notifyListeners();
-    MotionToast.warning(
-      toastDuration: const Duration(seconds: 6),
-      description: const Text(
-        'Veuillez clicker sur la line pour voir les icones du trajet',
-        style: TextStyle(color: Colors.black),
-      ),
-      title: const Text(
-        'Info',
-        style: TextStyle(color: Colors.white),
-      ),
-    ).show(DeviceSize.c);
   }
 
   // on tap line hide all markers and show only the selected one
@@ -767,8 +710,6 @@ class HistoricProvider with ChangeNotifier {
     List<LatLng> points = histoLine.firstWhere((element) {
       return element.polylineId == polylineId;
     }).points;
-    await Future.delayed(const Duration(milliseconds: 100));
-    notifyListeners();
     historicModel.devices?.forEach((d) {
       if (d.statut == isParking) {
         markers.add(getSimpleMarker(d));
@@ -777,7 +718,6 @@ class HistoricProvider with ChangeNotifier {
         markers.add(getSimpleMarker(d));
       }
     });
-    await Future.delayed(const Duration(milliseconds: 100));
     notifyListeners();
   }
 
@@ -811,25 +751,22 @@ class HistoricProvider with ChangeNotifier {
     );
   }
 
-  final _uuid = const Uuid();
+  // get bitmap discriptor from base64
+  BitmapDescriptor _getBitmapDescriptor(String base64) {
+    late BitmapDescriptor bitmapDescriptor;
+    try {
+      Uint8List imgRes = base64Decode(base64);
+      bitmapDescriptor = BitmapDescriptor.fromBytes(imgRes);
+      return bitmapDescriptor;
+    } catch (e) {
+      bitmapDescriptor = BitmapDescriptor.defaultMarker;
+    }
+    return bitmapDescriptor;
+  }
 
   Marker getSimpleMarker(Device device) {
     LatLng position = LatLng(device.latitude, device.longitude);
-    BitmapDescriptor bitmapDescriptor;
-    try {
-      log('${device.dateTime}');
-      if (device.markerPng.isEmpty) {
-        log("message");
-        bitmapDescriptor = BitmapDescriptor.defaultMarker;
-      } else {
-        Uint8List imgRes = base64Decode(device.markerPng);
-        bitmapDescriptor = BitmapDescriptor.fromBytes(imgRes);
-      }
-    } catch (e) {
-      log(device.markerPng);
-      log(e.toString());
-      bitmapDescriptor = BitmapDescriptor.defaultMarker;
-    }
+    BitmapDescriptor bitmapDescriptor = _getBitmapDescriptor(device.markerPng);
     Device myDevice = device.copyWith(
       description: deviceProvider.selectedDevice?.description ?? '',
     );

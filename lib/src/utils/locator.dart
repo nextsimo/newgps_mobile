@@ -1,5 +1,6 @@
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get_it/get_it.dart';
+import 'package:newgps/src/utils/commande_store_provider.dart';
 import '../services/api_service.dart';
 import '../services/device_provider.dart';
 import '../services/firebase_messaging_service.dart';
@@ -27,6 +28,8 @@ void setup() {
   locator.registerSingleton<GeozoneService>(GeozoneService());
   locator.registerSingleton<ResumeReportLoadingProvider>(
       ResumeReportLoadingProvider());
+  locator
+      .registerSingleton<CommandeStoreProvider>(CommandeStoreProvider());
   locator
       .registerSingleton<FirebaseMessagingService>(FirebaseMessagingService());
 }

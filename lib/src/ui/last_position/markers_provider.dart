@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_maps_cluster_manager/google_maps_cluster_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:uuid/uuid.dart';
 import '../../models/device.dart';
 import '../../models/user_droits.dart';
 import '../../utils/device_size.dart';
@@ -179,6 +180,7 @@ class MarkersProvider {
     textMarkerManager.updateMap();
   }
 
+final uuid = const Uuid();
   Future<Marker> getClusterMarker(Cluster<Place> cluster) async {
     Color color = cluster.isMultiple
         ? AppConsts.blue
@@ -191,12 +193,12 @@ class MarkersProvider {
     debugPrint("->${cluster.location.latitude}->${cluster.location.longitude}");
     if (currentZoom > 11 && !cluster.isMultiple) {
       return getSimpleMarker(cluster.items.first.device);
-    }
+    } 
+
 
     return Marker(
       position: cluster.location,
-      markerId: MarkerId(
-          '${cluster.location.latitude},${cluster.location.longitude}'),
+      markerId: MarkerId(uuid.v4()) ,
       icon: await _getClusterBitmap(
         '${cluster.count}',
         myColor: color,
@@ -213,7 +215,7 @@ class MarkersProvider {
       onTap: () => _onTapMarker(device),
       position: position,
       anchor: const Offset(0.5, 0.1),
-      markerId: MarkerId('${device.latitude},${device.longitude}___text'),
+      markerId: MarkerId(uuid.v4()),
       icon: bitmapDescriptor,
     );
   }
@@ -248,7 +250,7 @@ class MarkersProvider {
     BitmapDescriptor bitmapDescriptor = BitmapDescriptor.fromBytes(imgRes);
     return Marker(
       onTap: () => _onTapMarker(device),
-      markerId: MarkerId('${device.latitude},${device.longitude}'),
+      markerId: MarkerId(uuid.v4()),
       position: position,
       icon: bitmapDescriptor,
     );

@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:uuid/uuid.dart';
 import '../../../models/account.dart';
 import '../../../services/newgps_service.dart';
 import '../rapport_provider.dart';
@@ -119,6 +120,7 @@ class TripsProvider with ChangeNotifier {
     }
   }
 
+final uuid = const Uuid();
   // navigate to Repport map page
   void navigateToRepportMap(BuildContext context, TripsRepportModel model) {
     // mareker from base 64 string
@@ -128,7 +130,7 @@ class TripsProvider with ChangeNotifier {
       zIndex: 1,
       position: LatLng(model.latitude, model.longitude),
       anchor: const Offset(0.5, 0.1),
-      markerId: MarkerId('${model.latitude},${model.longitude}___pos'),
+      markerId: MarkerId(uuid.v4()),
       icon: bitmapDescriptor,
     );
     showDialog(

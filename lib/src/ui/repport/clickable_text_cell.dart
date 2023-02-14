@@ -41,15 +41,16 @@ class BuildClickableTextCell extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
-                right: 0,
-                bottom: -4,
-                child: Icon(
-                    isUp && isSlected
-                        ? Icons.arrow_drop_down_outlined
-                        : Icons.arrow_drop_up_outlined,
-                    size: 12),
-              )
+              if (ontap != null)
+                Positioned(
+                  right: 0,
+                  bottom: -4,
+                  child: Icon(
+                      isUp && isSlected
+                          ? Icons.arrow_drop_down_outlined
+                          : Icons.arrow_drop_up_outlined,
+                      size: 12),
+                )
             ],
           ),
         ),

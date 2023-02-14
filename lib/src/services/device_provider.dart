@@ -6,6 +6,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../models/account.dart';
 import '../models/device.dart';
 import '../models/info_model.dart';
+import '../utils/commande_store_provider.dart';
+import '../utils/locator.dart';
 import 'newgps_service.dart';
 import '../ui/login/login_as/save_account_provider.dart';
 import '../utils/device_size.dart';
@@ -32,13 +34,7 @@ class DeviceProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  InfoModel? _infoModel;
-
-  InfoModel? get infoModel => _infoModel;
-
-  set infoModel(InfoModel? infoModel) {
-    _infoModel = infoModel;
-  }
+  InfoModel? infoModel;
 
   late MapType _mapType = MapType.normal;
 
@@ -114,6 +110,13 @@ class DeviceProvider with ChangeNotifier {
       String message = isStart ? 'Le démarrage' : "L'arrêt";
 
       if (res == 'success') {
+        final store = locator<CommandeStoreProvider>();
+
+        if (isStart) {
+          store.saveCommandeHisto(device, store.startCommande);
+        }else{
+          store.saveCommandeHisto(device, store.stopCommande);
+        }
         // ignore: use_build_context_synchronously
         showDialog(
             context: context,

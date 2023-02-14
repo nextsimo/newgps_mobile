@@ -221,7 +221,7 @@ class OptionViewBuilderWidget extends StatelessWidget {
         repportProvider.selectAllDevices = true;
 
         if (provider.selectedRepport.index != 0 &&
-            provider.selectedRepport.index != 4) {
+            provider.selectedRepport.index != 4 && provider.selectedRepport.index != 7) {
           provider.selectedRepport = provider.repportsType.first;
         }
       },

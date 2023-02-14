@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:uuid/uuid.dart';
 import '../../../../models/device.dart';
 
 class MapViewAlertProvider with ChangeNotifier {
@@ -26,7 +27,7 @@ class MapViewAlertProvider with ChangeNotifier {
     markers.add(_getSimpleMarker(device));
     notifyListeners();
   }
-
+  final uuid = const Uuid();
   Marker _getSimpleMarker(Device device) {
     LatLng position = LatLng(device.latitude, device.longitude);
     Uint8List imgRes = base64Decode(device.markerPng);
@@ -36,7 +37,7 @@ class MapViewAlertProvider with ChangeNotifier {
     BitmapDescriptor bitmapDescriptor = BitmapDescriptor.fromBytes(imgRes);
     return Marker(
       //onTap: () => _onTapMarker(device),
-      markerId: MarkerId('${device.latitude},${device.longitude}'),
+      markerId:  MarkerId(uuid.v4()),
       position: position,
       icon: bitmapDescriptor,
     );

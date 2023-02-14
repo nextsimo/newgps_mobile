@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../models/device.dart';
 import '../../services/device_provider.dart';
 import '../../utils/functions.dart';
@@ -23,9 +24,9 @@ class PlayCard extends StatelessWidget {
       alignment:isPortrait ? Alignment.bottomCenter :  Alignment.bottomLeft,
       child: SafeArea(
         child: Container(
-          width: 340,
+          width: 400.w,
           margin: const EdgeInsets.all(AppConsts.outsidePadding),
-          padding: const EdgeInsets.all(AppConsts.outsidePadding),
+          padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(AppConsts.mainradius),
               color: Colors.white,

@@ -84,19 +84,19 @@ class HistoricViews extends StatelessWidget {
                       if (!isPlayed) return const SizedBox();
                       return const PlayCard();
                     }),
-                Positioned(
-                  top: 72.r.h,
-                  child: Selector<HistoricProvider, bool>(
-                    selector: (_, p) => p.historicIsPlayed,
-                    builder: (_, bool isPlayed, ___) {
-                      if (isPlayed) return const SizedBox();
-                      return AutoSearchDevice(
-                        onSelectDeviceFromOtherView: (Device device) async =>
-                            provider.fetchHistorics(context, 1, true),
-                      );
-                    },
+                  Positioned(
+                    top: 72.r.h,
+                    child: Selector<HistoricProvider, bool>(
+                      selector: (_, p) => p.historicIsPlayed,
+                      builder: (_, bool isPlayed, ___) {
+                        if (isPlayed) return const SizedBox();
+                        return AutoSearchDevice(
+                          onSelectDeviceFromOtherView: (Device device) async =>
+                              provider.fetchHistorics(context,device, 1, true),
+                        );
+                      },
+                    ),
                   ),
-                ),
                 Positioned(
                   top: 75.r.h,
                   right: 0,
@@ -117,6 +117,7 @@ class HistoricViews extends StatelessWidget {
                   );
                 }),
                 const ParkingButton(),
+                //const ShowAllMarkersButton(),
                 Selector<HistoricProvider, bool>(
                     selector: (_, p) => p.historicIsPlayed,
                     builder: (_, bool isPlayed, ___) {
@@ -140,7 +141,6 @@ class HistoricViews extends StatelessWidget {
                                 width: isPortrait
                                     ? size.width * .6
                                     : size.width * 0.35,
-
                               );
                             }),
                           ],

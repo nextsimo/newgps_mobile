@@ -40,51 +40,60 @@ class _HistoricMapViewState extends State<HistoricMapView>
     super.dispose();
     historicProvider.clear();
   }
-
   @override
   Widget build(BuildContext context) {
     context.select<DeviceProvider, MapType>((value) => value.mapType);
+    final provider = context.read<HistoricProvider>();
     return Center(
-      child: Consumer<HistoricProvider>(
-          builder: (_, HistoricProvider provider, __) {
-        final DeviceProvider deviceProvider =
-            Provider.of<DeviceProvider>(context, listen: false);
-        log("Build historic map");
-        return Stack(
-          children: [
-            Animarker(
-              isActiveTrip: true,
-              rippleColor: historicProvider.getRippleColor(),
-              shouldAnimateCamera: false,
-              useRotation: false,
-              mapId:
-                  Future<int>.value(provider.googleMapController?.mapId ?? 0),
-              markers: provider.animateMarker.values.toSet(),
-              child: GoogleMap(
-                markers: provider.getMarker(),
-                polylines: provider.getLines(),
-                zoomControlsEnabled: false,
-                myLocationEnabled: true,
-                myLocationButtonEnabled: false,
-                circles: provider.circles,
-                mapType: deviceProvider.mapType,
-                onCameraMove: provider.onCameraMove,
-                onTap: provider.onTapMap,
-                onMapCreated: (controller) async {
-                  provider.googleMapController = controller;
-                  provider.customInfoWindowController.googleMapController =
-                      controller;
-                },
-                initialCameraPosition: const CameraPosition(
-                    target: LatLng(31.7917, -7.0926), zoom: 6),
-              ),
-            ),
-            MyCustomInfoWindows(
-              controller: provider.customInfoWindowController,
-            ),
-          ],
-        );
-      }),
+      child: Selector<HistoricProvider, bool>(
+          selector: (_, p) => p.notifyMap,
+          builder: (_, ___, __) {
+            final DeviceProvider deviceProvider =
+                Provider.of<DeviceProvider>(context, listen: false);
+            log("Build historic map");
+            return Stack(
+              children: [
+                Animarker(
+                  isActiveTrip: true,
+                  useRotation: false,
+                  rippleRadius: 0.2,
+                  duration: Duration(
+                      milliseconds:
+                          historicProvider.speedDuration.inMilliseconds ~/ 10),
+                  rippleDuration: const Duration(milliseconds: 500),
+                  shouldAnimateCamera: false,
+                  rippleColor: historicProvider.getRippleColor(),
+                  mapId: Future<int>.value(
+                      provider.googleMapController?.mapId ?? 0),
+                  markers: provider.animateMarker.values.toSet(),
+                  child: GoogleMap(
+                    markers: provider.getMarker(),
+                    polylines: provider.getLines(),
+                    zoomControlsEnabled: false,
+                    myLocationEnabled: true,
+                    myLocationButtonEnabled: false,
+                    circles: provider.circles,
+                    mapType: deviceProvider.mapType,
+                    onCameraMove: (pos) {
+                      provider.onCameraMove(pos);
+
+                    },
+                    onTap: provider.onTapMap,
+                    onMapCreated: (controller) async {
+                      provider.googleMapController = controller;
+                      provider.customInfoWindowController.googleMapController =
+                          controller;
+                    },
+                    initialCameraPosition: const CameraPosition(
+                        target: LatLng(31.7917, -7.0926), zoom: 6),
+                  ),
+                ),
+                MyCustomInfoWindows(
+                  controller: provider.customInfoWindowController,
+                ),
+              ],
+            );
+          }),
     );
   }
 }

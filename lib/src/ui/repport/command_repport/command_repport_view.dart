@@ -15,15 +15,17 @@ class CommandRepportView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<CommandTripProvider>(
-      create: (_) => CommandTripProvider(
+    return ChangeNotifierProvider<CommandRepportProvider>(
+      create: (_) => CommandRepportProvider(
           Provider.of<RepportProvider>(context, listen: false)),
       builder: (context, __) {
         RepportProvider provider = Provider.of<RepportProvider>(context);
-        CommandTripProvider commandTripProvider =
-            Provider.of<CommandTripProvider>(context, listen: false);
-        commandTripProvider.fetchCommands(
-            provider.selectedDevice.deviceId, 'action_date');
+        CommandRepportProvider commandRepportProvider =
+            Provider.of<CommandRepportProvider>(context, listen: false);
+        commandRepportProvider.fetchCommands(
+          provider.selectedDevice.deviceId,
+          provider.selectAllDevices,
+        );
         return Material(
           child: SafeArea(
             right: false,
@@ -32,15 +34,15 @@ class CommandRepportView extends StatelessWidget {
             child: Column(
               children: [
                 const _BuildHead(),
-                Consumer<CommandTripProvider>(builder: (context, __, ___) {
+                Consumer<CommandRepportProvider>(builder: (context, __, ___) {
                   return Expanded(
                     child: ListView.builder(
                       physics: const ClampingScrollPhysics(),
-                      itemCount: commandTripProvider.commands.length,
+                      itemCount: commandRepportProvider.commands.length,
                       itemBuilder: (_, int index) {
                         return _RepportRow(
-                            model:
-                                commandTripProvider.commands.elementAt(index));
+                            model: commandRepportProvider.commands
+                                .elementAt(index));
                       },
                     ),
                   );
@@ -61,7 +63,6 @@ class _BuildHead extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     var borderSide = const BorderSide(
         color: AppConsts.mainColor, width: AppConsts.borderWidth);
     return Container(
@@ -70,33 +71,32 @@ class _BuildHead extends StatelessWidget {
         border: Border(bottom: borderSide, top: borderSide),
       ),
       child: Row(
-        children: [
-          const BuildDivider(),
+        children: const [
+          BuildDivider(),
+          BuildClickableTextCell(
+            'Matricule',
+          ),
+          BuildDivider(),
           BuildClickableTextCell(
             'Description',
-            ontap: (_) {},
           ),
-          const BuildDivider(),
+          BuildDivider(),
           BuildClickableTextCell(
             'Date',
-            ontap: (_) {},
           ),
-          const BuildDivider(),
+          BuildDivider(),
           BuildClickableTextCell(
             'Description de l\'appareil',
-            ontap: (_) {},
           ),
-          const BuildDivider(),
+          BuildDivider(),
           BuildClickableTextCell(
             'Numéro de téléphone',
-            ontap: (_) {},
           ),
-          const BuildDivider(),
+          BuildDivider(),
           BuildClickableTextCell(
             'Utilisateur',
-            ontap: (_) {},
           ),
-          const BuildDivider(),
+          BuildDivider(),
         ],
       ),
     );
@@ -127,28 +127,27 @@ class _RepportRow extends StatelessWidget {
         children: [
           const BuildDivider(),
           BuildTextCell(
-            model.actionDescription,
-            flex: 2,
+            model.gpsDeviceDescription,
           ),
           const BuildDivider(),
           BuildTextCell(
-            formatDeviceDate(model.actionDate),
-            flex: 3,
+            model.commandeDescription,
+          ),
+          const BuildDivider(),
+          BuildTextCell(
+            formatDeviceDate(model.commandeDate),
           ),
           const BuildDivider(),
           BuildTextCell(
             model.deviceDescription,
-            flex: 2,
           ),
           const BuildDivider(),
           BuildTextCell(
-            model.phoneDescription,
-            flex: 3,
+            model.phoneNumber,
           ),
           const BuildDivider(),
           BuildTextCell(
             model.userId,
-            flex: 2,
           ),
           const BuildDivider(),
         ],

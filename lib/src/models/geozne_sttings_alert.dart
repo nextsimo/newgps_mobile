@@ -25,7 +25,7 @@ class GeozoneSttingsAlert {
       GeozoneSttingsAlert(
         id: json["id"],
         notificationId: json["notification_id"],
-        isActive: json["is_active"] == 0 ? false : true,
+        isActive: json["is_active"],
       );
 
   Map<String, dynamic> toJson() => {

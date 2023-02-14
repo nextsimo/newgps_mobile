@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_cluster_manager/google_maps_cluster_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:uuid/uuid.dart';
 import '../../models/account.dart';
 import '../../models/device.dart';
 import '../../models/info_model.dart';
@@ -241,6 +242,7 @@ class LastPositionProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  final uuid = const Uuid();
   Future<Marker> Function(Cluster<Place>) markerBuilder(bool isText) =>
       (cluster) async {
         if (!isText) {
@@ -249,7 +251,7 @@ class LastPositionProvider with ChangeNotifier {
         if (isText && !cluster.isMultiple) {
           return markersProvider.getTextMarker(cluster.items.first.device);
         }
-        return const Marker(markerId: MarkerId(''), visible: false);
+        return Marker(markerId: MarkerId(uuid.v4()), visible: false);
       };
 
   void _initCluster() {
@@ -356,7 +358,7 @@ class LastPositionProvider with ChangeNotifier {
     Device? device = deviceProvider.devices.firstWhere((d) => d.deviceId == id);
     deviceProvider.selectedDevice = device;
     markersProvider.onMarker.clear();
-        markersProvider.simpleMarkers.clear();
+    markersProvider.simpleMarkers.clear();
 
     notifyListeners();
     await Future.delayed(const Duration(milliseconds: 250));

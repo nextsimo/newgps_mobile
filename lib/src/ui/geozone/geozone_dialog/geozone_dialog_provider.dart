@@ -178,7 +178,7 @@ class GeozoneDialogProvider with ChangeNotifier {
         pointLines.add(latLng);
         markers.add(
           Marker(
-            markerId: MarkerId(latLng.toString()),
+            markerId: MarkerId(_generateUniqueId()),
             position: latLng,
             onDragEnd: movePolygonPoint,
             onDragStart: onMoveStart,
@@ -219,7 +219,7 @@ class GeozoneDialogProvider with ChangeNotifier {
       pointLines.add(latLng);
       markers.add(
         Marker(
-          markerId: MarkerId(latLng.toString()),
+          markerId: MarkerId(_generateUniqueId()),
           position: latLng,
           onDragEnd: movePolygonPoint,
           onDragStart: onMoveStart,
@@ -291,7 +291,7 @@ class GeozoneDialogProvider with ChangeNotifier {
     circle.clear();
     markers.clear();
     markers.add(Marker(
-        markerId: MarkerId(pos.toString()),
+        markerId: MarkerId(_generateUniqueId()),
         position: pos,
         draggable: true,
         onDragEnd: (pos) {
@@ -320,7 +320,7 @@ class GeozoneDialogProvider with ChangeNotifier {
     markers.clear();
     markers.add(
       Marker(
-        markerId: MarkerId(pos.toString()),
+        markerId: MarkerId(_generateUniqueId()),
         position: pos,
         draggable: true,
         onDrag: (pos) {
@@ -365,7 +365,7 @@ class GeozoneDialogProvider with ChangeNotifier {
     LatLng latL = LatLng(lat, lon);
 
     markers.add(Marker(
-      markerId: MarkerId(latL.toString()),
+      markerId: MarkerId(_generateUniqueId()),
       visible: isCircle,
       draggable: true,
       onDragEnd: (LatLng latLng2) => calculeDistanceBetweenTowPos(pos, latLng2),

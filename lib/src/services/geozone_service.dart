@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:label_marker/label_marker.dart';
+import 'package:uuid/uuid.dart';
 import 'newgps_service.dart';
 import '../utils/styles.dart';
 
@@ -72,12 +73,12 @@ class GeozoneService {
     var center = _getPolygonCenter(model.cordinates);
     _addMarkerLabel(model, center);
   }
-
+  final uuid =const  Uuid();
   // add marker label
   void _addMarkerLabel(GeozoneModel model, LatLng center) {
     geozoneMarkers.addLabelMarker(
       LabelMarker(
-        markerId: MarkerId(model.geozoneId),
+        markerId: MarkerId(uuid.v1()),
         label: model.description,
         position: center,
         backgroundColor: model.zoneType == 2 ? Colors.blue : Colors.green,

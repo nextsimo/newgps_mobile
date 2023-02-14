@@ -5,6 +5,7 @@ import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:newgps/src/services/newgps_service.dart';
+import 'package:uuid/uuid.dart';
 import '../../models/device.dart';
 import '../../widgets/custom_info_windows.dart';
 
@@ -63,12 +64,14 @@ class ClassicProvider with ChangeNotifier {
     loading = false;
   }
 
+  final uuid = const Uuid();
+
   Marker _getSimpleMarker(Device device) {
     LatLng position = LatLng(device.latitude, device.longitude);
     Uint8List imgRes = base64Decode(device.markerPng);
-    BitmapDescriptor bitmapDescriptor = BitmapDescriptor.fromBytes(imgRes);
+    BitmapDescriptor bitmapDescriptor = BitmapDescriptor.fromBytes(imgRes); 
     return Marker(
-      markerId: const MarkerId('oneMarker'),
+      markerId: MarkerId(uuid.v4()),
       position: position,
       icon: bitmapDescriptor,
       onTap: () => customInfoWindowController.addInfoWindow!(

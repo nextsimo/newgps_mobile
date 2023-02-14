@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newgps/src/utils/commande_store_provider.dart';
 import '../models/device.dart';
 import '../services/device_provider.dart';
 import '../services/newgps_service.dart';
@@ -10,7 +11,6 @@ import 'buttons/main_button.dart';
 import 'map_launcher/map_launcher_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
-import '../ui/icon_change/change_icon_view.dart';
 import 'buttons/outlined_button.dart';
 
 class FloatingGroupWindowInfo extends StatefulWidget {

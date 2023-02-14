@@ -16,7 +16,7 @@ class ParkingProvider with ChangeNotifier {
       HistoricProvider historicProvider) async {
     historicProvider.handleuseParkingMarkers(buttonClicked);
     if (buttonClicked) {
-      historicProvider.setParkingMarkers();
+      historicProvider.setParkingMarkers(true);
     } else {
       historicProvider.handleuseParkingMarkers(buttonClicked);
       historicProvider.notifyListeners();

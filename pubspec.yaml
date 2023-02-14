@@ -48,6 +48,7 @@ dependencies:
   lazy_data_table: ^0.3.1
   loadmore: ^2.0.1
   map_launcher: ^2.4.0
+  mobile_number: ^2.1.1
   month_picker_dialog: ^0.4.0
   motion_toast: ^2.6.4
   open_file: ^3.2.1

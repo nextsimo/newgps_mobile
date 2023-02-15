@@ -16,8 +16,8 @@ class AddDriverView extends StatelessWidget {
     return ChangeNotifierProvider<AddDriverProvider>(
         create: (_) => AddDriverProvider(),
         builder: (context, snapshot) {
-          return Column(
-            children: const [
+          return const Column(
+            children: [
               _BuildHeader(),
               _AddDriverForm(),
             ],
@@ -47,8 +47,8 @@ class _AddDriverForm extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             children: [
               const SizedBox(height: 20),
-              Row(
-                children: const [
+              const Row(
+                children: [
                   NewgInput(
                     placeholder: 'Nom',
                   ),

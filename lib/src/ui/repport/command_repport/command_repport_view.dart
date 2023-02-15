@@ -70,8 +70,8 @@ class _BuildHead extends StatelessWidget {
         color: AppConsts.mainColor.withOpacity(0.2),
         border: Border(bottom: borderSide, top: borderSide),
       ),
-      child: Row(
-        children: const [
+      child: const Row(
+        children: [
           BuildDivider(),
           BuildClickableTextCell(
             'Matricule',
@@ -90,11 +90,11 @@ class _BuildHead extends StatelessWidget {
           ),
           BuildDivider(),
           BuildClickableTextCell(
-            'Numéro de téléphone',
+            'Utilisateur',
           ),
           BuildDivider(),
           BuildClickableTextCell(
-            'Utilisateur',
+            'IMEI',
           ),
           BuildDivider(),
         ],
@@ -143,11 +143,11 @@ class _RepportRow extends StatelessWidget {
           ),
           const BuildDivider(),
           BuildTextCell(
-            model.phoneNumber,
+            model.userId,
           ),
           const BuildDivider(),
           BuildTextCell(
-            model.userId,
+            model.phoneNumber,
           ),
           const BuildDivider(),
         ],

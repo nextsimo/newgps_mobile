@@ -36,8 +36,8 @@ class IconChangeView extends StatelessWidget {
         height: 30,
         padding: const EdgeInsets.symmetric(horizontal: 10),
         decoration: boxDecoration,
-        child: Row(
-          children: const [
+        child: const Row(
+          children: [
             Text(
               'Changer l\'icône',
               style: TextStyle(
@@ -70,11 +70,11 @@ class IconsList extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 10),
+          const Padding(
+            padding: EdgeInsets.only(left: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Text(
                   'Choissisez l\'icône',
                   style: TextStyle(

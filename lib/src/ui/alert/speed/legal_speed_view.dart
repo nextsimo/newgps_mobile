@@ -20,8 +20,8 @@ class LegalSpeedView extends StatelessWidget {
   }
 
   Row _buildHeader() {
-    return Row(
-          children: const [
+    return const Row(
+          children: [
             Icon(
               FontAwesomeIcons.gaugeHigh,
               color: Colors.green,

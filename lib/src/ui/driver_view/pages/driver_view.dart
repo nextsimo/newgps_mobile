@@ -14,10 +14,10 @@ class DriverView extends StatelessWidget {
     return ChangeNotifierProvider<DriverViewProvider>(
         create: (_) => DriverViewProvider(),
         builder: (context, __) {
-          return Scaffold(
-            appBar: const CustomAppBar(),
+          return const Scaffold(
+            appBar: CustomAppBar(),
             body: Column(
-              children: const [
+              children: [
                 _BuildHeader(),
                 _BuildMyDrivers(),
               ],

@@ -57,10 +57,10 @@ class _EmptyRefreshWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
+        children: [
           Text(
             'No devices found',
             style: TextStyle(fontSize: 20),

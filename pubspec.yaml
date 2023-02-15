@@ -42,7 +42,7 @@ dependencies:
   grouped_list: ^5.1.2
   http: ^0.13.4
   image: ^4.0.12
-  intl: ^0.17.0
+  intl: ^0.18.0
   label_marker: ^1.0.1
   latlong2: ^0.8.1
   lazy_data_table: ^0.3.1

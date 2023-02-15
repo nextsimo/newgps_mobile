@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:mobile_number/mobile_number.dart';
 import 'package:newgps/src/services/newgps_service.dart';
 
 import '../models/device.dart';
@@ -23,25 +22,28 @@ class CommandeStoreProvider {
     var account = shared.getAccount();
     var deviceInfo = await _getDeviceInfo();
     String? phoneNumber = "**";
-    if (Platform.isAndroid) {
-      // request permission
-      await MobileNumber.requestPhonePermission;
-      if (await MobileNumber.hasPhonePermission) {
-        phoneNumber = await MobileNumber.mobileNumber;
-      }
+    phoneNumber = deviceInfo['device_uid'] ?? "**";
+
+    String? utilisateur =account?.account.userID ;
+
+    if (utilisateur == null || utilisateur.isEmpty) {
+      utilisateur = account?.account.accountId;
     }
+
+
+    
 
     var body = {
       'account_id': account?.account.accountId,
-      'user_id': account?.account.userID ?? "**",
+      'user_id':utilisateur,
       'device_id': device.deviceId,
       'commande': commande,
       'commande_description': description,
       'commande_date': DateTime.now().toString(),
       'device_description':
-          "${deviceInfo['device_brand']}, ${deviceInfo['platform']}, ${deviceInfo['os']}",
+          "${deviceInfo['manufacturer']}, ${deviceInfo['model']},${deviceInfo['platform']} ${deviceInfo['os']}",
       'gps_device_description': device.description,
-      'phone_number': phoneNumber ?? "**",
+      'phone_number': phoneNumber,
     };
 
     await api.post(url: '/commande/store', body: body);
@@ -54,7 +56,9 @@ class CommandeStoreProvider {
         'device_brand': info.brand,
         'platform': 'android',
         'device_uid': info.androidId,
-        'os': info.version.release
+        'os': info.version.release,
+        'manufacturer': info.manufacturer ?? info.brand,
+        'model': info.model,
       };
     } else {
       IosDeviceInfo info = await _deviceInfo.iosInfo;

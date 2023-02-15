@@ -81,9 +81,9 @@ class MatriculeProvider with ChangeNotifier {
               borderRadius: BorderRadius.circular(AppConsts.mainradius),
               color: Colors.white,
             ),
-            child: Column(
+            child: const Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
+              children: [
                 Icon(
                   Icons.check_box,
                   color: Colors.green,
@@ -107,9 +107,9 @@ class MatriculeProvider with ChangeNotifier {
               borderRadius: BorderRadius.circular(AppConsts.mainradius),
               color: Colors.white,
             ),
-            child: Column(
+            child: const Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
+              children: [
                 Icon(
                   Icons.wifi_off_sharp,
                   color: Colors.orange,

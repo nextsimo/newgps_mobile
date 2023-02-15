@@ -141,6 +141,7 @@ class LastPositionProvider with ChangeNotifier {
 
     if (res.isNotEmpty) {
       deviceProvider.infoModel = infoModelFromJson(res);
+      deviceProvider.notifyListeners();
     }
   }
 
@@ -396,12 +397,11 @@ class LastPositionProvider with ChangeNotifier {
         'icon': 'BinTruck',
       },
     );
-
+    await fetchInfoData(deviceId);
     if (res.isNotEmpty) {
       log(res);
       Device device = Device.fromMap(json.decode(res));
       deviceProvider.selectedDevice = device;
-      await fetchInfoData(deviceId);
       markersProvider.onMarker.clear();
       markersProvider.onMarker.add(markersProvider.getSimpleMarker(device));
       notifyListeners();

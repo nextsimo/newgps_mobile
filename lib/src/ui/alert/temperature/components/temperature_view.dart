@@ -19,16 +19,16 @@ class TemperatureBleView extends StatelessWidget {
           return TemperatureBleProvider(firebaseMessagingService);
         },
         builder: (context, snapshot) {
-          return Scaffold(
+          return const Scaffold(
             resizeToAvoidBottomInset: false,
 /*             extendBodyBehindAppBar: true,
             extendBody: true, */
-            appBar: const CustomAppBar(
+            appBar: CustomAppBar(
               actions: [CloseButton(color: Colors.black)],
             ),
             body: SafeArea(
               child: Column(
-                children: const [
+                children: [
                   SizedBox(height: 10),
                   BuildLabel(
                     icon: Icons.thermostat,

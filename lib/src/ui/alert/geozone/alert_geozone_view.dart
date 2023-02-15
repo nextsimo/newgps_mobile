@@ -98,8 +98,8 @@ class HistoALertGeozoneCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: const [
+          const Row(
+            children:  [
               Text('Véhicule:'),
               SizedBox(width: 10),
               Text('Omaar FMB1212',
@@ -121,8 +121,8 @@ class HistoALertGeozoneCard extends StatelessWidget {
                 ),
               ])),
           const SizedBox(height: 14),
-          Row(
-            children: const [
+          const Row(
+            children: [
               Text('Date:'),
               SizedBox(width: 10),
               Text('22/10/2022 10:10:10',
@@ -130,9 +130,9 @@ class HistoALertGeozoneCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 14),
-          Row(
+          const Row(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text('Adresse:'),
               SizedBox(width: 10),
               Expanded(

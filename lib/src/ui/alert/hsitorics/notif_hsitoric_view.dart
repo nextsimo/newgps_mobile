@@ -94,14 +94,14 @@ class NotifHistoricView extends StatelessWidget {
   }
 
   Widget _buildLabel() {
-    return SafeArea(
+    return const SafeArea(
       bottom: false,
       top: false,
       right: false,
       child: Padding(
-        padding: const EdgeInsets.only(left: 10),
+        padding: EdgeInsets.only(left: 10),
         child: Column(
-          children: const [
+          children: [
             SizedBox(height: 10),
             Text(
               'Historiques',

@@ -35,10 +35,10 @@ class ParkingAlertView extends StatelessWidget {
               bottom: false,
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 13),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 13),
                     child: Column(
-                      children: const [
+                      children: [
                         SizedBox(height: 10),
                         BuildLabel(
                           label: 'démarrage non autorisé',

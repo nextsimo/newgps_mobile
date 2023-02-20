@@ -55,9 +55,9 @@ class CommandeStoreProvider {
       return {
         'device_brand': info.brand,
         'platform': 'android',
-        'device_uid': info.androidId,
+        'device_uid': info.serialNumber,
         'os': info.version.release,
-        'manufacturer': info.manufacturer ?? info.brand,
+        'manufacturer': info.manufacturer,
         'model': info.model,
       };
     } else {

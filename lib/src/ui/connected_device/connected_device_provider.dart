@@ -148,7 +148,7 @@ class ConnectedDeviceProvider with ChangeNotifier {
       return {
         'device_brand': info.brand,
         'platform': 'android',
-        'device_uid': info.androidId,
+        'device_uid': info.serialNumber,
         'os': info.version.release
       };
     } else {

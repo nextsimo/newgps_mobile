@@ -31,7 +31,6 @@ const String towingLocalDataKey = 'towing';
 // show call service
 void showCallService(BuildContext context) {
   showDialog(
-    
     context: context,
     builder: (_) {
       return Dialog(
@@ -118,6 +117,7 @@ String formatDeviceDate(DateTime dateTime, [bool time = true]) {
 }
 
 void showCallConducteurDialog(BuildContext context, Device? device) {
+  if (device == null) return;
   showDialog(
       context: context,
       builder: (_) {
@@ -130,9 +130,9 @@ void showCallConducteurDialog(BuildContext context, Device? device) {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 MainButton(
-                  onPressed: () => call(device!.phone1),
+                  onPressed: () => call(device.phone1),
                   icon: Icons.phone_forwarded_rounded,
-                  label: device!.phone1,
+                  label: device.phone1,
                 ),
                 const SizedBox(height: 10),
                 if (device.phone2.isNotEmpty)
@@ -268,7 +268,7 @@ final DeviceInfoPlugin _deviceInfo = DeviceInfoPlugin();
 Future<String?> getDeviceToken() async {
   if (Platform.isAndroid) {
     AndroidDeviceInfo androidInfo = await _deviceInfo.androidInfo;
-    return "android_${androidInfo.model}_${androidInfo.androidId}";
+    return "android_${androidInfo.model}_${androidInfo.serialNumber}";
   } else {
     IosDeviceInfo iosInfo = await _deviceInfo.iosInfo;
     return "ios_${iosInfo.model}_${iosInfo.identifierForVendor}";

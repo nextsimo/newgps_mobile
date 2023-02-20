@@ -39,7 +39,7 @@ class SavedAcountProvider with ChangeNotifier {
   Future<String?> _getDeviceToken() async {
     if (Platform.isAndroid) {
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-      return "android_${androidInfo.model}_${androidInfo.androidId}";
+      return "android_${androidInfo.model}_${androidInfo.serialNumber}";
     } else {
       IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
 

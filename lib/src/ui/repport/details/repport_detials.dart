@@ -36,10 +36,10 @@ class RepportDetailsView extends StatelessWidget {
             child: Column(
               children: [
                 const _BuildHead(),
-                Consumer2<RepportDetailsProvider, RepportProvider>(
-                    builder: (context, __, ___, ____) {
-                  return Expanded(
-                    child: LoadMore(
+                Expanded(
+                  child: Consumer2<RepportDetailsProvider, RepportProvider>(
+                      builder: (context, __, ___, ____) {
+                    return LoadMore(
                       isFinish: repportDetailsProvider
                               .repportDetailsPaginateModel.currentPage >
                           repportDetailsProvider
@@ -51,7 +51,7 @@ class RepportDetailsView extends StatelessWidget {
                         await repportDetailsProvider.fetchMoreRepportModel(
                             provider,
                             deviceId: provider.selectedDevice.deviceId);
-
+                                  
                         return true;
                       },
                       child: ListView.builder(
@@ -70,9 +70,9 @@ class RepportDetailsView extends StatelessWidget {
                           );
                         },
                       ),
-                    ),
-                  );
-                }),
+                    );
+                  }),
+                ),
               ],
             ),
           ),

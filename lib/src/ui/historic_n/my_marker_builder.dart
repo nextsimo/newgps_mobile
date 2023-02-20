@@ -17,11 +17,11 @@ class MyMarkerBuilder extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         if (wave)
-          RippleAnimation(
+          const RippleAnimation(
             color: Colors.blue,
             minRadius: 30,
             repeat: true,
-            child: const SizedBox(
+            child:  SizedBox(
               width: 30,
               height: 30,
             ),

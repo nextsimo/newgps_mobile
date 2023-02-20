@@ -6,7 +6,7 @@ import FlutterMacOS
 import Foundation
 
 import battery_plus
-import device_info_plus_macos
+import device_info_plus
 import firebase_analytics
 import firebase_core
 import firebase_messaging
@@ -14,9 +14,9 @@ import firebase_remote_config
 import flutter_app_badger
 import flutter_tts
 import geolocator_apple
-import package_info_plus_macos
+import package_info_plus
 import path_provider_foundation
-import share_plus_macos
+import share_plus
 import shared_preferences_foundation
 import url_launcher_macos
 

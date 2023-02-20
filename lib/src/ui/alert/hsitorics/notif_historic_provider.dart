@@ -248,7 +248,7 @@ class NotifHistoricPorvider with ChangeNotifier {
   Future<String?> _getDeviceToken() async {
     if (Platform.isAndroid) {
       AndroidDeviceInfo androidInfo = await _deviceInfo.androidInfo;
-      return "android_${androidInfo.model}_${androidInfo.androidId}";
+      return "android_${androidInfo.model}_${androidInfo.serialNumber}";
     } else {
       IosDeviceInfo iosInfo = await _deviceInfo.iosInfo;
       return "ios_${iosInfo.model}_${iosInfo.identifierForVendor}";

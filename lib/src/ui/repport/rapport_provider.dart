@@ -13,7 +13,7 @@ import 'package:newgps/src/ui/repport/repport_type_model.dart';
 import 'package:newgps/src/widgets/buttons/main_button.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:open_file/open_file.dart';
+import 'package:open_file_plus/open_file_plus.dart';
 
 import 'temperature_ble/temp_ble_chart.dart';
 
@@ -403,7 +403,6 @@ class RepportProvider with ChangeNotifier {
       await file.create(recursive: true);
       await file.writeAsBytes(bytes);
       // set name of file
-
       await OpenFile.open(file.path, type: "application/$extension");
       debugPrint(file.path);
     } catch (e) {

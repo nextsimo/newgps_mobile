@@ -143,37 +143,6 @@ class _BuildInputState extends State<_BuildInput> {
               );
             }
           }
-
-/*           if (int.parse(val) > widget.maxNumber) {
-            widget.controller.text = val;
-          }
-          if (val.length == 2) {
-            if (widget.isDateFrom) {
-              if (widget.isHour)
-                provider.timeRange.startTime = TimeOfDay(
-                  hour: int.parse(val),
-                  minute: provider.timeRange.startTime.minute,
-                );
-              else
-                provider.timeRange.startTime = TimeOfDay(
-                  hour: provider.timeRange.startTime.hour,
-                  minute: int.parse(val),
-                );
-            } else {
-              if (widget.isHour)
-                provider.timeRange.endTime = TimeOfDay(
-                  hour: int.parse(val),
-                  minute: provider.timeRange.endTime.minute,
-                );
-              else
-                provider.timeRange.endTime = TimeOfDay(
-                  hour: provider.timeRange.endTime.hour,
-                  minute: int.parse(val),
-                );
-            }
-
-            _focusNode.nextFocus();
-          } */
         },
       ),
     );

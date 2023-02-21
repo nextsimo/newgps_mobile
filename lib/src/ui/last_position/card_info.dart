@@ -87,7 +87,7 @@ class _InfoCardPortrait extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 _buildLabel(
-                    label: 'Date', content: formatDeviceDate(infoModel.lastUpdate)),
+                    label: 'Date', content: formatDeviceDate(infoModel.infoDate)),
                 const SizedBox(height: 2),
                 _buildLabel(
                     label: 'Cons carburant',

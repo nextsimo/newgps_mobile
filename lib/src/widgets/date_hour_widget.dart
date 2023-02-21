@@ -5,7 +5,7 @@ import '../utils/styles.dart';
 import '../ui/historic/historic_provider.dart';
 import 'package:provider/provider.dart';
 
-class DateHourWidget extends StatelessWidget {
+class DateHourWidget extends StatefulWidget {
   final double width;
   final DateTime dateFrom;
   final DateTime dateTo;
@@ -23,18 +23,34 @@ class DateHourWidget extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<DateHourWidget> createState() => _DateHourWidgetState();
+}
+
+class _DateHourWidgetState extends State<DateHourWidget> {
+  DateTime _dateFrom = DateTime.now();
+  DateTime _dateTo = DateTime.now();
+
+  @override
+  void initState() {
+    _dateFrom = widget.dateFrom;
+    _dateTo = widget.dateTo;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    HistoricProvider historicProvider = Provider.of<HistoricProvider>(context);
+    HistoricProvider historicProvider =
+        Provider.of<HistoricProvider>(context, listen: false);
     Orientation orientation = MediaQuery.of(context).orientation;
     return InkWell(
-      onTap: ontap,
+      onTap: widget.ontap,
       child: SafeArea(
         bottom: false,
         top: false,
         right: false,
         child: Container(
           height: orientation == Orientation.portrait ? 35 : 30,
-          width: width,
+          width: widget.width,
           decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: AppConsts.mainColor, width: 1),
@@ -47,22 +63,42 @@ class DateHourWidget extends StatelessWidget {
                 child: InkWell(
                   onTap: () async {
                     var now = DateTime.now();
-
                     DateTime? datetime = await showDatePicker(
                       context: context,
-                      initialDate: dateFrom,
+                      initialDate: _dateFrom,
                       firstDate: DateTime(now.year - 30),
                       lastDate: now,
                     );
-                    onSelectDate?.call(datetime);
-                    if (fetchData) {
+                    widget.onSelectDate?.call(datetime);
+                    if (widget.fetchData) {
                       // ignore: use_build_context_synchronously
                       historicProvider.updateDate(context, datetime);
                     }
+                    if (datetime == null) {
+                      return;
+                    }
+                    _dateFrom = DateTime(
+                      datetime.year,
+                      datetime.month,
+                      datetime.day,
+                      _dateFrom.hour,
+                      _dateFrom.minute,
+                      _dateFrom.second,
+                    );
+
+                    _dateTo = DateTime(
+                      datetime.year,
+                      datetime.month,
+                      datetime.day,
+                      _dateTo.hour,
+                      _dateTo.minute,
+                      _dateTo.second,
+                    );
+                    setState(() {});
                   },
                   child: Center(
                     child: Text(
-                      formatDeviceDate(dateFrom, false),
+                      formatDeviceDate(_dateFrom, false),
                       style: const TextStyle(
                           fontSize: 10, fontWeight: FontWeight.w500),
                     ),
@@ -77,27 +113,28 @@ class DateHourWidget extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: InkWell(
-                  onTap: () {
-                    if (fetchData) {
-                      historicProvider.updateTimeRange(context);
+                  onTap: () async {
+                    if (widget.fetchData) {
+                      await historicProvider.updateTimeRange(context);
                     } else {
-                      showDialog(
+                      await showDialog(
                         context: context,
-                        builder: (_) =>  Dialog(
+                        builder: (_) => Dialog(
                           child: TimeRangeWigdet(
-                            dateFrom: dateFrom,
-                            dateTo: dateTo,
+                            dateFrom: _dateFrom,
+                            dateTo: _dateTo,
                           ),
                         ),
                       );
                     }
+                    setState(() {});
                   },
                   child: Row(
                     children: [
                       Expanded(
                         child: Center(
                           child: Text(
-                            formatToSimpleTime(dateFrom),
+                            formatToSimpleTime(historicProvider.dateFrom),
                             style: const TextStyle(
                                 fontSize: 10, fontWeight: FontWeight.w500),
                           ),
@@ -111,7 +148,7 @@ class DateHourWidget extends StatelessWidget {
                       Expanded(
                         child: Center(
                           child: Text(
-                            formatToSimpleTime(dateTo),
+                            formatToSimpleTime(historicProvider.dateTo),
                             style: const TextStyle(
                                 fontSize: 10, fontWeight: FontWeight.w500),
                           ),

@@ -18,6 +18,7 @@ class InfoModel {
     required this.carbConsomation,
     required this.drivingTime,
     required this.lastUpdate,
+    required this.infoDate,
   });
 
   double distance;
@@ -28,6 +29,10 @@ class InfoModel {
   double carbConsomation;
   String drivingTime;
   DateTime lastUpdate;
+  final DateTime infoDate;
+  static DateTime dateTimeFromTimestamp(int timestamp) {
+    return DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+  }
 
   factory InfoModel.fromJson(Map<String, dynamic> json) => InfoModel(
         distance: json["distance"].toDouble(),
@@ -37,7 +42,10 @@ class InfoModel {
         stopedTime: json["stoped_time"],
         carbConsomation: json["carb_consomation"].toDouble(),
         drivingTime: json["driving_time"],
-        lastUpdate: DateTime.fromMillisecondsSinceEpoch(json["date"] == null ? DateTime.now().millisecondsSinceEpoch : json["date"] * 1000),
+        infoDate: dateTimeFromTimestamp(json["timestamp"]),
+        lastUpdate: DateTime.fromMillisecondsSinceEpoch(json["date"] == null
+            ? DateTime.now().millisecondsSinceEpoch
+            : json["date"] * 1000),
       );
 
   Map<String, dynamic> toJson() => {

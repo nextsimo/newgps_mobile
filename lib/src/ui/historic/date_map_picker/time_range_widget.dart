@@ -50,6 +50,7 @@ class TimeRangeWigdet extends StatelessWidget {
                 provider.fetchHistorics(context, null, 1, true);
               }
               Navigator.of(context).pop();
+
               //provider.dateTimeSavedButtonClicked = true;
               //Navigator.of(context).pop();
             },
@@ -63,9 +64,6 @@ class TimeRangeWigdet extends StatelessWidget {
                 provider.fetchHistorics(context,null ,1, true);
               }
               Navigator.of(context).pop();
-/*               provider.notifyDateTime();
-              provider.dateTimeSavedButtonClicked = true;
-              Navigator.of(context).pop(); */
             },
             label: "Restaurer l'heure",
           ),

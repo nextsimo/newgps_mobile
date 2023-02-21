@@ -52,11 +52,8 @@ class _LastPositionViewState extends State<LastPositionView>
         Provider.of<LastPositionProvider>(context, listen: false);
     final DeviceProvider deviceProvider =
         Provider.of<DeviceProvider>(context, listen: false);
-  
     bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
-    // get top padding
-    //lastPositionProvider.fetchInitDevice(context, init: true);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,

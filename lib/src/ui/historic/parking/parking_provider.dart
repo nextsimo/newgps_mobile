@@ -19,7 +19,9 @@ class ParkingProvider with ChangeNotifier {
       historicProvider.setParkingMarkers(true);
     } else {
       historicProvider.handleuseParkingMarkers(buttonClicked);
+      historicProvider.setHistoricMarkers();
       historicProvider.notifyListeners();
+    
     }
   }
 

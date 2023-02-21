@@ -263,10 +263,11 @@ class HistoricProvider with ChangeNotifier {
     notifyMap = !notifyMap;
     animateMarker.clear();
     if (!historicIsPlayed) {
-      _setHistoricMarkers();
+      notifyListeners();
+      await Future.delayed(const Duration(milliseconds: 500));
+      setHistoricMarkers();
       return;
     }
-    notifyListeners();
 
     // clear all markers
     int index = -1;
@@ -296,11 +297,6 @@ class HistoricProvider with ChangeNotifier {
 
       animateMarker[markerId] = marker;
       if (init) {
-/*         await mapController?.animateCamera(CameraUpdate.newCameraPosition(
-            CameraPosition(
-                target: marker.position,
-                bearing: device.heading.toDouble(),
-                zoom: 14.5))); */
         init = false;
       }
       if (index > 1) {
@@ -470,6 +466,7 @@ class HistoricProvider with ChangeNotifier {
 
     if (res.isNotEmpty) {
       deviceProvider.infoModel = infoModelFromJson(res);
+      deviceProvider.notifyListeners();
     }
   }
 
@@ -507,8 +504,8 @@ class HistoricProvider with ChangeNotifier {
     fetchHistorics(context, null, 1, true);
   }
 
-  void updateTimeRange(BuildContext context) async {
-    showDialog(
+  Future<void> updateTimeRange(BuildContext context) async {
+    await showDialog(
       context: context,
       builder: (_) => Dialog(
         child: TimeRangeWigdet(
@@ -613,12 +610,12 @@ class HistoricProvider with ChangeNotifier {
 
       //_zoomToPoints(markers.map((e) => e.position).toList());
       await fetchInfoData();
-      _setHistoricMarkers();
+      setHistoricMarkers();
     }
   }
 
   // set historic markers on the map
-  Future<void> _setHistoricMarkers() async {
+  Future<void> setHistoricMarkers() async {
     await _voidSetStartAndMarker();
     await _setHistoricLine();
 
@@ -686,7 +683,6 @@ class HistoricProvider with ChangeNotifier {
       return Colors.black;
     }
   }
-
 
   // set line of the historic
   Future<void> _setHistoricLine() async {

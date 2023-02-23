@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/functions.dart';
 import '../../../utils/styles.dart';
+import '../../../widgets/empty_data.dart';
 import '../clickable_text_cell.dart';
 import '../custom_devider.dart';
 import '../rapport_provider.dart';
@@ -30,6 +32,12 @@ class TemperatureRepportBleView extends StatelessWidget {
                 const _BuildHead(),
                 Consumer<TemperatureRepportProvider>(
                     builder: (context, pro, __) {
+                  if (pro.repports.isEmpty) {
+                    return  SizedBox(
+                      height: 180.h,
+                      child: const Center(child: EmptyData()),
+                    );
+                  }
                   return Expanded(
                     child: ListView.builder(
                       physics: const ClampingScrollPhysics(),

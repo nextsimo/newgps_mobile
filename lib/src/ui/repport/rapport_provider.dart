@@ -40,10 +40,10 @@ class RepportProvider with ChangeNotifier {
       index: 4,
       title: 'Rapport distance',
     ),
-    RepportTypeModel(
+/*     RepportTypeModel(
       index: 5,
       title: 'Rapport connexion',
-    ),
+    ), */
     RepportTypeModel(
       index: 6,
       title: 'Rapport température',

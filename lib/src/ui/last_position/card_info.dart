@@ -18,9 +18,11 @@ class CardInfoView extends StatelessWidget {
     LastPositionProvider lastPositionProvider =
         Provider.of<LastPositionProvider>(context, listen: false);
     InfoModel? infoModel = deviceProvider.infoModel;
-
-    if ((!lastPositionProvider.markersProvider.fetchGroupesDevices && infoModel != null) ||
-        (deviceProvider.selectedTabIndex == 1 && infoModel != null)) {
+    bool showInfoCardHistoric =
+        (deviceProvider.selectedTabIndex == 1 && infoModel != null);
+    if ((!lastPositionProvider.markersProvider.fetchGroupesDevices &&
+            infoModel != null) ||
+        showInfoCardHistoric) {
       Device? device = deviceProvider.selectedDevice;
       Orientation orientation = MediaQuery.of(context).orientation;
       return Positioned(
@@ -35,14 +37,17 @@ class CardInfoView extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                if(!showInfoCardHistoric)
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     OdometreWidget(device: device),
                     Padding(
-                      padding:
-                           EdgeInsets.only(bottom:  orientation == Orientation.portrait ? AppConsts.outsidePadding : 3),
+                      padding: EdgeInsets.only(
+                          bottom: orientation == Orientation.portrait
+                              ? AppConsts.outsidePadding
+                              : 3),
                       child: StatusWidget(device: device),
                     ),
                   ],
@@ -87,7 +92,8 @@ class _InfoCardPortrait extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 _buildLabel(
-                    label: 'Date', content: formatDeviceDate(infoModel.infoDate)),
+                    label: 'Date',
+                    content: formatDeviceDate(infoModel.infoDate)),
                 const SizedBox(height: 2),
                 _buildLabel(
                     label: 'Cons carburant',
@@ -148,7 +154,7 @@ class _InfoCardPortrait extends StatelessWidget {
             ),
           ),
         ),
-        const  Text(':'),
+        const Text(':'),
         Expanded(
           flex: 3,
           child: Text(
@@ -293,7 +299,6 @@ class Cdivider extends StatelessWidget {
     );
   }
 }
-
 
 class _OdometreWidgetPortrait extends StatelessWidget {
   const _OdometreWidgetPortrait({

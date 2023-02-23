@@ -14,11 +14,11 @@ class AlertView extends StatelessWidget {
         label: 'Vitesse',
         page: '/speed',
         inDev: false),
-    _AlertItem(
+/*     _AlertItem(
         icon: Icons.ev_station_rounded,
         label: 'Carburant',
         page: '/fuel',
-        inDev: false),
+        inDev: false), */
     _AlertItem(
         icon: Icons.battery_charging_full,
         label: 'Batterie',
@@ -65,12 +65,12 @@ class AlertView extends StatelessWidget {
         label: 'Température',
         page: '/temp',
         inDev: false),
-    _AlertItem(
+/*     _AlertItem(
       icon: Icons.car_crash_sharp,
       label: 'Parking',
       page: '/parking',
       inDev: false,
-    ),
+    ), */
 /*     _AlertItem(
         icon: Icons.flash_off_outlined,
         label: 'Débranchement',

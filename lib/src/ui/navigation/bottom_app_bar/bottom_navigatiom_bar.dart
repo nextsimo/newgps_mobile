@@ -97,13 +97,18 @@ class _CustomBottomNavigatioBarState extends State<CustomBottomNavigatioBar> {
                 return InkWell(
                   onTap: () async {
                     if (item.index == widget.pageController.page) return;
-                    if (item.index == 0) {
-                      lastPositionProvider.handleZoomCamera();
+                    deviceProvider.selectedTabIndex = item.index;
+                    if(deviceProvider.selectedDevice != null ) {
+                      lastPositionProvider.fetchInfoData(deviceProvider.selectedDevice!.deviceId);
                     }
+                    /* if (item.index == 0) {
+                      lastPositionProvider.handleZoomCamera();
+                    } */
                     widget.pageController.jumpToPage(item.index);
                     //await playAudio(_items.elementAt(item.index).label);
                     navigationViewProvider.currentRoute =
                         _items.elementAt(item.index).label;
+                      
                   },
                   child: _BuildTabBarItem(
                     isSelected: item.index == _selectedIndex,

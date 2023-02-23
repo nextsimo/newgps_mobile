@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import '../../../models/account.dart';
@@ -62,7 +63,8 @@ class _BuildLoginAsWidgetState extends State<_BuildLoginAsWidget> {
                 isAdmin ? Colors.blueAccent : Colors.blueGrey),
             shape: MaterialStateProperty.all<OutlinedBorder>(
                 RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(AppConsts.mainradius)))),
+                    borderRadius:
+                        BorderRadius.circular(AppConsts.mainradius)))),
         onPressed: () async {
           setState(() => loading = true);
           try {
@@ -172,15 +174,24 @@ class _BuildLoginAsWidgetState extends State<_BuildLoginAsWidget> {
                 ),
               ),
             if (!loading)
-              Icon(
-                isAdmin ? Icons.person : Icons.supervisor_account,
-                size: 17,
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Icon(
+                  isAdmin ? Icons.person : Icons.supervisor_account,
+                  size: 17,
+                ),
               ),
-            Text(
-              (widget.savedAccount.underUser?.isNotEmpty == true
-                      ? "${widget.savedAccount.underUser}"
-                      : "${widget.savedAccount.user}")
-                  .toUpperCase(),
+            Expanded(
+              child: Center(
+                child: AutoSizeText(
+                  (widget.savedAccount.underUser?.isNotEmpty == true
+                          ? "${widget.savedAccount.underUser}"
+                          : "${widget.savedAccount.user}")
+                      .toUpperCase(),
+                  minFontSize: 0,
+                  maxLines: 1,
+                ),
+              ),
             ),
             IconButton(
               iconSize: 16,

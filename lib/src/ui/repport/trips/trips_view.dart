@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../utils/functions.dart';
 import '../../../utils/styles.dart';
+import '../../../widgets/empty_data.dart';
 import '../rapport_provider.dart';
 import 'trips_model.dart';
 import 'package:provider/provider.dart';
@@ -32,6 +34,12 @@ class TripsView extends StatelessWidget {
               children: [
                 const _BuildHead(),
                 Consumer<TripsProvider>(builder: (context, __, ___) {
+                  if (tripsProvider.trips.isEmpty) {
+                    return SizedBox(
+                      height: 180.h,
+                      child: const Center(child:  EmptyData()),
+                    );
+                  }
                   return Expanded(
                     child: ListView.builder(
                       physics: const ClampingScrollPhysics(),

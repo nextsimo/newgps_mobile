@@ -4,7 +4,6 @@ import 'package:newgps/src/services/newgps_service.dart';
 import '../../utils/styles.dart';
 import 'main_button.dart';
 
-
 class LogoutButton extends StatelessWidget {
   const LogoutButton({Key? key}) : super(key: key);
 
@@ -38,6 +37,8 @@ class _LogoutButtonLandscape extends StatelessWidget {
             MainButton(
               height: 28,
               onPressed: () {
+                deviceProvider.selectedTabIndex = 0;
+                deviceProvider.infoModel = null;
                 Phoenix.rebirth(context);
 
 /* 
@@ -91,6 +92,8 @@ class _LogoutButtonPortrait extends StatelessWidget {
             MainButton(
               height: height,
               onPressed: () {
+                deviceProvider.selectedTabIndex = 0;
+                deviceProvider.infoModel = null;
                 shared.clear('account');
                 Phoenix.rebirth(context);
 

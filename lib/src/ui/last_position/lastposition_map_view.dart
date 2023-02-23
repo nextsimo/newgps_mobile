@@ -63,11 +63,11 @@ class _LastpositionMapState extends State<LastpositionMap>
             onMapCreated: (controller) async {
               provider.mapController = controller;
               // zoom camera
-              provider.handleZoomCamera();
               provider.markersProvider.simpleMarkerManager
                   .setMapId(controller.mapId);
               provider.markersProvider.textMarkerManager
                   .setMapId(controller.mapId);
+              provider.fetch(context, true);
             },
             onCameraMove: (pos) {
               provider.markersProvider.currentZoom = pos.zoom;

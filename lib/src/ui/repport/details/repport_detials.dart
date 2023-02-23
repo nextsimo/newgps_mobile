@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loadmore/loadmore.dart';
 import '../../../models/repports_details_model.dart';
 import '../../../services/newgps_service.dart';
 import '../../../utils/functions.dart';
 import '../../../utils/styles.dart';
+import '../../../widgets/empty_data.dart';
 import 'repport_details_provider.dart';
 import '../rapport_provider.dart';
 import 'package:provider/provider.dart';
@@ -39,6 +41,13 @@ class RepportDetailsView extends StatelessWidget {
                 Expanded(
                   child: Consumer2<RepportDetailsProvider, RepportProvider>(
                       builder: (context, __, ___, ____) {
+                    if (repportDetailsProvider.repportDetailsPaginateModel
+                        .repportsDetailsModel.isEmpty) {
+                      return SizedBox(
+                      height: 180.h,
+                      child: const Center(child:  EmptyData()),
+                    );
+                    }
                     return LoadMore(
                       isFinish: repportDetailsProvider
                               .repportDetailsPaginateModel.currentPage >
@@ -51,7 +60,7 @@ class RepportDetailsView extends StatelessWidget {
                         await repportDetailsProvider.fetchMoreRepportModel(
                             provider,
                             deviceId: provider.selectedDevice.deviceId);
-                                  
+
                         return true;
                       },
                       child: ListView.builder(

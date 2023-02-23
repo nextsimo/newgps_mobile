@@ -183,6 +183,7 @@ class DeviceProvider with ChangeNotifier {
     autoSearchController.text = selectedDevice?.description ?? '';
   }
 
+
   Future<void> init(BuildContext context, {bool init = false}) async {
     _loading = true;
     _fetchDevicesIconsList();

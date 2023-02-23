@@ -46,19 +46,18 @@ class LastPositionProvider with ChangeNotifier {
   }
 
   // handle zoome camera
-  Future<void> handleZoomCamera() async {
+  Future<void> handleZoomCamera(Device? selectedDevice) async {
     if (mapController != null) {
       // check if group of deveices is selected
       if (markersProvider.fetchGroupesDevices) {
         _zoomToPoints(List<LatLng>.from(markersProvider.devices
             .map((e) => LatLng(e.latitude, e.longitude))));
       } else {
-        if (deviceProvider.selectedDevice == null) return;
-        Device device = deviceProvider.selectedDevice!;
+        if (selectedDevice == null) return;
         mapController?.animateCamera(
           CameraUpdate.newCameraPosition(
             CameraPosition(
-              target: LatLng(device.latitude, device.longitude),
+              target: LatLng(selectedDevice.latitude, selectedDevice.longitude),
               zoom: 15,
             ),
           ),
@@ -96,12 +95,12 @@ class LastPositionProvider with ChangeNotifier {
         northeast: LatLng(x1!, y1!), southwest: LatLng(x0!, y0!));
   }
 
-  Future<void> fetch(BuildContext context) async {
+  Future<void> fetch(BuildContext context,[bool zoom = false]) async {
     debugPrint("----------------> ${markersProvider.fetchGroupesDevices}");
     if (markersProvider.fetchGroupesDevices) {
       await fetchDevices(context);
     } else {
-      await fetchDevice(deviceProvider.selectedDevice!.deviceId);
+      await fetchDevice(deviceProvider.selectedDevice!.deviceId, isSelected: zoom);
     }
   }
 

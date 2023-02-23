@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newgps/src/ui/repport/command_repport/command_repport_model.dart';
 import 'package:newgps/src/ui/repport/command_repport/command_repport_provider.dart';
 import '../../../utils/functions.dart';
 import '../../../utils/styles.dart';
+import '../../../widgets/empty_data.dart';
 import '../rapport_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -35,6 +37,12 @@ class CommandRepportView extends StatelessWidget {
               children: [
                 const _BuildHead(),
                 Consumer<CommandRepportProvider>(builder: (context, __, ___) {
+                  if (commandRepportProvider.commands.isEmpty) {
+                    return SizedBox(
+                      height: 180.h,
+                      child: const Center(child:  EmptyData()),
+                    );
+                  }
                   return Expanded(
                     child: ListView.builder(
                       physics: const ClampingScrollPhysics(),

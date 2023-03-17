@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import '../models/account.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,6 +12,7 @@ class SharedPrefrencesService {
 
   void init() async {
     sharedPreferences = await SharedPreferences.getInstance();
+    
   }
 
   void clear(String key) {

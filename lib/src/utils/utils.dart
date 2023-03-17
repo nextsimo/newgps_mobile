@@ -13,6 +13,9 @@ import '../ui/login/login_as/save_account_provider.dart';
 import 'functions.dart';
 
 class Utils {
+
+  static const baseUrl = 'https://api.newgps.ma/api/auth';
+
   static void handleSplashScreen(WidgetsBinding widgetsBinding) async {
     FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
     await Future.delayed(const Duration(seconds: 2));
@@ -78,8 +81,6 @@ class Utils {
     ));
   }
 
-  // define base url
-  static String baseUrl = 'https://api.newgps.ma/api/auth';
 
   // defini the initial route
   static String initialRoute = '/login';

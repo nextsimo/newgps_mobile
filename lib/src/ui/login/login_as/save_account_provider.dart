@@ -5,13 +5,13 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:newgps/src/ui/historic/historic_view.dart';
+import '../../../../classic/view/classic_screen.dart';
 import '../../../models/account.dart';
 import '../../../models/user_droits.dart';
 import '../../../services/newgps_service.dart';
 
 import '../../../utils/functions.dart';
 import '../../alert/alert_navigation.dart';
-import '../../classic/classic_view.dart';
 import '../../geozone/geozone_view.dart';
 import '../../gestion/gestion_view.dart';
 import '../../last_position/last_position_view.dart';
@@ -109,10 +109,10 @@ class SavedAcountProvider with ChangeNotifier {
     const UsersView(),
     const MatriculeView(),
     const TempCardView(),
-    const GestionView(),
+    //const GestionView(),
     const DriverView(),
     //const CameraView(),
-    const ClassicView(),
+    const ClassicScreen(),
   ];
 
   List<Widget> buildPages() {

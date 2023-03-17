@@ -77,6 +77,31 @@ class ApiService {
       return '';
     }
   }
+    Future<Response> postResponse(
+      {required String url,
+      required Map<String, dynamic> body,
+      Map<String, String> newHeader = const {}}) async {
+    String token = await _fetchToken();
+    header.addAll(newHeader);
+    header['Authorization'] = 'Bearer $token';
+
+    try {
+      Response response = await _client.post(Uri.parse(Utils.baseUrl + url),
+          body: json.encode(body), headers: header);
+
+      debugPrint(Utils.baseUrl + url);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        debugPrint('$url succes');
+        return response;
+      }
+      debugPrint('$url filed ${response.body}');
+      throw Exception('Failed to load devices from API ${response.statusCode}');
+    } catch (e) {
+      debugPrint('$url failed $e');
+      throw Exception(e.toString());
+    }
+  }
 
   Future<String> postGzipCode(
       {required String url,

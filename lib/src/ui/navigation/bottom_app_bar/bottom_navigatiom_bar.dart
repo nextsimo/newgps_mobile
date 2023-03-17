@@ -27,9 +27,9 @@ class _CustomBottomNavigatioBarState extends State<CustomBottomNavigatioBar> {
     BottomAppBarItem(icon: 'user', label: 'Utilisateur', index: 5),
     BottomAppBarItem(icon: 'matricule', label: 'Matricule', index: 6),
     BottomAppBarItem(icon: 'temp', label: 'Température', index: 7),
-    BottomAppBarItem(icon: 'driver', label: 'Conduite', index: 9),
+    BottomAppBarItem(icon: 'driver', label: 'Conduite', index: 8),
     //BottomAppBarItem(icon: 'cam', label: 'Caméra', index: 10),
-    BottomAppBarItem(icon: 'classic', label: 'Classic', index: 10),
+    BottomAppBarItem(icon: 'classic', label: 'Classic', index: 9),
   ];
 
   int _selectedIndex = 0;

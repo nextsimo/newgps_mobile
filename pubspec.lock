@@ -65,6 +65,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.2"
+  bloc:
+    dependency: transitive
+    description:
+      name: bloc
+      sha256: "658a5ae59edcf1e58aac98b000a71c762ad8f46f1394c34a52050cafb3e11a80"
+      url: "https://pub.dev"
+    source: hosted
+    version: "8.1.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -173,10 +181,10 @@ packages:
     dependency: "direct main"
     description:
       name: dropdown_search
-      sha256: "8862928805520ea7fdf60fee64195a2d460f4bf5ccf224c016c773a873756c5e"
+      sha256: "55106e8290acaa97ed15bea1fdad82c3cf0c248dd410e651f5a8ac6870f783ab"
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.5"
+    version: "5.0.6"
   empty_widget:
     dependency: "direct main"
     description:
@@ -342,6 +350,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.0"
+  flutter_animate:
+    dependency: "direct main"
+    description:
+      name: flutter_animate
+      sha256: c6e38af9fe376fa07fb6995fe6a12d07a08828d2847aa652b7c1bc60f9993374
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.0"
   flutter_app_badger:
     dependency: "direct main"
     description:
@@ -350,6 +366,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.0"
+  flutter_bloc:
+    dependency: "direct main"
+    description:
+      name: flutter_bloc
+      sha256: "434951eea948dbe87f737b674281465f610b8259c16c097b8163ce138749a775"
+      url: "https://pub.dev"
+    source: hosted
+    version: "8.1.2"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -597,6 +621,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.15"
+  infinite_scroll_pagination:
+    dependency: "direct main"
+    description:
+      name: infinite_scroll_pagination
+      sha256: "9517328f4e373f08f57dbb11c5aac5b05554142024d6b60c903f3b73476d52db"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.0"
   intl:
     dependency: "direct main"
     description:
@@ -733,14 +765,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
-  open_file_plus:
+  open_filex:
     dependency: "direct main"
     description:
-      name: open_file_plus
-      sha256: "7acaa3557b8aef36ff7c03b57e9da9c18f0381773af1bcfa68aeca600c653d16"
+      name: open_filex
+      sha256: "854aefd72dfd74219dc8c8d1767c34ec1eae64b8399a5be317bddb1ec2108915"
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.0"
+    version: "4.3.2"
   os_detect:
     dependency: transitive
     description:
@@ -1050,6 +1082,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  sliver_tools:
+    dependency: transitive
+    description:
+      name: sliver_tools
+      sha256: bfa69411ebb203cc1a115b1e8bc7935b893eb381fdcf8d453b40c0d4e1db3247
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.9"
   source_span:
     dependency: transitive
     description:

@@ -9,29 +9,34 @@ import 'package:newgps/src/utils/styles.dart';
 import 'package:provider/provider.dart';
 import 'classic_provider.dart';
 
-class ClassicView extends StatelessWidget {
-  const ClassicView({Key? key}) : super(key: key);
+class ClassicView3 extends StatelessWidget {
+  const ClassicView3({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (context) => ClassicProvider(),
-        builder: (providerContext, __) {
-          final provider = providerContext.watch<ClassicProvider>();
-          return Scaffold(
-            appBar: const CustomAppBar(
-              actions: [],
-            ),
-            body: PageView(
-              physics: const NeverScrollableScrollPhysics(),
-              controller: provider.pageController,
-              children: [
-                _FirstClassicView(providerContext: providerContext),
-                const ClassicViewMap()
-              ],
-            ),
-          );
-        });
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+      child: ChangeNotifierProvider(
+          create: (context) => ClassicProvider(),
+          builder: (providerContext, __) {
+            final provider = providerContext.watch<ClassicProvider>();
+            return Scaffold(
+              appBar: const CustomAppBar(
+                actions: [],
+              ),
+              body: Expanded(
+                child: PageView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  controller: provider.pageController,
+                  children: [
+                    _FirstClassicView(providerContext: providerContext),
+                    const ClassicViewMap()
+                  ],
+                ),
+              ),
+            );
+          }),
+    );
   }
 }
 
@@ -124,8 +129,9 @@ class _BuildDeviceCard extends StatelessWidget {
       ),
     ];
     return GestureDetector(
-      onTap: (){
-        Navigator.of(context).push(MaterialPageRoute(builder: (_) => const ClassicMoreInfo()));
+      onTap: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (_) => const ClassicMoreInfo()));
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -201,7 +207,8 @@ class _BuildDeviceCard extends StatelessWidget {
                       height: 22,
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(AppConsts.mainradius),
+                        borderRadius:
+                            BorderRadius.circular(AppConsts.mainradius),
                         color: AppConsts.mainColor.withOpacity(0.1),
                       ),
                       child: Center(
@@ -252,10 +259,12 @@ class _BuildDeviceCard extends StatelessWidget {
 class _BuildState extends StatelessWidget {
   final Device device;
   final BuildContext providerContext;
-  const _BuildState({Key? key, required this.device, required this.providerContext}) : super(key: key);
+  const _BuildState(
+      {Key? key, required this.device, required this.providerContext})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
-        final provider = context.read<ClassicProvider>();
+    final provider = context.read<ClassicProvider>();
 
     return Column(
       children: [

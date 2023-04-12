@@ -75,7 +75,7 @@ class _LastPositionViewState extends State<LastPositionView>
           const DateWidget(),
           Positioned(
             left: 5,
-            top: 103.r.h,
+            top: 120.r.h,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,7 +92,7 @@ class _LastPositionViewState extends State<LastPositionView>
             ),
           ),
           Positioned(
-            top: 74.r.h,
+            top: 90.r.h,
             right: isPortrait ? AppConsts.outsidePadding : 11.5,
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -142,7 +142,7 @@ class _LastPositionViewState extends State<LastPositionView>
             ),
           ),
           Positioned(
-            top: 72.r.h,
+            top: 87.r.h,
             child: const AutoSearchDeviceWithAll(),
           ),
         ],

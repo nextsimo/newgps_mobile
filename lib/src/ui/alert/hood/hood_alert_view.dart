@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../services/firebase_messaging_service.dart';
 import '../../../utils/styles.dart';
 import '../../navigation/top_app_bar.dart';
@@ -35,7 +36,7 @@ class HoodAlertView extends StatelessWidget {
                     children: [
                       const SizedBox(height: 10),
                       const BuildLabel(
-                          label: 'capot', icon: Icons.verified_user_rounded),
+                          label: 'capot', icon: FontAwesomeIcons.carCrash),
                       const SizedBox(height: 20),
                       if (provider.hoodAlertSettings != null)
                         _buildStatusLabel(context, provider),

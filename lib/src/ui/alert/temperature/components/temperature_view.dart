@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../services/firebase_messaging_service.dart';
@@ -31,7 +32,7 @@ class TemperatureBleView extends StatelessWidget {
                 children: [
                   SizedBox(height: 10),
                   BuildLabel(
-                    icon: Icons.thermostat,
+                    icon: FontAwesomeIcons.thermometerHalf,
                     label: 'température',
                   ),
                   SizedBox(height: 10),

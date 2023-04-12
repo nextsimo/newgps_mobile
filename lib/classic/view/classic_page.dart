@@ -29,9 +29,7 @@ class ClassicPage extends StatelessWidget {
                     } else if (state is ClassicLoaded) {
                       return ClassicCardList(devices: state.devices);
                     } else if (state is ClassicLoadDeviceInfo) {
-                      return ClassicDeviceInfo(
-                        device: state.device,
-                      );
+                      return ClassicDeviceInfo(deviceInfos: state.deviceInfos);
                     } else if (state is ClassicError) {
                       return Center(
                         child: Text(

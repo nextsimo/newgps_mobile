@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newgps/repository/devices_repository.dart';
 
+import '../../models/device_info_model.dart';
 import '../../src/models/device.dart';
 
 part 'classic_event.dart';
@@ -14,8 +15,9 @@ class ClassicBloc extends Bloc<ClassicEvent, ClassicState> {
       if (event is ClassicLoadDevice) {
         debugPrint('ClassicLoadDevice: ${event.device.description}');
         emit(ClassicLoading());
-        await Future.delayed(const Duration(seconds: 2));
-        emit(ClassicLoadDeviceInfo(event.device));
+        final deviceInfo = await devicesRepository.fetchDeviceInfo(
+            deviceId: event.device.deviceId);
+        emit(ClassicLoadDeviceInfo(deviceInfo));
       } else if (event is ClassicLoadDevices) {
         emit(event.page == 1 ? ClassicLoading() : ClassicLoadingMore());
         final res = await devicesRepository.fetchDevices(

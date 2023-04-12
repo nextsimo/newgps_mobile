@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../../services/firebase_messaging_service.dart';
@@ -35,7 +36,7 @@ class OilChangeAertView extends StatelessWidget {
                   children: [
                     const SizedBox(height: 10),
                     const BuildLabel(
-                        label: 'Vidange', icon: Icons.verified_user_rounded),
+                        label: 'Vidange', icon: FontAwesomeIcons.oilCan),
                     const SizedBox(height: 5),
                     Builder(
                       builder: (_) {

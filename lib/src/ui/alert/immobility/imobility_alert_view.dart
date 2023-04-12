@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../services/firebase_messaging_service.dart';
 import '../alert_widgets/shwo_all_device_widget.dart';
 import 'imobility_alert_provider.dart';
@@ -36,8 +37,9 @@ class ImobilityAlertView extends StatelessWidget {
                     children: [
                       const SizedBox(height: 10),
                       const BuildLabel(
-                          label: 'imobilisation',
-                          icon: Icons.verified_user_rounded),
+                        label: 'imobilisation',
+                        icon: FontAwesomeIcons.carSide,
+                      ),
                       const SizedBox(height: 20),
                       if (provider.imobilityAlertSettings != null)
                         _buildStatusLabel(context, provider),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import '../../../services/firebase_messaging_service.dart';
 import '../../../utils/styles.dart';
@@ -35,8 +36,8 @@ class BatteryAlertView extends StatelessWidget {
                     children: [
                       const SizedBox(height: 10),
                       const BuildLabel(
-                        label: 'batterie',
-                        icon: Icons.battery_charging_full_outlined,
+                        label: 'Alimentation boitier',
+                        icon: FontAwesomeIcons.plug,
                       ),
                       const SizedBox(height: 20),
                       _buildStatusLabel(provider, context),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../services/firebase_messaging_service.dart';
 import '../alert_widgets/shwo_all_device_widget.dart';
 import '../../../utils/styles.dart';
@@ -34,7 +35,7 @@ class StartupView extends StatelessWidget {
                     children: [
                       const SizedBox(height: 10),
                       const BuildLabel(
-                          label: 'démarrage', icon: Icons.dangerous),
+                          label: 'démarrage', icon: FontAwesomeIcons.carOn),
                       const SizedBox(height: 20),
                       if (provider.startupAlertSetting != null)
                         _buildStatusLabel(context, provider),

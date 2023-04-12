@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../utils/device_size.dart';
 import '../../utils/styles.dart';
 import '../navigation/top_app_bar.dart';
@@ -10,7 +11,8 @@ class AlertView extends StatelessWidget {
 
   final List<_AlertItem> _items = const [
     _AlertItem(
-        icon: IconData(0xe800, fontFamily: 'speed'),
+        // speed icon
+        icon: FontAwesomeIcons.gauge,
         label: 'Vitesse',
         page: '/speed',
         inDev: false),
@@ -20,35 +22,39 @@ class AlertView extends StatelessWidget {
         page: '/fuel',
         inDev: false), */
     _AlertItem(
-        icon: Icons.battery_charging_full,
-        label: 'Batterie',
+        icon: FontAwesomeIcons.plug,
+        label: 'Alimentation boitier',
         page: '/battery',
         inDev: false),
     _AlertItem(
-      icon: Icons.dangerous,
-      label: 'Demarage',
+      // start vehicle
+      icon: FontAwesomeIcons.carOn,
+      label: 'Démarrage',
       page: '/startup',
       inDev: false,
     ),
     _AlertItem(
-      icon: Icons.verified_user_rounded,
+      // start stop icon
+      icon: FontAwesomeIcons.carSide,
       label: 'Immobilisation',
       page: '/imobility',
       inDev: false,
     ),
     _AlertItem(
-      icon: Icons.radar,
+      icon: FontAwesomeIcons.carCrash,
       label: 'Capot',
       page: '/hood',
       inDev: false,
     ),
     _AlertItem(
-        icon: Icons.stacked_line_chart_sharp,
+        // oil change
+        icon: FontAwesomeIcons.oilCan,
         label: 'Vidange',
         page: '/oil_change',
         inDev: false),
     _AlertItem(
-      icon: Icons.car_repair_sharp,
+      // towing icon
+      icon: FontAwesomeIcons.truckPickup,
       label: 'Dépannage',
       page: '/towing',
       inDev: false,
@@ -61,7 +67,7 @@ class AlertView extends StatelessWidget {
         inDev: false), */
 
     _AlertItem(
-        icon: Icons.thermostat_rounded,
+        icon: FontAwesomeIcons.thermometerHalf,
         label: 'Température',
         page: '/temp',
         inDev: false),
@@ -126,10 +132,11 @@ class AlertView extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(AppConsts.outsidePadding,
                     AppConsts.outsidePadding, AppConsts.outsidePadding, 150),
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 130,
-                    childAspectRatio: 1.26,
-                    crossAxisSpacing: AppConsts.outsidePadding,
-                    mainAxisSpacing: AppConsts.outsidePadding),
+                  maxCrossAxisExtent: 130,
+                  childAspectRatio: 1.26,
+                  crossAxisSpacing: AppConsts.outsidePadding,
+                  mainAxisSpacing: AppConsts.outsidePadding,
+                ),
                 children: _items
                     .map<_AlertCatd>((item) => _AlertCatd(alertItem: item))
                     .toList(),
@@ -183,7 +190,7 @@ class _AlertCatd extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(height: 12),
-            Icon(alertItem.icon, color: AppConsts.mainColor, size: 17),
+            Icon(alertItem.icon, color: AppConsts.mainColor, size: 20),
             const SizedBox(height: 10),
             Text(
               alertItem.label,

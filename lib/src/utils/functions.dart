@@ -165,8 +165,8 @@ String formatSimpleDate(DateTime dateTime,
   return formatted;
 }
 
-String formatToTime(DateTime dateTime) {
-  final DateFormat validFormatter = DateFormat('HH:mm:ss');
+String formatToTime(DateTime dateTime, [String format = 'HH:mm:ss']) {
+  final DateFormat validFormatter = DateFormat(format);
   String formatted;
   try {
     formatted = validFormatter.format(dateTime);

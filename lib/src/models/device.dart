@@ -73,7 +73,7 @@ class Device {
       dateTime: DateTime.fromMillisecondsSinceEpoch(json["timestamp"] * 1000),
       latitude: json["latitude"].toDouble(),
       longitude: json["longitude"].toDouble(),
-      address: json["address"],
+      address: json["address"] ?? '',
       distanceKm: json["distanceKM"].toDouble(),
       odometerKm: json["odometerKM"].toDouble(),
       city: json["city"],

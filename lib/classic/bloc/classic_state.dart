@@ -25,7 +25,7 @@ class ClassicError extends ClassicState {
 
 
 class ClassicLoadDeviceInfo extends ClassicState {
-  final Device device;
+  final List<DeviceInfoModel> deviceInfos;
 
-  ClassicLoadDeviceInfo(this.device);
+  ClassicLoadDeviceInfo(this.deviceInfos);
 }

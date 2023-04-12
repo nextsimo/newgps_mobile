@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:newgps/src/ui/alert/speed/legal_speed_view.dart';
 import '../../../models/user_droits.dart';
 import '../../../services/firebase_messaging_service.dart';
@@ -68,7 +69,7 @@ class SpeedAlertView extends StatelessWidget {
         children: [
           const SizedBox(height: 10),
           const BuildLabel(
-            icon: Icons.speed,
+            icon: FontAwesomeIcons.gauge,
             label: 'vitesse',
           ),
           const SizedBox(height: 30),

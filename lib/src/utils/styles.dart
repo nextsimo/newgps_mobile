@@ -6,8 +6,8 @@ class AppConsts{
   static const Color mainColor =  Color(0xff89BE3D);
   static const Color blue =   Color(0xFF1976D2);
 
-  static  double mainradius = 30.0.r;
-  static  double miniradius = 15.0.r;
+  static  double mainradius = 8.0.r;
+  static  double miniradius = 10.0.r;
 
   static const double outsidePadding = 4.0;
   static const String phone1 = '0662782694';

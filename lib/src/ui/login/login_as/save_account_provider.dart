@@ -1,16 +1,17 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:newgps/src/ui/historic/historic_view.dart';
-
 import '../../../../classic/view/classic_screen.dart';
 import '../../../models/account.dart';
 import '../../../models/user_droits.dart';
 import '../../../services/newgps_service.dart';
+
+import '../../../utils/functions.dart';
 import '../../alert/alert_navigation.dart';
-import '../../driver_view/pages/driver_view.dart';
 import '../../geozone/geozone_view.dart';
 import '../../gestion/gestion_view.dart';
 import '../../last_position/last_position_view.dart';
@@ -18,6 +19,7 @@ import '../../matricule/matricule_view_2.dart';
 import '../../repport/repport_view.dart';
 import '../../temp_card/temp_card_view.dart';
 import '../../user/user_view.dart';
+import '../../driver_view/pages/driver_view.dart';
 import '../../user_empty_page.dart';
 
 class SavedAcountProvider with ChangeNotifier {
@@ -46,7 +48,7 @@ class SavedAcountProvider with ChangeNotifier {
   }
 
   Future<void> checkNotifcation() async {
-/*     String res = await api.post(
+    String res = await api.post(
       url: '/notification/historics/count2',
       body: await getBody()
         ..addAll({
@@ -57,7 +59,7 @@ class SavedAcountProvider with ChangeNotifier {
 
     if (res.isNotEmpty) {
       numberOfNotif = jsonDecode(res);
-    } */
+    }
   }
 
   late UserDroits userDroits = UserDroits(
@@ -248,7 +250,7 @@ class SavedAcountProvider with ChangeNotifier {
 
   void deleteAcount(String? user, {bool disableSetting = false}) {
     log("---> ${_savedAcounts.length}");
-    NewgpsService.messaging.unsubscribeFromAllTopics();
+
     savedAcounts.removeWhere((ac) {
       // check if the user is under another user
       if (ac.underUser == null || ac.underUser!.isEmpty) {

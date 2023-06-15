@@ -76,7 +76,7 @@ class FirebaseMessagingService {
     await messaging.subscribeToTopic(topic);
   }
 
-  // hanle subscribe to topic depending on the state and add account to the end of the topic
+/*   // hanle subscribe to topic depending on the state and add account to the end of the topic
   Future<void> handleSubscribeToTopic(
       {required bool? state, required String topic}) async {
     final accountId = shared.getAccount()?.account.accountId;
@@ -86,12 +86,12 @@ class FirebaseMessagingService {
     } else {
       await messaging.unsubscribeFromTopic("$topic-$accountId");
     }
-  }
+  } */
 
-  // unsubscribe from all topics
+/*   // unsubscribe from all topics
   Future<void> unsubscribeFromAllTopics() async {
     await messaging.unsubscribeFromTopic(AppConsts.startUpAlertTopic);
-  }
+  } */
 
 /*   Future<void> enableAllSettings() async {
     Account? account = shared.getAccount();

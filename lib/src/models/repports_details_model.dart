@@ -58,6 +58,8 @@ class RepportsDetailsModel {
     required this.colorB,
     required this.statut,
     required this.odometerKM,
+    required this.latitude,
+    required this.longitude,
   });
 
   DateTime timestamp;
@@ -72,22 +74,25 @@ class RepportsDetailsModel {
   int colorB;
   String statut;
   double odometerKM;
+  final double latitude;
+  final double longitude;
 
   factory RepportsDetailsModel.fromJson(Map<String, dynamic> json) =>
       RepportsDetailsModel(
-        timestamp: DateTime.parse(json["timestamp"]),
-        address: json["address"],
-        speedKph: json["speedKPH"],
-        fuelRemain: json["fuelRemain"].toInt(),
-        fuelLevel: json["FuelLevel"].toDouble(),
-        fuelTotal: json["FuelTotal"].toDouble(),
-        heading: json["heading"],
-        colorR: json["colorR"],
-        colorG: json["colorG"],
-        colorB: json["colorB"],
-        statut: json["statut"],
-        odometerKM: json["odometerKM"].toDouble(),
-      );
+          timestamp: DateTime.parse(json["timestamp"]),
+          address: json["address"],
+          speedKph: json["speedKPH"],
+          fuelRemain: json["fuelRemain"].toInt(),
+          fuelLevel: json["FuelLevel"].toDouble(),
+          fuelTotal: json["FuelTotal"].toDouble(),
+          heading: json["heading"],
+          colorR: json["colorR"],
+          colorG: json["colorG"],
+          colorB: json["colorB"],
+          statut: json["statut"],
+          odometerKM: json["odometerKM"].toDouble(),
+          latitude: json['latitude'],
+          longitude: json['longitude']);
 
   Map<String, dynamic> toJson() => {
         "timestamp": timestamp,

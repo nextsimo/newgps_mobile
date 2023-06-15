@@ -3,6 +3,7 @@
 //     final device = deviceFromMap(jsonString);
 
 import 'dart:convert';
+import 'dart:developer';
 
 List<Device> deviceFromMap(String str) =>
     List<Device>.from(json.decode(str).map((x) => Device.fromMap(x)));
@@ -66,33 +67,70 @@ class Device {
   final int signalStrength;
 
   factory Device.fromMap(Map<String, dynamic> json) {
-    return Device(
-      description: json["description"],
-      deviceId: json["DeviceID"],
-      deviceIcon: json["deviceIcon"] ?? 'default',
-      dateTime: DateTime.fromMillisecondsSinceEpoch(json["timestamp"] * 1000),
-      latitude: json["latitude"].toDouble(),
-      longitude: json["longitude"].toDouble(),
-      address: json["address"] ?? '',
-      distanceKm: json["distanceKM"].toDouble(),
-      odometerKm: json["odometerKM"].toDouble(),
-      city: json["city"],
-      heading: json["heading"],
-      speedKph: json["speedKPH"],
-      index: json["index"],
-      colorR: json["colorR"],
-      colorG: json["colorG"],
-      colorB: json["colorB"],
-      statut: json["statut"],
-      markerPng: json["marker_png"],
-      markerText: json["marker_text"] ?? '',
-      phone1: json["phone1"] ?? '',
-      phone2: json["phone2"] ?? '',
-      markerTextPng: json["marker_text_png"],
-      equipmentType: json['equipmentType'] ?? '',
-      batteryLevel: (json['batteryLevel'] ?? 0).toDouble(),
-      signalStrength: json['signalStrength'] ?? 0,
-    );
+    try {
+      return Device(
+        description: json["description"],
+        deviceId: json["DeviceID"],
+        deviceIcon: json["deviceIcon"] ?? 'default',
+        dateTime: DateTime.fromMillisecondsSinceEpoch(json["timestamp"] * 1000),
+        latitude: json["latitude"].toDouble(),
+        longitude: json["longitude"].toDouble(),
+        address: json["address"] ?? '',
+        distanceKm: json["distanceKM"].toDouble(),
+        odometerKm: json["odometerKM"].toDouble(),
+        city: json["city"],
+        heading: json["heading"],
+        speedKph: json["speedKPH"],
+        index: json["index"],
+        colorR: json["colorR"],
+        colorG: json["colorG"],
+        colorB: json["colorB"],
+        statut: json["statut"],
+        markerPng: json["marker_png"],
+        markerText: json["marker_text"] ?? '',
+        phone1: json["phone1"] ?? '',
+        phone2: json["phone2"] ?? '',
+        markerTextPng: json["marker_text_png"],
+        equipmentType: json['equipmentType'] ?? '',
+        batteryLevel: (json['batteryLevel'] ?? 0).toDouble(),
+        signalStrength: json['signalStrength'] ?? 0,
+      );
+    } catch (e) {
+      log("--------- >Error parsing device: $e");
+      // print all int fields
+      json.forEach((key, value) {
+        if (value == null) {
+          log("--------- >$key: $value");
+        }
+      });
+      return Device(
+        description: '',
+        deviceId: '',
+        dateTime: DateTime.now(),
+        latitude: 0,
+        longitude: 0,
+        address: '',
+        distanceKm: 0,
+        odometerKm: 0,
+        city: '',
+        heading: 0,
+        speedKph: 0,
+        index: 0,
+        colorR: 0,
+        colorG: 0,
+        colorB: 0,
+        statut: '',
+        markerPng: '',
+        markerText: '',
+        phone1: '',
+        phone2: '',
+        markerTextPng: '',
+        equipmentType: '',
+        deviceIcon: '',
+        batteryLevel: 0,
+        signalStrength: 0,
+      );
+    }
   }
 
   Map<String, dynamic> toMap() => {
@@ -115,9 +153,8 @@ class Device {
         "marker_png": markerPng,
       };
 
-
-      // copy with new values
-  Device copyWith({ 
+  // copy with new values
+  Device copyWith({
     String? description,
     String? deviceId,
     DateTime? dateTime,

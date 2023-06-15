@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newgps/src/utils/styles.dart';
 import '../../../models/account.dart';
 import '../../../services/firebase_messaging_service.dart';
 import '../../../services/newgps_service.dart';
@@ -7,7 +8,7 @@ import 'startup_alert_settings.dart';
 class StartupProvider with ChangeNotifier {
   late FirebaseMessagingService messagingService;
   StartupAlertSetting? startupAlertSetting;
-  
+
   StartupProvider([FirebaseMessagingService? m]) {
     if (m != null) {
       messagingService = m;
@@ -30,6 +31,7 @@ class StartupProvider with ChangeNotifier {
     );
     if (res.isNotEmpty) {
       startupAlertSetting = startupAlertSettingFromJson(res);
+      messagingService.handleSubscribeToTopic(state: startupAlertSetting?.isActive, topic: AppConsts.startUpAlertTopic );
       notifyListeners();
     }
   }

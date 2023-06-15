@@ -16,7 +16,7 @@ class BuildTextCell extends StatelessWidget {
         height: 10,
         color: color,
         child: Center(
-          child: Text(
+          child: SelectableText(
             content,
             textAlign: TextAlign.center,
             maxLines: 1,
@@ -26,7 +26,4 @@ class BuildTextCell extends StatelessWidget {
       ),
     );
   }
-
 }
-
-

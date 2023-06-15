@@ -16,4 +16,6 @@ class AppConsts{
 
   static const String mapApiKey = "AIzaSyCsG254ZYJK0LJ0jVJ9Wy8shaAOaDiYIPE";
 
+  static const String startUpAlertTopic = 'startUpAlertTopic';
+
 }

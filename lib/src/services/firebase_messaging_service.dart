@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:newgps/src/utils/styles.dart';
 import '../models/account.dart';
 import '../utils/device_size.dart';
 import '../ui/login/login_as/save_account_provider.dart';
@@ -16,7 +16,7 @@ class FirebaseMessagingService {
   final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
 
   void init() {
-    saveUserMessagingToken();
+    _saveUserMessagingToken();
     SavedAcountProvider acountProvider =
         Provider.of<SavedAcountProvider>(DeviceSize.c, listen: false);
     _initmessage();
@@ -28,7 +28,7 @@ class FirebaseMessagingService {
     });
   }
 
-    Future<void> saveUserMessagingToken() async {
+  Future<void> _saveUserMessagingToken() async {
     await messaging.requestPermission(
         alert: true,
         badge: true,
@@ -36,17 +36,21 @@ class FirebaseMessagingService {
         announcement: true,
         criticalAlert: true);
 
-    String? token = await messaging.getToken();
+    // check if the user already has a token saved
+    String? token =
+        NewgpsService.sharedPrefrencesService.getKey('messaging_token');
+
+    token ??= await messaging.getToken();
+
     Account? account = shared.getAccount();
-    String? deviceId = await _getDeviceToken();
+    //String? deviceId = await _getDeviceToken();
     // save the new token to database
-    log(deviceId.toString());
     String res = await api.post(
       url: '/update/notification',
       body: {
         'accountId': account?.account.accountId,
         'token': token,
-        'deviceId': deviceId,
+        'deviceId': token,
       },
     );
     if (res.isNotEmpty) {
@@ -57,12 +61,36 @@ class FirebaseMessagingService {
 
   Future<void> disableAllSettings(String? account) async {
     Account? account = shared.getAccount();
-    String? deviceUID = await _getDeviceToken();
+    String? token =
+        NewgpsService.sharedPrefrencesService.getKey('messaging_token');
+    String? deviceUID = token;
     await api.post(
       url: '/disable/alert',
       body: {'account_id': account, 'device_uid': deviceUID, 'state': false},
     );
     debugPrint('test');
+  }
+
+  // subscribe to topic
+  Future<void> subscribeToTopic(String topic) async {
+    await messaging.subscribeToTopic(topic);
+  }
+
+  // hanle subscribe to topic depending on the state and add account to the end of the topic
+  Future<void> handleSubscribeToTopic(
+      {required bool? state, required String topic}) async {
+    final accountId = shared.getAccount()?.account.accountId;
+    if (accountId == null) return;
+    if (state == true) {
+      await messaging.subscribeToTopic("$topic-$accountId");
+    } else {
+      await messaging.unsubscribeFromTopic("$topic-$accountId");
+    }
+  }
+
+  // unsubscribe from all topics
+  Future<void> unsubscribeFromAllTopics() async {
+    await messaging.unsubscribeFromTopic(AppConsts.startUpAlertTopic);
   }
 
 /*   Future<void> enableAllSettings() async {
@@ -88,17 +116,6 @@ class FirebaseMessagingService {
       navigationViewProvider.navigateToAlertHistoric(
           accountId: remoteMessage.data['account_id']);
       acountProvider.checkNotifcation();
-    }
-  }
-
-
-  Future<String?> _getDeviceToken() async {
-    if (Platform.isAndroid) {
-      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-      return "android_${androidInfo.model}_${androidInfo.serialNumber}";
-    } else {
-      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-      return "ios_${iosInfo.model}_${iosInfo.identifierForVendor}";
     }
   }
 }

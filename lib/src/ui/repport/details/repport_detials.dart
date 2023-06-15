@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loadmore/loadmore.dart';
+import 'package:provider/provider.dart';
+
 import '../../../models/repports_details_model.dart';
 import '../../../services/newgps_service.dart';
 import '../../../utils/functions.dart';
 import '../../../utils/styles.dart';
 import '../../../widgets/empty_data.dart';
-import 'repport_details_provider.dart';
-import '../rapport_provider.dart';
-import 'package:provider/provider.dart';
-
 import '../clickable_text_cell.dart';
 import '../custom_devider.dart';
+import '../rapport_provider.dart';
 import '../text_cell.dart';
+import 'repport_details_provider.dart';
 
 class RepportDetailsView extends StatelessWidget {
   const RepportDetailsView({Key? key}) : super(key: key);
@@ -44,9 +44,9 @@ class RepportDetailsView extends StatelessWidget {
                     if (repportDetailsProvider.repportDetailsPaginateModel
                         .repportsDetailsModel.isEmpty) {
                       return SizedBox(
-                      height: 180.h,
-                      child: const Center(child:  EmptyData()),
-                    );
+                        height: 180.h,
+                        child: const Center(child: EmptyData()),
+                      );
                     }
                     return LoadMore(
                       isFinish: repportDetailsProvider
@@ -137,6 +137,18 @@ class _BuildHead extends StatelessWidget {
             isUp: repportDetailsProvider.up,
           ),
           const BuildDivider(),
+          const BuildClickableTextCell(
+            'LAT',
+            flex: 1,
+            index: 2,
+          ),
+          const BuildDivider(),
+          const BuildClickableTextCell(
+            'LONG',
+            flex: 1,
+            index: 2,
+          ),
+          const BuildDivider(),
           BuildClickableTextCell(
             'Statut',
             flex: 2,
@@ -224,6 +236,10 @@ class _RepportRow extends StatelessWidget {
           BuildTextCell(formatToTime(repport.timestamp), flex: 2),
           const BuildDivider(),
           BuildTextCell(repport.address, flex: 8),
+          const BuildDivider(),
+          BuildTextCell(repport.latitude.toString(), flex: 1),
+          const BuildDivider(),
+          BuildTextCell(repport.longitude.toString(), flex: 1),
           const BuildDivider(),
           BuildTextCell(repport.statut, flex: 2),
           const BuildDivider(),

@@ -16,7 +16,8 @@ class ClassicBloc extends Bloc<ClassicEvent, ClassicState> {
         debugPrint('ClassicLoadDevice: ${event.device.description}');
         emit(ClassicLoading());
         final deviceInfo = await devicesRepository.fetchDeviceInfo(
-            deviceId: event.device.deviceId);
+          deviceId: event.device.deviceId,
+        );
         emit(ClassicLoadDeviceInfo(deviceInfo));
       } else if (event is ClassicLoadDevices) {
         emit(event.page == 1 ? ClassicLoading() : ClassicLoadingMore());

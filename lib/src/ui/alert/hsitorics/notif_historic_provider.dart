@@ -3,18 +3,19 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import '../../../models/account.dart';
 import '../../../models/device.dart';
 import '../../../models/notif_hsitoric_model.dart';
 import '../../../services/device_provider.dart';
 import '../../../services/newgps_service.dart';
-import '../../driver_phone/driver_phone_provider.dart';
 import '../../../utils/functions.dart';
+import '../../../utils/locator.dart';
+import '../../driver_phone/driver_phone_provider.dart';
+import '../../login/login_as/save_account_provider.dart';
 import 'map_view/map_view_alert.dart';
 import 'notif_historic_details.dart';
-import '../../login/login_as/save_account_provider.dart';
-import '../../../utils/locator.dart';
-import 'package:provider/provider.dart';
 
 class NotifHistoricPorvider with ChangeNotifier {
   List<NotifHistoric> _histos = [];
@@ -258,10 +259,12 @@ class NotifHistoricPorvider with ChangeNotifier {
   bool loading = false;
 
   Future<void> fetchHisto() async {
+    if (loading) return;
     loading = true;
+    final body = await getBody();
     String res = await api.post(
       url: '/notification/historics2',
-      body: await getBody()
+      body: body
         ..addAll({
           'notification_id': NewgpsService.messaging.notificationID,
         }),

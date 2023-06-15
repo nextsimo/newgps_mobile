@@ -237,7 +237,7 @@ class _BuildDeviceCard extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      '${device.distanceKm.toInt()} km',
+                      '${device.odometerKm.toInt()} km',
                       style: const TextStyle(
                         color: AppConsts.mainColor,
                         fontSize: 10,

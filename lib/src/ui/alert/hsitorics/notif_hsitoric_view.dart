@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import '../../../models/notif_hsitoric_model.dart';
 import '../../../utils/functions.dart';
 import '../../../utils/styles.dart';
-import 'notif_historic_provider.dart';
 import '../../navigation/top_app_bar.dart';
-import 'package:provider/provider.dart';
+import 'notif_historic_provider.dart';
 
 class NotifHistoricView extends StatelessWidget {
   const NotifHistoricView({Key? key}) : super(key: key);

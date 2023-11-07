@@ -5,13 +5,14 @@ abstract class ClassicEvent {}
 
 class ClassicLoadDevice extends ClassicEvent {
   final Device device;
+  final DateTimeRange dateTimeRange;
 
-  ClassicLoadDevice(this.device);
+  ClassicLoadDevice({required this.device, required this.dateTimeRange});
 }
 
 class ClassicLoadDevices extends ClassicEvent {
   final int page;
   final List<Device> previousDevices;
 
-  ClassicLoadDevices({this.page = 1,  this.previousDevices = const []});
+  ClassicLoadDevices({this.page = 1, this.previousDevices = const []});
 }

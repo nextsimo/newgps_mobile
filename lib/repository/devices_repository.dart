@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:newgps/src/services/newgps_service.dart';
 
@@ -36,14 +37,18 @@ class DevicesRepository {
   }
 
   // fetch device info from API
-  Future<List<DeviceInfoModel>> fetchDeviceInfo(
-      {required String deviceId}) async {
+  Future<List<DeviceInfoModel>> fetchDeviceInfo({
+    required String deviceId,
+    required DateTimeRange dateTimeRange,
+  }) async {
     try {
       final Response response = await api.postResponse(
         url: '/device/info',
         body: {
           'device_id': deviceId,
           'account_id': shared.getAccount()?.account.accountId,
+          'from': dateTimeRange.start.millisecondsSinceEpoch ~/ 1000,
+          'to': dateTimeRange.end.millisecondsSinceEpoch ~/ 1000,
         },
       );
       if (response.statusCode == 200) {

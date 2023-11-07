@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newgps/classic/bloc/classic_bloc.dart';
 import 'package:newgps/classic/view/classic_card_list.dart';
 import 'package:newgps/src/ui/navigation/top_app_bar.dart';
+
 import '../../drop_down_search/view/paginate_drop_down_search_screen.dart';
 import '../../widgets/loading_bar.dart';
 import 'classic_device_info.dart';
@@ -16,34 +17,32 @@ class ClassicPage extends StatelessWidget {
       appBar: const CustomAppBar(),
       body: Stack(
         children: [
-          Column(
-            children: [
-              Expanded(
-                child: BlocBuilder<ClassicBloc, ClassicState>(
-                  buildWhen: (_, current) => current is! ClassicLoadingMore,
-                  builder: (context, state) {
-                    if (state is ClassicLoading) {
-                      return const Center(
-                        child: MyLoadingBar(),
-                      );
-                    } else if (state is ClassicLoaded) {
-                      return ClassicCardList(devices: state.devices);
-                    } else if (state is ClassicLoadDeviceInfo) {
-                      return ClassicDeviceInfo(deviceInfos: state.deviceInfos);
-                    } else if (state is ClassicError) {
-                      return Center(
-                        child: Text(
-                          'Classic Error: ${state.message}',
-                          style: Theme.of(context).textTheme.headlineMedium,
-                        ),
-                      );
-                    } else {
-                      return const SizedBox.shrink();
-                    }
-                  },
-                ),
-              ),
-            ],
+          BlocBuilder<ClassicBloc, ClassicState>(
+            buildWhen: (_, current) => current is! ClassicLoadingMore,
+            builder: (context, state) {
+              if (state is ClassicLoading) {
+                return const Center(
+                  child: MyLoadingBar(),
+                );
+              } else if (state is ClassicLoaded) {
+                return ClassicCardList(devices: state.devices);
+              } else if (state is ClassicLoadDeviceInfo) {
+                return ClassicDeviceInfo(
+                  initialDateRange: state.dateTimeRange,
+                  deviceInfos: state.deviceInfos,
+                  device: state.device,
+                );
+              } else if (state is ClassicError) {
+                return Center(
+                  child: Text(
+                    'Classic Error: ${state.message}',
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                );
+              } else {
+                return const SizedBox.shrink();
+              }
+            },
           ),
           Column(
             children: [
@@ -58,7 +57,17 @@ class ClassicPage extends StatelessWidget {
                     }
 
                     debugPrint('Selected device: ${device.description}');
-                    context.read<ClassicBloc>().add(ClassicLoadDevice(device));
+                    context.read<ClassicBloc>().add(
+                          ClassicLoadDevice(
+                            device: device,
+                            dateTimeRange: DateTimeRange(
+                              start: DateTime.now().subtract(
+                                const Duration(days: 1),
+                              ),
+                              end: DateTime.now(),
+                            ),
+                          ),
+                        );
                   },
                 ),
               ),

@@ -612,7 +612,7 @@ class _FloatingGroupInfoWindowInfoLandscape extends StatelessWidget {
                                 height: 25,
                                 onPressed: () async {
                                   await _showStartStopDilaog(context, provider,
-                                      'IgnitionEnable:TCP', 'démarrer');
+                                      'IgnitionEnable:UDP', 'démarrer');
                                 },
                                 label: 'Démarrer',
                                 backgroundColor: Colors.green,
@@ -624,7 +624,7 @@ class _FloatingGroupInfoWindowInfoLandscape extends StatelessWidget {
                               height: 25,
                               onPressed: () async {
                                 await _showStartStopDilaog(context, provider,
-                                    'IgnitionDisable:TCP', 'arrêter');
+                                    'IgnitionDisable:UDP', 'arrêter');
                               },
                               label: 'Arrêter',
                               backgroundColor: Colors.red,

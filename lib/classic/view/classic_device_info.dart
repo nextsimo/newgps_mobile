@@ -1,12 +1,26 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:newgps/classic/bloc/classic_bloc.dart';
 import 'package:newgps/classic/view/classic_device_info_map.dart';
+import 'package:newgps/src/models/device.dart';
+import 'package:provider/provider.dart';
+
 import '../../models/device_info_model.dart';
 import '../../src/utils/functions.dart';
+import 'date_time_range_picker_widget.dart';
 
 class ClassicDeviceInfo extends StatelessWidget {
   final List<DeviceInfoModel> deviceInfos;
-  const ClassicDeviceInfo({super.key, required this.deviceInfos});
+  final Device device;
+  final DateTimeRange initialDateRange;
+  const ClassicDeviceInfo({
+    super.key,
+    required this.deviceInfos,
+    required this.device,
+    required this.initialDateRange,
+  });
 
   // get the the color depend on the type 0 : red, 1: green
   Color getColor(int type) {
@@ -15,20 +29,43 @@ class ClassicDeviceInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<ClassicBloc>();
     return Material(
-      child: ListView.separated(
-        separatorBuilder: (context, index) => const Divider(),
-        itemCount: deviceInfos.length,
-        padding:
-            const EdgeInsets.only(top: 80, left: 12, right: 12, bottom: 200),
-        itemBuilder: (context, index) {
-          final deviceInfo = deviceInfos[index];
-          final color = getColor(deviceInfo.type);
-          return _BuildCardInfo(
-            color: color,
-            deviceInfo: deviceInfo,
-          );
-        },
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 70,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            child: DateTimeRangePicker(
+              initialDateRange: initialDateRange,
+              onConfirm: (dateTimeRange) {
+                log("dateTimeRange: $dateTimeRange");
+                bloc.add(ClassicLoadDevice(
+                  device: device,
+                  dateTimeRange: dateTimeRange,
+                ));
+              },
+            ),
+          ),
+          Expanded(
+            child: ListView.separated(
+              separatorBuilder: (context, index) => const Divider(),
+              itemCount: deviceInfos.length,
+              padding: const EdgeInsets.only(
+                  top: 20, left: 12, right: 12, bottom: 200),
+              itemBuilder: (context, index) {
+                final deviceInfo = deviceInfos[index];
+                final color = getColor(deviceInfo.type);
+                return _BuildCardInfo(
+                  color: color,
+                  deviceInfo: deviceInfo,
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -46,9 +83,9 @@ class _BuildCardInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap:  () => Navigator.of(context).push(
+      onTap: () => Navigator.of(context).push(
         ClassicDeviceInfoMap.route(deviceInfo, color),
-      ),  
+      ),
       child: Stack(
         children: [
           Container(
@@ -204,7 +241,26 @@ class _BuildCardInfo extends StatelessWidget {
                         ),
                       ),
                     ],
-                  )
+                  ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.calendar_today_outlined,
+                      color: color,
+                      size: 16,
+                    ),
+                    const SizedBox(width: 5),
+                    Text(
+                      "${deviceInfo.startDate.day}/${deviceInfo.startDate.month}/${deviceInfo.startDate.year}",
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),

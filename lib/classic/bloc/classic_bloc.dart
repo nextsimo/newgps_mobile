@@ -17,12 +17,21 @@ class ClassicBloc extends Bloc<ClassicEvent, ClassicState> {
         emit(ClassicLoading());
         final deviceInfo = await devicesRepository.fetchDeviceInfo(
           deviceId: event.device.deviceId,
+          dateTimeRange: event.dateTimeRange,
         );
-        emit(ClassicLoadDeviceInfo(deviceInfo));
+        emit(
+          ClassicLoadDeviceInfo(
+            deviceInfos: deviceInfo,
+            device: event.device,
+            dateTimeRange: event.dateTimeRange,
+          ),
+        );
       } else if (event is ClassicLoadDevices) {
         emit(event.page == 1 ? ClassicLoading() : ClassicLoadingMore());
         final res = await devicesRepository.fetchDevices(
-            numberOfDevice: 40, page: event.page);
+          numberOfDevice: 40,
+          page: event.page,
+        );
         final List<Device> devices = res['devices'];
         emit(ClassicLoaded(event.page == 1
             ? devices

@@ -51,7 +51,6 @@ class _ClassicCardListState extends State<ClassicCardList> {
       alignment: Alignment.bottomCenter,
       children: [
         ListView.separated(
-
           controller: _scrollController,
           separatorBuilder: (context, index) => const Divider(),
           padding: const EdgeInsets.only(
@@ -67,7 +66,15 @@ class _ClassicCardListState extends State<ClassicCardList> {
               device: device,
               onTap: () {
                 debugPrint('Selected device: ${device.description}');
-                context.read<ClassicBloc>().add(ClassicLoadDevice(device));
+                context.read<ClassicBloc>().add(
+                      ClassicLoadDevice(
+                        device: device,
+                        dateTimeRange: DateTimeRange(
+                            start: DateTime.now()
+                                .subtract(const Duration(days: 1)),
+                            end: DateTime.now()),
+                      ),
+                    );
               },
             );
           },

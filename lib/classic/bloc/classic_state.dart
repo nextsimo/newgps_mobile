@@ -5,8 +5,7 @@ abstract class ClassicState {}
 
 class ClassicInitial extends ClassicState {}
 
-class ClassicLoading extends ClassicState {
-}
+class ClassicLoading extends ClassicState {}
 
 class ClassicLoaded extends ClassicState {
   final List<Device> devices;
@@ -14,8 +13,7 @@ class ClassicLoaded extends ClassicState {
   ClassicLoaded(this.devices);
 }
 
-class ClassicLoadingMore extends ClassicState {
-}
+class ClassicLoadingMore extends ClassicState {}
 
 class ClassicError extends ClassicState {
   final String message;
@@ -23,9 +21,13 @@ class ClassicError extends ClassicState {
   ClassicError(this.message);
 }
 
-
 class ClassicLoadDeviceInfo extends ClassicState {
   final List<DeviceInfoModel> deviceInfos;
+  final Device device;
+  final DateTimeRange dateTimeRange;
 
-  ClassicLoadDeviceInfo(this.deviceInfos);
+  ClassicLoadDeviceInfo(
+      {required this.deviceInfos,
+      required this.device,
+      required this.dateTimeRange});
 }

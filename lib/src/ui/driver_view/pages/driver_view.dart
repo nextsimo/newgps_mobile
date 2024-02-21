@@ -11,17 +11,35 @@ class DriverView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return ChangeNotifierProvider<DriverViewProvider>(
         create: (_) => DriverViewProvider(),
         builder: (context, __) {
-          return const Scaffold(
-            appBar: CustomAppBar(),
-            body: Column(
+          return  Scaffold(
+            appBar: const CustomAppBar(),
+            body: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    Icons.drive_eta,
+                    size: 50,
+                    color: Colors.blueGrey,
+                  ),
+                  Text(
+                    'Bientôt disponible...',
+                    style: textTheme.titleLarge,
+                  ),
+
+                ],
+              ),
+            ),
+/*             body: Column(
               children: [
                 _BuildHeader(),
                 _BuildMyDrivers(),
               ],
-            ),
+            ), */
           );
         });
   }

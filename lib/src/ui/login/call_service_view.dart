@@ -28,12 +28,12 @@ class CallServiceView extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-             Icon(
+            Icon(
               FontAwesomeIcons.phone,
               color: Colors.green,
               size: 15.r,
             ),
-             SizedBox(width: 12.w),
+            SizedBox(width: 12.w),
             Text(
               'Appeler Service Après Vente',
               style: Theme.of(context).textTheme.titleMedium,
@@ -87,5 +87,4 @@ class CallServiceView extends StatelessWidget {
       ),
     ); */
   }
-
 }

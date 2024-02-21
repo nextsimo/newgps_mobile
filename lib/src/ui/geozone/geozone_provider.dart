@@ -29,6 +29,8 @@ class GeozoneProvider with ChangeNotifier {
 
   final GeozoneDialogProvider geozoneDialogProvider = GeozoneDialogProvider();
 
+  bool loading = false;
+
   String _errorText = '';
 
   String get errorText => _errorText;
@@ -92,11 +94,35 @@ class GeozoneProvider with ChangeNotifier {
   Future<void> addGeozone(double radius, LatLng center, String description,
       BuildContext context) async {
     Account? account = shared.getAccount();
+
+    // print the data before sending it to the server
+    print({
+      'accountId': account?.account.accountId,
+      'devices': geozoneDialogProvider.selectedDevices.isEmpty
+          ? ''
+          : geozoneDialogProvider.selectedDevices.join(','),
+      'cordinates': geozoneDialogProvider.selectionType == 0 ||
+              geozoneDialogProvider.selectionType == 2
+          ? json.encode(List<List<double>>.from(geozoneDialogProvider.markers
+              .map((e) => [e.position.latitude, e.position.longitude])
+              .toList()))
+          : json.encode(List<List<double>>.from(geozoneDialogProvider.pointLines
+              .map((e) => [e.latitude, e.longitude])
+              .toList())),
+      'radius': radius,
+      'description': description,
+      'geozone_type': geozoneDialogProvider.selectionType,
+      'innerOuterValue': geozoneDialogProvider.innerOuterValue,
+      'zoom': geozoneDialogProvider.currentZoome,
+    });
+
     String res = await api.post(
       url: '/add/geozone',
       body: {
         'accountId': account?.account.accountId,
-        'devices': geozoneDialogProvider.selectedDevices.join(','),
+        'devices': geozoneDialogProvider.selectedDevices.isEmpty
+            ? ''
+            : geozoneDialogProvider.selectedDevices.join(','),
         'cordinates': geozoneDialogProvider.selectionType == 0 ||
                 geozoneDialogProvider.selectionType == 2
             ? json.encode(List<List<double>>.from(geozoneDialogProvider.markers
@@ -135,7 +161,6 @@ class GeozoneProvider with ChangeNotifier {
       debugPrint(res);
       return;
     }
-
     fetchGeozones();
   }
 
@@ -198,6 +223,7 @@ class GeozoneProvider with ChangeNotifier {
   }
 
   Future<void> fetchGeozones({String search = ''}) async {
+    loading = true;
     Account? account = shared.getAccount();
     late String res;
     if (search.isEmpty) {
@@ -213,6 +239,7 @@ class GeozoneProvider with ChangeNotifier {
       geozones = geozoneModelFromJson(res);
       locator<GeozoneService>().fetchGeozoneFromApi();
     }
+    loading = false;
   }
 
   void deleteGeozone(BuildContext context, String geozoneId) async {

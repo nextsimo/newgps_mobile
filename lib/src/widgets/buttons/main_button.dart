@@ -3,15 +3,6 @@ import 'package:flutter/material.dart';
 import '../../utils/styles.dart';
 
 class MainButton extends StatefulWidget {
-  final String label;
-  final Color backgroundColor;
-  final double? width;
-  final Color textColor;
-  final dynamic Function() onPressed;
-  final double height;
-  final Color? borderColor;
-  final IconData? icon;
-  final double fontSize;
   const MainButton(
       {Key? key,
       this.label = '',
@@ -21,8 +12,19 @@ class MainButton extends StatefulWidget {
       this.height = 48,
       this.borderColor,
       this.textColor = Colors.white,
-      this.icon, this.fontSize = 12.5})
+      this.icon,
+      this.fontSize = 12.5})
       : super(key: key);
+
+  final Color backgroundColor;
+  final Color? borderColor;
+  final double fontSize;
+  final double height;
+  final IconData? icon;
+  final String label;
+  final dynamic Function() onPressed;
+  final Color textColor;
+  final double? width;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -67,14 +69,22 @@ class _MainButtonState extends State<MainButton> {
                 ),
               )
             : Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   if (widget.icon != null)
                     Padding(
                       padding: const EdgeInsets.only(right: 3),
                       child: Icon(widget.icon, color: Colors.white, size: 17),
                     ),
-                  Text(widget.label, style: TextStyle(color: widget.textColor, fontSize: widget.fontSize, fontWeight: FontWeight.w500)),
+                  Text(
+                    widget.label,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: widget.textColor,
+                      fontSize: widget.fontSize,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ],
               ),
       ),

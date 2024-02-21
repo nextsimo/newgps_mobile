@@ -31,16 +31,17 @@ const String towingLocalDataKey = 'towing';
 // show call service
 void showCallService(BuildContext context) {
   showDialog(
+    barrierColor: Colors.transparent,
     context: context,
     builder: (_) {
       return Dialog(
+        backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppConsts.mainradius),
         ),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(AppConsts.mainradius),
-            color: Colors.white,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -48,23 +49,17 @@ void showCallService(BuildContext context) {
               const SizedBox(height: 12),
               MainButton(
                 width: 260,
-                onPressed: () => call('0662782694'),
-                icon: Icons.phone_forwarded_rounded,
-                label: '0662782694',
-              ),
-              const SizedBox(height: 12),
-              MainButton(
-                width: 260,
-                onPressed: () => call('0522304810'),
-                icon: Icons.phone_forwarded_rounded,
-                label: '0522304810',
-              ),
-              const SizedBox(height: 12),
-              MainButton(
-                width: 260,
                 onPressed: () => call('0661599392'),
-                icon: Icons.phone_forwarded_rounded,
-                label: '0661599392',
+                // icon for service technique
+                icon: Icons.miscellaneous_services_rounded,
+                label: '06 61 59 93 92',
+              ),
+              const SizedBox(height: 12),
+              MainButton(
+                width: 260,
+                onPressed: () => call('0661786787'),
+                icon: Icons.phone_iphone_rounded,
+                label: '06 61 78 67 87',
               ),
               const SizedBox(height: 12),
             ],

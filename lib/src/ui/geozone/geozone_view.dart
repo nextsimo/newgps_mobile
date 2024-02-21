@@ -17,106 +17,138 @@ class GeozoneView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProxyProvider<FirebaseMessagingService,
-            GeozoneProvider>(
-        update: (_, m, u) => GeozoneProvider(m: m),
-        create: (_) => GeozoneProvider(),
-        builder: (context, snapshot) {
-          var droit = Provider.of<SavedAcountProvider>(context, listen: false)
-              .userDroits
-              .droits[5];
-          GeozoneProvider provider = Provider.of<GeozoneProvider>(context);
-          return Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: const CustomAppBar(),
-            body: InteractiveViewer(
-              child: SafeArea(
-                right: false,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 5),
-                    Builder(builder: (context) {
-                      MediaQueryData mediaQuery = MediaQuery.of(context);
-                      return SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          width: mediaQuery.orientation == Orientation.portrait
-                              ? mediaQuery.size.width * 1.55
-                              : mediaQuery.size.width * 0.94,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  SearchWidget(
-                                    autoFocus: false,
-                                    hint: 'Chercher…',
-                                    onChnaged: (_) async {
-                                      await provider.fetchGeozones(search: _);
-                                    },
-                                  ),
-                                  if (droit.write)
-                                    MainButton(
-                                      width: 120,
-                                      height: 30,
-                                      onPressed: () =>
-                                          provider.showAddDialog(context),
-                                      label: 'Ajouter une zone',
-                                      fontSize: 10,
-                                    ),
-                                  const SizedBox(width: 3),
-                                  Container(
-                                    padding: const EdgeInsets.all(6),
+        GeozoneProvider>(
+      update: (_, m, u) => GeozoneProvider(m: m),
+      create: (_) => GeozoneProvider(),
+      builder: (context, snapshot) {
+        var droit = Provider.of<SavedAcountProvider>(context, listen: false)
+            .userDroits
+            .droits[5];
+        GeozoneProvider provider = Provider.of<GeozoneProvider>(context);
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: const CustomAppBar(),
+          body: InteractiveViewer(
+            child: SafeArea(
+              right: false,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 5),
+                  Builder(builder: (context) {
+                    MediaQueryData mediaQuery = MediaQuery.of(context);
+                    return SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        width: mediaQuery.orientation == Orientation.portrait
+                            ? mediaQuery.size.width * 1.55
+                            : mediaQuery.size.width * 0.94,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                SearchWidget(
+                                  autoFocus: false,
+                                  hint: 'Chercher…',
+                                  onChnaged: (_) async {
+                                    await provider.fetchGeozones(search: _);
+                                  },
+                                ),
+                                if (droit.write)
+                                  MainButton(
+                                    width: 120,
                                     height: 30,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: AppConsts.mainColor,
-                                          width: AppConsts.borderWidth),
-                                      borderRadius: BorderRadius.circular(
-                                          AppConsts.mainradius),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        const Text(
-                                          'Activer alerte geozone',
-                                          style: TextStyle(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        const SizedBox(width: 6),
-                                        Selector<GeozoneProvider,
-                                            GeozoneSttingsAlert?>(
-                                          builder: (_, settings, __) {
-                                            if (settings == null) {
-                                              return const SizedBox();
-                                            }
-                                            return SizedBox(
-                                              width: 30,
-                                              height: 30,
-                                              child: Switch(
-                                                  value: settings.isActive,
-                                                  onChanged: droit.write
-                                                      ? provider.updateSettings
-                                                      : null,
-                                                  activeColor:
-                                                      AppConsts.mainColor),
-                                            );
-                                          },
-                                          selector: (_, provider) =>
-                                              provider.geozoneSttingsAlert,
-                                        ),
-                                      ],
-                                    ),
+                                    onPressed: () =>
+                                        provider.showAddDialog(context),
+                                    label: 'Ajouter une zone',
+                                    fontSize: 10,
                                   ),
-                                ],
-                              ),
-                              const LogoutButton(),
-                            ],
-                          ),
+                                const SizedBox(width: 3),
+                                Container(
+                                  padding: const EdgeInsets.all(6),
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: AppConsts.mainColor,
+                                        width: AppConsts.borderWidth),
+                                    borderRadius: BorderRadius.circular(
+                                        AppConsts.mainradius),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      const Text(
+                                        'Activer alerte geozone',
+                                        style: TextStyle(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      const SizedBox(width: 6),
+                                      Selector<GeozoneProvider,
+                                          GeozoneSttingsAlert?>(
+                                        builder: (_, settings, __) {
+                                          if (settings == null) {
+                                            return const SizedBox();
+                                          }
+                                          return SizedBox(
+                                            width: 30,
+                                            height: 30,
+                                            child: Switch(
+                                                value: settings.isActive,
+                                                onChanged: droit.write
+                                                    ? provider.updateSettings
+                                                    : null,
+                                                activeColor:
+                                                    AppConsts.mainColor),
+                                          );
+                                        },
+                                        selector: (_, provider) =>
+                                            provider.geozoneSttingsAlert,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const LogoutButton(),
+                          ],
                         ),
-                      );
-                    }),
+                      ),
+                    );
+                  }),
+                  if (provider.loading)
+                    const Expanded(
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                              AppConsts.mainColor),
+                        ),
+                      ),
+                    ),
+                  if (provider.geozones.isEmpty && !provider.loading)
+                    const Expanded(
+                      child: Center(
+                          child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.hourglass_empty_rounded,
+                            size: 50,
+                            color: Colors.orange,
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            'Aucune zone géographique',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      )),
+                    ),
+                  if (provider.geozones.isNotEmpty)
                     Expanded(
                       child: GridView.builder(
                           padding: const EdgeInsets.fromLTRB(12, 12, 12, 80),
@@ -133,12 +165,13 @@ class GeozoneView extends StatelessWidget {
                             return GeozoneCard(geozone: geozone);
                           }),
                     ),
-                  ],
-                ),
+                ],
               ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }
 

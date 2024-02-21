@@ -11,19 +11,13 @@ class AlertView extends StatelessWidget {
 
   final List<_AlertItem> _items = const [
     _AlertItem(
-        // speed icon
         icon: FontAwesomeIcons.gauge,
         label: 'Vitesse',
         page: '/speed',
         inDev: false),
-/*     _AlertItem(
-        icon: Icons.ev_station_rounded,
-        label: 'Carburant',
-        page: '/fuel',
-        inDev: false), */
     _AlertItem(
         icon: FontAwesomeIcons.plug,
-        label: 'Alimentation boitier',
+        label: 'Alimentation',
         page: '/battery',
         inDev: false),
     _AlertItem(

@@ -32,7 +32,7 @@ class MatriculeProvider with ChangeNotifier {
     if (scrollController.position.pixels >=
         scrollController.position.maxScrollExtent) {
       if (!_stopPagination) {
-        fetchMatricules(searchStr: searchStr, fromListner: true);
+        fetchMatricules(searchStr: _searchStr, fromListner: true);
       }
     }
   }
@@ -43,18 +43,19 @@ class MatriculeProvider with ChangeNotifier {
     scrollController.removeListener(_scrollListner);
     scrollController.dispose();
   }
- 
+
   set matricules(List<MatriculeModel> matricules) {
     _matricules = matricules;
     notifyListeners();
   }
 
   Future<void> search(String str) async {
-    searchStr = str;
-    await fetchMatricules(searchStr: str);
+    _searchStr = str;
   }
 
-  String searchStr = '';
+  String _searchStr = '';
+
+  String get seachStrInput => _searchStr;
 
   Future<void> onSave(
       MatriculeModel newMatriculeData, BuildContext context) async {
@@ -131,14 +132,19 @@ class MatriculeProvider with ChangeNotifier {
     //_dismissDialog(context);
   }
 
+  String lastSearch = '';
+
   MatriculeProvider() {
     fetchMatricules(init: true);
     _init();
   }
   int page = 1;
   bool loadding = false;
-  Future<void> fetchMatricules(
-      {String? searchStr, bool init = false, bool fromListner = false}) async {
+  Future<void> fetchMatricules({
+    String? searchStr,
+    bool init = false,
+    bool fromListner = false,
+  }) async {
     if (loadding) return;
     loadding = true;
     if (!init) {
@@ -149,7 +155,7 @@ class MatriculeProvider with ChangeNotifier {
     if (fromListner) {
       page++;
     }
-    if (searchStr == null) {
+    if (searchStr == null || searchStr.isEmpty) {
       res = await api.post(
         url: '/matricules2',
         body: {
@@ -159,6 +165,10 @@ class MatriculeProvider with ChangeNotifier {
         },
       );
     } else {
+      if (searchStr != lastSearch) {
+        page = 1;
+        lastSearch = searchStr;
+      }
       res = await api.post(
         url: '/matricules2',
         body: {
@@ -171,6 +181,12 @@ class MatriculeProvider with ChangeNotifier {
     }
 
     if (res.isNotEmpty) {
+      // check that we paginate from the begining to initialize the list
+      if (page == 1) {
+        oldMatricules.clear();
+        matricules.clear();
+      }
+
       oldMatricules.clear();
       List<MatriculeModel> ms = matriculeModelFromJson(res);
       if (ms.isEmpty) {

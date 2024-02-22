@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:newgps/src/utils/styles.dart';
 import '../models/account.dart';
 import '../utils/device_size.dart';
 import '../ui/login/login_as/save_account_provider.dart';
@@ -45,6 +44,8 @@ class FirebaseMessagingService {
     Account? account = shared.getAccount();
     //String? deviceId = await _getDeviceToken();
     // save the new token to database
+
+    debugPrint('Token : $token');
     String res = await api.post(
       url: '/update/notification',
       body: {

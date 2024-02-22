@@ -805,6 +805,8 @@ class HistoricProvider with ChangeNotifier {
           showCallDriver: false,
           device: device,
           showOnOffDevice: false,
+          fuelLevel:  device.fuelLevel,
+          fuelTotalCounted: device.fuelTotalCounted,
         );
       },
     );

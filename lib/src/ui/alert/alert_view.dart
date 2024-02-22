@@ -35,6 +35,7 @@ class AlertView extends StatelessWidget {
       inDev: false,
     ),
     _AlertItem(
+      // ignore: deprecated_member_use
       icon: FontAwesomeIcons.carCrash,
       label: 'Capot',
       page: '/hood',
@@ -46,11 +47,19 @@ class AlertView extends StatelessWidget {
         label: 'Vidange',
         page: '/oil_change',
         inDev: false),
-    _AlertItem(
+/*     _AlertItem(
       // towing icon
       icon: FontAwesomeIcons.truckPickup,
       label: 'Dépannage',
       page: '/towing',
+      inDev: false,
+    ), */
+
+    // fuel alert
+    _AlertItem(
+      icon: FontAwesomeIcons.gasPump,
+      label: 'Carburant',
+      page: '/fuel',
       inDev: false,
     ),
 

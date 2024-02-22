@@ -16,10 +16,14 @@ class FloatingGroupWindowInfo extends StatefulWidget {
   final Device device;
   final bool showOnOffDevice;
   final bool showCallDriver;
+  final double? fuelLevel;
+  final double? fuelTotalCounted;
 
   const FloatingGroupWindowInfo(
       {Key? key,
       required this.device,
+      required this.fuelLevel,
+      required this.fuelTotalCounted,
       this.showOnOffDevice = true,
       this.showCallDriver = true})
       : super(key: key);
@@ -35,19 +39,26 @@ class _FloatingGroupWindowInfoState extends State<FloatingGroupWindowInfo> {
   Widget build(BuildContext context) {
     Orientation orientation = MediaQuery.of(context).orientation;
     return WillPopScope(
-        onWillPop: () async {
-          Navigator.of(context).pop();
-          return false;
-        },
-        child: orientation == Orientation.portrait
-            ? _FloatingGroupInfoWindowInfoPortrait(
-                device: widget.device,
-                showCallDriver: widget.showCallDriver,
-                showOnOffDevice: widget.showOnOffDevice)
-            : _FloatingGroupInfoWindowInfoLandscape(
-                device: widget.device,
-                showCallDriver: widget.showCallDriver,
-                showOnOffDevice: widget.showOnOffDevice));
+      onWillPop: () async {
+        Navigator.of(context).pop();
+        return false;
+      },
+      child: orientation == Orientation.portrait
+          ? _FloatingGroupInfoWindowInfoPortrait(
+              device: widget.device,
+              showCallDriver: widget.showCallDriver,
+              showOnOffDevice: widget.showOnOffDevice,
+              fuelLevel: widget.fuelLevel,
+              fuelTotalCounted: widget.fuelTotalCounted,
+            )
+          : _FloatingGroupInfoWindowInfoLandscape(
+              device: widget.device,
+              showCallDriver: widget.showCallDriver,
+              showOnOffDevice: widget.showOnOffDevice,
+              fuelLevel: widget.fuelLevel,
+              fuelTotalCounted: widget.fuelTotalCounted,
+            ),
+    );
   }
 }
 
@@ -55,11 +66,15 @@ class _FloatingGroupInfoWindowInfoPortrait extends StatefulWidget {
   final Device device;
   final bool showOnOffDevice;
   final bool showCallDriver;
+  final double? fuelLevel;
+  final double? fuelTotalCounted;
   const _FloatingGroupInfoWindowInfoPortrait({
     Key? key,
     required this.device,
     required this.showOnOffDevice,
     required this.showCallDriver,
+    required this.fuelLevel,
+    required this.fuelTotalCounted,
   }) : super(key: key);
 
   @override
@@ -204,6 +219,10 @@ class _FloatingGroupInfoWindowInfoPortraitState
                             ),
                           ],
                         ),
+                        FuelColumnData(
+                          fuelLevel: widget.fuelLevel,
+                          fuelTotalCounted: widget.fuelTotalCounted,
+                        ),
                         const SizedBox(height: 7),
                         Row(
                           children: [
@@ -243,6 +262,7 @@ class _FloatingGroupInfoWindowInfoPortraitState
                                 ])),
                           ],
                         ),
+
                         const SizedBox(height: 7),
                         if (widget.showCallDriver)
                           MainButton(
@@ -377,11 +397,15 @@ class _FloatingGroupInfoWindowInfoLandscape extends StatelessWidget {
   final Device device;
   final bool showOnOffDevice;
   final bool showCallDriver;
+  final double? fuelLevel;
+  final double? fuelTotalCounted;
   const _FloatingGroupInfoWindowInfoLandscape({
     Key? key,
     required this.device,
     required this.showOnOffDevice,
     required this.showCallDriver,
+    required this.fuelLevel,
+    required this.fuelTotalCounted,
   }) : super(key: key);
 
   @override
@@ -508,6 +532,10 @@ class _FloatingGroupInfoWindowInfoLandscape extends StatelessWidget {
                                   ])),
                             ],
                           ),
+                          FuelColumnData(
+                            fuelLevel: device.fuelLevel,
+                            fuelTotalCounted: device.fuelTotalCounted,
+                          ),
                           const SizedBox(height: 7),
 
                           Row(
@@ -556,7 +584,6 @@ class _FloatingGroupInfoWindowInfoLandscape extends StatelessWidget {
                                   ])),
                             ],
                           ),
-
                           const SizedBox(height: 7),
                           if (device.phone1.isNotEmpty && showCallDriver)
                             MainButton(
@@ -710,6 +737,63 @@ class _FloatingGroupInfoWindowInfoLandscape extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class FuelColumnData extends StatelessWidget {
+  final double? fuelLevel;
+  final double? fuelTotalCounted;
+  const FuelColumnData(
+      {super.key, required this.fuelLevel, required this.fuelTotalCounted});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        if (fuelLevel != null && fuelLevel! > 0)
+          Column(
+            children: [
+              const SizedBox(height: 7),
+              Row(
+                children: [
+                  const Icon(Icons.local_gas_station,
+                      color: AppConsts.mainColor),
+                  const SizedBox(width: 5),
+                  RichText(
+                    text: TextSpan(
+                      text: "Niveau de carburant: ",
+                      style: TextStyle(color: Colors.black.withOpacity(0.7)),
+                      children: [
+                        TextSpan(
+                            text: "$fuelLevel L",
+                            style: const TextStyle(color: Colors.black54))
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        const SizedBox(height: 7),
+        // show fuel total
+        if (fuelTotalCounted != null && fuelTotalCounted! > 0)
+          Row(
+            children: [
+              const Icon(Icons.local_gas_station, color: AppConsts.mainColor),
+              const SizedBox(width: 5),
+              RichText(
+                  text: TextSpan(
+                      text: "Total carburant: ",
+                      style: TextStyle(color: Colors.black.withOpacity(0.7)),
+                      children: [
+                    TextSpan(
+                        text: "$fuelTotalCounted L",
+                        style: const TextStyle(color: Colors.black54))
+                  ])),
+            ],
+          ),
+      ],
     );
   }
 }

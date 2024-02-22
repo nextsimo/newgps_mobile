@@ -33,29 +33,29 @@ class BuildHead extends StatelessWidget {
       child: Row(
         children: [
           const BuildDivider(height: 20),
-/*           BuildClickableTextCell(
-            'N',
-            flex: 1,
-            ontap: repportProvider.updateOrderByNumber,
-            isSlected: repportProvider.selectedIndex == 0,
-            isUp: repportProvider.orderByNumber,
-          ),
-          const BuildDivider(height: 20), */
           BuildClickableTextCell(
             'Matricule',
-            flex: 4,
+            flex: repportProvider.showDriver ? 5 : 6,
             ontap: repportProvider.updateOrderByMatricule,
             isSlected: repportProvider.selectedIndex == 1,
             isUp: repportProvider.orderByMatricule,
           ),
-          const BuildDivider(height: 20),
-          BuildClickableTextCell(
-            'Chauffeur',
-            flex: 2,
-            ontap: repportProvider.updateOrderByDriverName,
-            isSlected: repportProvider.selectedIndex == 2,
-            isUp: repportProvider.orderByDriverName,
-          ),
+          if (resumeRepportProvider.showDriver)
+            Expanded(
+              flex: 2,
+              child: Row(
+                children: [
+                  const BuildDivider(height: 20),
+                  BuildClickableTextCell(
+                    'Chauffeur',
+                    flex: 2,
+                    ontap: repportProvider.updateOrderByDriverName,
+                    isSlected: repportProvider.selectedIndex == 2,
+                    isUp: repportProvider.orderByDriverName,
+                  ),
+                ],
+              ),
+            ),
           const BuildDivider(height: 20),
           BuildClickableTextCell(
             'Km actuel',
@@ -219,6 +219,8 @@ class RepportRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final resumeRepportProvider =
+        Provider.of<ResumeRepportProvider>(context, listen: false);
     return Container(
       decoration: const BoxDecoration(
         border: Border(
@@ -228,11 +230,9 @@ class RepportRow extends StatelessWidget {
       ),
       child: Row(
         children: [
-/*           const BuildDivider(height: 10),
-          BuildTextCell('${repport.index}', flex: 1), */
           const BuildDivider(height: 10),
           Expanded(
-            flex: 4,
+            flex: resumeRepportProvider.showDriver ? 5 : 6,
             child: InkWell(
               onTap: () {
                 Device device = deviceProvider.devices.firstWhere(
@@ -254,16 +254,23 @@ class RepportRow extends StatelessWidget {
                     const Icon(
                       Icons.call,
                       color: Colors.green,
-                      size: 10,
+                      size: 8,
                     ),
-                    const SizedBox(width: 6),
                   ],
                 ),
               ),
             ),
           ),
-          const BuildDivider(height: 10),
-          BuildTextCell(repport.driverName, flex: 2),
+          if (resumeRepportProvider.showDriver)
+            Expanded(
+              flex: 2,
+              child: Row(
+                children: [
+                  const BuildDivider(height: 10),
+                  BuildTextCell(repport.driverName, flex: 2),
+                ],
+              ),
+            ),
           const BuildDivider(height: 10),
           BuildTextCell('${repport.lastOdometerKm}', flex: 2),
           const BuildDivider(height: 10),

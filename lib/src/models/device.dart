@@ -38,6 +38,8 @@ class Device {
     required this.deviceIcon,
     this.batteryLevel = 0,
     this.signalStrength = 0,
+    this.fuelLevel,
+    this.fuelTotalCounted,
   });
 
   final String description;
@@ -65,6 +67,8 @@ class Device {
   final String deviceIcon;
   final double batteryLevel;
   final int signalStrength;
+  final double? fuelLevel;
+  final double? fuelTotalCounted;
 
   factory Device.fromMap(Map<String, dynamic> json) {
     try {
@@ -94,6 +98,9 @@ class Device {
         equipmentType: json['equipmentType'] ?? '',
         batteryLevel: (json['batteryLevel'] ?? 0).toDouble(),
         signalStrength: json['signalStrength'] ?? 0,
+        fuelLevel: json['fuelLevel']?.toDouble(),
+        fuelTotalCounted: json['fuelTotal']?.toDouble(),
+
       );
     } catch (e) {
       log("--------- >Error parsing device: $e");
@@ -207,6 +214,8 @@ class Device {
       deviceIcon: deviceIcon ?? this.deviceIcon,
       batteryLevel: batteryLevel ?? this.batteryLevel,
       signalStrength: signalStrength ?? this.signalStrength,
+      fuelLevel: fuelLevel,
+      fuelTotalCounted: fuelTotalCounted,
     );
   }
 }

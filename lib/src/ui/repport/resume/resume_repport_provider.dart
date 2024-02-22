@@ -21,6 +21,8 @@ class ResumeRepportProvider with ChangeNotifier {
     _resumes = [];
   }
 
+  bool showDriver = false;
+
   late Timer _timer;
 
   late RepportProvider provider;
@@ -217,11 +219,17 @@ class ResumeRepportProvider with ChangeNotifier {
     );
     if (res.isNotEmpty) {
       _resumes = repportResumeModelFromJson(res);
+      // check if resume has a driver
+      for (var r in _resumes) {
+        if (r.driverName.isNotEmpty) {
+          showDriver = true;
+          break;
+        }
+      }
       notifyListeners();
     }
     _loadingResumeRepport = false;
   }
-
 
 /*   bool iscalculitingDrivingTime = false;
   Future<void> calculDrivingTime(String? accountID) async {
@@ -240,4 +248,3 @@ class ResumeRepportProvider with ChangeNotifier {
     iscalculitingDrivingTime = false;
   } */
 }
-

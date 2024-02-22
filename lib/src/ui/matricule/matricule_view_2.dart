@@ -60,6 +60,7 @@ class MatriculeDataView extends StatelessWidget {
               body: InteractiveViewer(
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.only(bottom: 120),
                   child: Stack(
                     children: [
                       SizedBox(
@@ -202,17 +203,40 @@ class MatriculeDataView extends StatelessWidget {
                           ),
                         ),
                       ),
-                      if (matriculeProvider.loadding)
+                      if (matriculeProvider.loadding && matricules.isEmpty)
                         SizedBox(
                           width: DeviceSize.width,
-                          child: Material(
-                            color: Colors.transparent.withOpacity(0.5),
-                            child: const Center(
-                              child: SizedBox(
-                                width: 30,
-                                height: 30,
-                                child: CircularProgressIndicator(),
-                              ),
+                          child: const Center(
+                            child: SizedBox(
+                              width: 30,
+                              height: 30,
+                              child: CircularProgressIndicator(),
+                            ),
+                          ),
+                        ),
+                        // empty widget
+                      if (matricules.isEmpty && !matriculeProvider.loadding)
+                        SizedBox(
+                          width: DeviceSize.width,
+                          child: const Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.car_crash,
+                                  color: Colors.orange,
+                                  size: 50,
+                                ),
+                                Text(
+                                  'Aucun matricule trouvé pour cette recherche',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -245,9 +269,26 @@ class _BuildHead extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SearchWidget(
-            hint: 'Entrer matricule',
-            onChnaged: matriculeProvider.search,
+          Row(
+            children: [
+              SearchWidget(
+                width: 220,
+                hint: 'Entrer matricule',
+                onChnaged: matriculeProvider.search,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              MainButton(
+                onPressed: () => matriculeProvider.fetchMatricules(
+                    searchStr: matriculeProvider.seachStrInput),
+                label: 'Rechercher',
+                width: 80,
+                height: 30,
+                fontSize: 12,
+                backgroundColor: AppConsts.blue,
+              ),
+            ],
           ),
           const LogoutButton(),
         ],

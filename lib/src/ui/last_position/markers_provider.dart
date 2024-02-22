@@ -236,6 +236,8 @@ final uuid = const Uuid();
           showCallDriver: fetchGroupesDevices,
           device: device,
           showOnOffDevice: droit.write,
+          fuelLevel: device.fuelLevel,
+          fuelTotalCounted: device.fuelTotalCounted,
         );
       },
     );

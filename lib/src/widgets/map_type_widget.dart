@@ -34,18 +34,18 @@ class MapTypeWidget extends StatelessWidget {
           value: MapType.normal,
           child: Text('Vue normale'),
         ),
-        const PopupMenuItem<MapType>(
+/*         const PopupMenuItem<MapType>(
           value: MapType.hybrid,
           child: Text('Vue hybride'),
-        ),
+        ), */
         const PopupMenuItem<MapType>(
           value: MapType.satellite,
           child: Text('Vue satellite'),
         ),
-        const PopupMenuItem<MapType>(
+/*         const PopupMenuItem<MapType>(
           value: MapType.terrain,
           child: Text('Vue Terrain'),
-        ),
+        ), */
       ],
     );
   }

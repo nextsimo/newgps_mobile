@@ -7,7 +7,7 @@ import '../../widgets/buttons/main_button.dart';
 import 'package:provider/provider.dart';
 
 class GroupedButton extends StatelessWidget {
-  const GroupedButton({Key? key}) : super(key: key);
+  const GroupedButton({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -11,7 +11,7 @@ import 'temp_ble_repport_model.dart';
 import 'temperature_repport_provider.dart';
 
 class TemperatureRepportBleView extends StatelessWidget {
-  const TemperatureRepportBleView({Key? key}) : super(key: key);
+  const TemperatureRepportBleView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +62,8 @@ class TemperatureRepportBleView extends StatelessWidget {
 class _RepportRow extends StatelessWidget {
   final TemBleRepportModel repport;
   const _RepportRow({
-    Key? key,
     required this.repport,
-  }) : super(key: key);
+  });
 
   // draw triangle in the screen to show the direction of the wind
 
@@ -98,9 +97,7 @@ class _RepportRow extends StatelessWidget {
 }
 
 class _BuildHead extends StatelessWidget {
-  const _BuildHead({
-    Key? key,
-  }) : super(key: key);
+  const _BuildHead();
 
   @override
   Widget build(BuildContext context) {
@@ -151,8 +148,7 @@ class _BuildHead extends StatelessWidget {
 class _BuildTextCell extends StatelessWidget {
   final String content;
 
-  const _BuildTextCell(this.content, {Key? key})
-      : super(key: key);
+  const _BuildTextCell(this.content);
 
   @override
   Widget build(BuildContext context) {

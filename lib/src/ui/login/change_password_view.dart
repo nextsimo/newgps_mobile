@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 
 class ChangePasswordView extends StatelessWidget {
   final BuildContext context;
-  const ChangePasswordView({Key? key, required this.context}) : super(key: key);
+  const ChangePasswordView({super.key, required this.context});
 
   @override
   Widget build(BuildContext context) {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class RotateIconMap extends StatelessWidget {
   final void Function() normalview;
-  const RotateIconMap({Key? key, required this.normalview}) : super(key: key);
+  const RotateIconMap({super.key, required this.normalview});
 
   @override
   Widget build(BuildContext context) {

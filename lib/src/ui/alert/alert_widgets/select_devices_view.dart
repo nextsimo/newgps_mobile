@@ -10,10 +10,9 @@ class SelectDeviceUi extends StatelessWidget {
   final Future<void> Function(List<String> ids) onSaveDevices;
   final List<String> initSelectedDevice;
   const SelectDeviceUi(
-      {Key? key,
+      {super.key,
       required this.onSaveDevices,
-      required this.initSelectedDevice})
-      : super(key: key);
+      required this.initSelectedDevice});
 
   @override
   Widget build(BuildContext context) {
@@ -88,10 +87,8 @@ class _BuildCheckBoxText extends StatelessWidget {
   final String label;
   final String id;
   const _BuildCheckBoxText(
-      {Key? key,
-      required this.label,
-      required this.id})
-      : super(key: key);
+      {required this.label,
+      required this.id});
   @override
   Widget build(BuildContext context) {
     final SelectDevicesProvider selectDevicesProvider =

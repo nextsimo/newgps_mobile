@@ -7,8 +7,7 @@ import '../temp_card_provider.dart';
 
 class DownloadTodayRepport extends StatelessWidget {
   final Device device;
-  const DownloadTodayRepport({Key? key, required this.device})
-      : super(key: key);
+  const DownloadTodayRepport({super.key, required this.device});
 
   @override
   Widget build(BuildContext context) {

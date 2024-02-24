@@ -12,7 +12,7 @@ import 'speed_provider.dart';
 import '../widgets/build_label.dart';
 
 class SpeedAlertView extends StatelessWidget {
-  const SpeedAlertView({Key? key}) : super(key: key);
+  const SpeedAlertView({super.key});
 
   @override
   Widget build(BuildContext context) {

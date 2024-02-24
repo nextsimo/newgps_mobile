@@ -8,7 +8,7 @@ import 'add_button.dart';
 import 'empty_widget.dart';
 
 class ConfigListView extends StatelessWidget {
-  const ConfigListView({Key? key}) : super(key: key);
+  const ConfigListView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +42,8 @@ class ConfigListView extends StatelessWidget {
 
 class _BuildCard extends StatelessWidget {
   const _BuildCard({
-    Key? key,
     required this.config,
-  }) : super(key: key);
+  });
 
   final ConfigTempBle config;
 

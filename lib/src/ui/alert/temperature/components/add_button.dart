@@ -5,7 +5,7 @@ import '../../../../widgets/buttons/main_button.dart';
 import '../logic/temperature_provider.dart';
 
 class AddButton extends StatelessWidget {
-  const AddButton({Key? key}) : super(key: key);
+  const AddButton({super.key});
 
   @override
   Widget build(BuildContext context) {

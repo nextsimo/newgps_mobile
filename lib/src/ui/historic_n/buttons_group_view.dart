@@ -6,7 +6,7 @@ import 'package:newgps/src/widgets/buttons/log_out_button.dart';
 import '../../widgets/buttons/appele_condcuteur_button.dart';
 
 class ButtonsGroup extends StatelessWidget {
-  const ButtonsGroup({Key? key}) : super(key: key);
+  const ButtonsGroup({super.key});
 
   @override
   Widget build(BuildContext context) {

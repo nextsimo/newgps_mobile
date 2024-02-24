@@ -10,8 +10,7 @@ class SelectedDeviceWidget extends StatelessWidget {
   final List<String> selectedDevices;
 
   SelectedDeviceWidget(
-      {Key? key, required this.onSelected, required this.selectedDevices})
-      : super(key: key);
+      {super.key, required this.onSelected, required this.selectedDevices});
 
   final _multiKey = GlobalKey<DropdownSearchState<String>>();
 
@@ -84,8 +83,7 @@ class _BuildAllWidget extends StatefulWidget {
   final bool isAllSelected;
   final void Function(bool) onSelectedAll;
   const _BuildAllWidget(
-      {Key? key, required this.onSelectedAll, this.isAllSelected = false})
-      : super(key: key);
+      {required this.onSelectedAll, this.isAllSelected = false});
 
   @override
   State<_BuildAllWidget> createState() => _BuildAllWidgetState();

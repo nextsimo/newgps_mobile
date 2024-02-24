@@ -8,7 +8,7 @@ import '../../models/device.dart';
 import '../../widgets/date_hour_widget.dart';
 
 class SelectGroup extends StatelessWidget {
-  const SelectGroup({Key? key}) : super(key: key);
+  const SelectGroup({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -10,7 +10,7 @@ import '../widgets/build_label.dart';
 import 'fuel_provider.dart';
 
 class FuelAlertView extends StatelessWidget {
-  const FuelAlertView({Key? key}) : super(key: key);
+  const FuelAlertView({super.key});
 
   @override
   Widget build(BuildContext context) {

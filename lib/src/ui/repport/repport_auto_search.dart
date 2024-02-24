@@ -5,7 +5,7 @@ import 'rapport_provider.dart';
 import 'package:provider/provider.dart';
 
 class AutoSearchField extends StatefulWidget {
-  const AutoSearchField({Key? key}) : super(key: key);
+  const AutoSearchField({super.key});
 
   @override
   State<AutoSearchField> createState() => _AutoSearchFieldState();
@@ -72,11 +72,10 @@ class _AutoSearchFieldState extends State<AutoSearchField> {
 
 class _BuildTextField extends StatefulWidget {
   const _BuildTextField({
-    Key? key,
     required this.repportProvider,
     required this.outlineInputBorder,
     required this.focus,
-  }) : super(key: key);
+  });
 
   final RepportProvider repportProvider;
   final OutlineInputBorder outlineInputBorder;
@@ -153,12 +152,12 @@ class OptionViewBuilderWidget extends StatelessWidget {
   final void Function(Device) onSelectRepportResumeModel;
 
   const OptionViewBuilderWidget({
-    Key? key,
+    super.key,
     required this.devices,
     required this.onSelectRepportResumeModel,
     required this.repportProvider,
     required this.focusNode,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -264,12 +263,12 @@ class OptionItem extends StatelessWidget {
   final Device device;
   final FocusNode focusNode;
   const OptionItem({
-    Key? key,
+    super.key,
     required this.onSelectRepportResumeModel,
     required this.repportProvider,
     required this.device,
     required this.focusNode,
-  }) : super(key: key);
+  });
 
   final void Function(Device p1) onSelectRepportResumeModel;
   final RepportProvider repportProvider;

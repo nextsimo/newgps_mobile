@@ -16,8 +16,8 @@ import '../text_cell.dart';
 
 class BuildHead extends StatelessWidget {
   const BuildHead({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -145,8 +145,8 @@ class BuildHead extends StatelessWidget {
 
 class ResumeRepport extends StatelessWidget {
   const ResumeRepport({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -177,9 +177,8 @@ class ResumeRepport extends StatelessWidget {
 
 class _BuildTable extends StatelessWidget {
   const _BuildTable({
-    Key? key,
     required this.resumes,
-  }) : super(key: key);
+  });
 
   final List<RepportResumeModel> resumes;
 
@@ -211,9 +210,9 @@ class _BuildTable extends StatelessWidget {
 
 class RepportRow extends StatelessWidget {
   const RepportRow({
-    Key? key,
+    super.key,
     required this.repport,
-  }) : super(key: key);
+  });
 
   final RepportResumeModel repport;
 

@@ -6,7 +6,7 @@ import '../../../../widgets/buttons/main_button.dart';
 import '../parking_alert_provider.dart';
 
 class AddTimeButton extends StatelessWidget {
-  const AddTimeButton({Key? key}) : super(key: key);
+  const AddTimeButton({super.key});
 
   @override
   Widget build(BuildContext context) {

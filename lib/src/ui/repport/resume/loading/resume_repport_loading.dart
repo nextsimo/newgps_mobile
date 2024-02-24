@@ -7,8 +7,7 @@ import 'resume_repport_loding_provider.dart';
 
 class ResumeRepportLoading extends StatelessWidget {
   final int milliseconds;
-  const ResumeRepportLoading({Key? key, this.milliseconds = 16})
-      : super(key: key);
+  const ResumeRepportLoading({super.key, this.milliseconds = 16});
 
   @override
   Widget build(BuildContext context) {

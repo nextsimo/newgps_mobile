@@ -3,7 +3,7 @@ import '../utils/styles.dart';
 import 'navigation/top_app_bar.dart';
 
 class SoonPage extends StatelessWidget {
-  const SoonPage({Key? key}) : super(key: key);
+  const SoonPage({super.key});
 
   @override
   Widget build(BuildContext context) {

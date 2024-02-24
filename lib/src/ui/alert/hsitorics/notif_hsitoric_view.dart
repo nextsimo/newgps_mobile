@@ -8,7 +8,7 @@ import '../../navigation/top_app_bar.dart';
 import 'notif_historic_provider.dart';
 
 class NotifHistoricView extends StatelessWidget {
-  const NotifHistoricView({Key? key}) : super(key: key);
+  const NotifHistoricView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -117,8 +117,7 @@ class NotifHistoricView extends StatelessWidget {
 
 class _HistoricCard extends StatelessWidget {
   final NotifHistoric notifHistoric;
-  const _HistoricCard({Key? key, required this.notifHistoric})
-      : super(key: key);
+  const _HistoricCard({required this.notifHistoric});
 
   @override
   Widget build(BuildContext context) {

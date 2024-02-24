@@ -5,8 +5,7 @@ class BuildTextCell extends StatelessWidget {
   final Color? color;
   final int flex;
 
-  const BuildTextCell(this.content, {Key? key, this.color, this.flex = 1})
-      : super(key: key);
+  const BuildTextCell(this.content, {super.key, this.color, this.flex = 1});
 
   @override
   Widget build(BuildContext context) {

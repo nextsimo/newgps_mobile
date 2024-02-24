@@ -12,7 +12,7 @@ import 'temp_graphic/download_today_repport.dart';
 import 'temp_graphic/temp_card_graphic_view.dart';
 
 class TempCardView extends StatelessWidget {
-  const TempCardView({Key? key}) : super(key: key);
+  const TempCardView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +32,8 @@ class TempCardView extends StatelessWidget {
 class _FirstTempCardView extends StatelessWidget {
   final BuildContext providerContext;
   const _FirstTempCardView({
-    Key? key,
     required this.providerContext,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +52,7 @@ class _FirstTempCardView extends StatelessWidget {
 }
 
 class _EmptyRefreshWidget extends StatelessWidget {
-  const _EmptyRefreshWidget({Key? key}) : super(key: key);
+  const _EmptyRefreshWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -79,9 +78,8 @@ class _EmptyRefreshWidget extends StatelessWidget {
 class _BuildListWidget extends StatelessWidget {
   final BuildContext providerContext;
   const _BuildListWidget({
-    Key? key,
     required this.providerContext,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -105,8 +103,7 @@ class _BuildDeviceCard extends StatelessWidget {
   final BuildContext providerContext;
   final Device device;
   const _BuildDeviceCard(
-      {Key? key, required this.device, required this.providerContext})
-      : super(key: key);
+      {required this.device, required this.providerContext});
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +159,7 @@ class _BuildDeviceCard extends StatelessWidget {
 // ignore: unused_element
 class _BuildState extends StatelessWidget {
   final Device device;
-  const _BuildState({Key? key, required this.device}) : super(key: key);
+  const _BuildState({required this.device});
   @override
   Widget build(BuildContext context) {
     return Column(

@@ -5,7 +5,7 @@ import '../../utils/styles.dart';
 import 'main_button.dart';
 
 class LogoutButton extends StatelessWidget {
-  const LogoutButton({Key? key}) : super(key: key);
+  const LogoutButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +19,7 @@ class LogoutButton extends StatelessWidget {
 }
 
 class _LogoutButtonLandscape extends StatelessWidget {
-  const _LogoutButtonLandscape({
-    Key? key,
-  }) : super(key: key);
+  const _LogoutButtonLandscape();
 
   @override
   Widget build(BuildContext context) {
@@ -71,12 +69,7 @@ class _LogoutButtonLandscape extends StatelessWidget {
 }
 
 class _LogoutButtonPortrait extends StatelessWidget {
-  final double height;
-  const _LogoutButtonPortrait({
-    Key? key,
-    // ignore: unused_element
-    this.height = 35,
-  }) : super(key: key);
+  const _LogoutButtonPortrait();
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +83,7 @@ class _LogoutButtonPortrait extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             MainButton(
-              height: height,
+              height: 35,
               onPressed: () {
                 deviceProvider.selectedTabIndex = 0;
                 deviceProvider.infoModel = null;

@@ -10,8 +10,7 @@ class TimeInput extends StatelessWidget {
   final DateTime dateTime;
   final bool isDateFrom;
 
-  const TimeInput({Key? key, required this.dateTime, required this.isDateFrom})
-      : super(key: key);
+  const TimeInput({super.key, required this.dateTime, required this.isDateFrom});
 
   @override
   Widget build(BuildContext context) {
@@ -53,12 +52,10 @@ class _BuildInput extends StatefulWidget {
   final int maxNumber;
 
   const _BuildInput(
-      {Key? key,
-      required this.controller,
+      {required this.controller,
       required this.isDateFrom,
       required this.isHour,
-      this.maxNumber = 59})
-      : super(key: key);
+      this.maxNumber = 59});
 
   @override
   State<_BuildInput> createState() => _BuildInputState();

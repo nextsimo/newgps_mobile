@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'classic_provider.dart';
 
 class ClassicView3 extends StatelessWidget {
-  const ClassicView3({Key? key}) : super(key: key);
+  const ClassicView3({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +43,8 @@ class ClassicView3 extends StatelessWidget {
 class _FirstClassicView extends StatelessWidget {
   final BuildContext providerContext;
   const _FirstClassicView({
-    Key? key,
     required this.providerContext,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +63,7 @@ class _FirstClassicView extends StatelessWidget {
 }
 
 class _EmptyRefreshWidget extends StatelessWidget {
-  const _EmptyRefreshWidget({Key? key}) : super(key: key);
+  const _EmptyRefreshWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -90,9 +89,8 @@ class _EmptyRefreshWidget extends StatelessWidget {
 class _BuildListWidget extends StatelessWidget {
   final BuildContext providerContext;
   const _BuildListWidget({
-    Key? key,
     required this.providerContext,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -116,8 +114,7 @@ class _BuildDeviceCard extends StatelessWidget {
   final BuildContext providerContext;
   final Device device;
   const _BuildDeviceCard(
-      {Key? key, required this.device, required this.providerContext})
-      : super(key: key);
+      {required this.device, required this.providerContext});
 
   @override
   Widget build(BuildContext context) {
@@ -260,8 +257,7 @@ class _BuildState extends StatelessWidget {
   final Device device;
   final BuildContext providerContext;
   const _BuildState(
-      {Key? key, required this.device, required this.providerContext})
-      : super(key: key);
+      {required this.device, required this.providerContext});
   @override
   Widget build(BuildContext context) {
     final provider = context.read<ClassicProvider>();

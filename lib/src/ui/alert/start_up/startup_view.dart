@@ -9,7 +9,7 @@ import '../widgets/build_label.dart';
 import 'startup_provider.dart';
 
 class StartupView extends StatelessWidget {
-  const StartupView({Key? key}) : super(key: key);
+  const StartupView({super.key});
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProxyProvider<FirebaseMessagingService,

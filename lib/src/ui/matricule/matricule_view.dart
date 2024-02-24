@@ -11,7 +11,7 @@ import '../../widgets/buttons/main_button.dart';
 import '../login/login_as/save_account_provider.dart';
 
 class MatriculeViewTest extends StatelessWidget {
-  const MatriculeViewTest({Key? key}) : super(key: key);
+  const MatriculeViewTest({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class MatriculeViewTest extends StatelessWidget {
 }
 
 class MatriculeDataView extends StatelessWidget {
-  const MatriculeDataView({Key? key}) : super(key: key);
+  const MatriculeDataView({super.key});
 
   final List<String> _items = const [
     'N',
@@ -145,8 +145,7 @@ class _EditableCell extends StatefulWidget {
   final String content;
   final void Function(String val) onchanged;
   const _EditableCell(
-      {Key? key, required this.content, required this.onchanged})
-      : super(key: key);
+      {required this.content, required this.onchanged});
 
   @override
   State<_EditableCell> createState() => __EditableCellState();
@@ -195,8 +194,7 @@ class __EditableCellState extends State<_EditableCell> {
 class _BuildCell extends StatefulWidget {
   final String content;
   final void Function(String val) onchanged;
-  const _BuildCell({Key? key, required this.content, required this.onchanged})
-      : super(key: key);
+  const _BuildCell({required this.content, required this.onchanged});
 
   @override
   State<_BuildCell> createState() => _BuildCellState();

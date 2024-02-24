@@ -15,7 +15,7 @@ import 'sous_user_check.dart';
 
 class LoginPortrait extends StatelessWidget {
   final MainButton loginButton;
-  const LoginPortrait({Key? key, required this.loginButton}) : super(key: key);
+  const LoginPortrait({super.key, required this.loginButton});
 
   @override
   Widget build(BuildContext context) {

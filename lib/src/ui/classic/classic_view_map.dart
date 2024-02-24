@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:newgps/src/services/newgps_service.dart';
 import 'package:newgps/src/utils/styles.dart';
+import 'package:newgps/src/utils/utils.dart';
 import 'package:newgps/src/widgets/custom_info_windows.dart';
 import 'package:provider/provider.dart';
 import 'classic_provider.dart';
 
 class ClassicViewMap extends StatefulWidget {
   const ClassicViewMap({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ClassicViewMap> createState() => _ClassicViewMapState();
@@ -27,10 +28,14 @@ class _ClassicViewMapState extends State<ClassicViewMap>
           children: [
             Consumer<ClassicProvider>(builder: (context, provider, __) {
               return GoogleMap(
+                webGestureHandling: WebGestureHandling.auto,
                 markers: provider.markers,
+                cloudMapId: Utils.mapId,
                 initialCameraPosition: provider.initialCameraPosition,
-                onMapCreated: (controller) =>
-                    provider.onMapCreated(controller, provider.device),
+                onMapCreated: (controller) {
+                  provider.onMapCreated(controller, provider.device);
+                  provider.mapController?.setMapStyle(Utils.googleMapStyle);
+                },
                 mapType: deviceProvider.mapType,
                 myLocationButtonEnabled: true,
                 myLocationEnabled: true,

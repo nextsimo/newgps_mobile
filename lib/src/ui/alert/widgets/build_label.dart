@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 class BuildLabel extends StatelessWidget {
   final String label;
   final IconData icon;
-  const BuildLabel({Key? key, required this.label, required this.icon})
-      : super(key: key);
+  const BuildLabel({super.key, required this.label, required this.icon});
 
   @override
   Widget build(BuildContext context) {

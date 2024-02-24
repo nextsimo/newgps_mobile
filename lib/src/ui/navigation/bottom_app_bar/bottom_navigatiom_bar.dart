@@ -9,8 +9,7 @@ import '../../../widgets/alert_icon_widget.dart';
 
 class CustomBottomNavigatioBar extends StatefulWidget {
   final PageController pageController;
-  const CustomBottomNavigatioBar({Key? key, required this.pageController})
-      : super(key: key);
+  const CustomBottomNavigatioBar({super.key, required this.pageController});
 
   @override
   State<CustomBottomNavigatioBar> createState() =>

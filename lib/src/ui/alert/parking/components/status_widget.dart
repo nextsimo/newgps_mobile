@@ -3,7 +3,7 @@ import '../parking_alert_provider.dart';
 import 'package:provider/provider.dart';
 
 class StatusAlertWidget extends StatelessWidget {
-  const StatusAlertWidget({Key? key}) : super(key: key);
+  const StatusAlertWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

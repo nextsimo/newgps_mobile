@@ -12,7 +12,7 @@ import 'components/days_widget.dart';
 import 'components/status_widget.dart';
 
 class ParkingAlertView extends StatelessWidget {
-  const ParkingAlertView({Key? key}) : super(key: key);
+  const ParkingAlertView({super.key});
 
   @override
   Widget build(BuildContext context) {

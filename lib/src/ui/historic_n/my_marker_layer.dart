@@ -4,7 +4,7 @@ import 'package:newgps/src/ui/historic_n/historic_n_provider.dart';
 import 'package:provider/provider.dart';
 
 class MyMarkerLayer extends StatelessWidget {
-  const MyMarkerLayer({Key? key}) : super(key: key);
+  const MyMarkerLayer({super.key});
 
   @override
   Widget build(BuildContext context) {

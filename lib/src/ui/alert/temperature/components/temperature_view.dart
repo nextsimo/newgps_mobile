@@ -9,7 +9,7 @@ import '../logic/temperature_provider.dart';
 import 'base_form_list_view.dart';
 
 class TemperatureBleView extends StatelessWidget {
-  const TemperatureBleView({Key? key}) : super(key: key);
+  const TemperatureBleView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class TemperatureBleView extends StatelessWidget {
                 children: [
                   SizedBox(height: 10),
                   BuildLabel(
-                    icon: FontAwesomeIcons.thermometerHalf,
+                    icon: FontAwesomeIcons.thermometer,
                     label: 'température',
                   ),
                   SizedBox(height: 10),
@@ -50,7 +50,7 @@ class TemperatureBleView extends StatelessWidget {
 // components
 
 class _BuildState extends StatelessWidget {
-  const _BuildState({Key? key}) : super(key: key);
+  const _BuildState();
 
   @override
   Widget build(BuildContext context) {

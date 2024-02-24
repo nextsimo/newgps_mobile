@@ -13,14 +13,13 @@ class DateHourWidget extends StatefulWidget {
   final void Function(DateTime?)? onSelectDate;
   final bool fetchData;
   const DateHourWidget(
-      {Key? key,
+      {super.key,
       this.width = 400.0,
       this.ontap,
       required this.dateFrom,
       this.fetchData = true,
       this.onSelectDate,
-      required this.dateTo})
-      : super(key: key);
+      required this.dateTo});
 
   @override
   State<DateHourWidget> createState() => _DateHourWidgetState();

@@ -9,14 +9,13 @@ class BuildClickableTextCell extends StatelessWidget {
   final bool isUp;
   final int? index;
   const BuildClickableTextCell(this.content,
-      {Key? key,
+      {super.key,
       this.color = Colors.black,
       this.flex = 1,
       this.ontap,
       this.isSlected = false,
       this.isUp = true,
-      this.index})
-      : super(key: key);
+      this.index});
 
   @override
   Widget build(BuildContext context) {

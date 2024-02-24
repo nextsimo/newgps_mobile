@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:newgps/src/utils/utils.dart';
 import 'last_temp/last_temp_icon.dart';
 import 'package:provider/provider.dart';
 import '../../services/device_provider.dart';
@@ -21,7 +22,7 @@ import 'lastposition_map_view.dart';
 import 'suivi/suivi_widget.dart';
 
 class LastPositionView extends StatefulWidget {
-  const LastPositionView({Key? key}) : super(key: key);
+  const LastPositionView({super.key});
 
   @override
   State<LastPositionView> createState() => _LastPositionViewState();
@@ -42,7 +43,7 @@ class _LastPositionViewState extends State<LastPositionView>
     if (state == AppLifecycleState.resumed) {
       LastPositionProvider provider =
           Provider.of<LastPositionProvider>(context, listen: false);
-      provider.mapController?.setMapStyle("[]");
+      provider.mapController?.setMapStyle(Utils.googleMapStyle);
     }
   }
 
@@ -62,9 +63,12 @@ class _LastPositionViewState extends State<LastPositionView>
         actions: [
           const LoadingIcon(),
           RotateIconMap(normalview: lastPositionProvider.normaleView),
-          MapTypeWidget(onChange: (mapType) {
-            deviceProvider.mapType = mapType;
-          }),
+          MapTypeWidget(
+            onChange: (mapType) {
+              deviceProvider.mapType = mapType;
+            },
+            mapController: lastPositionProvider.mapController,
+          ),
           const LastTempIcon(),
         ],
       ),

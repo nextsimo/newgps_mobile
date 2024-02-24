@@ -8,8 +8,7 @@ class ShowDeviceDialogWidget extends StatelessWidget {
   final void Function(Device device) onselectedDevice;
   final String label;
   const ShowDeviceDialogWidget(
-      {Key? key, required this.onselectedDevice, required this.label})
-      : super(key: key);
+      {super.key, required this.onselectedDevice, required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +45,7 @@ class ShowDeviceDialogWidget extends StatelessWidget {
 class _DevicesDialog extends StatefulWidget {
   final void Function(Device device) onselectedDevice;
 
-  const _DevicesDialog({Key? key, required this.onselectedDevice})
-      : super(key: key);
+  const _DevicesDialog({required this.onselectedDevice});
 
   @override
   State<_DevicesDialog> createState() => _DevicesDialogState();

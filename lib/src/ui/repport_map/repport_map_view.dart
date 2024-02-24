@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:newgps/src/utils/utils.dart';
 import '../../services/device_provider.dart';
 import 'repport_map_provider.dart';
 import '../../utils/functions.dart';
@@ -14,12 +15,11 @@ class RepportMapView extends StatelessWidget {
   final String stopeTime;
   final String deviceDescription;
   const RepportMapView(
-      {Key? key,
+      {super.key,
       required this.markers,
       required this.stopDate,
       required this.stopeTime,
-      required this.deviceDescription})
-      : super(key: key);
+      required this.deviceDescription});
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +48,10 @@ class RepportMapView extends StatelessWidget {
                     child: Stack(
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(AppConsts.mainradius),
+                          borderRadius:
+                              BorderRadius.circular(AppConsts.mainradius),
                           child: GoogleMap(
+                            //cloudMapId: Utils.mapId,
                             mapType: mapType,
                             initialCameraPosition: CameraPosition(
                                 target: LatLng(
@@ -72,7 +74,8 @@ class RepportMapView extends StatelessWidget {
                                   padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
-                                    borderRadius: BorderRadius.circular(AppConsts.mainradius),
+                                    borderRadius: BorderRadius.circular(
+                                        AppConsts.mainradius),
                                     border: Border.all(
                                       color: AppConsts.mainColor,
                                       width: AppConsts.borderWidth,
@@ -116,14 +119,14 @@ class RepportMapView extends StatelessWidget {
                                 Container(
                                   margin: const EdgeInsets.all(10),
                                   padding: const EdgeInsets.all(1),
-                                  
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                       color: AppConsts.mainColor,
                                       width: AppConsts.borderWidth,
                                     ),
                                     color: Colors.white,
-                                    borderRadius: BorderRadius.circular(AppConsts.mainradius),
+                                    borderRadius: BorderRadius.circular(
+                                        AppConsts.mainradius),
                                     boxShadow: [
                                       BoxShadow(
                                         color: Colors.black.withOpacity(0.1),
@@ -136,7 +139,7 @@ class RepportMapView extends StatelessWidget {
                                     onChange: (mapType) {
                                       deviceProvider.mapType = mapType;
                                     },
-                                    
+                                    mapController: provider.controller,
                                   ),
                                 ),
                               ],
@@ -146,7 +149,8 @@ class RepportMapView extends StatelessWidget {
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                 color: Colors.white,
-                                borderRadius: BorderRadius.circular(AppConsts.mainradius),
+                                borderRadius:
+                                    BorderRadius.circular(AppConsts.mainradius),
                                 border: Border.all(
                                   color: AppConsts.mainColor,
                                   width: AppConsts.borderWidth,

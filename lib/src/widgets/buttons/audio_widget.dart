@@ -3,7 +3,7 @@ import '../../services/newgps_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DeleteVolumeWidget extends StatefulWidget {
-  const DeleteVolumeWidget({Key? key}) : super(key: key);
+  const DeleteVolumeWidget({super.key});
 
   @override
   // ignore: library_private_types_in_public_api

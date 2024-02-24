@@ -19,7 +19,7 @@ class AutoSearchWithAllWidget extends StatefulWidget {
   final double? width;
   final bool withoutAll;
   const AutoSearchWithAllWidget(
-      {Key? key,
+      {super.key,
       required this.initController,
       required this.handleSelectDevice,
       required this.onClickAll,
@@ -27,8 +27,7 @@ class AutoSearchWithAllWidget extends StatefulWidget {
       required this.controller,
       required this.onSelectDevice,
       this.width,
-      this.withoutAll = false})
-      : super(key: key);
+      this.withoutAll = false});
 
   @override
   State<AutoSearchWithAllWidget> createState() =>
@@ -118,14 +117,14 @@ class BuildTextField extends StatefulWidget {
   final OutlineInputBorder outlineInputBorder;
   final void Function() rebuild;
   const BuildTextField({
-    Key? key,
+    super.key,
     required this.outlineInputBorder,
     required this.focusNode,
     required this.clearTextController,
     required this.handleSelectDevice,
     required this.controller,
     required this.rebuild,
-  }) : super(key: key);
+  });
 
   @override
   State<BuildTextField> createState() => _BuildTextFieldState();
@@ -185,14 +184,14 @@ class OptionViewBuilderWidget extends StatelessWidget {
   final HandleSelectDevice handleSelectDevice;
 
   const OptionViewBuilderWidget({
-    Key? key,
+    super.key,
     required this.onSelectDevice,
     required this.onClickAll,
     required this.handleSelectDevice,
     required this.onSelectDevice2,
     this.width,
     this.withoutAll = false,required this.devices,
-  }) : super(key: key);
+  });
 
   Widget _buildToutsWidget(BuildContext context) {
     if (withoutAll) {
@@ -304,11 +303,11 @@ class OptionItem extends StatelessWidget {
   final Device device;
   final OnSelectDevice onSelectDevice2;
   const OptionItem({
-    Key? key,
+    super.key,
     required this.onSelectDevice,
     required this.device,
     required this.onSelectDevice2,
-  }) : super(key: key);
+  });
 
   final void Function(Device p1) onSelectDevice;
 
@@ -345,9 +344,8 @@ class OptionItem extends StatelessWidget {
 
 class _BuildStatuWidget extends StatelessWidget {
   const _BuildStatuWidget({
-    Key? key,
     required this.device,
-  }) : super(key: key);
+  });
 
   final Device device;
 

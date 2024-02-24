@@ -9,13 +9,12 @@ class PasswordInput extends StatefulWidget {
   final void Function() onEditeComplete;
 
   const PasswordInput(
-      {Key? key,
+      {super.key,
       required this.icon,
       this.hint = '',
       required this.controller,
       required this.validator,
-      required this.onEditeComplete})
-      : super(key: key);
+      required this.onEditeComplete});
 
   @override
   State<PasswordInput> createState() => _PasswordInputState();

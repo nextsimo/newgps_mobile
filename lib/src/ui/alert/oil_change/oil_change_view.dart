@@ -12,7 +12,7 @@ import '../widgets/build_label.dart';
 import 'oil_change_view_provider.dart';
 
 class OilChangeAertView extends StatelessWidget {
-  const OilChangeAertView({Key? key}) : super(key: key);
+  const OilChangeAertView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class OilChangeAertView extends StatelessWidget {
 }
 
 class _BuildPortraitContent extends StatelessWidget {
-  const _BuildPortraitContent({Key? key}) : super(key: key);
+  const _BuildPortraitContent();
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +100,7 @@ class _BuildPortraitContent extends StatelessWidget {
 }
 
 class _BuildLandscapeContent extends StatelessWidget {
-  const _BuildLandscapeContent({Key? key}) : super(key: key);
+  const _BuildLandscapeContent();
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +152,7 @@ class _BuildLandscapeContent extends StatelessWidget {
 }
 
 class _BuildDeviceSettingLandscape extends StatelessWidget {
-  const _BuildDeviceSettingLandscape({Key? key}) : super(key: key);
+  const _BuildDeviceSettingLandscape();
   @override
   Widget build(BuildContext context) {
     OilChangeAlertProvider provider =
@@ -218,7 +218,7 @@ class _BuildDeviceSettingLandscape extends StatelessWidget {
 }
 
 class _BuildDeviceSettingPortrait extends StatelessWidget {
-  const _BuildDeviceSettingPortrait({Key? key}) : super(key: key);
+  const _BuildDeviceSettingPortrait();
   @override
   Widget build(BuildContext context) {
     OilChangeAlertProvider provider =
@@ -273,11 +273,10 @@ class _BuilTextField extends StatelessWidget {
   final String hint;
   final double width;
   const _BuilTextField({
-    Key? key,
     this.hint = '',
     required this.controller,
     this.width = double.infinity,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

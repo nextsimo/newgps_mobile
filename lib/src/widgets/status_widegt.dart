@@ -4,9 +4,9 @@ import '../utils/styles.dart';
 
 class StatusWidget extends StatelessWidget {
   const StatusWidget({
-    Key? key,
+    super.key,
     required this.device,
-  }) : super(key: key);
+  });
 
   final Device? device;
 

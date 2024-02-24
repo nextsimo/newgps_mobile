@@ -8,8 +8,7 @@ import '../../utils/styles.dart';
 
 class IconChangeView extends StatelessWidget {
   final Device selectedDevice;
-  const IconChangeView({Key? key, required this.selectedDevice})
-      : super(key: key);
+  const IconChangeView({super.key, required this.selectedDevice});
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +60,7 @@ class IconChangeView extends StatelessWidget {
 
 class IconsList extends StatelessWidget {
   final Device selectedDevice;
-  const IconsList({Key? key, required this.selectedDevice}) : super(key: key);
+  const IconsList({super.key, required this.selectedDevice});
 
   @override
   Widget build(BuildContext context) {
@@ -118,9 +117,8 @@ class _BuildIconWidget extends StatelessWidget {
   final bool isSelected;
   final String deviceId;
   const _BuildIconWidget({
-    Key? key,
     required this.iconModel, required this.isSelected, required this.deviceId,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

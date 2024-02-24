@@ -9,7 +9,7 @@ import '../utils/styles.dart';
 
 class ClassicInfoWindows extends StatelessWidget {
   final Device device;
-  const ClassicInfoWindows({Key? key, required this.device}) : super(key: key);
+  const ClassicInfoWindows({super.key, required this.device});
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +160,7 @@ class _TrianglePainter extends CustomPainter {
 
 class MyCustomInfoWindows extends StatelessWidget {
   final CustomInfoWindowController controller;
-  const MyCustomInfoWindows({Key? key, required this.controller}) : super(key: key);
+  const MyCustomInfoWindows({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {

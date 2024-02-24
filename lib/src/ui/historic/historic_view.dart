@@ -19,7 +19,7 @@ import 'parking/parking_button.dart';
 import 'play_card.dart';
 
 class HistoricViews extends StatelessWidget {
-  const HistoricViews({Key? key}) : super(key: key);
+  const HistoricViews({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -70,9 +70,12 @@ class HistoricViews extends StatelessWidget {
                   ),
                 ),
                 RotateIconMap(normalview: provider.normaleView),
-                MapTypeWidget(onChange: (mapType) {
-                  deviceProvider.mapType = mapType;
-                }),
+                MapTypeWidget(
+                  onChange: (mapType) {
+                    deviceProvider.mapType = mapType;
+                  },
+                  mapController: provider.googleMapController,
+                ),
               ],
             ),
             body: Stack(
@@ -84,19 +87,19 @@ class HistoricViews extends StatelessWidget {
                       if (!isPlayed) return const SizedBox();
                       return const PlayCard();
                     }),
-                  Positioned(
-                    top: 72.r.h,
-                    child: Selector<HistoricProvider, bool>(
-                      selector: (_, p) => p.historicIsPlayed,
-                      builder: (_, bool isPlayed, ___) {
-                        if (isPlayed) return const SizedBox();
-                        return AutoSearchDevice(
-                          onSelectDeviceFromOtherView: (Device device) async =>
-                              provider.fetchHistorics(context,device, 1, true),
-                        );
-                      },
-                    ),
+                Positioned(
+                  top: 72.r.h,
+                  child: Selector<HistoricProvider, bool>(
+                    selector: (_, p) => p.historicIsPlayed,
+                    builder: (_, bool isPlayed, ___) {
+                      if (isPlayed) return const SizedBox();
+                      return AutoSearchDevice(
+                        onSelectDeviceFromOtherView: (Device device) async =>
+                            provider.fetchHistorics(context, device, 1, true),
+                      );
+                    },
                   ),
+                ),
                 Positioned(
                   top: 75.r.h,
                   right: 0,

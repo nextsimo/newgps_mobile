@@ -7,8 +7,7 @@ class NewgInput extends StatelessWidget {
   final Widget? prefix;
   final TextInputType? keyboardType;
 
-  const NewgInput({Key? key, this.placeholder, this.prefix, this.keyboardType})
-      : super(key: key);
+  const NewgInput({super.key, this.placeholder, this.prefix, this.keyboardType});
 
   @override
   Widget build(BuildContext context) {

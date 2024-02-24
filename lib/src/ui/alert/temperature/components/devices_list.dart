@@ -5,7 +5,7 @@ import '../logic/temperature_provider.dart';
 import 'package:provider/provider.dart';
 
 class MyDevicesList extends StatelessWidget {
-  const MyDevicesList({Key? key}) : super(key: key);
+  const MyDevicesList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +46,9 @@ class _BuildChip extends StatelessWidget {
   final bool isSelected;
   final String deviceId;
   const _BuildChip(
-      {Key? key,
-      required this.description,
+      {required this.description,
       required this.isSelected,
-      required this.deviceId})
-      : super(key: key);
+      required this.deviceId});
 
   @override
   Widget build(BuildContext context) {

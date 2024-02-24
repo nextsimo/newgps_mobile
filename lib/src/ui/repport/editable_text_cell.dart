@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 class EditableCell extends StatelessWidget {
   final String content;
   final void Function(String val) onchanged;
-  EditableCell({Key? key, required this.content, required this.onchanged})
-      : super(key: key);
+  EditableCell({super.key, required this.content, required this.onchanged});
 
   final TextEditingController _controller = TextEditingController();
   @override

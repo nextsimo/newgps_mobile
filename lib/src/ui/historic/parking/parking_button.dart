@@ -6,7 +6,7 @@ import 'package:newgps/src/widgets/buttons/main_button.dart';
 import 'package:provider/provider.dart';
 
 class ParkingButton extends StatelessWidget {
-  const ParkingButton({Key? key}) : super(key: key);
+  const ParkingButton({super.key});
 
   @override
   Widget build(BuildContext context) {

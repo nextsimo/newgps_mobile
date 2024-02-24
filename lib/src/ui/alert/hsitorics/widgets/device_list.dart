@@ -9,8 +9,7 @@ import '../notif_historic_provider.dart';
 
 class DeviceListNotifHistoric extends StatefulWidget {
   final BuildContext gContext;
-  const DeviceListNotifHistoric({Key? key, required this.gContext})
-      : super(key: key);
+  const DeviceListNotifHistoric({super.key, required this.gContext});
 
   @override
   State<DeviceListNotifHistoric> createState() =>

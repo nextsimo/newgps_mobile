@@ -14,9 +14,7 @@ class EmoticonProvider with ChangeNotifier {
 }
 
 class _BuildListEmoticon extends StatelessWidget {
-  const _BuildListEmoticon({
-    Key? key,
-  }) : super(key: key);
+  const _BuildListEmoticon();
 
   final List<String> _emotics = const ['n-r', 'n-r', 'n-r', 'n-r'];
 

@@ -4,7 +4,7 @@ import 'navigation/top_app_bar.dart';
 import '../widgets/buttons/log_out_button.dart';
 
 class UserEmptyPage extends StatelessWidget {
-  const UserEmptyPage({Key? key}) : super(key: key);
+  const UserEmptyPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:newgps/src/utils/utils.dart';
 import '../../services/device_provider.dart';
 import '../../services/geozone_service.dart';
 import 'last_position_provider.dart';
@@ -8,7 +9,7 @@ import '../../utils/locator.dart';
 import 'package:provider/provider.dart';
 
 class LastpositionMap extends StatefulWidget {
-  const LastpositionMap({Key? key}) : super(key: key);
+  const LastpositionMap({super.key});
 
   @override
   State<LastpositionMap> createState() => _LastpositionMapState();
@@ -29,7 +30,7 @@ class _LastpositionMapState extends State<LastpositionMap>
     if (state == AppLifecycleState.resumed) {
       LastPositionProvider lastPositionProvider =
           Provider.of<LastPositionProvider>(context, listen: false);
-      lastPositionProvider.mapController?.setMapStyle("[]");
+      lastPositionProvider.mapController?.setMapStyle(Utils.googleMapStyle);
     }
   }
 
@@ -49,6 +50,7 @@ class _LastpositionMapState extends State<LastpositionMap>
           LastPositionProvider provider =
               Provider.of<LastPositionProvider>(context);
           return GoogleMap(
+            //cloudMapId: Utils.mapId,
             myLocationEnabled: true,
             myLocationButtonEnabled: false,
             circles: locator<GeozoneService>().circles,
@@ -68,6 +70,7 @@ class _LastpositionMapState extends State<LastpositionMap>
               provider.markersProvider.textMarkerManager
                   .setMapId(controller.mapId);
               provider.fetch(context, true);
+              controller.setMapStyle(Utils.googleMapStyle);
             },
             onCameraMove: (pos) {
               provider.markersProvider.currentZoom = pos.zoom;

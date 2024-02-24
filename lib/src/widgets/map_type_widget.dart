@@ -1,14 +1,25 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:newgps/src/utils/utils.dart';
 
 class MapTypeWidget extends StatelessWidget {
   final void Function(MapType) onChange;
-  const MapTypeWidget({Key? key, required this.onChange}) : super(key: key);
+  final dynamic mapController;
+  const MapTypeWidget({super.key, required this.onChange,required this.mapController});
 
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<MapType>(
-      onSelected: onChange,
+      onSelected: (changed){
+        onChange(changed);
+        if(mapController != null && mapController is GoogleMapController){
+          mapController.setMapStyle(Utils.googleMapStyle);
+        }else if(mapController != null && mapController is Completer<GoogleMapController>){
+          mapController.future.then((value) => value.setMapStyle(Utils.googleMapStyle));
+        }
+      },
       child: Container(
         padding: EdgeInsets.zero,
         width: 35,

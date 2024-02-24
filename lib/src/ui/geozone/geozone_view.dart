@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 import 'geozone_provider.dart';
 
 class GeozoneView extends StatelessWidget {
-  const GeozoneView({Key? key}) : super(key: key);
+  const GeozoneView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -177,9 +177,9 @@ class GeozoneView extends StatelessWidget {
 
 class GeozoneCard extends StatelessWidget {
   const GeozoneCard({
-    Key? key,
+    super.key,
     required this.geozone,
-  }) : super(key: key);
+  });
 
   final GeozoneModel geozone;
 

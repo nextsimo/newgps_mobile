@@ -6,7 +6,7 @@ import 'temp_graphic_provider.dart';
 
 class TempGraphicView extends StatelessWidget {
   final Device device;
-  const TempGraphicView({Key? key, required this.device}) : super(key: key);
+  const TempGraphicView({super.key, required this.device});
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
     if (value == 0) {
@@ -84,7 +84,7 @@ class TempGraphicView extends StatelessWidget {
             height: 100,
             child: LineChart(
               LineChartData(
-                lineTouchData: LineTouchData(enabled: true),
+                lineTouchData: const LineTouchData(enabled: true),
                 lineBarsData: [
                   LineChartBarData(
                     barWidth: 1.5,
@@ -100,7 +100,7 @@ class TempGraphicView extends StatelessWidget {
                       },
                     ).toList(),
                     color: Colors.blue,
-                    dotData: FlDotData(show: true),
+                    dotData: const FlDotData(show: true),
                     isStrokeCapRound: true,
                     isStrokeJoinRound: true,
                   ),
@@ -115,7 +115,7 @@ class TempGraphicView extends StatelessWidget {
                       getTitlesWidget: bottomTitleWidgets,
                     ),
                   ),
-                  leftTitles: AxisTitles(
+                  leftTitles: const AxisTitles(
                     sideTitles: SideTitles(
                       showTitles: false,
 /*                       getTitlesWidget: leftTitleWidgets,
@@ -123,10 +123,10 @@ class TempGraphicView extends StatelessWidget {
                           .toDouble(), */
                     ),
                   ),
-                  topTitles: AxisTitles(
+                  topTitles: const AxisTitles(
                     sideTitles: SideTitles(showTitles: false),
                   ),
-                  rightTitles: AxisTitles(
+                  rightTitles: const AxisTitles(
                     sideTitles: SideTitles(showTitles: false),
                   ),
                 ),
@@ -141,7 +141,7 @@ class TempGraphicView extends StatelessWidget {
                     ),
                   ),
                 ),
-                gridData: FlGridData(
+                gridData: const FlGridData(
                   show: false,
                   drawHorizontalLine: false,
                   drawVerticalLine: false,

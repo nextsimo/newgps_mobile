@@ -8,7 +8,7 @@ import '../widgets/build_label.dart';
 import 'towing_provider.dart';
 
 class TowingView extends StatelessWidget {
-  const TowingView({Key? key}) : super(key: key);
+  const TowingView({super.key});
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProxyProvider<FirebaseMessagingService,

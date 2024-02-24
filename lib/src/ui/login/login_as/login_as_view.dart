@@ -12,7 +12,7 @@ import '../login_provider.dart';
 import 'package:provider/provider.dart';
 
 class LoginAsView extends StatelessWidget {
-  const LoginAsView({Key? key}) : super(key: key);
+  const LoginAsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +35,8 @@ class LoginAsView extends StatelessWidget {
 class _BuildLoginAsWidget extends StatefulWidget {
   final SavedAccount savedAccount;
   const _BuildLoginAsWidget({
-    Key? key,
     required this.savedAccount,
-  }) : super(key: key);
+  });
 
   @override
   State<_BuildLoginAsWidget> createState() => _BuildLoginAsWidgetState();

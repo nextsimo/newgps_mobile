@@ -13,7 +13,7 @@ import '../custom_devider.dart';
 import '../text_cell.dart';
 
 class CommandRepportView extends StatelessWidget {
-  const CommandRepportView({Key? key}) : super(key: key);
+  const CommandRepportView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -65,9 +65,7 @@ class CommandRepportView extends StatelessWidget {
 }
 
 class _BuildHead extends StatelessWidget {
-  const _BuildHead({
-    Key? key,
-  }) : super(key: key);
+  const _BuildHead();
 
   @override
   Widget build(BuildContext context) {
@@ -113,9 +111,8 @@ class _BuildHead extends StatelessWidget {
 
 class _RepportRow extends StatelessWidget {
   const _RepportRow({
-    Key? key,
     required this.model,
-  }) : super(key: key);
+  });
 
   final CommandRepportModel model;
 

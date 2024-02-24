@@ -4,7 +4,7 @@ import '../../utils/styles.dart';
 
 class MainButton extends StatefulWidget {
   const MainButton(
-      {Key? key,
+      {super.key,
       this.label = '',
       required this.onPressed,
       this.backgroundColor = AppConsts.mainColor,
@@ -13,8 +13,7 @@ class MainButton extends StatefulWidget {
       this.borderColor,
       this.textColor = Colors.white,
       this.icon,
-      this.fontSize = 12.5})
-      : super(key: key);
+      this.fontSize = 12.5});
 
   final Color backgroundColor;
   final Color? borderColor;

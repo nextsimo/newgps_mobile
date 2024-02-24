@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 
 class NotifHistorisDetails extends StatelessWidget {
   final String type;
-  const NotifHistorisDetails({Key? key, required this.type}) : super(key: key);
+  const NotifHistorisDetails({super.key, required this.type});
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<NotifHistoricPorvider>(
@@ -128,9 +128,9 @@ class NotifHistorisDetails extends StatelessWidget {
 class GroupSeparatorBuilderWidget extends StatelessWidget {
   final DateTime groupByValue;
   const GroupSeparatorBuilderWidget({
-    Key? key,
+    super.key,
     required this.groupByValue,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -309,8 +309,7 @@ class GroupSeparatorBuilderWidget extends StatelessWidget {
 
 class _HistoricCard extends StatelessWidget {
   final NotifHistoric notifHistoric;
-  const _HistoricCard({Key? key, required this.notifHistoric})
-      : super(key: key);
+  const _HistoricCard({required this.notifHistoric});
 
   @override
   Widget build(BuildContext context) {

@@ -8,7 +8,7 @@ import '../../widgets/inputs/main_input.dart';
 
 class DriverAddDialog extends StatefulWidget {
   final Device device;
-  const DriverAddDialog({Key? key, required this.device}) : super(key: key);
+  const DriverAddDialog({super.key, required this.device});
 
   @override
   State<DriverAddDialog> createState() => _DriverAddDialogState();

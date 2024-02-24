@@ -8,8 +8,7 @@ class AlertTabBarItem extends StatelessWidget {
   final BottomAppBarItem item;
   final bool isSelected;
   const AlertTabBarItem(
-      {Key? key, required this.item, required this.isSelected})
-      : super(key: key);
+      {super.key, required this.item, required this.isSelected});
 
   @override
   Widget build(BuildContext context) {

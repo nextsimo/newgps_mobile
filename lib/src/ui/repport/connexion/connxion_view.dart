@@ -12,7 +12,7 @@ import '../text_cell.dart';
 import 'connexion_view_provider.dart';
 
 class ConnexionRepportView extends StatelessWidget {
-  const ConnexionRepportView({Key? key}) : super(key: key);
+  const ConnexionRepportView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +54,7 @@ class ConnexionRepportView extends StatelessWidget {
 }
 
 class _BuildHead extends StatelessWidget {
-  const _BuildHead({
-    Key? key,
-  }) : super(key: key);
+  const _BuildHead();
 
   @override
   Widget build(BuildContext context) {
@@ -113,9 +111,8 @@ class _BuildHead extends StatelessWidget {
 class _RepportRow extends StatelessWidget {
   final ConnectedDeviceModel device;
   const _RepportRow({
-    Key? key,
     required this.device,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

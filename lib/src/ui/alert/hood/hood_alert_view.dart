@@ -9,7 +9,7 @@ import '../widgets/build_label.dart';
 import 'hood_alert_view_provider.dart';
 
 class HoodAlertView extends StatelessWidget {
-  const HoodAlertView({Key? key}) : super(key: key);
+  const HoodAlertView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class HoodAlertView extends StatelessWidget {
                     children: [
                       const SizedBox(height: 10),
                       const BuildLabel(
-                          label: 'capot', icon: FontAwesomeIcons.carCrash),
+                          label: 'capot', icon: FontAwesomeIcons.carBurst),
                       const SizedBox(height: 20),
                       if (provider.hoodAlertSettings != null)
                         _buildStatusLabel(context, provider),

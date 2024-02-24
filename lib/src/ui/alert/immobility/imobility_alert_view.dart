@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import '../widgets/build_label.dart';
 
 class ImobilityAlertView extends StatelessWidget {
-  const ImobilityAlertView({Key? key}) : super(key: key);
+  const ImobilityAlertView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +75,7 @@ class ImobilityAlertView extends StatelessWidget {
 }
 
 class _BuilTextFieldHour extends StatelessWidget {
-  const _BuilTextFieldHour({
-    Key? key,
-  }) : super(key: key);
+  const _BuilTextFieldHour();
 
   @override
   Widget build(BuildContext context) {

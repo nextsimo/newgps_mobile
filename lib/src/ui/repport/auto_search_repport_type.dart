@@ -5,7 +5,7 @@ import 'repport_type_model.dart';
 import 'package:provider/provider.dart';
 
 class AutoSearchType extends StatefulWidget {
-  const AutoSearchType({Key? key}) : super(key: key);
+  const AutoSearchType({super.key});
 
   @override
   State<AutoSearchType> createState() => _AutoSearchTypeState();
@@ -118,11 +118,11 @@ class OptionViewBuilderWidget extends StatelessWidget {
   final FocusNode focusNode;
 
   const OptionViewBuilderWidget({
-    Key? key,
+    super.key,
     required this.repports,
     required this.onSelectDevice,
     required this.repportProvider, required this.focusNode,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -175,11 +175,11 @@ class OptionItem extends StatelessWidget {
   final RepportTypeModel repportTypeModel;
   final FocusNode focusNode;
   const OptionItem({
-    Key? key,
+    super.key,
     required this.onSelectDevice,
     required this.repportProvider,
     required this.repportTypeModel,required this.focusNode,
-  }) : super(key: key);
+  });
 
   final void Function(RepportTypeModel p1) onSelectDevice;
   final RepportProvider repportProvider;

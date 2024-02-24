@@ -7,7 +7,7 @@ import '../../ui/repport/rapport_provider.dart';
 import 'package:provider/provider.dart';
 
 class DateMonthPicker extends StatelessWidget {
-  const DateMonthPicker({Key? key}) : super(key: key);
+  const DateMonthPicker({super.key});
 
   @override
   Widget build(BuildContext context) {

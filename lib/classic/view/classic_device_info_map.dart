@@ -28,9 +28,12 @@ class ClassicDeviceInfoMap extends StatelessWidget {
         children: [
           FlutterMap(
             options: MapOptions(
+              // ignore: deprecated_member_use
               center: LatLng(deviceInfo.latitude, deviceInfo.longitude),
+              // ignore: deprecated_member_use
               interactiveFlags:
                   InteractiveFlag.pinchZoom | InteractiveFlag.drag,
+              // ignore: deprecated_member_use
               zoom: 11,
               maxZoom: 18,
               minZoom: 5,
@@ -65,9 +68,9 @@ class ClassicDeviceInfoMap extends StatelessWidget {
                       width: 60.0,
                       height: 60.0,
                       rotate: true,
-                      anchorPos: AnchorPos.align(AnchorAlign.center),
+                      alignment: Alignment.center,
                       point: deviceInfo.points.last,
-                      builder: (ctx) => Column(
+                      child: Column(
                         children: [
                                                     Text(
                             '${deviceInfo.maxSpeed} km/h',
@@ -120,9 +123,9 @@ class ClassicDeviceInfoMap extends StatelessWidget {
       width: 30.0,
       height: 30.0,
       rotate: true,
-      anchorPos: AnchorPos.align(AnchorAlign.center),
+      alignment: Alignment.center,
       point: pos,
-      builder: (ctx) => Container(
+      child:  Container(
         decoration: BoxDecoration(
           color: color.withOpacity(0.4),
           shape: BoxShape.circle,

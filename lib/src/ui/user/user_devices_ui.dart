@@ -10,8 +10,7 @@ import 'package:provider/provider.dart';
 class UserDevicesUi extends StatefulWidget {
   final User user;
   final int flex;
-  const UserDevicesUi({Key? key, required this.user, required this.flex})
-      : super(key: key);
+  const UserDevicesUi({super.key, required this.user, required this.flex});
 
   @override
   State<UserDevicesUi> createState() => _UserDevicesUiState();
@@ -115,8 +114,7 @@ class _ShowListDevices extends StatefulWidget {
   final User user;
   final Function closeMenu;
   const _ShowListDevices(
-      {Key? key, required this.closeMenu, required this.user})
-      : super(key: key);
+      {required this.closeMenu, required this.user});
 
   @override
   State<_ShowListDevices> createState() => _ShowListDevicesState();
@@ -263,13 +261,12 @@ class CheckedMatricule extends StatelessWidget {
   final String deviceID;
   final bool checked;
   const CheckedMatricule(
-      {Key? key,
+      {super.key,
       required this.device,
       required this.checked,
       required this.user,
       required this.deviceID,
-      required this.ontapAllDevice})
-      : super(key: key);
+      required this.ontapAllDevice});
 
   @override
   Widget build(BuildContext context) {

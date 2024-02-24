@@ -6,7 +6,7 @@ import '../../widgets/inputs/main_input.dart';
 import 'login_provider.dart';
 
 class SousUserCheck extends StatelessWidget {
-  const SousUserCheck({Key? key}) : super(key: key);
+  const SousUserCheck({super.key});
 
   @override
   Widget build(BuildContext context) {

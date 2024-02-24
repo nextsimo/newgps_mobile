@@ -6,7 +6,7 @@ import '../../utils/styles.dart';
 class MapZoomWidget extends StatelessWidget {
   final GoogleMapController controller;
 
-  const MapZoomWidget({Key? key, required this.controller}) : super(key: key);
+  const MapZoomWidget({super.key, required this.controller});
   @override
   Widget build(BuildContext context) {
     Orientation orientation = MediaQuery.of(context).orientation;

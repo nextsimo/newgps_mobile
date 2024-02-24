@@ -20,13 +20,12 @@ class FloatingGroupWindowInfo extends StatefulWidget {
   final double? fuelTotalCounted;
 
   const FloatingGroupWindowInfo(
-      {Key? key,
+      {super.key,
       required this.device,
       required this.fuelLevel,
       required this.fuelTotalCounted,
       this.showOnOffDevice = true,
-      this.showCallDriver = true})
-      : super(key: key);
+      this.showCallDriver = true});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -38,27 +37,21 @@ class _FloatingGroupWindowInfoState extends State<FloatingGroupWindowInfo> {
   @override
   Widget build(BuildContext context) {
     Orientation orientation = MediaQuery.of(context).orientation;
-    return WillPopScope(
-      onWillPop: () async {
-        Navigator.of(context).pop();
-        return false;
-      },
-      child: orientation == Orientation.portrait
-          ? _FloatingGroupInfoWindowInfoPortrait(
-              device: widget.device,
-              showCallDriver: widget.showCallDriver,
-              showOnOffDevice: widget.showOnOffDevice,
-              fuelLevel: widget.fuelLevel,
-              fuelTotalCounted: widget.fuelTotalCounted,
-            )
-          : _FloatingGroupInfoWindowInfoLandscape(
-              device: widget.device,
-              showCallDriver: widget.showCallDriver,
-              showOnOffDevice: widget.showOnOffDevice,
-              fuelLevel: widget.fuelLevel,
-              fuelTotalCounted: widget.fuelTotalCounted,
-            ),
-    );
+    return orientation == Orientation.portrait
+        ? _FloatingGroupInfoWindowInfoPortrait(
+            device: widget.device,
+            showCallDriver: widget.showCallDriver,
+            showOnOffDevice: widget.showOnOffDevice,
+            fuelLevel: widget.fuelLevel,
+            fuelTotalCounted: widget.fuelTotalCounted,
+          )
+        : _FloatingGroupInfoWindowInfoLandscape(
+            device: widget.device,
+            showCallDriver: widget.showCallDriver,
+            showOnOffDevice: widget.showOnOffDevice,
+            fuelLevel: widget.fuelLevel,
+            fuelTotalCounted: widget.fuelTotalCounted,
+          );
   }
 }
 
@@ -69,13 +62,12 @@ class _FloatingGroupInfoWindowInfoPortrait extends StatefulWidget {
   final double? fuelLevel;
   final double? fuelTotalCounted;
   const _FloatingGroupInfoWindowInfoPortrait({
-    Key? key,
     required this.device,
     required this.showOnOffDevice,
     required this.showCallDriver,
     required this.fuelLevel,
     required this.fuelTotalCounted,
-  }) : super(key: key);
+  });
 
   @override
   State<_FloatingGroupInfoWindowInfoPortrait> createState() =>
@@ -400,13 +392,12 @@ class _FloatingGroupInfoWindowInfoLandscape extends StatelessWidget {
   final double? fuelLevel;
   final double? fuelTotalCounted;
   const _FloatingGroupInfoWindowInfoLandscape({
-    Key? key,
     required this.device,
     required this.showOnOffDevice,
     required this.showCallDriver,
     required this.fuelLevel,
     required this.fuelTotalCounted,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

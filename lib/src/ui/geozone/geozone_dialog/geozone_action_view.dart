@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:newgps/src/utils/utils.dart';
 import '../../../services/device_provider.dart';
 import '../../../utils/functions.dart';
 import '../../../utils/styles.dart';
@@ -16,8 +17,7 @@ class GeozoneActionView extends StatelessWidget {
   final bool readonly;
 
   const GeozoneActionView(
-      {Key? key, required this.geozoneDialogProvider, this.readonly = false})
-      : super(key: key);
+      {super.key, required this.geozoneDialogProvider, this.readonly = false});
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +44,9 @@ class GeozoneActionView extends StatelessWidget {
 class _LandscapeDialog extends StatelessWidget {
   final bool readonly;
   const _LandscapeDialog({
-    Key? key,
     required this.geozoneDialogProvider,
     this.readonly = false,
-  }) : super(key: key);
+  });
 
   final GeozoneDialogProvider geozoneDialogProvider;
 
@@ -152,10 +151,9 @@ class _LandscapeDialog extends StatelessWidget {
 
 class _PortraitDialog extends StatelessWidget {
   const _PortraitDialog({
-    Key? key,
     required this.geozoneDialogProvider,
     this.readonly = false,
-  }) : super(key: key);
+  });
 
   final GeozoneDialogProvider geozoneDialogProvider;
   final bool readonly;
@@ -258,7 +256,7 @@ class _PortraitDialog extends StatelessWidget {
 
 class GeozoneMap extends StatelessWidget {
   final bool readonly;
-  const GeozoneMap({Key? key, this.readonly = false}) : super(key: key);
+  const GeozoneMap({super.key, this.readonly = false});
 
   @override
   Widget build(BuildContext context) {
@@ -269,11 +267,17 @@ class GeozoneMap extends StatelessWidget {
     return Stack(
       children: [
         GoogleMap(
-          markers: geozoneDialogProvider.markers..addAll(geozoneDialogProvider.deviceMarkers),
+          cloudMapId: Utils.mapId,
+          markers: geozoneDialogProvider.markers
+            ..addAll(geozoneDialogProvider.deviceMarkers),
           onTap: readonly ? null : geozoneDialogProvider.addShape,
           circles: geozoneDialogProvider.circle,
           polygons: geozoneDialogProvider.polygone,
-          onMapCreated: geozoneDialogProvider.initMap,
+          onMapCreated: (ct) {
+            geozoneDialogProvider.initMap(ct);
+            geozoneDialogProvider.googleMapController
+                ?.setMapStyle(Utils.googleMapStyle);
+          },
           mapToolbarEnabled: false,
           myLocationEnabled: true,
           zoomControlsEnabled: true,
@@ -296,10 +300,13 @@ class GeozoneMap extends StatelessWidget {
           },
           selector: (_, __) => __.googleMapController,
         ),
-        MapTypeWidget(onChange: (mapType) {
-          deviceProvider.mapType = mapType;
-          geozoneDialogProvider.notify();
-        }),
+        MapTypeWidget(
+          onChange: (mapType) {
+            deviceProvider.mapType = mapType;
+            geozoneDialogProvider.notify();
+          },
+          mapController: geozoneDialogProvider.googleMapController,
+        ),
       ],
     );
   }
@@ -307,8 +314,7 @@ class GeozoneMap extends StatelessWidget {
 
 class TypeSelectionGeozone extends StatelessWidget {
   final bool readonly;
-  const TypeSelectionGeozone({Key? key, this.readonly = false})
-      : super(key: key);
+  const TypeSelectionGeozone({super.key, this.readonly = false});
 
   @override
   Widget build(BuildContext context) {
@@ -375,8 +381,7 @@ class GeoZoneSelectType extends StatelessWidget {
   final BuildContext context;
   final bool readonly;
   const GeoZoneSelectType(
-      {Key? key, required this.context, this.readonly = false})
-      : super(key: key);
+      {super.key, required this.context, this.readonly = false});
 
   final List<_InnerOuterMode> _items = const [
     _InnerOuterMode(value: 0, label: 'Entrée'),
@@ -409,12 +414,10 @@ class _InnerOuterWigdet extends StatelessWidget {
   final bool readOnly;
 
   const _InnerOuterWigdet(
-      {Key? key,
-      required this.label,
+      {required this.label,
       required this.value,
       required this.isSelected,
-      this.readOnly = false})
-      : super(key: key);
+      this.readOnly = false});
   @override
   Widget build(BuildContext context) {
     final GeozoneDialogProvider provider =
@@ -462,12 +465,11 @@ class GeozoneInput extends StatelessWidget {
   final bool readonly;
   final TextEditingController? controller;
   const GeozoneInput(
-      {Key? key,
+      {super.key,
       required this.hint,
       this.controller,
       this.validator,
-      this.readonly = false})
-      : super(key: key);
+      this.readonly = false});
 
   @override
   Widget build(BuildContext context) {

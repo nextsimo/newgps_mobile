@@ -7,7 +7,7 @@ import 'classic_device_temp.dart';
 
 class ClassicDeviceTemp extends StatelessWidget {
   final Device device;
-  const ClassicDeviceTemp({Key? key, required this.device}) : super(key: key);
+  const ClassicDeviceTemp({super.key, required this.device});
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +32,8 @@ class ClassicDeviceTemp extends StatelessWidget {
 
 class _BuildStreamerWigdet extends StatelessWidget {
   const _BuildStreamerWigdet({
-    Key? key,
     required this.device,
-  }) : super(key: key);
+  });
 
   final Device device;
 

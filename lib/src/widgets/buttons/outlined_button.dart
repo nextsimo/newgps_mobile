@@ -8,8 +8,7 @@ class CustomOutlinedButton extends StatefulWidget {
   final double? width;
   final dynamic Function() onPressed;
   const CustomOutlinedButton(
-      {Key? key, this.label = '', required this.onPressed, this.width})
-      : super(key: key);
+      {super.key, this.label = '', required this.onPressed, this.width});
 
   @override
   // ignore: library_private_types_in_public_api

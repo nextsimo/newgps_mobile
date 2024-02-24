@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'resume_repport_loding_provider.dart';
 
 class LinearLoadingButton extends StatelessWidget {
-  const LinearLoadingButton({Key? key}) : super(key: key);
+  const LinearLoadingButton({super.key});
 
   @override
   Widget build(BuildContext context) {

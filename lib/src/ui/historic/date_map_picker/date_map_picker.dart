@@ -7,8 +7,7 @@ import 'package:provider/provider.dart';
 
 class DateMapPicker extends StatelessWidget {
   final void Function(Map<String, dynamic> dateTime) onSelectedDate;
-  const DateMapPicker({Key? key, required this.onSelectedDate})
-      : super(key: key);
+  const DateMapPicker({super.key, required this.onSelectedDate});
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +25,10 @@ class DateMapPicker extends StatelessWidget {
 class DateMapPicker2 extends StatelessWidget {
   final double width;
   const DateMapPicker2({
-    Key? key,
+    super.key,
     required this.onSelectedDate,
     required this.width,
-  }) : super(key: key);
+  });
 
   final void Function(Map<String, dynamic> dateTime) onSelectedDate;
 

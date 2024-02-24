@@ -11,8 +11,7 @@ class AutoSearchDevice extends StatefulWidget {
   final bool fetchData;
 
   const AutoSearchDevice(
-      {Key? key, this.onSelectDeviceFromOtherView, this.fetchData = true})
-      : super(key: key);
+      {super.key, this.onSelectDeviceFromOtherView, this.fetchData = true});
   @override
   State<AutoSearchDevice> createState() => _AutoSearchDeviceState();
 }
@@ -124,11 +123,11 @@ class OptionViewBuilderWidget extends StatelessWidget {
   final void Function(Device) onSelectDevice;
 
   const OptionViewBuilderWidget({
-    Key? key,
+    super.key,
     required this.onSelectDevice,
     required this.focusNode,
     required this.devices,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -191,12 +190,12 @@ class OptionItem extends StatelessWidget {
   final Device device;
   final FocusNode focusNode;
   const OptionItem({
-    Key? key,
+    super.key,
     required this.onSelectDevice,
     required this.deviceProvider,
     required this.device,
     required this.focusNode,
-  }) : super(key: key);
+  });
 
   final void Function(Device p1) onSelectDevice;
   final DeviceProvider deviceProvider;
@@ -238,9 +237,8 @@ class OptionItem extends StatelessWidget {
 
 class _BuildStatuWidget extends StatelessWidget {
   const _BuildStatuWidget({
-    Key? key,
     required this.device,
-  }) : super(key: key);
+  });
 
   final Device device;
 

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,13 @@ import '../ui/login/login_as/save_account_provider.dart';
 import 'functions.dart';
 
 class Utils {
+  static const _iosMapId = 'a0e008d4f2bbe025';
+  // ignore: unused_field
+  static const _androidMapId = '6949f6e5f874aeb8';
+
+  static  String mapId = Platform.isIOS ? _iosMapId : _androidMapId;
+
+  static String googleMapStyle = json.encode([{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative.country","stylers":[{"visibility":"off"}]}]);
 
   static const baseUrl = 'https://api.newgps.ma/api/auth';
 
@@ -81,9 +89,7 @@ class Utils {
     ));
   }
 
-
   // defini the initial route
   static String initialRoute = '/login';
-  Future<void> defineInitialRoute() async {
-  }
+  Future<void> defineInitialRoute() async {}
 }

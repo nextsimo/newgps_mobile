@@ -16,7 +16,7 @@ class MainInput extends StatelessWidget {
   final String? labelText;
 
   const MainInput({
-    Key? key,
+    super.key,
     this.icon,
     this.hint = '',
     this.controller,
@@ -27,7 +27,7 @@ class MainInput extends StatelessWidget {
     this.width,
     this.heigt,
     this.autofocus = false, this.textInputType, this.labelText,
-  }) : super(key: key);
+  });
   @override
   Widget build(BuildContext context) {
     return SizedBox(

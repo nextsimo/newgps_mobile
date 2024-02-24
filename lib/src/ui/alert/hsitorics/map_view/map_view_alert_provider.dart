@@ -16,6 +16,8 @@ class MapViewAlertProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  GoogleMapController? googleMapController;
+
   MapViewAlertProvider(Device device) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       fetchMarkers(device);

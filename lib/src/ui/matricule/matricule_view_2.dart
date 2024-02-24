@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 import 'matricule_provider.dart';
 
 class MatriculeView extends StatelessWidget {
-  const MatriculeView({Key? key}) : super(key: key);
+  const MatriculeView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class MatriculeView extends StatelessWidget {
 }
 
 class MatriculeDataView extends StatelessWidget {
-  MatriculeDataView({Key? key}) : super(key: key);
+  MatriculeDataView({super.key});
 
   final List<String> _items = [
     'N',
@@ -193,7 +193,7 @@ class MatriculeDataView extends StatelessWidget {
                                               ),
                                             ),
                                           ]);
-                                        }).toList()
+                                        })
                                       ],
                                     ),
                                   ),
@@ -250,12 +250,10 @@ class MatriculeDataView extends StatelessWidget {
 
 class _BuildHead extends StatelessWidget {
   const _BuildHead({
-    Key? key,
     required this.mediaQuery,
     required this.matriculeProvider,
     required bool isPortrait,
-  })  : _isPortrait = isPortrait,
-        super(key: key);
+  })  : _isPortrait = isPortrait;
 
   final MediaQueryData mediaQuery;
   final MatriculeProvider matriculeProvider;
@@ -300,8 +298,7 @@ class _BuildHead extends StatelessWidget {
 class EditableCell extends StatefulWidget {
   final String content;
   final void Function(String val) onchanged;
-  const EditableCell({Key? key, required this.content, required this.onchanged})
-      : super(key: key);
+  const EditableCell({super.key, required this.content, required this.onchanged});
 
   @override
   State<EditableCell> createState() => _EditableCellState();
@@ -348,8 +345,7 @@ class BuildTextCell extends StatelessWidget {
   final String content;
   final Color color;
 
-  const BuildTextCell(this.content, {Key? key, this.color = Colors.black})
-      : super(key: key);
+  const BuildTextCell(this.content, {super.key, this.color = Colors.black});
 
   @override
   Widget build(BuildContext context) {

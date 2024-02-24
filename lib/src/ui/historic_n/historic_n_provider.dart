@@ -61,7 +61,7 @@ class HistoricProviderN with ChangeNotifier {
       final firstDevice = devices.first;
       newMarkers.add(Marker(
         point: LatLng(firstDevice.latitude, firstDevice.longitude),
-        builder: (_) => MyMarkerBuilder(device: firstDevice),
+        child: MyMarkerBuilder(device: firstDevice),
         width: 30,
         height: 30,
       ));
@@ -98,7 +98,7 @@ class HistoricProviderN with ChangeNotifier {
 
   Marker _markerBuilder({required Device device, bool wave = false}) => Marker(
       point: LatLng(device.latitude, device.longitude),
-      builder: (_) => MyMarkerBuilder(
+      child: MyMarkerBuilder(
             device: device,
             wave: wave,
           ));

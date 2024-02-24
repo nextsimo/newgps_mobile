@@ -10,11 +10,10 @@ class TimeInput extends StatelessWidget {
   final dynamic provider;
 
   const TimeInput(
-      {Key? key,
+      {super.key,
       required this.dateTime,
       required this.isDateFrom,
-      required this.provider})
-      : super(key: key);
+      required this.provider});
 
   @override
   Widget build(BuildContext context) {
@@ -59,13 +58,11 @@ class _BuildInput extends StatefulWidget {
   final dynamic provider;
 
   const _BuildInput(
-      {Key? key,
-      required this.controller,
+      {required this.controller,
       required this.isDateFrom,
       required this.isHour,
       this.maxNumber = 59,
-      required this.provider})
-      : super(key: key);
+      required this.provider});
 
   @override
   State<_BuildInput> createState() => _BuildInputState();

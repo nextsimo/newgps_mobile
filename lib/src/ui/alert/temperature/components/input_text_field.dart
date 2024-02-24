@@ -10,7 +10,7 @@ class MyInputTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final TextEditingController? controller;
 
-  const MyInputTextField({Key? key,  this.placeholder, this.icon, this.keyboardType, this.controller}) : super(key: key);
+  const MyInputTextField({super.key,  this.placeholder, this.icon, this.keyboardType, this.controller});
 
   @override
   Widget build(BuildContext context) {

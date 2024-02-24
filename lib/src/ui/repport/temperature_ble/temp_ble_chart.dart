@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'temperature_repport_provider.dart';
 
 class TempBleChart extends StatelessWidget {
-  const TempBleChart({Key? key}) : super(key: key);
+  const TempBleChart({super.key});
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
     return SideTitleWidget(
@@ -56,113 +56,104 @@ class TempBleChart extends StatelessWidget {
   Widget build(BuildContext context) {
     // read provider
     final provider = context.read<TemperatureRepportProvider>();
-    return WillPopScope(
-      onWillPop: () async {
-        SystemChrome.setPreferredOrientations([
-          DeviceOrientation.portraitDown,
-          DeviceOrientation.portraitUp,
-        ]);
-        return true;
-      },
-      child: Scaffold(
-        appBar: CustomAppBar(
-          actions: [
-            CloseButton(
-              color: Colors.black,
-              onPressed: () {
-                Navigator.of(context).pop();
-                SystemChrome.setPreferredOrientations([
-                  DeviceOrientation.portraitDown,
-                  DeviceOrientation.portraitUp,
-                ]);
-              },
-            ),
-          ],
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            // titlew
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: LineChart(
-                  LineChartData(
-                    lineTouchData: LineTouchData(enabled: true),
-                    lineBarsData: [
-                      LineChartBarData(
-                        barWidth: 3,
-                        shadow: const Shadow(
-                          blurRadius: 8,
-                          color: Colors.black26,
-                        ),
-                        spots: provider.repportsChart.map(
-                          (model) {
-                            debugPrint(
-                                "T---> ${model.updatedAt} -> ${model.temperature1}");
-                            return FlSpot(
-                              ((model.updatedAt.hour.toDouble() * 60) +
-                                  model.updatedAt.minute +
-                                  (model.updatedAt.second / 60)),
-                              model.temperature1.toDouble(),
-                            );
-                          },
-                        ).toList(),
-                        isCurved: true,
-                        color: Colors.red,
-                        dotData: FlDotData(
-                          show: true,
-                        ),
+    return Scaffold(
+      appBar: CustomAppBar(
+        actions: [
+          CloseButton(
+            color: Colors.black,
+            onPressed: () {
+              Navigator.of(context).pop();
+              SystemChrome.setPreferredOrientations([
+                DeviceOrientation.portraitDown,
+                DeviceOrientation.portraitUp,
+              ]);
+            },
+          ),
+        ],
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          // titlew
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: LineChart(
+                LineChartData(
+                  lineTouchData: const LineTouchData(enabled: true),
+                  lineBarsData: [
+                    LineChartBarData(
+                      barWidth: 3,
+                      shadow: const Shadow(
+                        blurRadius: 8,
+                        color: Colors.black26,
                       ),
-                    ],
-                    maxY: provider.maxTemp,
-                    minY: provider.minTemp,
-                    titlesData: FlTitlesData(
-                      bottomTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: true,
-                          interval: 30,
-                          getTitlesWidget: bottomTitleWidgets,
-                        ),
-                      ),
-                      leftTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: true,
-                          getTitlesWidget: leftTitleWidgets,
-                          interval: ((provider.maxTemp - provider.minTemp) ~/ 3)
-                              .toDouble(),
-                        ),
-                      ),
-                      topTitles: AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
-                      ),
-                      rightTitles: AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
+                      spots: provider.repportsChart.map(
+                        (model) {
+                          debugPrint(
+                              "T---> ${model.updatedAt} -> ${model.temperature1}");
+                          return FlSpot(
+                            ((model.updatedAt.hour.toDouble() * 60) +
+                                model.updatedAt.minute +
+                                (model.updatedAt.second / 60)),
+                            model.temperature1.toDouble(),
+                          );
+                        },
+                      ).toList(),
+                      isCurved: true,
+                      color: Colors.red,
+                      dotData: const FlDotData(
+                        show: true,
                       ),
                     ),
-                    backgroundColor: AppConsts.mainColor.withOpacity(0.2),
-                    borderData: FlBorderData(
-                      border: const Border(
-                        left: BorderSide(
-                          color: Colors.black,
-                        ),
-                        bottom: BorderSide(
-                          color: Colors.black,
-                        ),
+                  ],
+                  maxY: provider.maxTemp,
+                  minY: provider.minTemp,
+                  titlesData: FlTitlesData(
+                    bottomTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        interval: 30,
+                        getTitlesWidget: bottomTitleWidgets,
                       ),
                     ),
-                    gridData: FlGridData(
-                      show: false,
-                      drawHorizontalLine: false,
-                      drawVerticalLine: false,
+                    leftTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        getTitlesWidget: leftTitleWidgets,
+                        interval: ((provider.maxTemp - provider.minTemp) ~/ 3)
+                            .toDouble(),
+                      ),
                     ),
-                    //clipData: FlClipData.all(),
+                    topTitles: const AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                    rightTitles: const AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
                   ),
+                  backgroundColor: AppConsts.mainColor.withOpacity(0.2),
+                  borderData: FlBorderData(
+                    border: const Border(
+                      left: BorderSide(
+                        color: Colors.black,
+                      ),
+                      bottom: BorderSide(
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  gridData: const FlGridData(
+                    show: false,
+                    drawHorizontalLine: false,
+                    drawVerticalLine: false,
+                  ),
+                  //clipData: FlClipData.all(),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

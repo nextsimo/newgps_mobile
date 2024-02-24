@@ -4,7 +4,7 @@ import 'last_temp_provider.dart';
 import 'package:provider/provider.dart';
 
 class LastTempView extends StatelessWidget {
-  const LastTempView({Key? key}) : super(key: key);
+  const LastTempView({super.key});
 
   @override
   Widget build(BuildContext context) {

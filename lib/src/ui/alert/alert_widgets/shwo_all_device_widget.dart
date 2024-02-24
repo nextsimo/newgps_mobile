@@ -8,11 +8,10 @@ class ShowAllDevicesWidget extends StatelessWidget {
   final List<String> selectedDevices;
   final bool shortText;
   const ShowAllDevicesWidget(
-      {Key? key,
+      {super.key,
       required this.onSaveDevices,
       this.selectedDevices = const [],
-      this.shortText = false})
-      : super(key: key);
+      this.shortText = false});
 
   @override
   Widget build(BuildContext context) {

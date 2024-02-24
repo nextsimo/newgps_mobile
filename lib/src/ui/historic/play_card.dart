@@ -9,7 +9,7 @@ import 'speed_status_histo.dart';
 import 'package:provider/provider.dart';
 
 class PlayCard extends StatelessWidget {
-  const PlayCard({Key? key}) : super(key: key);
+  const PlayCard({super.key});
 
   @override
   Widget build(BuildContext context) {

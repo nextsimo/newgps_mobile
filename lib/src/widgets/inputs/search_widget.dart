@@ -8,8 +8,7 @@ class SearchWidget extends StatelessWidget {
   final void Function(String str)? onChnaged;
   final String? hint;
   const SearchWidget(
-      {Key? key, this.onChnaged, this.hint, this.autoFocus = false, this.width, this.height =30.0})
-      : super(key: key);
+      {super.key, this.onChnaged, this.hint, this.autoFocus = false, this.width, this.height =30.0});
 
   @override
   Widget build(BuildContext context) {

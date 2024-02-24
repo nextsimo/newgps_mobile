@@ -27,7 +27,7 @@ import 'temperature_ble/temperature_repport_ble_view.dart';
 import 'trips/trips_view.dart';
 
 class RepportView extends StatelessWidget {
-  const RepportView({Key? key}) : super(key: key);
+  const RepportView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class RepportView extends StatelessWidget {
 }
 
 class RepportDataView extends StatelessWidget {
-  const RepportDataView({Key? key}) : super(key: key);
+  const RepportDataView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -62,10 +62,9 @@ class RepportDataView extends StatelessWidget {
 
 class _BuildBody extends StatelessWidget {
   const _BuildBody({
-    Key? key,
     required this.repportProvider,
     required this.isPortrait,
-  }) : super(key: key);
+  });
 
   final RepportProvider repportProvider;
   final bool isPortrait;
@@ -129,10 +128,9 @@ class _BuildBody extends StatelessWidget {
 
 class _BuildHead extends StatelessWidget {
   const _BuildHead({
-    Key? key,
     required this.repportProvider,
     required this.isPortrait,
-  }) : super(key: key);
+  });
 
   final RepportProvider repportProvider;
   final bool isPortrait;

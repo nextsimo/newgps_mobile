@@ -4,7 +4,7 @@ import '../widgets/build_label.dart';
 import '../../navigation/top_app_bar.dart';
 
 class AlertGeozoneView extends StatelessWidget {
-  const AlertGeozoneView({Key? key}) : super(key: key);
+  const AlertGeozoneView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -77,8 +77,8 @@ class AlertGeozoneView extends StatelessWidget {
 
 class HistoALertGeozoneCard extends StatelessWidget {
   const HistoALertGeozoneCard({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -4,7 +4,7 @@ import '../utils/styles.dart';
 import 'package:provider/provider.dart';
 
 class LoadingIcon extends StatelessWidget {
-  const LoadingIcon({Key? key}) : super(key: key);
+  const LoadingIcon({super.key});
 
   @override
   Widget build(BuildContext context) {

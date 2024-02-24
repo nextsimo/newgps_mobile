@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../widgets/build_label.dart';
 
 class DepranchNotifView extends StatefulWidget {
-  const DepranchNotifView({Key? key}) : super(key: key);
+  const DepranchNotifView({super.key});
 
   @override
   State<DepranchNotifView> createState() => _DepranchNotifViewState();

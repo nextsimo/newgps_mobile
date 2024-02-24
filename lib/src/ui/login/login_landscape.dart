@@ -13,7 +13,7 @@ import 'login_as/login_as_view.dart';
 
 class LoginLandscape extends StatefulWidget {
   final MainButton loginButton;
-  const LoginLandscape({Key? key, required this.loginButton}) : super(key: key);
+  const LoginLandscape({super.key, required this.loginButton});
 
   @override
   State<LoginLandscape> createState() => _LoginLandscapeState();

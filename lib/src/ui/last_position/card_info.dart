@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class CardInfoView extends StatelessWidget {
-  const CardInfoView({Key? key}) : super(key: key);
+  const CardInfoView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -73,8 +73,7 @@ class _InfoCardPortrait extends StatelessWidget {
   final InfoModel infoModel;
   final Device? device;
   const _InfoCardPortrait(
-      {Key? key, required this.infoModel, required this.device})
-      : super(key: key);
+      {required this.infoModel, required this.device});
 
   @override
   Widget build(BuildContext context) {
@@ -175,8 +174,7 @@ class _InfoCardLandscape extends StatelessWidget {
   final InfoModel infoModel;
   final Device? device;
   const _InfoCardLandscape(
-      {Key? key, required this.infoModel, required this.device})
-      : super(key: key);
+      {required this.infoModel, required this.device});
 
   @override
   Widget build(BuildContext context) {
@@ -286,8 +284,8 @@ class _InfoCardLandscape extends StatelessWidget {
 
 class Cdivider extends StatelessWidget {
   const Cdivider({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -302,9 +300,8 @@ class Cdivider extends StatelessWidget {
 
 class _OdometreWidgetPortrait extends StatelessWidget {
   const _OdometreWidgetPortrait({
-    Key? key,
     required this.device,
-  }) : super(key: key);
+  });
 
   final Device? device;
 
@@ -374,9 +371,9 @@ class _OdometreWidgetPortrait extends StatelessWidget {
 
 class OdometreWidget extends StatelessWidget {
   const OdometreWidget({
-    Key? key,
+    super.key,
     required this.device,
-  }) : super(key: key);
+  });
 
   final Device? device;
 
@@ -392,9 +389,8 @@ class OdometreWidget extends StatelessWidget {
 
 class _OdometreWidgetLandscape extends StatelessWidget {
   const _OdometreWidgetLandscape({
-    Key? key,
     required this.device,
-  }) : super(key: key);
+  });
 
   final Device? device;
 

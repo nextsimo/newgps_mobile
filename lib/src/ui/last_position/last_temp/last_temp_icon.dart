@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../last_position_provider.dart';
 
 class LastTempIcon extends StatelessWidget {
-  const LastTempIcon({Key? key}) : super(key: key);
+  const LastTempIcon({super.key});
 
   @override
   Widget build(BuildContext context) {

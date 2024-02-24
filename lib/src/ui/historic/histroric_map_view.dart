@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_animarker/widgets/animarker.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:newgps/src/utils/utils.dart';
 import '../../services/device_provider.dart';
 import '../../widgets/custom_info_windows.dart';
 import 'historic_provider.dart';
 import 'package:provider/provider.dart';
 
 class HistoricMapView extends StatefulWidget {
-  const HistoricMapView({Key? key}) : super(key: key);
+  const HistoricMapView({super.key});
 
   @override
   State<HistoricMapView> createState() => _HistoricMapViewState();
@@ -31,7 +32,7 @@ class _HistoricMapViewState extends State<HistoricMapView>
     super.didChangeAppLifecycleState(state);
     if (!mounted) return;
     if (state == AppLifecycleState.resumed) {
-      historicProvider.googleMapController?.setMapStyle("[]");
+      historicProvider.googleMapController?.setMapStyle(Utils.googleMapStyle);
     }
   }
 
@@ -40,6 +41,7 @@ class _HistoricMapViewState extends State<HistoricMapView>
     super.dispose();
     historicProvider.clear();
   }
+
   @override
   Widget build(BuildContext context) {
     context.select<DeviceProvider, MapType>((value) => value.mapType);
@@ -67,6 +69,7 @@ class _HistoricMapViewState extends State<HistoricMapView>
                       provider.googleMapController?.mapId ?? 0),
                   markers: provider.animateMarker.values.toSet(),
                   child: GoogleMap(
+                    //cloudMapId: Utils.mapId,
                     markers: provider.getMarker(),
                     polylines: provider.getLines(),
                     zoomControlsEnabled: false,
@@ -76,13 +79,14 @@ class _HistoricMapViewState extends State<HistoricMapView>
                     mapType: deviceProvider.mapType,
                     onCameraMove: (pos) {
                       provider.onCameraMove(pos);
-
                     },
                     onTap: provider.onTapMap,
                     onMapCreated: (controller) async {
                       provider.googleMapController = controller;
                       provider.customInfoWindowController.googleMapController =
                           controller;
+                      provider.googleMapController
+                          ?.setMapStyle(Utils.googleMapStyle);
                     },
                     initialCameraPosition: const CameraPosition(
                         target: LatLng(31.7917, -7.0926), zoom: 6),

@@ -7,7 +7,7 @@ import '../../../widgets/map_launcher/map_launcher_widget.dart';
 import '../last_position_provider.dart';
 
 class SuiviWidget extends StatelessWidget {
-  const SuiviWidget({Key? key}) : super(key: key);
+  const SuiviWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +29,9 @@ class SuiviWidget extends StatelessWidget {
 
 class _SuiviWidgetLandscape extends StatelessWidget {
   const _SuiviWidgetLandscape({
-    Key? key,
     required this.isEmpty,
     required this.lastPositionProvider,
-  }) : super(key: key);
+  });
 
   final bool isEmpty;
   final LastPositionProvider lastPositionProvider;
@@ -102,10 +101,9 @@ class _SuiviWidgetLandscape extends StatelessWidget {
 
 class _SuiviWidgetPortrait extends StatelessWidget {
   const _SuiviWidgetPortrait({
-    Key? key,
     required this.isEmpty,
     required this.lastPositionProvider,
-  }) : super(key: key);
+  });
 
   final bool isEmpty;
   final LastPositionProvider lastPositionProvider;

@@ -6,7 +6,7 @@ import 'distance_repport_all_device.dart';
 import 'distance_repport_one_device.dart';
 
 class DistanceView extends StatelessWidget {
-  const DistanceView({Key? key}) : super(key: key);
+  const DistanceView({super.key});
 
   @override
   Widget build(BuildContext context) {

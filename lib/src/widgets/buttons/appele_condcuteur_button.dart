@@ -11,10 +11,10 @@ class AppelCondicteurButton extends StatelessWidget {
   final Device? device;
   final Future<void> Function()? callNewData;
   const AppelCondicteurButton({
-    Key? key,
+    super.key,
     required this.device,
     this.callNewData,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +30,9 @@ class _AppelConducteurWidgetPortrait extends StatelessWidget {
   final Future<void> Function()? callNewData;
 
   const _AppelConducteurWidgetPortrait({
-    Key? key,
     required this.device,
     this.callNewData,
-  }) : super(key: key);
+  });
 
   final Device? device;
 
@@ -64,10 +63,9 @@ class _AppelConducteurWidgetLandscape extends StatelessWidget {
   final Future<void> Function()? callNewData;
 
   const _AppelConducteurWidgetLandscape({
-    Key? key,
     required this.device,
     this.callNewData,
-  }) : super(key: key);
+  });
 
   final Device? device;
 

@@ -10,11 +10,10 @@ class TimeRangeWigdet extends StatelessWidget {
   final DateTime dateTo;
   final bool fetch;
   const TimeRangeWigdet(
-      {Key? key,
+      {super.key,
       required this.dateFrom,
       required this.dateTo,
-      this.fetch = true})
-      : super(key: key);
+      this.fetch = true});
 
   @override
   Widget build(BuildContext context) {

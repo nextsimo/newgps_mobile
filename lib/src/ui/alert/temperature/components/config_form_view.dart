@@ -10,7 +10,7 @@ import 'input_text_field.dart';
 import 'validation_message.dart';
 
 class ConfigFormView extends StatelessWidget {
-  const ConfigFormView({Key? key}) : super(key: key);
+  const ConfigFormView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class ConfigFormView extends StatelessWidget {
 }
 
 class _IntervalWidget extends StatelessWidget {
-  const _IntervalWidget({Key? key}) : super(key: key);
+  const _IntervalWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -94,9 +94,8 @@ class _IntervalWidget extends StatelessWidget {
 
 class _BuildHeader extends StatelessWidget {
   const _BuildHeader({
-    Key? key,
     required this.provider,
-  }) : super(key: key);
+  });
 
   final TemperatureBleProvider provider;
 
@@ -127,7 +126,7 @@ class _BuildHeader extends StatelessWidget {
 }
 
 class _BuildState extends StatelessWidget {
-  const _BuildState({Key? key}) : super(key: key);
+  const _BuildState();
 
   @override
   Widget build(BuildContext context) {

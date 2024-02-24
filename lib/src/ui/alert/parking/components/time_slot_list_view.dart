@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../parking_alert_provider.dart';
 
 class TimeSlotView extends StatelessWidget {
-  const TimeSlotView({Key? key}) : super(key: key);
+  const TimeSlotView({super.key});
 
   @override
   Widget build(BuildContext context) {

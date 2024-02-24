@@ -14,7 +14,7 @@ import '../custom_devider.dart';
 import '../text_cell.dart';
 
 class FuelRepportView extends StatelessWidget {
-  const FuelRepportView({Key? key}) : super(key: key);
+  const FuelRepportView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -65,9 +65,7 @@ class FuelRepportView extends StatelessWidget {
 }
 
 class _BuildHead extends StatelessWidget {
-  const _BuildHead({
-    Key? key,
-  }) : super(key: key);
+  const _BuildHead();
 
   @override
   Widget build(BuildContext context) {
@@ -133,9 +131,8 @@ class _BuildHead extends StatelessWidget {
 
 class _RepportRow extends StatelessWidget {
   const _RepportRow({
-    Key? key,
     required this.repport,
-  }) : super(key: key);
+  });
 
   final FuelRepportData repport;
 

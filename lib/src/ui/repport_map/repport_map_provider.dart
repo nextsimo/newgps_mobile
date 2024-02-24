@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:label_marker/label_marker.dart';
+import 'package:newgps/src/utils/utils.dart';
 
 class RepportMapProvider with ChangeNotifier {
   Set<Marker> markers = {};
@@ -50,6 +51,7 @@ class RepportMapProvider with ChangeNotifier {
   final Completer<GoogleMapController> controller = Completer();
   void onMapCreated(GoogleMapController controller) {
     this.controller.complete(controller);
+    controller.setMapStyle(Utils.googleMapStyle);
     _handleZoom();
   }
 

@@ -5,7 +5,7 @@ import 'last_position_provider.dart';
 import 'package:provider/provider.dart';
 
 class DateWidget extends StatelessWidget {
-  const DateWidget({Key? key}) : super(key: key);
+  const DateWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

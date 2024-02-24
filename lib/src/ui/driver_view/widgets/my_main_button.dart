@@ -9,13 +9,12 @@ class MyMainButton extends StatelessWidget {
   final Color borderColor;
   final double? width;
   const MyMainButton(
-      {Key? key,
+      {super.key,
       this.onTap,
       this.label = 'Enregistrer',
       this.width,
       this.backgroundColor = AppConsts.mainColor,
-      this.textColor = Colors.white,  this.borderColor = AppConsts.mainColor})
-      : super(key: key);
+      this.textColor = Colors.white,  this.borderColor = AppConsts.mainColor});
 
   @override
   Widget build(BuildContext context) {

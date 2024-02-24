@@ -6,7 +6,7 @@ class UserDroitsUi extends StatefulWidget {
   final UserDroits userDroits;
     final int flex;
 
-  const UserDroitsUi({Key? key, required this.userDroits, required this.flex}) : super(key: key);
+  const UserDroitsUi({super.key, required this.userDroits, required this.flex});
 
   @override
   State<UserDroitsUi> createState() => _UserDroitsUiState();
@@ -95,8 +95,7 @@ class _ShowListDrois extends StatefulWidget {
   final UserDroits userDroits;
   final Function closeMenu;
   const _ShowListDrois(
-      {Key? key, required this.closeMenu, required this.userDroits})
-      : super(key: key);
+      {required this.closeMenu, required this.userDroits});
 
   @override
   State<_ShowListDrois> createState() => _ShowListDroisState();
@@ -243,14 +242,13 @@ class CheckedDroits extends StatefulWidget {
   final Color? color;
   final Droit droit;
   const CheckedDroits(
-      {Key? key,
+      {super.key,
       required this.element,
       required this.userDroits,
       required this.droit,
       required this.onTapRead,
       required this.onTapWrite,
-      required this.color})
-      : super(key: key);
+      required this.color});
 
   @override
   State<CheckedDroits> createState() => _CheckedDroitsState();

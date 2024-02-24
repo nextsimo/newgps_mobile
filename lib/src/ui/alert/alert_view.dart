@@ -7,7 +7,7 @@ import '../../widgets/badge_icon.dart';
 import '../../widgets/buttons/main_button.dart';
 
 class AlertView extends StatelessWidget {
-  const AlertView({Key? key}) : super(key: key);
+  const AlertView({super.key});
 
   final List<_AlertItem> _items = const [
     _AlertItem(
@@ -70,7 +70,7 @@ class AlertView extends StatelessWidget {
         inDev: false), */
 
     _AlertItem(
-        icon: FontAwesomeIcons.thermometerHalf,
+        icon: FontAwesomeIcons.temperatureHigh,
         label: 'Température',
         page: '/temp',
         inDev: false),
@@ -167,7 +167,7 @@ class _AlertItem {
 
 class _AlertCatd extends StatelessWidget {
   final _AlertItem alertItem;
-  const _AlertCatd({Key? key, required this.alertItem}) : super(key: key);
+  const _AlertCatd({required this.alertItem});
 
   @override
   Widget build(BuildContext context) {

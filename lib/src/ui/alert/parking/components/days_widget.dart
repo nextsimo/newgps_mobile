@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../parking_alert_provider.dart';
 
 class DaysWidget extends StatelessWidget {
-  const DaysWidget({Key? key}) : super(key: key);
+  const DaysWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

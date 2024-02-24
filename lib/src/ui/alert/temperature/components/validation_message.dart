@@ -3,7 +3,7 @@ import '../logic/temperature_provider.dart';
 import 'package:provider/provider.dart';
 
 class ValidationMessage extends StatelessWidget {
-  const ValidationMessage({Key? key}) : super(key: key);
+  const ValidationMessage({super.key});
 
   @override
   Widget build(BuildContext context) {

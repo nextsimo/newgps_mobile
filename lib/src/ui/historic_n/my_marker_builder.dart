@@ -6,8 +6,7 @@ import '../../models/device.dart';
 class MyMarkerBuilder extends StatelessWidget {
   final Device device;
   final bool wave;
-  const MyMarkerBuilder({Key? key, required this.device, this.wave = false})
-      : super(key: key);
+  const MyMarkerBuilder({super.key, required this.device, this.wave = false});
 
   @override
   Widget build(BuildContext context) {

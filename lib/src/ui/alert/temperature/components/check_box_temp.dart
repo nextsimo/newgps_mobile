@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../logic/temperature_provider.dart';
 
 class CheckBoxTemp extends StatelessWidget {
-  const CheckBoxTemp({Key? key}) : super(key: key);
+  const CheckBoxTemp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +41,10 @@ class _MyCheckBox extends StatelessWidget {
   final int index;
   final bool selected;
   const _MyCheckBox(
-      {Key? key,
-      required this.label,
+      {required this.label,
       required this.index,
       required this.selected,
-      required this.onTap})
-      : super(key: key);
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) {

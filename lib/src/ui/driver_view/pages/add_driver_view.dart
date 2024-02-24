@@ -7,7 +7,7 @@ import '../widgets/my_input.dart';
 import '../widgets/my_main_button.dart';
 
 class AddDriverView extends StatelessWidget {
-  const AddDriverView({Key? key}) : super(key: key);
+  const AddDriverView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class AddDriverView extends StatelessWidget {
 }
 
 class _AddDriverForm extends StatelessWidget {
-  const _AddDriverForm({Key? key}) : super(key: key);
+  const _AddDriverForm();
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +84,7 @@ class _AddDriverForm extends StatelessWidget {
 }
 
 class _BuildHeader extends StatelessWidget {
-  const _BuildHeader({Key? key}) : super(key: key);
+  const _BuildHeader();
 
   @override
   Widget build(BuildContext context) {

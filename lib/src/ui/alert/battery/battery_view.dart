@@ -10,7 +10,7 @@ import '../widgets/build_label.dart';
 import 'battery_provider.dart';
 
 class BatteryAlertView extends StatelessWidget {
-  const BatteryAlertView({Key? key}) : super(key: key);
+  const BatteryAlertView({super.key});
 
   @override
   Widget build(BuildContext context) {

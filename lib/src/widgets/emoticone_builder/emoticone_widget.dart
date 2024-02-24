@@ -5,7 +5,7 @@ import 'emoticon_provider.dart';
 import 'package:provider/provider.dart';
 
 class EmoticonWidget extends StatelessWidget {
-  const EmoticonWidget({Key? key}) : super(key: key);
+  const EmoticonWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

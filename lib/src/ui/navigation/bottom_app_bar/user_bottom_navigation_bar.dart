@@ -11,8 +11,7 @@ import 'bottom_navigatiom_bar.dart';
 class UserCustomBottomNavigatioBar extends StatefulWidget {
   final PageController pageController;
 
-  const UserCustomBottomNavigatioBar({Key? key, required this.pageController})
-      : super(key: key);
+  const UserCustomBottomNavigatioBar({super.key, required this.pageController});
 
   @override
   State<UserCustomBottomNavigatioBar> createState() =>

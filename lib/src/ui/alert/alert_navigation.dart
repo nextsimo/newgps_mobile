@@ -20,7 +20,7 @@ import 'start_up/startup_view.dart';
 import 'temperature/components/temperature_view.dart';
 
 class AlertNavigation extends StatelessWidget {
-  const AlertNavigation({Key? key}) : super(key: key);
+  const AlertNavigation({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -82,9 +82,7 @@ class AlertNavigation extends StatelessWidget {
 }
 
 class _BuildMapWidget extends StatelessWidget {
-  const _BuildMapWidget({
-    Key? key,
-  }) : super(key: key);
+  const _BuildMapWidget();
 
   @override
   Widget build(BuildContext context) {

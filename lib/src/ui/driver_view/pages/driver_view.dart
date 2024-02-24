@@ -7,7 +7,7 @@ import '../../navigation/top_app_bar.dart';
 import '../providers/driver_view_provider.dart';
 
 class DriverView extends StatelessWidget {
-  const DriverView({Key? key}) : super(key: key);
+  const DriverView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +45,9 @@ class DriverView extends StatelessWidget {
   }
 }
 
+// ignore: unused_element
 class _BuildMyDrivers extends StatelessWidget {
-  const _BuildMyDrivers({Key? key}) : super(key: key);
+  const _BuildMyDrivers();
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +94,7 @@ class _BuildMyDrivers extends StatelessWidget {
 }
 
 class _BuildMyDriversList extends StatelessWidget {
-  const _BuildMyDriversList({Key? key}) : super(key: key);
+  const _BuildMyDriversList();
 
   @override
   Widget build(BuildContext context) {
@@ -180,10 +181,9 @@ class _BuildMyDriversList extends StatelessWidget {
   }
 }
 
+// ignore: unused_element
 class _BuildHeader extends StatelessWidget {
-  const _BuildHeader({
-    Key? key,
-  }) : super(key: key);
+  const _BuildHeader();
 
   @override
   Widget build(BuildContext context) {
@@ -212,7 +212,7 @@ class _BuildHeader extends StatelessWidget {
 
 // ignore: unused_element
 class _BuildDriversList extends StatelessWidget {
-  const _BuildDriversList({Key? key}) : super(key: key);
+  const _BuildDriversList();
 
   @override
   Widget build(BuildContext context) {
@@ -233,7 +233,7 @@ class _BuildDriversList extends StatelessWidget {
 }
 
 class _BuildDriverCard extends StatelessWidget {
-  const _BuildDriverCard({Key? key}) : super(key: key);
+  const _BuildDriverCard();
   @override
   Widget build(BuildContext context) {
     return Container(

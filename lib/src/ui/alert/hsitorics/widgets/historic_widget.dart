@@ -7,7 +7,7 @@ import '../notif_historic_provider.dart';
 import 'package:provider/provider.dart';
 
 class BuildSearchHistoric extends StatefulWidget {
-  const BuildSearchHistoric({Key? key}) : super(key: key);
+  const BuildSearchHistoric({super.key});
 
   @override
   State<BuildSearchHistoric> createState() => _BuildSearchHistoricState();
@@ -94,11 +94,11 @@ class BuildTextField extends StatefulWidget {
   final FocusNode focusNode;
   final OutlineInputBorder outlineInputBorder;
   const BuildTextField({
-    Key? key,
+    super.key,
     required this.notifHistoricPorvider,
     required this.outlineInputBorder,
     required this.focusNode,
-  }) : super(key: key);
+  });
 
   @override
   State<BuildTextField> createState() => _BuildTextFieldState();
@@ -155,11 +155,11 @@ class OptionViewBuilderWidget extends StatelessWidget {
   final NotifHistoricPorvider notifHistoricPorvider;
 
   const OptionViewBuilderWidget({
-    Key? key,
+    super.key,
     required this.devices,
     required this.onSelectDevice,
     required this.notifHistoricPorvider,
-  }) : super(key: key);
+  });
 
   Widget _buildToutsWidget(
       NotifHistoricPorvider notifHistoricPorvider, BuildContext context) {
@@ -268,11 +268,11 @@ class OptionViewBuilderWidget extends StatelessWidget {
 class OptionItem extends StatelessWidget {
   final Device device;
   const OptionItem({
-    Key? key,
+    super.key,
     required this.onSelectDevice,
     required this.notifHistoricPorvider,
     required this.device,
-  }) : super(key: key);
+  });
 
   final void Function(Device p1) onSelectDevice;
   final NotifHistoricPorvider notifHistoricPorvider;
@@ -313,9 +313,8 @@ class OptionItem extends StatelessWidget {
 
 class _BuildStatuWidget extends StatelessWidget {
   const _BuildStatuWidget({
-    Key? key,
     required this.device,
-  }) : super(key: key);
+  });
 
   final Device device;
 

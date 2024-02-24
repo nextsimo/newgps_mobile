@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../widgets/build_label.dart';
 
 class RadarNotifView extends StatefulWidget {
-  const RadarNotifView({Key? key}) : super(key: key);
+  const RadarNotifView({super.key});
 
   @override
   State<RadarNotifView> createState() => _RadarNotifViewState();

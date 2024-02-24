@@ -7,7 +7,7 @@ import '../logic/temperature_provider.dart';
 import 'configs_list_view.dart';
 
 class BaseFormListView extends StatelessWidget {
-  const BaseFormListView({Key? key}) : super(key: key);
+  const BaseFormListView({super.key});
 
   @override
   Widget build(BuildContext context) {

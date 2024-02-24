@@ -12,7 +12,7 @@ import '../navigation/top_app_bar.dart';
 import 'user_devices_ui.dart';
 
 class UsersView extends StatelessWidget {
-  const UsersView({Key? key}) : super(key: key);
+  const UsersView({super.key});
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<UserProvider>(
@@ -26,7 +26,7 @@ class UsersView extends StatelessWidget {
 }
 
 class UserDataView extends StatelessWidget {
-  const UserDataView({Key? key}) : super(key: key);
+  const UserDataView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -104,9 +104,7 @@ class UserDataView extends StatelessWidget {
 }
 
 class _BuildHeader extends StatelessWidget {
-  const _BuildHeader({
-    Key? key,
-  }) : super(key: key);
+  const _BuildHeader();
 
   @override
   Widget build(BuildContext context) {
@@ -144,9 +142,7 @@ class _BuildHeader extends StatelessWidget {
 class _BuildTextCell extends StatelessWidget {
   final String content;
 
-  const _BuildTextCell(this.content,
-      {Key? key})
-      : super(key: key);
+  const _BuildTextCell(this.content);
 
   @override
   Widget build(BuildContext context) {
@@ -164,9 +160,9 @@ class _BuildTextCell extends StatelessWidget {
 
 class RowContent extends StatelessWidget {
   const RowContent({
-    Key? key,
+    super.key,
     required this.user,
-  }) : super(key: key);
+  });
 
   final User user;
 
@@ -253,9 +249,7 @@ class RowContent extends StatelessWidget {
 }
 
 class _BuildDivider extends StatelessWidget {
-  const _BuildDivider({
-    Key? key,
-  }) : super(key: key);
+  const _BuildDivider();
 
   @override
   Widget build(BuildContext context) {
@@ -273,8 +267,7 @@ class EditableCellPassword extends StatefulWidget {
   final int flex;
   final void Function(String val) onchanged;
   const EditableCellPassword(
-      {Key? key, required this.content, required this.onchanged, this.flex = 1})
-      : super(key: key);
+      {super.key, required this.content, required this.onchanged, this.flex = 1});
 
   @override
   State<EditableCellPassword> createState() => _EditableCellPasswordState();
@@ -334,8 +327,7 @@ class _EditableCell extends StatelessWidget {
   final String content;
   final void Function(String val) onchanged;
   _EditableCell(
-      {Key? key, required this.content, required this.onchanged})
-      : super(key: key);
+      {required this.content, required this.onchanged});
 
   final TextEditingController _controller = TextEditingController();
   @override

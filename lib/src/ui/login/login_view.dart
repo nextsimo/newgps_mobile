@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:upgrader/upgrader.dart';
 
 class LoginView extends StatelessWidget {
-  const LoginView({Key? key}) : super(key: key);
+  const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +19,11 @@ class LoginView extends StatelessWidget {
     return UpgradeAlert(
       upgrader: Upgrader(
         debugDisplayOnce: false,
-        canDismissDialog: false,
         debugDisplayAlways: false,
-        dialogStyle: UpgradeDialogStyle.material,
         messages: UpgraderMessages(code: 'fr'),
-        shouldPopScope: () => false,
-        onLater: () => false,
-        onIgnore: () => false,
-        showReleaseNotes: true,
+        languageCode: 'fr',
+        durationUntilAlertAgain: const Duration(days: 1),
+        
       ),
       //debugAlwaysUpgrade: true,
       child: Scaffold(

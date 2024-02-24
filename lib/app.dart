@@ -16,7 +16,7 @@ import 'src/ui/login/login_as/save_account_provider.dart';
 import 'src/ui/repport/temperature_ble/temperature_repport_provider.dart';
 
 class NewGpsApp extends StatelessWidget {
-  const NewGpsApp({Key? key}) : super(key: key);
+  const NewGpsApp({super.key});
 
   @override
   Widget build(BuildContext context) {

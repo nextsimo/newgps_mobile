@@ -11,7 +11,7 @@ import 'select_group.dart';
 
 // ignore: camel_case_types
 class HistoricNView_X extends StatelessWidget {
-  const HistoricNView_X({Key? key}) : super(key: key);
+  const HistoricNView_X({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +26,12 @@ class HistoricNView_X extends StatelessWidget {
             body: Stack(
               children: [
                 FlutterMap(
-                  options: MapOptions(
-                    center: LatLng(33.5731, -7.5898),
-                    interactiveFlags:
-                        InteractiveFlag.pinchZoom | InteractiveFlag.drag,
-                    zoom: 9,
+                  options: const MapOptions(
+                    initialCenter: LatLng(33.5731, -7.5898),
+                    interactionOptions: InteractionOptions(
+                     flags: InteractiveFlag.pinchZoom | InteractiveFlag.drag,
+                    ),
+                    initialZoom: 9,
                     maxZoom: 18,
                     minZoom: 5,
                   ),

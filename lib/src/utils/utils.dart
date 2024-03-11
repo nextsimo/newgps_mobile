@@ -18,9 +18,23 @@ class Utils {
   // ignore: unused_field
   static const _androidMapId = '6949f6e5f874aeb8';
 
-  static  String mapId = Platform.isIOS ? _iosMapId : _androidMapId;
+  static String mapId = Platform.isIOS ? _iosMapId : _androidMapId;
 
-  static String googleMapStyle = json.encode([{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative.country","stylers":[{"visibility":"off"}]}]);
+  static String googleNormalMapStyle = json.encode([
+    {
+      "featureType": "administrative",
+      "elementType": "geometry.fill",
+      "stylers": [
+        {"visibility": "on"}
+      ]
+    },
+    {
+      "featureType": "administrative.country",
+      "stylers": [
+        {"visibility": "off"}
+      ]
+    },
+  ]);
 
   static const baseUrl = 'https://api.newgps.ma/api/auth';
 
@@ -58,6 +72,7 @@ class Utils {
           // ignore: use_build_context_synchronously
           fetchInitData(
             lastPositionProvider: lastPositionProvider,
+            // ignore: use_build_context_synchronously
             context: context,
           );
 

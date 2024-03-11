@@ -14,10 +14,10 @@ dependencies:
   dropdown_search: ^5.0.6
   empty_widget: ^0.0.5
   faker: ^2.1.0
-  firebase_analytics: ^10.8.6
-  firebase_core: ^2.25.4
-  firebase_messaging: ^14.7.16
-  firebase_remote_config: ^4.3.14
+  firebase_analytics: ^10.8.8
+  firebase_core: ^2.26.0
+  firebase_messaging: ^14.7.18
+  firebase_remote_config: ^4.3.16
   fl_chart: ^0.66.2
   flutter:
     sdk: flutter
@@ -39,8 +39,8 @@ dependencies:
   geolocator: ^11.0.0
   get_it: ^7.2.0
   google_fonts: ^6.1.0
-  google_maps_cluster_manager: ^3.0.0+1
-  google_maps_flutter: ^2.5.3
+  google_maps_cluster_manager_2: ^3.1.0
+  google_maps_flutter: ^2.6.0
   grouped_list: ^5.1.2
   http: ^1.2.0
   image: ^4.0.15
@@ -67,6 +67,9 @@ dependencies:
   url_launcher: ^6.2.5
   uuid: ^4.3.3
   wave: ^0.2.2
+
+dependency_overrides:
+  web: ^0.5.0
 
 dev_dependencies:
   flutter_lints: ^3.0.1

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_animarker/widgets/animarker.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:newgps/src/utils/utils.dart';
 import '../../services/device_provider.dart';
 import '../../widgets/custom_info_windows.dart';
 import 'historic_provider.dart';
@@ -31,9 +30,9 @@ class _HistoricMapViewState extends State<HistoricMapView>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
     if (!mounted) return;
-    if (state == AppLifecycleState.resumed) {
+/*     if (state == AppLifecycleState.resumed) {
       historicProvider.googleMapController?.setMapStyle(Utils.googleMapStyle);
-    }
+    } */
   }
 
   @override
@@ -85,8 +84,6 @@ class _HistoricMapViewState extends State<HistoricMapView>
                       provider.googleMapController = controller;
                       provider.customInfoWindowController.googleMapController =
                           controller;
-                      provider.googleMapController
-                          ?.setMapStyle(Utils.googleMapStyle);
                     },
                     initialCameraPosition: const CameraPosition(
                         target: LatLng(31.7917, -7.0926), zoom: 6),

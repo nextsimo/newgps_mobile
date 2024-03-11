@@ -15,9 +15,9 @@ class MapTypeWidget extends StatelessWidget {
       onSelected: (changed){
         onChange(changed);
         if(mapController != null && mapController is GoogleMapController){
-          mapController.setMapStyle(Utils.googleMapStyle);
+          mapController.setMapStyle(Utils.googleNormalMapStyle);
         }else if(mapController != null && mapController is Completer<GoogleMapController>){
-          mapController.future.then((value) => value.setMapStyle(Utils.googleMapStyle));
+          mapController.future.then((value) => value.setMapStyle(Utils.googleNormalMapStyle));
         }
       },
       child: Container(

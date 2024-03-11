@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'login_landscape.dart';
 import 'login_portrait.dart';
-import 'login_provider.dart';
-import '../../widgets/buttons/main_button.dart';
-import 'package:provider/provider.dart';
 import 'package:upgrader/upgrader.dart';
 
 class LoginView extends StatelessWidget {
@@ -11,11 +8,6 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LoginProvider provider = Provider.of<LoginProvider>(context, listen: false);
-    final loginButton = MainButton(
-      label: 'Se connecter',
-      onPressed: () => provider.login(context),
-    );
     return UpgradeAlert(
       upgrader: Upgrader(
         debugDisplayOnce: false,
@@ -23,7 +15,6 @@ class LoginView extends StatelessWidget {
         messages: UpgraderMessages(code: 'fr'),
         languageCode: 'fr',
         durationUntilAlertAgain: const Duration(days: 1),
-        
       ),
       //debugAlwaysUpgrade: true,
       child: Scaffold(
@@ -35,9 +26,9 @@ class LoginView extends StatelessWidget {
                 bool isLandScape =
                     MediaQuery.of(context).orientation == Orientation.landscape;
                 if (isLandScape) {
-                  return LoginLandscape(loginButton: loginButton);
+                  return const LoginLandscape();
                 }
-                return LoginPortrait(loginButton: loginButton);
+                return const LoginPortrait();
               },
             ),
           ),

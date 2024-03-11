@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_cluster_manager/google_maps_cluster_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uuid/uuid.dart';
 import '../../models/account.dart';
@@ -243,7 +242,7 @@ class LastPositionProvider with ChangeNotifier {
   }
 
   final uuid = const Uuid();
-  Future<Marker> Function(Cluster<Place>) markerBuilder(bool isText) =>
+  Future<Marker> Function(dynamic) markerBuilder(bool isText) =>
       (cluster) async {
         if (!isText) {
           return markersProvider.getClusterMarker(cluster);

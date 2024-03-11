@@ -34,7 +34,6 @@ class _ClassicViewMapState extends State<ClassicViewMap>
                 initialCameraPosition: provider.initialCameraPosition,
                 onMapCreated: (controller) {
                   provider.onMapCreated(controller, provider.device);
-                  provider.mapController?.setMapStyle(Utils.googleMapStyle);
                 },
                 mapType: deviceProvider.mapType,
                 myLocationButtonEnabled: true,

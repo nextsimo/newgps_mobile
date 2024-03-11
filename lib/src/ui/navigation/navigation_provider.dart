@@ -33,6 +33,7 @@ class NavigationProvider {
     ));
     // ignore: use_build_context_synchronously
     fetchInitData(
+        // ignore: use_build_context_synchronously
         lastPositionProvider: lastPositionProvider, context: DeviceSize.c);
     pageController.jumpToPage(3);
     initAlertRoute = '/historics';

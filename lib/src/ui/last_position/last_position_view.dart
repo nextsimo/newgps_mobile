@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:newgps/src/utils/utils.dart';
 import 'last_temp/last_temp_icon.dart';
 import 'package:provider/provider.dart';
 import '../../services/device_provider.dart';
@@ -41,9 +40,6 @@ class _LastPositionViewState extends State<LastPositionView>
     super.didChangeAppLifecycleState(state);
     if (!mounted) return;
     if (state == AppLifecycleState.resumed) {
-      LastPositionProvider provider =
-          Provider.of<LastPositionProvider>(context, listen: false);
-      provider.mapController?.setMapStyle(Utils.googleMapStyle);
     }
   }
 

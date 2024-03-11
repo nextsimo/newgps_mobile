@@ -51,6 +51,7 @@ class LoginProvider with ChangeNotifier {
       if (data['code'] == 200) {
         // ignore: use_build_context_synchronously
         showDialog(
+          // ignore: use_build_context_synchronously
           context: context,
           builder: (_) => const AlertDialog(
             title: Icon(
@@ -65,6 +66,7 @@ class LoginProvider with ChangeNotifier {
 
       // ignore: use_build_context_synchronously
       showDialog(
+        // ignore: use_build_context_synchronously
         context: context,
         builder: (_) => AlertDialog(
           title: const Icon(
@@ -77,7 +79,7 @@ class LoginProvider with ChangeNotifier {
     }
   }
 
-  Future<void> login(BuildContext context) async {
+  Future<void> login(BuildContext context, void Function() rebirth) async {
     errorText = '';
     if (formKey.currentState!.validate()) {
       // request login
@@ -100,7 +102,8 @@ class LoginProvider with ChangeNotifier {
             account.account.userID ?? '',
           );
           // ignore: use_build_context_synchronously
-          Phoenix.rebirth(context);
+          rebirth.call();
+
 /*           resumeRepportProvider.fresh();
 
           final LastPositionProvider lastPositionProvider =
@@ -161,7 +164,8 @@ class LoginProvider with ChangeNotifier {
         account.account.userID,
       );
       // ignore: use_build_context_synchronously
-      Phoenix.rebirth(context);
+                Phoenix.rebirth(context);
+
 /*       final SavedAcountProvider savedAcountProvider =
           Provider.of<SavedAcountProvider>(context, listen: false);
       final LastPositionProvider lastPositionProvider =

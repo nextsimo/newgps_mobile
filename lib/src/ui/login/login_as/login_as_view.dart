@@ -97,7 +97,7 @@ class _BuildLoginAsWidgetState extends State<_BuildLoginAsWidget> {
                 account.account.userID ?? "",
               );
               // ignore: use_build_context_synchronously
-              Phoenix.rebirth(context);
+                Phoenix.rebirth(context);
 /*               resumeRepportProvider.fresh();
               final LastPositionProvider lastPositionProvider =
                   // ignore: use_build_context_synchronously

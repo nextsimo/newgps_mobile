@@ -28,9 +28,9 @@ class _LastpositionMapState extends State<LastpositionMap>
     super.didChangeAppLifecycleState(state);
     if (!mounted) return;
     if (state == AppLifecycleState.resumed) {
-      LastPositionProvider lastPositionProvider =
+/*       LastPositionProvider lastPositionProvider =
           Provider.of<LastPositionProvider>(context, listen: false);
-      lastPositionProvider.mapController?.setMapStyle(Utils.googleMapStyle);
+      lastPositionProvider.mapController?.setMapStyle(Utils.googleMapStyle); */
     }
   }
 
@@ -50,7 +50,7 @@ class _LastpositionMapState extends State<LastpositionMap>
           LastPositionProvider provider =
               Provider.of<LastPositionProvider>(context);
           return GoogleMap(
-            //cloudMapId: Utils.mapId,
+            style: Utils.googleNormalMapStyle,
             myLocationEnabled: true,
             myLocationButtonEnabled: false,
             circles: locator<GeozoneService>().circles,
@@ -70,7 +70,6 @@ class _LastpositionMapState extends State<LastpositionMap>
               provider.markersProvider.textMarkerManager
                   .setMapId(controller.mapId);
               provider.fetch(context, true);
-              controller.setMapStyle(Utils.googleMapStyle);
             },
             onCameraMove: (pos) {
               provider.markersProvider.currentZoom = pos.zoom;

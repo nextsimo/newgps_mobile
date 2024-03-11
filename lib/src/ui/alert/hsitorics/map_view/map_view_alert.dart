@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:newgps/src/utils/utils.dart';
 import '../../../../models/device.dart';
 import '../../../../services/device_provider.dart';
 import 'map_view_alert_provider.dart';
@@ -22,7 +21,6 @@ class MapViewALert extends StatelessWidget {
           return Stack(
             children: [
               GoogleMap(
-                cloudMapId: Utils.mapId,
                 mapType: deviceProvider.mapType,
                 myLocationEnabled: true,
                 myLocationButtonEnabled: false,
@@ -31,8 +29,6 @@ class MapViewALert extends StatelessWidget {
                     target: LatLng(33.589886, -7.603869), zoom: 6),
                 onMapCreated: (GoogleMapController controller) {
                   provider.googleMapController = controller;
-                  provider.googleMapController
-                      ?.setMapStyle(Utils.googleMapStyle);
                 },
               ),
               const Align(

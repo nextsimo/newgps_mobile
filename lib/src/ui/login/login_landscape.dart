@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:newgps/src/utils/utils.dart';
 import '../../utils/functions.dart';
 import 'login_provider.dart';
@@ -12,8 +13,7 @@ import 'call_service_view.dart';
 import 'login_as/login_as_view.dart';
 
 class LoginLandscape extends StatefulWidget {
-  final MainButton loginButton;
-  const LoginLandscape({super.key, required this.loginButton});
+  const LoginLandscape({super.key});
 
   @override
   State<LoginLandscape> createState() => _LoginLandscapeState();
@@ -85,7 +85,9 @@ class _LoginLandscapeState extends State<LoginLandscape> {
                         hint: 'Mot de passe',
                         controller: provider.passwordController,
                         validator: FormValidatorService.isNotEmpty,
-                        onEditeComplete: () => widget.loginButton.onPressed(),
+                        onEditeComplete: (){
+                          FocusScope.of(context).requestFocus(FocusNode());
+                        }
                       ),
                       const SizedBox(height: 10),
                       MainInput(
@@ -96,7 +98,12 @@ class _LoginLandscapeState extends State<LoginLandscape> {
                             FocusScope.of(context).nextFocus(),
                       ),
                       const SizedBox(height: 20),
-                      widget.loginButton,
+                      MainButton(
+                        label: 'Se connecter',
+                        onPressed: () => provider.login(context,(){
+                          Phoenix.rebirth(context);
+                        }),
+                      ),
                       const SizedBox(height: 10),
                       const LoginAsView(),
                       const SizedBox(height: 10),

@@ -18,7 +18,8 @@ class SplashViewModel with ChangeNotifier {
   void checkIfUserIsAuth(BuildContext context) async {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       await SharedPreferences.getInstance();
-      final account =  shared.getAccount();
+      await shared.init();
+      final account = shared.getAccount();
       if (account != null) {
 /*         int? isActive = json.decode(await api.post(url: '/isactive', body: {
           'account_id': account.account.accountId,
@@ -56,51 +57,50 @@ class SplashViewModel with ChangeNotifier {
           Navigator.of(context).pushReplacementNamed('/login');
         });
         } */
-              int? isActive = json.decode(await api.post(url: '/isactive', body: {
-        'account_id': account.account.accountId,
-        'password': account.account.password,
-        'user_id': account.account.userID,
-      }));
+        int? isActive = json.decode(await api.post(url: '/isactive', body: {
+          'account_id': account.account.accountId,
+          'password': account.account.password,
+          'user_id': account.account.userID,
+        }));
 
-      SavedAcountProvider savedAcountProvider =
-          // ignore: use_build_context_synchronously
-          Provider.of<SavedAcountProvider>(context, listen: false);
-      if (isActive == 1) {
-        LastPositionProvider lastPositionProvider =
+        SavedAcountProvider savedAcountProvider =
             // ignore: use_build_context_synchronously
-            Provider.of<LastPositionProvider>(context, listen: false);
-        savedAcountProvider.initUserDroit();
+            Provider.of<SavedAcountProvider>(context, listen: false);
+        if (isActive == 1) {
+          LastPositionProvider lastPositionProvider =
+              // ignore: use_build_context_synchronously
+              Provider.of<LastPositionProvider>(context, listen: false);
+          savedAcountProvider.initUserDroit();
 /*         SavedAcountProvider savedAcountProvider =
             Provider.of<SavedAcountProvider>(context, listen: false);
         savedAcountProvider.initUserDroit(); */
-        String userID = shared.getAccount()?.account.userID ?? '';
-        if (userID.isNotEmpty) {
-          await savedAcountProvider.fetchUserDroits();
-        }
-        // ignore: use_build_context_synchronously
-        fetchInitData(
-          lastPositionProvider: lastPositionProvider,
-          context: context,
-        );
-
-        final ConnectedDeviceProvider connectedDeviceProvider =
+          String userID = shared.getAccount()?.account.userID ?? '';
+          if (userID.isNotEmpty) {
+            await savedAcountProvider.fetchUserDroits();
+          }
+          // ignore: use_build_context_synchronously
+          fetchInitData(
+            lastPositionProvider: lastPositionProvider,
             // ignore: use_build_context_synchronously
-            Provider.of<ConnectedDeviceProvider>(context, listen: false);
-        connectedDeviceProvider.init();
+            context: context,
+          );
 
-        // ignore: use_build_context_synchronously
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil('/navigation', (_) => false);
-      } else {
-        // ignore: use_build_context_synchronously
-        Navigator.of(context).pushReplacementNamed('/login');
-      }
+          final ConnectedDeviceProvider connectedDeviceProvider =
+              // ignore: use_build_context_synchronously
+              Provider.of<ConnectedDeviceProvider>(context, listen: false);
+          connectedDeviceProvider.init();
+
+          // ignore: use_build_context_synchronously
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil('/navigation', (_) => false);
+        } else {
+          // ignore: use_build_context_synchronously
+          Navigator.of(context).pushReplacementNamed('/login');
+        }
       } else {
         await Future.delayed(const Duration(seconds: 2)).then((value) {
           Navigator.of(context).pushReplacementNamed('/login');
         });
-
-       
       }
     });
   }

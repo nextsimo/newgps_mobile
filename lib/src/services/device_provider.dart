@@ -117,8 +117,8 @@ class DeviceProvider with ChangeNotifier {
         }else{
           store.saveCommandeHisto(device, store.stopCommande);
         }
-        // ignore: use_build_context_synchronously
         showDialog(
+            // ignore: use_build_context_synchronously
             context: context,
             builder: (_) {
               return Dialog(
@@ -146,8 +146,8 @@ class DeviceProvider with ChangeNotifier {
               );
             });
       } else {
-        // ignore: use_build_context_synchronously
         showDialog(
+            // ignore: use_build_context_synchronously
             context: context,
             builder: (_) {
               return Dialog(

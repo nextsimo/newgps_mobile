@@ -2,15 +2,17 @@ import '../models/account.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefrencesService {
-   SharedPreferences? sharedPreferences;
+  SharedPreferences? sharedPreferences;
 
   SharedPrefrencesService() {
     init();
   }
 
-  void init() async {
+  Future<void> init() async {
+    if (sharedPreferences != null) {
+      return;
+    }
     sharedPreferences = await SharedPreferences.getInstance();
-    
   }
 
   void clear(String key) {
@@ -20,15 +22,12 @@ class SharedPrefrencesService {
   Future<void> saveAccount(Account account) async {
     String myAccount = accountToMap(account);
 
-   await  sharedPreferences?.setString('account', myAccount);
+    await sharedPreferences?.setString('account', myAccount);
   }
 
   dynamic getKey(String key) {
     sharedPreferences?.get(key);
   }
-
-
-
 
   Future<List<String>> getAcountsList(String key) async {
     sharedPreferences ??= await SharedPreferences.getInstance();
@@ -40,6 +39,9 @@ class SharedPrefrencesService {
   }
 
   Account? getAccount() {
+    if (sharedPreferences == null) {
+      return null;
+    }
     String? res = sharedPreferences?.getString('account');
     if (res != null) {
       return accountFromMap(res);

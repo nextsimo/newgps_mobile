@@ -14,6 +14,7 @@ void openMapsSheet(BuildContext context, Device device,
 
     // ignore: use_build_context_synchronously
     showModalBottomSheet(
+      // ignore: use_build_context_synchronously
       context: context,
       barrierColor: Colors.black.withOpacity(0.5),
       builder: (BuildContext context) {

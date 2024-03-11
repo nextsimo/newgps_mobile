@@ -275,8 +275,6 @@ class GeozoneMap extends StatelessWidget {
           polygons: geozoneDialogProvider.polygone,
           onMapCreated: (ct) {
             geozoneDialogProvider.initMap(ct);
-            geozoneDialogProvider.googleMapController
-                ?.setMapStyle(Utils.googleMapStyle);
           },
           mapToolbarEnabled: false,
           myLocationEnabled: true,

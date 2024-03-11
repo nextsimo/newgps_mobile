@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_maps_cluster_manager/google_maps_cluster_manager.dart';
+import 'package:google_maps_cluster_manager_2/google_maps_cluster_manager_2.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uuid/uuid.dart';
 import '../../models/device.dart';
@@ -58,10 +58,12 @@ class MarkersProvider {
 
   void initCluster(LastPositionProvider lastPositionProvider) {
     textMarkerManager = ClusterManager<Place>(
-        clusterItemsText, lastPositionProvider.updateSimpleMarkersText,
-        stopClusteringZoom: 12,
-        levels: const [1, 4, 5, 7, 9.5, 10, 11],
-        markerBuilder: lastPositionProvider.markerBuilder(true));
+      clusterItemsText,
+      lastPositionProvider.updateSimpleMarkersText,
+      stopClusteringZoom: 12,
+      levels: const [1, 4, 5, 7, 9.5, 10, 11],
+      markerBuilder: lastPositionProvider.markerBuilder(true),
+    );
     simpleMarkerManager = ClusterManager<Place>(
       clusterItems,
       lastPositionProvider.updateSimpleClusterMarkers,
@@ -180,8 +182,8 @@ class MarkersProvider {
     textMarkerManager.updateMap();
   }
 
-final uuid = const Uuid();
-  Future<Marker> getClusterMarker(Cluster<Place> cluster) async {
+  final uuid = const Uuid();
+  Future<Marker> getClusterMarker( cluster) async {
     Color color = cluster.isMultiple
         ? AppConsts.blue
         : Color.fromRGBO(
@@ -193,12 +195,11 @@ final uuid = const Uuid();
     debugPrint("->${cluster.location.latitude}->${cluster.location.longitude}");
     if (currentZoom > 11 && !cluster.isMultiple) {
       return getSimpleMarker(cluster.items.first.device);
-    } 
-
+    }
 
     return Marker(
       position: cluster.location,
-      markerId: MarkerId(uuid.v4()) ,
+      markerId: MarkerId(uuid.v4()),
       icon: await _getClusterBitmap(
         '${cluster.count}',
         myColor: color,

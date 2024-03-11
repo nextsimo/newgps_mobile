@@ -39,6 +39,7 @@ class _LogoutButtonLandscape extends StatelessWidget {
                 deviceProvider.infoModel = null;
                 Phoenix.rebirth(context);
 
+
 /* 
                 try {
                   LastPositionProvider lastPositionProvider =
@@ -89,6 +90,7 @@ class _LogoutButtonPortrait extends StatelessWidget {
                 deviceProvider.infoModel = null;
                 shared.clear('account');
                 Phoenix.rebirth(context);
+
 
 /*                 try {
                   LastPositionProvider lastPositionProvider =

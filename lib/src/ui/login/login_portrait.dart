@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:newgps/src/utils/utils.dart';
 import '../../utils/functions.dart';
 import '../../widgets/buttons/outlined_button.dart';
@@ -14,8 +15,7 @@ import 'login_as/login_as_view.dart';
 import 'sous_user_check.dart';
 
 class LoginPortrait extends StatelessWidget {
-  final MainButton loginButton;
-  const LoginPortrait({super.key, required this.loginButton});
+  const LoginPortrait({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,12 +55,19 @@ class LoginPortrait extends StatelessWidget {
                   hint: 'Mot de passe',
                   controller: provider.passwordController,
                   validator: FormValidatorService.isNotEmpty,
-                  onEditeComplete: () => loginButton.onPressed(),
+                  onEditeComplete: (){
+                    FocusScope.of(context).requestFocus(FocusNode());
+                  },
                 ),
                 const SizedBox(height: 10),
                 const SousUserCheck(),
                 const SizedBox(height: 10),
-                loginButton,
+                MainButton(
+                  label: 'Se connecter',
+                  onPressed: () => provider.login(context, (){
+                    Phoenix.rebirth(context);
+                  }),
+                ),
                 const SizedBox(height: 20),
                 CustomOutlinedButton(
                   width: double.infinity,
